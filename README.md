@@ -1,6 +1,11 @@
-## Getting Started
-
-Welcome to the VS Code Java world. Here is a guideline to help you get started to write Java code in Visual Studio Code.
+## Bắt đầu
+# Thiết đặt biến môi trường (environment variable)
+Ở thư mục gốc, tạo file .env và thêm các biến sau:
+`
+DB_URL = "jdbc:oracle:thin:@localhost:1521/xe" # url string
+DB_USERNAME = "username"
+DB_PASSWORD = "password"
+`
 
 ## Folder Structure
 
