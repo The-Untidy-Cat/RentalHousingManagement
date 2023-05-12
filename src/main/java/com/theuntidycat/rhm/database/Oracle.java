@@ -1,4 +1,4 @@
-package rhm.database;
+package com.theuntidycat.rhm.database;
 
 import java.sql.*;
 

@@ -1,4 +1,4 @@
-package rhm.view;
+package com.theuntidycat.rhm.view;
 
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -16,9 +16,9 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
-import rhm.controller.LoginController;
-import rhm.custom.CustomFont;
-import rhm.model.User;
+import com.theuntidycat.rhm.controller.LoginController;
+import com.theuntidycat.rhm.custom.CustomFont;
+import com.theuntidycat.rhm.model.User;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

@@ -1,4 +1,4 @@
-package rhm.model;
+package com.theuntidycat.rhm.model;
 
 public class User {
     public String id;

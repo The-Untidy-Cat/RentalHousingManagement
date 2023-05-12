@@ -1,9 +1,9 @@
-package rhm.controller;
+package com.theuntidycat.rhm.controller;
 
 import java.sql.*;
 
-import rhm.database.Oracle;
-import rhm.model.User;
+import com.theuntidycat.rhm.database.Oracle;
+import com.theuntidycat.rhm.model.User;
 
 public class LoginController {
 

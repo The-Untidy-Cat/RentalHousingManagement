@@ -1,6 +1,6 @@
-package rhm;
+package com.theuntidycat.rhm;
 
-import rhm.view.LoginView;
+import com.theuntidycat.rhm.view.LoginView;
 
 public class App{
     public static void main(String[] args){

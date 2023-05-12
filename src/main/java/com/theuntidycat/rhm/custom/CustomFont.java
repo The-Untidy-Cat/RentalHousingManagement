@@ -1,4 +1,4 @@
-package rhm.custom;
+package com.theuntidycat.rhm.custom;
 
 import java.awt.Font;
 import java.awt.GraphicsEnvironment;
