@@ -1,11 +1,9 @@
-## Bắt đầu
-# Thiết đặt biến môi trường (environment variable)
+# Bắt đầu
+*# Thiết đặt biến môi trường (environment variable)
 Ở thư mục gốc, tạo file .env và thêm các biến sau:
-`
-DB_URL = "jdbc:oracle:thin:@localhost:1521/xe" # url string
-DB_USERNAME = "username"
-DB_PASSWORD = "password"
-`
+`DB_URL = "jdbc:oracle:thin:@localhost:1521/xe" # url string`
+`DB_USERNAME = "username"`
+`DB_PASSWORD = "password"`
 
 ## Folder Structure
 
