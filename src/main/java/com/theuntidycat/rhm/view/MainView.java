@@ -35,22 +35,26 @@ public class MainView extends javax.swing.JFrame {
         setTitle("Rental Housing Management");
         setPreferredSize(new java.awt.Dimension(600, 500));
         setResizable(false);
+        setSize(new java.awt.Dimension(600, 500));
 
         tabPanel.setTabPlacement(javax.swing.JTabbedPane.LEFT);
+        tabPanel.setMinimumSize(new java.awt.Dimension(636, 500));
+
+        newJPanel1.setPreferredSize(new java.awt.Dimension(557, 500));
         tabPanel.addTab("Hợp đồng", newJPanel1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(tabPanel)
+            .addComponent(tabPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(tabPanel)
+            .addComponent(tabPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
-        setSize(new java.awt.Dimension(616, 517));
+        setSize(new java.awt.Dimension(655, 508));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
     
