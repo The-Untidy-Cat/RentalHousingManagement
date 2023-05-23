@@ -29,7 +29,7 @@ public class MainView extends javax.swing.JFrame {
     private void initComponents() {
 
         tabPanel = new javax.swing.JTabbedPane();
-        manageContractView = new com.theuntidycat.rhm.view.NewJPanel();
+        newJPanel1 = new com.theuntidycat.rhm.view.ManageContract();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Rental Housing Management");
@@ -37,19 +37,17 @@ public class MainView extends javax.swing.JFrame {
         setResizable(false);
 
         tabPanel.setTabPlacement(javax.swing.JTabbedPane.LEFT);
-
-        manageContractView.setName("Hợp đồng"); // NOI18N
-        tabPanel.addTab("Hợp đồng", manageContractView);
+        tabPanel.addTab("Hợp đồng", newJPanel1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(tabPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 600, Short.MAX_VALUE)
+            .addComponent(tabPanel)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(tabPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 509, Short.MAX_VALUE)
+            .addComponent(tabPanel)
         );
 
         setSize(new java.awt.Dimension(616, 517));
@@ -63,7 +61,7 @@ public class MainView extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private com.theuntidycat.rhm.view.NewJPanel manageContractView;
+    private com.theuntidycat.rhm.view.ManageContract newJPanel1;
     private javax.swing.JTabbedPane tabPanel;
     // End of variables declaration//GEN-END:variables
 }
