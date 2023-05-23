@@ -50,7 +50,7 @@ public class ContractInsertDialog extends javax.swing.JFrame {
         jTextField7 = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         contractCancelButton.setText("Cancel");
         contractCancelButton.addActionListener(new java.awt.event.ActionListener() {

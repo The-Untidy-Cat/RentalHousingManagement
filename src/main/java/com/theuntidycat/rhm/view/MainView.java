@@ -33,26 +33,26 @@ public class MainView extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Rental Housing Management");
-        setPreferredSize(new java.awt.Dimension(600, 500));
+        setPreferredSize(new java.awt.Dimension(700, 500));
         setResizable(false);
-        setSize(new java.awt.Dimension(600, 500));
+        setSize(new java.awt.Dimension(700, 500));
 
         tabPanel.setTabPlacement(javax.swing.JTabbedPane.LEFT);
-        tabPanel.setMinimumSize(new java.awt.Dimension(636, 500));
-        tabPanel.addTab("tab1", manageContract1);
+        tabPanel.setMinimumSize(new java.awt.Dimension(640, 500));
+        tabPanel.addTab("Hợp đồng", manageContract1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(tabPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(tabPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 645, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(tabPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
-        setSize(new java.awt.Dimension(655, 508));
+        setSize(new java.awt.Dimension(696, 500));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
     
