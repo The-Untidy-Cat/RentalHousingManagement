@@ -29,7 +29,7 @@ public class MainView extends javax.swing.JFrame {
     private void initComponents() {
 
         tabPanel = new javax.swing.JTabbedPane();
-        newJPanel1 = new com.theuntidycat.rhm.view.ManageContract();
+        manageContract1 = new com.theuntidycat.rhm.view.ManageContract();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Rental Housing Management");
@@ -39,9 +39,7 @@ public class MainView extends javax.swing.JFrame {
 
         tabPanel.setTabPlacement(javax.swing.JTabbedPane.LEFT);
         tabPanel.setMinimumSize(new java.awt.Dimension(636, 500));
-
-        newJPanel1.setPreferredSize(new java.awt.Dimension(557, 500));
-        tabPanel.addTab("Hợp đồng", newJPanel1);
+        tabPanel.addTab("tab1", manageContract1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -61,11 +59,10 @@ public class MainView extends javax.swing.JFrame {
     
     public void run() {
         new MainView().setVisible(true);
-        
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private com.theuntidycat.rhm.view.ManageContract newJPanel1;
+    private com.theuntidycat.rhm.view.ManageContract manageContract1;
     private javax.swing.JTabbedPane tabPanel;
     // End of variables declaration//GEN-END:variables
 }
