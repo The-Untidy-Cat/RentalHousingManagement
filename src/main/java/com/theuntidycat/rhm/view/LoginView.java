@@ -19,7 +19,6 @@ import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
 import com.theuntidycat.rhm.controller.LoginController;
-import com.theuntidycat.rhm.custom.CustomFont;
 import com.theuntidycat.rhm.model.User;
 
 import java.awt.event.ActionEvent;
@@ -27,12 +26,12 @@ import java.awt.event.ActionListener;
 import javax.swing.JOptionPane;
 
 public class LoginView {
-    JFrame frame = new JFrame("Rental Housing Management");
-    MainView mainView;
+    private JFrame frame; 
+    private MainView mainView;
     public LoginView() {
-        FlatLightLaf.setup(); 
+        FlatLightLaf.setup();
+        frame = new JFrame("Rental Housing Management");
         LoginController controller = new LoginController();
-        CustomFont customFont = new CustomFont();
         Path currentRelativePath = Paths.get("");
         String s = currentRelativePath.toAbsolutePath().toString();
 
@@ -61,19 +60,18 @@ public class LoginView {
         JPasswordField passwordInput = new JPasswordField(14);
         JButton button = new JButton();
 
-        usernameLabel.setFont(customFont.font.deriveFont(Font.PLAIN, 12f));
         usernameLabel.setLocation(0, 0);
 
-        passwordLabel.setFont(customFont.font.deriveFont(Font.PLAIN, 12f));
-        passwordLabel.setBorder(new EmptyBorder(0, 0, 0, 38));
+        passwordLabel.setBorder(new EmptyBorder(0, 0, 0, 34));
 
         usernameInput.setSize(70, 14);
 
         passwordInput.setSize(70, 14);
 
         button.setText("<html><center>" + "Đăng" + "<br>" + "nhập" + "</center></html>");
-        button.setFont(customFont.font.deriveFont(Font.PLAIN, 12f));
+        
         button.setPreferredSize(new Dimension(80, 60));
+        
         button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -87,7 +85,7 @@ public class LoginView {
                     JOptionPane.showMessageDialog(null, "Welcome " + user.displayName, "Success",
                             JOptionPane.INFORMATION_MESSAGE);
                 } else {
-                    JOptionPane.showMessageDialog(null, "Wrong username/password!", "Error", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Xác thực thất bại. Vui lòng kiểm tra lại", "Lỗi", JOptionPane.ERROR_MESSAGE);
                 }
             }
         });

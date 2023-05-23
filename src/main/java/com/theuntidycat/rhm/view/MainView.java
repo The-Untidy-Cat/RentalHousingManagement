@@ -11,7 +11,6 @@ import com.formdev.flatlaf.FlatLightLaf;
  * @author SHeroAnh
  */
 public class MainView extends javax.swing.JFrame {
-
     /**
      * Creates new form MainView
      */
@@ -29,49 +28,42 @@ public class MainView extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        mainMenu = new javax.swing.JMenuBar();
-        analysisSection = new javax.swing.JMenu();
-        jMenu3 = new javax.swing.JMenu();
-        contractSection = new javax.swing.JMenu();
+        tabPanel = new javax.swing.JTabbedPane();
+        manageContractView = new com.theuntidycat.rhm.view.NewJPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Rental Housing Management");
         setPreferredSize(new java.awt.Dimension(600, 500));
         setResizable(false);
 
-        analysisSection.setText("Thống kê");
+        tabPanel.setTabPlacement(javax.swing.JTabbedPane.LEFT);
 
-        jMenu3.setText("Tình trạng phòng");
-        analysisSection.add(jMenu3);
-
-        mainMenu.add(analysisSection);
-
-        contractSection.setText("Hợp đồng");
-        mainMenu.add(contractSection);
-
-        setJMenuBar(mainMenu);
+        manageContractView.setName("Hợp đồng"); // NOI18N
+        tabPanel.addTab("Hợp đồng", manageContractView);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addComponent(tabPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 600, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 277, Short.MAX_VALUE)
+            .addComponent(tabPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 509, Short.MAX_VALUE)
         );
 
-        pack();
+        setSize(new java.awt.Dimension(616, 517));
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
+    
+    
     public void run() {
         new MainView().setVisible(true);
+        
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenu analysisSection;
-    private javax.swing.JMenu contractSection;
-    private javax.swing.JMenu jMenu3;
-    private javax.swing.JMenuBar mainMenu;
+    private com.theuntidycat.rhm.view.NewJPanel manageContractView;
+    private javax.swing.JTabbedPane tabPanel;
     // End of variables declaration//GEN-END:variables
 }
