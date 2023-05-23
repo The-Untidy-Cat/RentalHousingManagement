@@ -1,5 +1,7 @@
 package com.theuntidycat.rhm.view;
 
+import com.formdev.flatlaf.FlatLightLaf;
+
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
@@ -26,7 +28,9 @@ import javax.swing.JOptionPane;
 
 public class LoginView {
     JFrame frame = new JFrame("Rental Housing Management");
+    MainView mainView;
     public LoginView() {
+        FlatLightLaf.setup(); 
         LoginController controller = new LoginController();
         CustomFont customFont = new CustomFont();
         Path currentRelativePath = Paths.get("");
@@ -78,6 +82,8 @@ public class LoginView {
                 boolean check = controller.verifyUser(username, password);
                 if (check) {
                     User user = controller.getUser(username, password);
+                    close();
+                    mainView.run();
                     JOptionPane.showMessageDialog(null, "Welcome " + user.displayName, "Success",
                             JOptionPane.INFORMATION_MESSAGE);
                 } else {
@@ -114,7 +120,12 @@ public class LoginView {
         frame.setResizable(false);
     }
 
-    public void run(){
+    public void run(MainView tempMainView){
+        mainView = tempMainView;
         frame.setVisible(true);
+    }
+    
+    public void close(){
+        frame.setVisible(false);
     }
 }
