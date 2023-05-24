@@ -46,9 +46,7 @@ public class ManageContract extends javax.swing.JPanel {
         insertNewContract = new javax.swing.JButton();
         updateContract = new javax.swing.JButton();
 
-        setLayout(null);
-
-        ContractTable.setLayout(null);
+        ContractTable.setPreferredSize(new java.awt.Dimension(620, 340));
 
         tbContract.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -63,11 +61,24 @@ public class ManageContract extends javax.swing.JPanel {
         ));
         jScrollPane2.setViewportView(tbContract);
 
-        ContractTable.add(jScrollPane2);
-        jScrollPane2.setBounds(6, 0, 600, 342);
+        javax.swing.GroupLayout ContractTableLayout = new javax.swing.GroupLayout(ContractTable);
+        ContractTable.setLayout(ContractTableLayout);
+        ContractTableLayout.setHorizontalGroup(
+            ContractTableLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(ContractTableLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane2)
+                .addContainerGap())
+        );
+        ContractTableLayout.setVerticalGroup(
+            ContractTableLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(ContractTableLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 327, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(7, Short.MAX_VALUE))
+        );
 
-        add(ContractTable);
-        ContractTable.setBounds(-4, -2, 600, 350);
+        ContractButton.setPreferredSize(new java.awt.Dimension(504, 67));
 
         viewContractDetail.setText("Xem chi tiết");
         viewContractDetail.addActionListener(new java.awt.event.ActionListener() {
@@ -93,8 +104,21 @@ public class ManageContract extends javax.swing.JPanel {
         });
         ContractButton.add(updateContract);
 
-        add(ContractButton);
-        ContractButton.setBounds(0, 350, 600, 72);
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+        this.setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(ContractTable, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(ContractButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 620, Short.MAX_VALUE)
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(ContractTable, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(2, 2, 2)
+                .addComponent(ContractButton, javax.swing.GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE)
+                .addContainerGap())
+        );
     }// </editor-fold>//GEN-END:initComponents
 
     private void viewContractDetailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewContractDetailActionPerformed
