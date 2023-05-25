@@ -139,10 +139,13 @@
             <Property name="text" type="java.lang.String" value="X&#xd3;A"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JButton" name="jButton4">
+        <Component class="javax.swing.JButton" name="btXem">
           <Properties>
             <Property name="text" type="java.lang.String" value="XEM CHI TI&#x1ebe;T"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btXemActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>
