@@ -33,6 +33,7 @@ public class MainView extends javax.swing.JFrame {
         lbWaitingTicketCount = new javax.swing.JLabel();
         tabPanel = new javax.swing.JTabbedPane();
         manageContract1 = new com.theuntidycat.rhm.view.ManageContract();
+        manageInvoice1 = new com.theuntidycat.rhm.view.ManageInvoice();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Rental Housing Management");
@@ -52,6 +53,7 @@ public class MainView extends javax.swing.JFrame {
         tabPanel.setTabPlacement(javax.swing.JTabbedPane.LEFT);
         tabPanel.setMinimumSize(new java.awt.Dimension(640, 500));
         tabPanel.addTab("Hợp đồng", manageContract1);
+        tabPanel.addTab("Hóa đơn", manageInvoice1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -83,6 +85,7 @@ public class MainView extends javax.swing.JFrame {
     private javax.swing.JLabel lbTicketIcon;
     private javax.swing.JLabel lbWaitingTicketCount;
     private com.theuntidycat.rhm.view.ManageContract manageContract1;
+    private com.theuntidycat.rhm.view.ManageInvoice manageInvoice1;
     private javax.swing.JTabbedPane tabPanel;
     // End of variables declaration//GEN-END:variables
 }
