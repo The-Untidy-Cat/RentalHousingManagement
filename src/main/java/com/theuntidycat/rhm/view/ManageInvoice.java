@@ -26,7 +26,7 @@ public class ManageInvoice extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel2 = new javax.swing.JPanel();
+        searchPanel = new javax.swing.JPanel();
         CbbKy = new javax.swing.JComboBox<>();
         CbbRoom = new javax.swing.JComboBox<>();
         jButton1 = new javax.swing.JButton();
@@ -38,9 +38,7 @@ public class ManageInvoice extends javax.swing.JPanel {
         btXoa = new javax.swing.JButton();
         btXem = new javax.swing.JButton();
 
-        setPreferredSize(new java.awt.Dimension(500, 385));
-
-        jPanel2.setPreferredSize(new java.awt.Dimension(620, 30));
+        searchPanel.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 10, 10));
 
         CbbKy.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tất cả", "5/2023", "4/2023" }));
         CbbKy.addActionListener(new java.awt.event.ActionListener() {
@@ -48,13 +46,15 @@ public class ManageInvoice extends javax.swing.JPanel {
                 CbbKyActionPerformed(evt);
             }
         });
-        jPanel2.add(CbbKy);
+        searchPanel.add(CbbKy);
 
         CbbRoom.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tất cả", "P101", "P102" }));
-        jPanel2.add(CbbRoom);
+        searchPanel.add(CbbRoom);
 
         jButton1.setText("Tìm");
-        jPanel2.add(jButton1);
+        searchPanel.add(jButton1);
+
+        jScrollPane1.setPreferredSize(new java.awt.Dimension(488, 285));
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -67,13 +67,9 @@ public class ManageInvoice extends javax.swing.JPanel {
                 "Mã Hóa đơn", "Kỳ đóng", "Phòng", "Tổng tiền", "Trạng thái"
             }
         ));
-        jTable1.setPreferredSize(new java.awt.Dimension(600, 300));
         jScrollPane1.setViewportView(jTable1);
 
-        jPanel1.setPreferredSize(new java.awt.Dimension(620, 30));
-        java.awt.FlowLayout flowLayout1 = new java.awt.FlowLayout();
-        flowLayout1.setAlignOnBaseline(true);
-        jPanel1.setLayout(flowLayout1);
+        jPanel1.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 10, 10));
 
         btThem.setText("Thêm");
         btThem.addActionListener(new java.awt.event.ActionListener() {
@@ -95,81 +91,28 @@ public class ManageInvoice extends javax.swing.JPanel {
                 btXemActionPerformed(evt);
             }
         });
-
-        CbbKy.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tất cả", "5/2023", "4/2023" }));
-        CbbKy.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                CbbKyActionPerformed(evt);
-            }
-        });
-
-        CbbRoom.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tất cả", "P101", "P102" }));
-
-        jButton1.setText("Tìm");
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(137, Short.MAX_VALUE)
-                .addComponent(btThem)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btSua)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btXoa)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btXem)
-                .addGap(126, 126, 126))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(172, 172, 172)
-                .addComponent(CbbKy, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(CbbRoom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jButton1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(CbbKy, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(CbbRoom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 294, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btThem)
-                    .addComponent(btSua)
-                    .addComponent(btXoa)
-                    .addComponent(btXem))
-                .addContainerGap())
-        );
+        jPanel1.add(btXem);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addComponent(searchPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 600, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 600, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addComponent(searchPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(15, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -197,9 +140,10 @@ public class ManageInvoice extends javax.swing.JPanel {
     private javax.swing.JButton btXoa;
     private javax.swing.JButton jButton1;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
+    private javax.swing.JPanel searchPanel;
     // End of variables declaration//GEN-END:variables
+
 
 }
