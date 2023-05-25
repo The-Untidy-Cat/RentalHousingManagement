@@ -32,8 +32,6 @@ public class MainView extends javax.swing.JFrame {
         lbTicketIcon = new javax.swing.JLabel();
         lbWaitingTicketCount = new javax.swing.JLabel();
         tabPanel = new javax.swing.JTabbedPane();
-        manageContract2 = new com.theuntidycat.rhm.view.ManageContract();
-        manageInvoice2 = new com.theuntidycat.rhm.view.ManageInvoice();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Rental Housing Management");
@@ -53,12 +51,6 @@ public class MainView extends javax.swing.JFrame {
         tabPanel.setTabPlacement(javax.swing.JTabbedPane.LEFT);
         tabPanel.setMinimumSize(new java.awt.Dimension(640, 500));
 
-        manageContract2.setMinimumSize(new java.awt.Dimension(620, 385));
-        tabPanel.addTab("Hợp đồng", manageContract2);
-
-        manageInvoice2.setMinimumSize(new java.awt.Dimension(620, 385));
-        tabPanel.addTab("Hóa đơn", manageInvoice2);
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -75,7 +67,7 @@ public class MainView extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        setSize(new java.awt.Dimension(715, 500));
+        pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
     
@@ -88,8 +80,6 @@ public class MainView extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lbTicketIcon;
     private javax.swing.JLabel lbWaitingTicketCount;
-    private com.theuntidycat.rhm.view.ManageContract manageContract2;
-    private com.theuntidycat.rhm.view.ManageInvoice manageInvoice2;
     private javax.swing.JTabbedPane tabPanel;
     // End of variables declaration//GEN-END:variables
 }
