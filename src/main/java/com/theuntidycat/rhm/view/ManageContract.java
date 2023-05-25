@@ -38,7 +38,6 @@ public class ManageContract extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        ContractTable = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tbContract = new javax.swing.JTable();
         ContractButton = new javax.swing.JPanel();
@@ -46,7 +45,9 @@ public class ManageContract extends javax.swing.JPanel {
         insertNewContract = new javax.swing.JButton();
         updateContract = new javax.swing.JButton();
 
-        ContractTable.setPreferredSize(new java.awt.Dimension(620, 340));
+        setPreferredSize(new java.awt.Dimension(500, 385));
+
+        jScrollPane2.setPreferredSize(new java.awt.Dimension(488, 335));
 
         tbContract.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -59,26 +60,10 @@ public class ManageContract extends javax.swing.JPanel {
                 "Title 1", "Title 2", "Title 3", "Title 4", "Title 5"
             }
         ));
+        tbContract.setPreferredSize(new java.awt.Dimension(488, 335));
         jScrollPane2.setViewportView(tbContract);
 
-        javax.swing.GroupLayout ContractTableLayout = new javax.swing.GroupLayout(ContractTable);
-        ContractTable.setLayout(ContractTableLayout);
-        ContractTableLayout.setHorizontalGroup(
-            ContractTableLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(ContractTableLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane2)
-                .addContainerGap())
-        );
-        ContractTableLayout.setVerticalGroup(
-            ContractTableLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(ContractTableLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 327, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(7, Short.MAX_VALUE))
-        );
-
-        ContractButton.setPreferredSize(new java.awt.Dimension(504, 67));
+        ContractButton.setPreferredSize(new java.awt.Dimension(500, 30));
 
         viewContractDetail.setText("Xem chi tiết");
         viewContractDetail.addActionListener(new java.awt.event.ActionListener() {
@@ -108,16 +93,19 @@ public class ManageContract extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(ContractTable, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(ContractButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 620, Short.MAX_VALUE)
+            .addComponent(ContractButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(ContractTable, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(2, 2, 2)
-                .addComponent(ContractButton, javax.swing.GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE)
-                .addContainerGap())
+                .addContainerGap()
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 337, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(ContractButton, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -138,7 +126,6 @@ public class ManageContract extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel ContractButton;
-    private javax.swing.JPanel ContractTable;
     private javax.swing.JButton insertNewContract;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable tbContract;
