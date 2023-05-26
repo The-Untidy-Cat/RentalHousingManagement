@@ -43,7 +43,6 @@ public class MainView extends javax.swing.JFrame {
         setSize(new java.awt.Dimension(700, 500));
 
         lbTicketIcon.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lbTicketIcon.setIcon(new javax.swing.ImageIcon("F:\\course\\is216\\project\\IS216.N23.HTCL-TheUntidyCat-RHM\\assets\\ticket-detailed.png")); // NOI18N
         lbTicketIcon.setLabelFor(lbTicketIcon);
         lbTicketIcon.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jPanel1.add(lbTicketIcon);
