@@ -4,18 +4,24 @@
  */
 package com.theuntidycat.rhm.view;
 
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import com.formdev.flatlaf.FlatLightLaf;
+import java.time.Year;
+import java.util.Date;
+import javax.swing.DefaultComboBoxModel;
 
 /**
  *
  * @author SHeroAnh
  */
 public class MainView extends javax.swing.JFrame {
+
     /**
      * Creates new form MainView
      */
     public MainView() {
-        FlatLightLaf.setup(); 
+        FlatLightLaf.setup();
         initComponents();
     }
 
@@ -32,6 +38,7 @@ public class MainView extends javax.swing.JFrame {
         lbTicketIcon = new javax.swing.JLabel();
         lbWaitingTicketCount = new javax.swing.JLabel();
         tabPanel = new javax.swing.JTabbedPane();
+        reportView1 = new com.theuntidycat.rhm.view.ReportView();
         manageContract1 = new com.theuntidycat.rhm.view.ManageContract();
         manageInvoice1 = new com.theuntidycat.rhm.view.ManageInvoice();
         manageTenant1 = new com.theuntidycat.rhm.view.ManageTenant();
@@ -43,8 +50,8 @@ public class MainView extends javax.swing.JFrame {
         setSize(new java.awt.Dimension(700, 500));
 
         lbTicketIcon.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lbTicketIcon.setIcon(new javax.swing.ImageIcon("F:\\course\\is216\\project\\IS216.N23.HTCL-TheUntidyCat-RHM\\assets\\ticket-detailed.png")); // NOI18N
-        lbTicketIcon.setLabelFor(lbTicketIcon);
+        lbTicketIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/theuntidycat/rhm/view/ticket-detailed.png"))); // NOI18N
+        lbTicketIcon.setLabelFor(lbWaitingTicketCount);
         lbTicketIcon.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jPanel1.add(lbTicketIcon);
 
@@ -53,6 +60,7 @@ public class MainView extends javax.swing.JFrame {
 
         tabPanel.setTabPlacement(javax.swing.JTabbedPane.LEFT);
         tabPanel.setMinimumSize(new java.awt.Dimension(640, 500));
+        tabPanel.addTab("Thống kê", reportView1);
         tabPanel.addTab("Hợp đồng", manageContract1);
         tabPanel.addTab("Hóa đơn", manageInvoice1);
         tabPanel.addTab("Khách thuê", manageTenant1);
@@ -69,15 +77,12 @@ public class MainView extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(tabPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 458, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(tabPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 464, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-    
-    
     public void run() {
         new MainView().setVisible(true);
     }
@@ -89,6 +94,7 @@ public class MainView extends javax.swing.JFrame {
     private com.theuntidycat.rhm.view.ManageContract manageContract1;
     private com.theuntidycat.rhm.view.ManageInvoice manageInvoice1;
     private com.theuntidycat.rhm.view.ManageTenant manageTenant1;
+    private com.theuntidycat.rhm.view.ReportView reportView1;
     private javax.swing.JTabbedPane tabPanel;
     // End of variables declaration//GEN-END:variables
 }
