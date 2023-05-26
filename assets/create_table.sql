@@ -403,3 +403,6 @@ CREATE TABLE account (
     password VARCHAR(255)
 );
 /
+INSERT INTO account (username, password) VALUES('admin', 'admin');
+/
+commit;

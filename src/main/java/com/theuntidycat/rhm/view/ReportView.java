@@ -47,6 +47,8 @@ public class ReportView extends javax.swing.JPanel {
 
         setMinimumSize(new java.awt.Dimension(500, 385));
 
+        reportTabPane.setTabPlacement(javax.swing.JTabbedPane.BOTTOM);
+
         searchBar.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 10, 10));
 
         lbMonth.setText("Tháng");
@@ -65,6 +67,11 @@ public class ReportView extends javax.swing.JPanel {
         searchBar.add(jLabel1);
 
         cbbYear.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbbYear.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cbbYearItemStateChanged(evt);
+            }
+        });
         searchBar.add(cbbYear);
         searchBar.add(jSeparator2);
 
@@ -87,7 +94,7 @@ public class ReportView extends javax.swing.JPanel {
             revenueTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(revenueTabLayout.createSequentialGroup()
                 .addComponent(searchBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 311, Short.MAX_VALUE))
+                .addGap(0, 360, Short.MAX_VALUE))
         );
 
         reportTabPane.addTab("Doanh thu", revenueTab);
@@ -100,7 +107,7 @@ public class ReportView extends javax.swing.JPanel {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(reportTabPane)
+            .addComponent(reportTabPane, javax.swing.GroupLayout.PREFERRED_SIZE, 434, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -112,18 +119,28 @@ public class ReportView extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_cbbMonthActionPerformed
 
+    private void cbbYearItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbbYearItemStateChanged
+        DefaultComboBoxModel<String> cbbMonthModel = new DefaultComboBoxModel<>();
+
+        Date now = new Date();
+        for (int i = String.valueOf(cbbYear.getSelectedItem()).equals(Integer.toString(Year.now().getValue())) ? now.getMonth() : 11; i >= 0; i--) {
+            cbbMonthModel.addElement(Integer.toString(i + 1));
+        }
+        cbbMonth.setModel(cbbMonthModel);
+    }//GEN-LAST:event_cbbYearItemStateChanged
+
     public void initSearchBar (){
-        DefaultComboBoxModel<String> model = new DefaultComboBoxModel<>();
-        Date now =new Date();  
-        for (var i = now.getYear(); i < 2015; i--) {
-            model.addElement(Integer.toString(i));
+        DefaultComboBoxModel<String> cbbMonthModel = new DefaultComboBoxModel<>();
+        DefaultComboBoxModel<String> cbbYearModel = new DefaultComboBoxModel<>();
+        Date now = new Date();
+        for (int i = Year.now().getValue(); i >= 2015; i--) {
+            cbbYearModel.addElement(Integer.toString(i));
         }
-        cbbYear.setModel(model);
-        model.removeAllElements();
-        for (int i = now.getMonth(); i < 0; i--) {
-            model.addElement(Integer.toString(i+1));
+        cbbYear.setModel(cbbYearModel);
+        for (int i = now.getMonth(); i >= 0; i--) {
+            cbbMonthModel.addElement(Integer.toString(i + 1));
         }
-        cbbMonth.setModel( model );
+        cbbMonth.setModel(cbbMonthModel);
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btSearch;
