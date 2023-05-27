@@ -27,8 +27,8 @@ public class ManageTenant extends javax.swing.JPanel {
      */
     DefaultTableModel model;
     String url ="jdbc:oracle:thin:@localhost:1521:orcl";
-    String user = "DB";
-    String password = "1234";
+    String user = "THEUNTIDYCAT";
+    String password = "theuntidycat";
     public ManageTenant(){
         initComponents();
         taoTable();
@@ -218,8 +218,6 @@ public class ManageTenant extends javax.swing.JPanel {
 
     private void BtnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnSuaActionPerformed
         // TODO add your handling code here:
-        DateFormat df = new SimpleDateFormat();
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/mm/yyyy");
         if(jTable1.getSelectedRowCount() != 1){
             JOptionPane.showMessageDialog(this, "Chọn dòng dữ liệu muốn sửa.");
         }

@@ -22,8 +22,8 @@ public class InsertTenant1 extends javax.swing.JFrame {
      */
     DefaultTableModel model;
     String url ="jdbc:oracle:thin:@localhost:1521:orcl";
-    String user = "DB";
-    String password = "1234";
+    String user = "THEUNTIDYCAT";
+    String password = "theuntidycat";
     public InsertTenant1() {
         model = new DefaultTableModel();
         initComponents();
