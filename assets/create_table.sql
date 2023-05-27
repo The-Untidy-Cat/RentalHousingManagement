@@ -364,6 +364,7 @@ CREATE TABLE account (
     password VARCHAR(255)
 );
 /
+<<<<<<< HEAD
 
 
  ---------------TRIGGER CHECK ROOMS STATUS ---------------
@@ -395,3 +396,8 @@ BEGIN
     SET STATUS_ID = 1
     WHERE id = :new.Room_ID;
 END;
+=======
+INSERT INTO account (username, password) VALUES('admin', 'admin');
+/
+commit;
+>>>>>>> 89ece75fdfed2aabea70e261b7fff07849e7b157

@@ -14,7 +14,7 @@ public class LoginController {
         int size = 0;
         try {
             System.out.println(username + ' ' + password);
-            String sql = "SELECT COUNT(*) FROM USERS WHERE USERNAME = ? AND PASSWORD = ?";
+            String sql = "SELECT COUNT(*) FROM ACCOUNT WHERE USERNAME = ? AND PASSWORD = ?";
             PreparedStatement pstmt = conn.prepareStatement(sql);
             pstmt.setString(1, username);
             pstmt.setString(2, password);
