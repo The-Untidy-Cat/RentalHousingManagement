@@ -172,6 +172,9 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Ho&#xe0;n t&#x1ea5;t"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btThemActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btQuay">
           <Properties>

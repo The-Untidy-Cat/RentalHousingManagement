@@ -68,6 +68,11 @@ public class InfInvoice extends javax.swing.JFrame {
         jLabel5.setText("năm");
 
         btThem.setText("Hoàn tất");
+        btThem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btThemActionPerformed(evt);
+            }
+        });
 
         btQuay.setText("Quay lại");
         btQuay.addActionListener(new java.awt.event.ActionListener() {
@@ -151,7 +156,14 @@ public class InfInvoice extends javax.swing.JFrame {
 
     private void btQuayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btQuayActionPerformed
         // TODO add your handling code here:
+        ManageInvoice maInv = new ManageInvoice();
+        setVisible(false);
     }//GEN-LAST:event_btQuayActionPerformed
+
+    private void btThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btThemActionPerformed
+        // TODO add your handling code here:
+        //String room = CbbPhong.
+    }//GEN-LAST:event_btThemActionPerformed
 
     /**
      * @param args the command line arguments

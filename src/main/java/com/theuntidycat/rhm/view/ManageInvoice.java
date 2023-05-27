@@ -4,6 +4,10 @@
  */
 package com.theuntidycat.rhm.view;
 
+import com.theuntidycat.rhm.controller.ManageInvoiceController;
+import java.sql.*;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author TTMC
@@ -15,6 +19,8 @@ public class ManageInvoice extends javax.swing.JPanel {
      */
     public ManageInvoice() {
         initComponents();
+        createTable();
+        updateTable();
     }
 
     /**
@@ -27,11 +33,13 @@ public class ManageInvoice extends javax.swing.JPanel {
     private void initComponents() {
 
         searchPanel = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
         CbbKy = new javax.swing.JComboBox<>();
+        jLabel2 = new javax.swing.JLabel();
         CbbRoom = new javax.swing.JComboBox<>();
         jButton1 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tbInvoice = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
         btThem = new javax.swing.JButton();
         btSua = new javax.swing.JButton();
@@ -39,6 +47,9 @@ public class ManageInvoice extends javax.swing.JPanel {
         btXem = new javax.swing.JButton();
 
         searchPanel.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 10, 10));
+
+        jLabel1.setText("Kỳ đóng:");
+        searchPanel.add(jLabel1);
 
         CbbKy.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tất cả", "5/2023", "4/2023" }));
         CbbKy.addActionListener(new java.awt.event.ActionListener() {
@@ -48,6 +59,9 @@ public class ManageInvoice extends javax.swing.JPanel {
         });
         searchPanel.add(CbbKy);
 
+        jLabel2.setText("Phòng:");
+        searchPanel.add(jLabel2);
+
         CbbRoom.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tất cả", "P101", "P102" }));
         searchPanel.add(CbbRoom);
 
@@ -56,7 +70,7 @@ public class ManageInvoice extends javax.swing.JPanel {
 
         jScrollPane1.setPreferredSize(new java.awt.Dimension(488, 285));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tbInvoice.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},
                 {null, null, null, null, null},
@@ -67,7 +81,7 @@ public class ManageInvoice extends javax.swing.JPanel {
                 "Mã Hóa đơn", "Kỳ đóng", "Phòng", "Tổng tiền", "Trạng thái"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tbInvoice);
 
         jPanel1.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 10, 10));
 
@@ -83,6 +97,11 @@ public class ManageInvoice extends javax.swing.JPanel {
         jPanel1.add(btSua);
 
         btXoa.setText("Xóa");
+        btXoa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btXoaActionPerformed(evt);
+            }
+        });
         jPanel1.add(btXoa);
 
         btXem.setText("Xem chi tiết");
@@ -115,7 +134,29 @@ public class ManageInvoice extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
-
+    DefaultTableModel tblModelTT;
+    public void createTable()
+    {
+        tblModelTT = new DefaultTableModel();
+        String title[] = {"Mã Hóa Đơn", "Kỳ đóng", "Phòng", "Tổng tiền", "Trạng thái"};
+        tblModelTT.setColumnIdentifiers(title);
+        tbInvoice.setModel(tblModelTT);
+        setVisible(true);
+    }
+    
+    public void updateTable(){
+        try{
+            ManageInvoiceController controller = new ManageInvoiceController();
+            ResultSet rs = controller.getInvoices();
+            while(rs.next()){
+                String arr[] = {rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5)};
+                tblModelTT.addRow(arr);
+            }
+        } catch(SQLException e){
+            System.out.println("Error at ManageInvoice/updateTable");
+        }
+    }
+    
     private void btThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btThemActionPerformed
         // TODO add your handling code here:
         InfInvoice inf = new InfInvoice();
@@ -130,6 +171,10 @@ public class ManageInvoice extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_CbbKyActionPerformed
 
+    private void btXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btXoaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btXoaActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> CbbKy;
@@ -139,10 +184,12 @@ public class ManageInvoice extends javax.swing.JPanel {
     private javax.swing.JButton btXem;
     private javax.swing.JButton btXoa;
     private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JPanel searchPanel;
+    private javax.swing.JTable tbInvoice;
     // End of variables declaration//GEN-END:variables
 
 
