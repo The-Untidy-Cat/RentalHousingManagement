@@ -99,7 +99,7 @@ CREATE TABLE support_ticket_status (
 /
 ---------------SUPPORT TICKET---------------
 CREATE TABLE support_ticket (
-    id            NUMBER PRIMARY KEY,
+    id            VARCHAR2(5) PRIMARY KEY,
     incident_time DATE,
     receive_time  DATE,
     room_id       VARCHAR2(5) NOT NULL,
@@ -136,10 +136,10 @@ CREATE TABLE invoice (
     room_id     VARCHAR2(5) ,
     month       NUMBER ,
     year        NUMBER ,
-    total_money NUMBER,
+    total_money NUMBER DEFAULT 0,
     status_id   NUMBER(1, 0) DEFAULT 0,
-    created_date    DATE,
-    modified_date   DATE,
+    created_date    DATE DEFAULT SYSDATE,
+    modified_date   DATE DEFAULT NULL,
     CONSTRAINT invoice_room_id_fk FOREIGN KEY ( room_id )
         REFERENCES room ( id ),
     CONSTRAINT invoice_status_id_fk FOREIGN KEY ( status_id )
@@ -148,7 +148,7 @@ CREATE TABLE invoice (
     CONSTRAINT invoice_unique UNIQUE (room_id, month, year)
 );
 /
-DROP TABLE INVOICE;
+
 CREATE OR REPLACE TRIGGER invoiceid_increment BEFORE
     INSERT ON invoice
     FOR EACH ROW
@@ -164,6 +164,8 @@ BEGIN
 
 END;
 /
+
+
 
 CREATE TABLE invoice_status (
     id   NUMBER(1, 0) PRIMARY KEY,
@@ -193,6 +195,13 @@ CREATE TABLE detail_invoice_type (
 );
 /
 
+CREATE OR REPLACE TRIGGER insert_detail_invoice BEFORE
+    INSERT ON detail_invoice
+    FOR EACH ROW
+BEGIN
+    :new.sum_money := :new.quantity * :new.unit_price;
+END;
+/
  ---------------CONTRACT---------------
 CREATE TABLE contract (
     id               VARCHAR2(5) PRIMARY KEY,
@@ -243,10 +252,15 @@ CREATE TABLE detail_contract_status (
 CREATE TABLE detail_contract (
     contract_id VARCHAR2(5),
     tenant_id   VARCHAR2(5),
+    status_id   NUMBER(1, 0) DEFAULT 1,
+    created_date    DATE DEFAULT SYSDATE,
+    modified_date   DATE DEFAULT NULL,
     CONSTRAINT detail_contract_contract_id_fk FOREIGN KEY ( tenant_id )
         REFERENCES tenant ( id ),
     CONSTRAINT detail_contract_tenant_id_fk FOREIGN KEY ( contract_id )
         REFERENCES contract ( id ),
+    CONSTRAINT detail_contract_status_id_fk FOREIGN KEY ( status_id )
+        REFERENCES detail_contract_status ( id ),
     CONSTRAINT detail_contract_pk PRIMARY KEY ( contract_id,
                                                 tenant_id )
 );
@@ -273,7 +287,7 @@ BEGIN
 END;
 /
  ---------------TRIGGER INSERT REPRESENTATIVE WHO IS REPRESENTATIVE IN CONTRACT---------------
-CREATE OR REPLACE TRIGGER insert_representative BEFORE
+CREATE OR REPLACE TRIGGER insert_detail_contract BEFORE
     INSERT ON detail_contract
     FOR EACH ROW
 DECLARE
@@ -364,40 +378,6 @@ CREATE TABLE account (
     password VARCHAR(255)
 );
 /
-<<<<<<< HEAD
-
-
- ---------------TRIGGER CHECK ROOMS STATUS ---------------
-CREATE OR REPLACE TRIGGER trg_check_room 
-BEFORE INSERT ON CONTRACT
-FOR EACH ROW
-DECLARE
-    trangthai NUMERIC(1,0);
-BEGIN
-    SELECT status_id INTO trangthai
-    FROM ROOM
-    WHERE id = :new.room_id ;
-    
-    IF trangthai = 1 THEN
-        raise_application_error(-20111,'Phong da duoc thue. Khong the lap hop dong.');
-    ELSIF trangthai = 3 THEN
-        raise_application_error(-20111,'Phong dang duoc sua chua. Khong the lap hop dong.');
-    END IF;
-END;
-
----------------TRIGGER UPDATE ROOMS STATUS---------------
-CREATE OR REPLACE TRIGGER trg_update_room 
-AFTER INSERT ON CONTRACT
-FOR EACH ROW
-DECLARE
-    trangthai NUMERIC(1,0);
-BEGIN
-    UPDATE ROOM
-    SET STATUS_ID = 1
-    WHERE id = :new.Room_ID;
-END;
-=======
 INSERT INTO account (username, password) VALUES('admin', 'admin');
 /
 commit;
->>>>>>> 89ece75fdfed2aabea70e261b7fff07849e7b157
