@@ -38,6 +38,7 @@ public class ManageInvoice extends javax.swing.JPanel {
         jLabel2 = new javax.swing.JLabel();
         CbbRoom = new javax.swing.JComboBox<>();
         jButton1 = new javax.swing.JButton();
+        btRef = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tbInvoice = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
@@ -68,6 +69,14 @@ public class ManageInvoice extends javax.swing.JPanel {
         jButton1.setText("Tìm");
         searchPanel.add(jButton1);
 
+        btRef.setText("refresh");
+        btRef.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btRefActionPerformed(evt);
+            }
+        });
+        searchPanel.add(btRef);
+
         jScrollPane1.setPreferredSize(new java.awt.Dimension(488, 285));
 
         tbInvoice.setModel(new javax.swing.table.DefaultTableModel(
@@ -91,10 +100,8 @@ public class ManageInvoice extends javax.swing.JPanel {
                 btThemActionPerformed(evt);
             }
         });
-        jPanel1.add(btThem);
 
         btSua.setText("Sửa");
-        jPanel1.add(btSua);
 
         btXoa.setText("Xóa");
         btXoa.addActionListener(new java.awt.event.ActionListener() {
@@ -102,7 +109,6 @@ public class ManageInvoice extends javax.swing.JPanel {
                 btXoaActionPerformed(evt);
             }
         });
-        jPanel1.add(btXoa);
 
         btXem.setText("Xem chi tiết");
         btXem.addActionListener(new java.awt.event.ActionListener() {
@@ -110,18 +116,27 @@ public class ManageInvoice extends javax.swing.JPanel {
                 btXemActionPerformed(evt);
             }
         });
-        jPanel1.add(btXem);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(searchPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(searchPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 500, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(26, 26, 26)
+                .addComponent(btThem, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(10, 10, 10)
+                .addComponent(btSua, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(10, 10, 10)
+                .addComponent(btXoa, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(10, 10, 10)
+                .addComponent(btXem, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(124, 124, 124))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -129,9 +144,14 @@ public class ManageInvoice extends javax.swing.JPanel {
                 .addComponent(searchPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btThem)
+                    .addComponent(btSua)
+                    .addComponent(btXoa)
+                    .addComponent(btXem))
+                .addGap(14, 14, 14))
         );
     }// </editor-fold>//GEN-END:initComponents
     DefaultTableModel tblModelTT;
@@ -175,10 +195,17 @@ public class ManageInvoice extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_btXoaActionPerformed
 
+    private void btRefActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btRefActionPerformed
+        // TODO add your handling code here:
+        tblModelTT.setRowCount(0);
+        updateTable();
+    }//GEN-LAST:event_btRefActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> CbbKy;
     private javax.swing.JComboBox<String> CbbRoom;
+    private javax.swing.JButton btRef;
     private javax.swing.JButton btSua;
     private javax.swing.JButton btThem;
     private javax.swing.JButton btXem;
