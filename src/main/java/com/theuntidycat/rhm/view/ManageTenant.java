@@ -3,17 +3,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
 package com.theuntidycat.rhm.view;
-
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
+import com.theuntidycat.rhm.controller.ManageTenantController;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -26,41 +18,36 @@ public class ManageTenant extends javax.swing.JPanel {
      * Creates new form ManageTenant
      */
     DefaultTableModel model;
-    String url ="jdbc:oracle:thin:@localhost:1521:orcl";
-    String user = "THEUNTIDYCAT";
-    String password = "theuntidycat";
     public ManageTenant(){
         initComponents();
         taoTable();
-        setVisible(true);
+        capnhatTable();
     }
     public void taoTable(){
         model = new DefaultTableModel();
         String title[] = {"Mã KH", "Tên KH", "Quê quán", "Ngày sinh", "SĐT", "CMND", "Email"};
         model.setColumnIdentifiers(title);
-        Connection con = null;
-        try{
-            String row[] = new String[7];
-            con = DriverManager.getConnection(url, user, password); 
-            String strSQL = "SELECT id, name, Home_town, dob, phone_number, id_number, email FROM TENANT ORDER BY id";
-            Statement stat = con.createStatement();
-            ResultSet rs = stat.executeQuery(strSQL);
-            while(rs.next()){
-                row[0] = rs.getString(1);
-                row[1] = rs.getString(2);
-                row[2] = rs.getString(3);
-                row[3] = rs.getString(4);
-                row[4] = rs.getString(5);
-                row[5] = rs.getString(6);
-                row[6] = rs.getString(7);
-                model.addRow(row);
-            }
-        }
-        catch(SQLException e){
-            System.out.println(e);
-        }
         jTable1.setModel(model);
         setVisible(true);
+    }
+    public void capnhatTable(){
+        try{
+            ManageTenantController controller = new ManageTenantController();
+            ResultSet rs = controller.getListOfTenant();
+            while(rs.next()){
+                String arr[] = new String[7];
+                arr[0] = rs.getString(1);
+                arr[1] = rs.getString(2);
+                arr[2] = rs.getString(3);
+                arr[3] = rs.getString(4);
+                arr[4] = rs.getString(5);
+                arr[5] = rs.getString(6);
+                arr[6] = rs.getString(7);
+                model.addRow(arr);
+            }
+        } catch(SQLException e){
+            System.out.println(e);
+        }
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -165,7 +152,7 @@ public class ManageTenant extends javax.swing.JPanel {
 
     private void BtnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnThemActionPerformed
         // TODO add your handling code here:
-        InsertTenant1 insert = new InsertTenant1();
+        InsertTenant insert = new InsertTenant();
         insert.setVisible(true);
     }//GEN-LAST:event_BtnThemActionPerformed
 
@@ -176,63 +163,12 @@ public class ManageTenant extends javax.swing.JPanel {
 
     private void BtnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnXoaActionPerformed
         // TODO add your handling code here:
-        if(jTable1.getSelectedRowCount() == 1){
-            //delete
-            Connection con = null;
-            int row = jTable1.getSelectedRow();
-            int ret = JOptionPane.showConfirmDialog(null,"Bạn chắc chắc muốn xóa ?", "Xóa dữ liệu", JOptionPane.YES_NO_OPTION);
-            if (ret == JOptionPane.YES_OPTION){
-                String strSQL = "DELETE FROM TENANT WHERE id = ?";
-                try{
-                    DriverManager.registerDriver(new oracle.jdbc.OracleDriver());
-                    con = DriverManager.getConnection(url, user, password);
-                    PreparedStatement pres = con.prepareStatement(strSQL);
-                    String str = jTable1.getValueAt(row, 0).toString();
-                    pres.setString(1,  str);
-                    pres.executeUpdate();
-                    JOptionPane.showMessageDialog(this,"Xóa thông tin thành công");
-                    con.close();
-                }
-                catch(SQLException e){
-                    System.out.println(e);
-                }
-                if (row < jTable1.getRowCount() && row >= 0){
-                    model.removeRow(row);
-                }
-                setVisible(true);
-            }
-        }
-        //if it is not one row is selected (0 or > 1)
-        else{
-            if(jTable1.getSelectedRowCount() == 0){
-                JOptionPane.showMessageDialog(this, "Chọn một hàng dữ liệu để xóa");
-            }
-            else{
-                JOptionPane.showMessageDialog(this, "Chỉ chọn một hàng để xóa");
-
-            }
-        }
 
     }//GEN-LAST:event_BtnXoaActionPerformed
 
     private void BtnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnSuaActionPerformed
         // TODO add your handling code here:
-        if(jTable1.getSelectedRowCount() != 1){
-            JOptionPane.showMessageDialog(this, "Chọn dòng dữ liệu muốn sửa.");
-        }
-        else{
-            int row = jTable1.getSelectedRow();
-            UpdateTenant ud = new UpdateTenant();        
-            ud.ten = model.getValueAt(row, 1).toString(); 
-            ud.quequan = model.getValueAt(row, 2).toString();
-            ud.dob = model.getValueAt(row, 3).toString();
-            ud.sdt = model.getValueAt(row, 4).toString();
-            ud.cmnd = model.getValueAt(row, 5).toString();
-            ud.email = model.getValueAt(row, 6).toString();
-            ud.id = model.getValueAt(row, 0).toString();
-            ud.setInformation();
-            ud.setVisible(true);
-        }
+       
     }//GEN-LAST:event_BtnSuaActionPerformed
 
     private void CBMaKHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CBMaKHActionPerformed
