@@ -5,7 +5,15 @@
 package com.theuntidycat.rhm.view;
 
 import com.theuntidycat.rhm.controller.ManageInvoiceController;
+import java.awt.BorderLayout;
+import java.awt.FlowLayout;
 import java.sql.*;
+import javax.swing.JButton;
+import javax.swing.JDialog;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -183,7 +191,14 @@ public class ManageInvoice extends javax.swing.JPanel {
 
     private void btXemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btXemActionPerformed
         // TODO add your handling code here:
+        int n = tbInvoice.getSelectedRow();
+        String ph = (String) tbInvoice.getValueAt(n, 2);
+        String k = (String) tbInvoice.getValueAt(n, 1);
+        System.out.println(ph);
+        System.out.println(k);
         DetailInvoice detail = new DetailInvoice();
+        detail.setTxt(ph, k);
+        //DetailInvoice detail = new DetailInvoice(ph,k);
     }//GEN-LAST:event_btXemActionPerformed
 
     private void CbbKyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CbbKyActionPerformed
@@ -192,6 +207,29 @@ public class ManageInvoice extends javax.swing.JPanel {
 
     private void btXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btXoaActionPerformed
         // TODO add your handling code here:
+        int n = tbInvoice.getSelectedRow();
+        String id = (String) tbInvoice.getValueAt(n, 0);
+        ManageInvoiceController controller = new ManageInvoiceController();
+        boolean check = controller.deleteInvoice(id);
+        if(check){
+            JFrame fr = new JFrame();
+            JDialog dialog = new JDialog(fr, "Thông báo", true);
+            JPanel mGUI = new JPanel(new BorderLayout());
+            mGUI.setBorder(new EmptyBorder(20,50,20,50));
+            mGUI.add(new JLabel("Xóa thành công"), BorderLayout.CENTER);
+       
+            JPanel PanBt = new JPanel(new FlowLayout());
+            mGUI.add(PanBt, BorderLayout.SOUTH);
+            JButton btOK = new JButton("OK");
+            btOK.addActionListener(e->{                
+                dialog.setVisible(false);
+            });
+            PanBt.add(btOK);
+       
+            dialog.setContentPane(mGUI);
+            dialog.pack();
+            dialog.setVisible(true);
+        }
     }//GEN-LAST:event_btXoaActionPerformed
 
     private void btRefActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btRefActionPerformed
@@ -200,6 +238,7 @@ public class ManageInvoice extends javax.swing.JPanel {
         updateTable();
     }//GEN-LAST:event_btRefActionPerformed
 
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> CbbKy;
