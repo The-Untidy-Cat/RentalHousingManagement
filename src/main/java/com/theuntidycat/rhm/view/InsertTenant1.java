@@ -20,7 +20,7 @@ public class InsertTenant1 extends javax.swing.JFrame {
     /**
      * Creates new form InsertTenant1
      */
-    DefaultTableModel model;
+      DefaultTableModel model;
     String url ="jdbc:oracle:thin:@localhost:1521:orcl";
     String user = "THEUNTIDYCAT";
     String password = "theuntidycat";
