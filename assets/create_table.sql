@@ -85,7 +85,7 @@ BEGIN
     :new.password := concat(concat(TO_CHAR(:NEW.DOB, 'DD'),TO_CHAR(:NEW.DOB, 'MM')),TO_CHAR(:NEW.DOB, 'YYYY'));
 END;
 /
-
+---------------SUPPORT TICKET---------------
 CREATE TABLE support_ticket_type (
     id   NUMBER(1, 0) PRIMARY KEY,
     name VARCHAR2(255)
@@ -97,7 +97,7 @@ CREATE TABLE support_ticket_status (
     name VARCHAR2(255)
 );
 /
----------------SUPPORT TICKET---------------
+
 CREATE TABLE support_ticket (
     id            VARCHAR2(5) PRIMARY KEY,
     incident_time DATE,
@@ -130,7 +130,13 @@ BEGIN
 END;
 /
 
- ---------------INVOICE---------------
+---------------INVOICE---------------
+CREATE TABLE invoice_status (
+    id   NUMBER(1, 0) PRIMARY KEY,
+    name VARCHAR2(255)
+);
+/
+
 CREATE TABLE invoice (
     id          VARCHAR2(5),
     room_id     VARCHAR2(5) ,
@@ -167,13 +173,16 @@ END;
 
 
 
-CREATE TABLE invoice_status (
+
+ ---------------DETAIL_INVOICE---------------
+ 
+CREATE TABLE detail_invoice_type (
     id   NUMBER(1, 0) PRIMARY KEY,
-    name VARCHAR2(255)
+    name VARCHAR2(255),
+    unit VARCHAR2(255)
 );
 /
 
- ---------------DETAIL_INVOICE---------------
 CREATE TABLE detail_invoice (
     invoice_id VARCHAR2(5),
     type_id    NUMBER(1, 0),
@@ -188,12 +197,6 @@ CREATE TABLE detail_invoice (
         REFERENCES detail_invoice_type ( id )
 );
 
-CREATE TABLE detail_invoice_type (
-    id   NUMBER(1, 0) PRIMARY KEY,
-    name VARCHAR2(255),
-    unit VARCHAR2(255)
-);
-/
 
 CREATE OR REPLACE TRIGGER insert_detail_invoice BEFORE
     INSERT ON detail_invoice
@@ -203,6 +206,11 @@ BEGIN
 END;
 /
  ---------------CONTRACT---------------
+CREATE TABLE contract_status (
+    id   NUMBER(1, 0) PRIMARY KEY,
+    name VARCHAR2(255)
+);
+/
 CREATE TABLE contract (
     id               VARCHAR2(5) PRIMARY KEY,
     start_date       DATE,
@@ -221,11 +229,7 @@ CREATE TABLE contract (
 );
 /
 
-CREATE TABLE contract_status (
-    id   NUMBER(1, 0) PRIMARY KEY,
-    name VARCHAR2(255)
-);
-/
+
 
 CREATE OR REPLACE TRIGGER contractid_increment BEFORE
     INSERT ON contract
@@ -243,12 +247,13 @@ BEGIN
 END;
 /
 --DROP TRIGGER contractid_increment;
+---------------DETAIL_CONTRACT---------------
 CREATE TABLE detail_contract_status (
     id   NUMBER(1, 0) PRIMARY KEY,
     name VARCHAR2(255)
 );
 /
- ---------------DETAIL_CONTRACT---------------
+ 
 CREATE TABLE detail_contract (
     contract_id VARCHAR2(5),
     tenant_id   VARCHAR2(5),
@@ -349,10 +354,8 @@ END;
 /
 
  ---------------TRIGGER UPDATE STATUS WHEN ADD NEW CHILD INVOICE---------------
-CREATE OR REPLACE TRIGGER update_invoice AFTER
-    INSERT ON detail_invoice
-    FOR EACH ROW
-DECLARE
+CREATE or replace PROCEDURE Up_inv(id_input in varchar2, moneyy in number)
+as
     temp_total_money NUMBER;
 BEGIN
     SELECT
@@ -361,18 +364,25 @@ BEGIN
     FROM
         detail_invoice
     WHERE
-        invoice_id = :new.invoice_id;
-
+        invoice_id = id_input;
+        
+    temp_total_money := temp_total_money + moneyy;
+    
     UPDATE invoice
     SET
         total_money = temp_total_money,
         status_id = 0
     WHERE
-        id = :new.invoice_id;
-
+        id = id_input;
+end;
+/
+CREATE OR REPLACE TRIGGER update_invoice before
+INSERT ON detail_invoice   
+FOR EACH ROW    
+BEGIN
+   Up_inv(:new.invoice_id, :new.sum_money);
 END;
 /
-
 CREATE TABLE account (
     username VARCHAR(255) PRIMARY KEY,
     password VARCHAR(255)
