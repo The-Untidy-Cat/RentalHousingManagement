@@ -4,6 +4,13 @@
  */
 package com.theuntidycat.rhm.view;
 
+import com.theuntidycat.rhm.controller.ManageInvoiceController;
+import java.awt.BorderLayout;
+import java.awt.FlowLayout;
+import javax.swing.*;
+import javax.swing.border.EmptyBorder;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author TTMC
@@ -68,6 +75,11 @@ public class InfInvoice extends javax.swing.JFrame {
         jLabel5.setText("năm");
 
         btThem.setText("Hoàn tất");
+        btThem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btThemActionPerformed(evt);
+            }
+        });
 
         btQuay.setText("Quay lại");
         btQuay.addActionListener(new java.awt.event.ActionListener() {
@@ -129,13 +141,13 @@ public class InfInvoice extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
@@ -151,7 +163,45 @@ public class InfInvoice extends javax.swing.JFrame {
 
     private void btQuayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btQuayActionPerformed
         // TODO add your handling code here:
+        setVisible(false);
     }//GEN-LAST:event_btQuayActionPerformed
+
+    private void btThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btThemActionPerformed
+        // TODO add your handling code here:
+        String room = CbbPhong.getItemAt(CbbPhong.getSelectedIndex());
+        String month = cbbThang.getItemAt(cbbThang.getSelectedIndex());
+        String year = txtNam.getText();
+        
+        ManageInvoiceController controller = new ManageInvoiceController();
+        boolean check = controller.insertInvoice(room, month, year);
+        if(check){
+            JFrame fr = new JFrame();
+            JDialog dialog = new JDialog(fr, "Thông báo", true);
+            JPanel mGUI = new JPanel(new BorderLayout());
+            mGUI.setBorder(new EmptyBorder(20,50,20,50));
+            mGUI.add(new JLabel("Thêm thành công"), BorderLayout.CENTER);
+       
+            JPanel PanBt = new JPanel(new FlowLayout());
+            mGUI.add(PanBt, BorderLayout.SOUTH);
+            JButton btOK = new JButton("OK");
+            btOK.addActionListener(e->{
+                //MainView main = new MainView();
+                //ManageInvoice manInv = new ManageInvoice();
+                //main.setVisible(false);
+                //main.run();
+                
+                dialog.setVisible(false);
+                setVisible(false);
+                //manInv.tblModelTT.setModel(new DefaultTableModel());
+            });
+            PanBt.add(btOK);
+       
+            dialog.setContentPane(mGUI);
+            dialog.pack();
+            dialog.setVisible(true);
+        }
+        
+    }//GEN-LAST:event_btThemActionPerformed
 
     /**
      * @param args the command line arguments

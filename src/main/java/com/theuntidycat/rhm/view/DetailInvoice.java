@@ -4,6 +4,8 @@
  */
 package com.theuntidycat.rhm.view;
 
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author TTMC
@@ -15,7 +17,8 @@ public class DetailInvoice extends javax.swing.JFrame {
      */
     public DetailInvoice() {
         initComponents();
-        Visible(true);
+        setVisible(true);
+        createTable();
     }
 
     /**
@@ -29,7 +32,7 @@ public class DetailInvoice extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tbDetail = new javax.swing.JTable();
         btThem = new javax.swing.JButton();
         btSua = new javax.swing.JButton();
         btXoa = new javax.swing.JButton();
@@ -37,13 +40,14 @@ public class DetailInvoice extends javax.swing.JFrame {
         txtPhong = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         txtKy = new javax.swing.JTextField();
+        btQL = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("CHI TIẾT HÓA ĐƠN");
 
         jPanel1.setToolTipText("CTHD");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tbDetail.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},
                 {null, null, null, null, null},
@@ -54,7 +58,7 @@ public class DetailInvoice extends javax.swing.JFrame {
                 "Loại hóa đơn", "Số lượng", "Đơn giá", "Đơn vị", "Thành tiền"
             }
         ));
-        jScrollPane2.setViewportView(jTable1);
+        jScrollPane2.setViewportView(tbDetail);
 
         btThem.setText("Thêm");
         btThem.addActionListener(new java.awt.event.ActionListener() {
@@ -88,6 +92,13 @@ public class DetailInvoice extends javax.swing.JFrame {
             }
         });
 
+        btQL.setText("Quay lại");
+        btQL.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btQLActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -98,23 +109,25 @@ public class DetailInvoice extends javax.swing.JFrame {
                         .addGap(0, 8, Short.MAX_VALUE)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 574, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(173, 173, 173)
-                        .addComponent(btThem)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btSua)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btXoa)
+                        .addGap(154, 154, 154)
+                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtPhong, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtKy, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(154, 154, 154)
-                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtPhong, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtKy, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(130, 130, 130)
+                .addComponent(btQL)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btThem)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btSua)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btXoa)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -132,7 +145,8 @@ public class DetailInvoice extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btThem)
                     .addComponent(btSua)
-                    .addComponent(btXoa))
+                    .addComponent(btXoa)
+                    .addComponent(btQL))
                 .addContainerGap())
         );
 
@@ -155,7 +169,15 @@ public class DetailInvoice extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    DefaultTableModel tblModelTT;
+    public void createTable()
+    {
+        tblModelTT = new DefaultTableModel();
+        String title[] = {"Loại Hóa Đơn", "Số lượng", "Đơn giá", "Đơn vụ", "Thành tiền"};
+        tblModelTT.setColumnIdentifiers(title);
+        tbDetail.setModel(tblModelTT);
+        setVisible(true);
+    }
     private void txtPhongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPhongActionPerformed
         // TODO add your handling code here:
         txtPhong.setEditable(false);
@@ -175,11 +197,19 @@ public class DetailInvoice extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btXoaActionPerformed
 
+    private void btQLActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btQLActionPerformed
+        // TODO add your handling code here:
+        ManageInvoice mgInv = new ManageInvoice();
+        setVisible(false);
+                
+    }//GEN-LAST:event_btQLActionPerformed
+
     /**
      * @param args the command line arguments
      */
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btQL;
     private javax.swing.JButton btSua;
     private javax.swing.JButton btThem;
     private javax.swing.JButton btXoa;
@@ -187,7 +217,7 @@ public class DetailInvoice extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable tbDetail;
     private javax.swing.JTextField txtKy;
     private javax.swing.JTextField txtPhong;
     // End of variables declaration//GEN-END:variables

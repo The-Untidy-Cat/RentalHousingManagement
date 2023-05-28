@@ -24,6 +24,10 @@ public class MainView extends javax.swing.JFrame {
         FlatLightLaf.setup();
         initComponents();
     }
+    
+    public void update(){
+        this.manageInvoice1.updateTable();
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
