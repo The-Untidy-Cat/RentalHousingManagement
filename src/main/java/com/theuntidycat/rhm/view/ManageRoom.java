@@ -20,40 +20,8 @@ public class ManageRoom extends javax.swing.JFrame {
     /**
      * Creates new form ManageRoom
      */
-    DefaultTableModel model;
-    String url ="jdbc:oracle:thin:@localhost:1521:orcl";
-    String user = "THEUNTIDYCAT";
-    String password = "theuntidycat";
     public ManageRoom(){
         initComponents();
-        taoTable();
-        setVisible(true);
-    }
-    public void taoTable(){
-        model = new DefaultTableModel();
-        String title[] = {"Mã phòng", "Tên phòng", "Sức chứa", "Loại phòng", "Diện tích", "Trạng thái"};
-        model.setColumnIdentifiers(title);
-        Connection con = null;
-        try{
-            String row[] = new String[6];
-            con = DriverManager.getConnection(url, user, password); 
-            String strSQL = "SELECT id, name, capacity, type_id, area, status_id FROM ROOM ORDER BY id";
-            Statement stat = con.createStatement();
-            ResultSet rs = stat.executeQuery(strSQL);
-            while(rs.next()){
-                row[0] = rs.getString(1);
-                row[1] = rs.getString(2);
-                row[2] = rs.getString(3);
-                row[3] = rs.getString(4);
-                row[4] = rs.getString(5);
-                row[5] = rs.getString(6);
-                model.addRow(row);
-            }
-        }
-        catch(SQLException e){
-            System.out.println(e);
-        }
-        jTable1.setModel(model);
         setVisible(true);
     }
 
@@ -74,8 +42,8 @@ public class ManageRoom extends javax.swing.JFrame {
         BtnXoa = new javax.swing.JButton();
         BtnSua = new javax.swing.JButton();
         searchPanel = new javax.swing.JPanel();
-        jComboBox2 = new javax.swing.JComboBox<>();
-        CBMaKH = new javax.swing.JComboBox<>();
+        CB2 = new javax.swing.JComboBox<>();
+        CB1 = new javax.swing.JComboBox<>();
         jButton3 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -125,16 +93,21 @@ public class ManageRoom extends javax.swing.JFrame {
 
         searchPanel.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 10, 10));
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        searchPanel.add(jComboBox2);
-
-        CBMaKH.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        CBMaKH.addActionListener(new java.awt.event.ActionListener() {
+        CB2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        CB2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                CBMaKHActionPerformed(evt);
+                CB2ActionPerformed(evt);
             }
         });
-        searchPanel.add(CBMaKH);
+        searchPanel.add(CB2);
+
+        CB1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        CB1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CB1ActionPerformed(evt);
+            }
+        });
+        searchPanel.add(CB1);
 
         jButton3.setText("Tìm");
         searchPanel.add(jButton3);
@@ -201,9 +174,13 @@ public class ManageRoom extends javax.swing.JFrame {
 
     }//GEN-LAST:event_BtnSuaActionPerformed
 
-    private void CBMaKHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CBMaKHActionPerformed
+    private void CB1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CB1ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_CBMaKHActionPerformed
+    }//GEN-LAST:event_CB1ActionPerformed
+
+    private void CB2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CB2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_CB2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -244,21 +221,12 @@ public class ManageRoom extends javax.swing.JFrame {
     private javax.swing.JButton BtnSua;
     private javax.swing.JButton BtnThem;
     private javax.swing.JButton BtnXoa;
-    private javax.swing.JComboBox<String> CBMaKH;
+    private javax.swing.JComboBox<String> CB1;
+    private javax.swing.JComboBox<String> CB2;
     private javax.swing.JPanel actionButtonPanel;
     private javax.swing.JButton jButton3;
-    private javax.swing.JComboBox<String> jComboBox2;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTable jTable2;
-    private javax.swing.JTable jTable3;
     private javax.swing.JTable jTable4;
     private javax.swing.JPanel searchPanel;
     // End of variables declaration//GEN-END:variables
