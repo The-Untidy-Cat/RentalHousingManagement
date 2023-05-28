@@ -4,6 +4,13 @@
  */
 package com.theuntidycat.rhm.view;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author TTMC
@@ -16,7 +23,6 @@ public class ManageInvoice extends javax.swing.JPanel {
     public ManageInvoice() {
         initComponents();
     }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

@@ -1,48 +1,43 @@
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package com.theuntidycat.rhm.view;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
  *
- * @author SHeroAnh
+ * @author Admin
  */
-public class ManageTenant extends javax.swing.JPanel {
+public class ManageRoom extends javax.swing.JFrame {
 
     /**
-     * Creates new form ManageTenant
+     * Creates new form ManageRoom
      */
     DefaultTableModel model;
     String url ="jdbc:oracle:thin:@localhost:1521:orcl";
     String user = "THEUNTIDYCAT";
     String password = "theuntidycat";
-    public ManageTenant(){
+    public ManageRoom(){
         initComponents();
         taoTable();
         setVisible(true);
     }
     public void taoTable(){
         model = new DefaultTableModel();
-        String title[] = {"Mã KH", "Tên KH", "Quê quán", "Ngày sinh", "SĐT", "CMND", "Email"};
+        String title[] = {"Mã phòng", "Tên phòng", "Sức chứa", "Loại phòng", "Diện tích", "Trạng thái"};
         model.setColumnIdentifiers(title);
         Connection con = null;
         try{
-            String row[] = new String[7];
+            String row[] = new String[6];
             con = DriverManager.getConnection(url, user, password); 
-            String strSQL = "SELECT id, name, Home_town, dob, phone_number, id_number, email FROM TENANT ORDER BY id";
+            String strSQL = "SELECT id, name, capacity, type_id, area, status_id FROM ROOM ORDER BY id";
             Statement stat = con.createStatement();
             ResultSet rs = stat.executeQuery(strSQL);
             while(rs.next()){
@@ -52,7 +47,6 @@ public class ManageTenant extends javax.swing.JPanel {
                 row[3] = rs.getString(4);
                 row[4] = rs.getString(5);
                 row[5] = rs.getString(6);
-                row[6] = rs.getString(7);
                 model.addRow(row);
             }
         }
@@ -62,6 +56,7 @@ public class ManageTenant extends javax.swing.JPanel {
         jTable1.setModel(model);
         setVisible(true);
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -71,8 +66,9 @@ public class ManageTenant extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jPanel4 = new javax.swing.JPanel();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        jTable4 = new javax.swing.JTable();
         actionButtonPanel = new javax.swing.JPanel();
         BtnThem = new javax.swing.JButton();
         BtnXoa = new javax.swing.JButton();
@@ -82,22 +78,24 @@ public class ManageTenant extends javax.swing.JPanel {
         CBMaKH = new javax.swing.JComboBox<>();
         jButton3 = new javax.swing.JButton();
 
-        jScrollPane1.setPreferredSize(new java.awt.Dimension(500, 285));
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jScrollPane4.setPreferredSize(new java.awt.Dimension(500, 285));
+
+        jTable4.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Mã KH", "Tên KH", "Quê quán", "Ngày sinh", "SĐT", "CMND", "Email"
+                "Mã phòng", "Tên phòng", "Sức chứa", "Loại phòng", "Diện tích", "Trạng thái"
             }
         ));
-        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+        jTable4.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jTable1MouseClicked(evt);
+                jTable4MouseClicked(evt);
             }
         });
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane4.setViewportView(jTable4);
 
         actionButtonPanel.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 10, 10));
 
@@ -141,104 +139,106 @@ public class ManageTenant extends javax.swing.JPanel {
         jButton3.setText("Tìm");
         searchPanel.add(jButton3);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(actionButtonPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(searchPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 500, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                 .addContainerGap())
         );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
                 .addComponent(searchPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
                 .addComponent(actionButtonPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 500, Short.MAX_VALUE)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 381, Short.MAX_VALUE)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
+        );
+
+        pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jTable4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable4MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTable4MouseClicked
 
     private void BtnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnThemActionPerformed
         // TODO add your handling code here:
-        InsertTenant1 insert = new InsertTenant1();
-        insert.setVisible(true);
+
     }//GEN-LAST:event_BtnThemActionPerformed
-
-    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
-        // TODO add your handling code here:
-
-    }//GEN-LAST:event_jTable1MouseClicked
 
     private void BtnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnXoaActionPerformed
         // TODO add your handling code here:
-        if(jTable1.getSelectedRowCount() == 1){
-            //delete
-            Connection con = null;
-            int row = jTable1.getSelectedRow();
-            int ret = JOptionPane.showConfirmDialog(null,"Bạn chắc chắc muốn xóa ?", "Xóa dữ liệu", JOptionPane.YES_NO_OPTION);
-            if (ret == JOptionPane.YES_OPTION){
-                String strSQL = "DELETE FROM TENANT WHERE id = ?";
-                try{
-                    DriverManager.registerDriver(new oracle.jdbc.OracleDriver());
-                    con = DriverManager.getConnection(url, user, password);
-                    PreparedStatement pres = con.prepareStatement(strSQL);
-                    String str = jTable1.getValueAt(row, 0).toString();
-                    pres.setString(1,  str);
-                    pres.executeUpdate();
-                    JOptionPane.showMessageDialog(this,"Xóa thông tin thành công");
-                    con.close();
-                }
-                catch(SQLException e){
-                    System.out.println(e);
-                }
-                if (row < jTable1.getRowCount() && row >= 0){
-                    model.removeRow(row);
-                }
-                setVisible(true);
-            }
-        }
-        //if it is not one row is selected (0 or > 1)
-        else{
-            if(jTable1.getSelectedRowCount() == 0){
-                JOptionPane.showMessageDialog(this, "Chọn một hàng dữ liệu để xóa");
-            }
-            else{
-                JOptionPane.showMessageDialog(this, "Chỉ chọn một hàng để xóa");
-
-            }
-        }
-
     }//GEN-LAST:event_BtnXoaActionPerformed
 
     private void BtnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnSuaActionPerformed
-        // TODO add your handling code here:
-        if(jTable1.getSelectedRowCount() != 1){
-            JOptionPane.showMessageDialog(this, "Chọn dòng dữ liệu muốn sửa.");
-        }
-        else{
-            int row = jTable1.getSelectedRow();
-            UpdateTenant ud = new UpdateTenant();        
-            ud.ten = model.getValueAt(row, 1).toString(); 
-            ud.quequan = model.getValueAt(row, 2).toString();
-            ud.dob = model.getValueAt(row, 3).toString();
-            ud.sdt = model.getValueAt(row, 4).toString();
-            ud.cmnd = model.getValueAt(row, 5).toString();
-            ud.email = model.getValueAt(row, 6).toString();
-            ud.id = model.getValueAt(row, 0).toString();
-            ud.setInformation();
-            ud.setVisible(true);
-        }
+
     }//GEN-LAST:event_BtnSuaActionPerformed
 
     private void CBMaKHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CBMaKHActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_CBMaKHActionPerformed
 
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(ManageRoom.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(ManageRoom.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(ManageRoom.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(ManageRoom.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new ManageRoom().setVisible(true);
+            }
+        });
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BtnSua;
@@ -248,8 +248,18 @@ public class ManageTenant extends javax.swing.JPanel {
     private javax.swing.JPanel actionButtonPanel;
     private javax.swing.JButton jButton3;
     private javax.swing.JComboBox<String> jComboBox2;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTable jTable1;
+    private javax.swing.JTable jTable2;
+    private javax.swing.JTable jTable3;
+    private javax.swing.JTable jTable4;
     private javax.swing.JPanel searchPanel;
     // End of variables declaration//GEN-END:variables
 }
