@@ -24,6 +24,10 @@ public class MainView extends javax.swing.JFrame {
         FlatLightLaf.setup();
         initComponents();
     }
+    
+    public void update(){
+        this.manageInvoice1.updateTable();
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -42,6 +46,7 @@ public class MainView extends javax.swing.JFrame {
         manageContract1 = new com.theuntidycat.rhm.view.ManageContract();
         manageInvoice1 = new com.theuntidycat.rhm.view.ManageInvoice();
         manageTenant1 = new com.theuntidycat.rhm.view.ManageTenant();
+        manageRoom1 = new com.theuntidycat.rhm.view.ManageRoom();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Rental Housing Management");
@@ -64,6 +69,7 @@ public class MainView extends javax.swing.JFrame {
         tabPanel.addTab("Hợp đồng", manageContract1);
         tabPanel.addTab("Hóa đơn", manageInvoice1);
         tabPanel.addTab("Khách thuê", manageTenant1);
+        tabPanel.addTab("Phòng", manageRoom1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -93,6 +99,7 @@ public class MainView extends javax.swing.JFrame {
     private javax.swing.JLabel lbWaitingTicketCount;
     private com.theuntidycat.rhm.view.ManageContract manageContract1;
     private com.theuntidycat.rhm.view.ManageInvoice manageInvoice1;
+    private com.theuntidycat.rhm.view.ManageRoom manageRoom1;
     private com.theuntidycat.rhm.view.ManageTenant manageTenant1;
     private com.theuntidycat.rhm.view.ReportView reportView1;
     private javax.swing.JTabbedPane tabPanel;

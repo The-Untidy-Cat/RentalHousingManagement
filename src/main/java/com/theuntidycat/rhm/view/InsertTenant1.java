@@ -20,10 +20,10 @@ public class InsertTenant1 extends javax.swing.JFrame {
     /**
      * Creates new form InsertTenant1
      */
-    DefaultTableModel model;
+      DefaultTableModel model;
     String url ="jdbc:oracle:thin:@localhost:1521:orcl";
-    String user = "DB";
-    String password = "1234";
+    String user = "THEUNTIDYCAT";
+    String password = "theuntidycat";
     public InsertTenant1() {
         model = new DefaultTableModel();
         initComponents();
@@ -285,7 +285,7 @@ public class InsertTenant1 extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
+    /*public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -310,12 +310,12 @@ public class InsertTenant1 extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
+        /*java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new InsertTenant1().setVisible(true);
             }
         });
-    }
+    }*/
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BtnThem;

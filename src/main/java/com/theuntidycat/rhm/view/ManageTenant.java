@@ -27,8 +27,8 @@ public class ManageTenant extends javax.swing.JPanel {
      */
     DefaultTableModel model;
     String url ="jdbc:oracle:thin:@localhost:1521:orcl";
-    String user = "DB";
-    String password = "1234";
+    String user = "THEUNTIDYCAT";
+    String password = "theuntidycat";
     public ManageTenant(){
         initComponents();
         taoTable();
@@ -89,7 +89,7 @@ public class ManageTenant extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Mã KH", "Tên KH", "Quê quán", "SĐT", "Email", "CMND"
+                "Mã KH", "Tên KH", "Quê quán", "Ngày sinh", "SĐT", "CMND", "Email"
             }
         ));
         jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -145,9 +145,8 @@ public class ManageTenant extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(actionButtonPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(searchPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 500, Short.MAX_VALUE))
+            .addComponent(actionButtonPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(searchPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 500, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
@@ -166,8 +165,8 @@ public class ManageTenant extends javax.swing.JPanel {
 
     private void BtnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnThemActionPerformed
         // TODO add your handling code here:
-        InsertTenant1 obj = new InsertTenant1();
-        obj.setVisible(true);
+        InsertTenant1 insert = new InsertTenant1();
+        insert.setVisible(true);
     }//GEN-LAST:event_BtnThemActionPerformed
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
@@ -218,8 +217,6 @@ public class ManageTenant extends javax.swing.JPanel {
 
     private void BtnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnSuaActionPerformed
         // TODO add your handling code here:
-        DateFormat df = new SimpleDateFormat();
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/mm/yyyy");
         if(jTable1.getSelectedRowCount() != 1){
             JOptionPane.showMessageDialog(this, "Chọn dòng dữ liệu muốn sửa.");
         }
