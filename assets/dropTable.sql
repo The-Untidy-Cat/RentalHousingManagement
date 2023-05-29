@@ -1,0 +1,17 @@
+drop table detail_contract;
+drop table detail_contract_status;
+drop table contract;
+drop table contract_status;
+drop table detail_invoice;
+drop table detail_invoice_type;
+drop table invoice;
+drop table invoice_status;
+drop table support_ticket;
+drop table support_ticket_status;
+drop table support_ticket_type;
+drop table tenant;
+drop table tenant_status;
+drop table room;
+drop table room_status;
+drop table room_type;
+drop table account;
