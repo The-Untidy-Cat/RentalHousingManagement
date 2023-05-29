@@ -19,6 +19,14 @@ public class DetailInvoice extends javax.swing.JFrame {
         initComponents();
         setVisible(true);
         createTable();
+        
+    }
+    
+    public void setTxt(String ph, String ky){
+        txtPhong.setText(ph);
+        txtPhong.setEditable(false);
+        txtKy.setText(ky);
+        txtKy.setEditable(false);
     }
 
     /**
@@ -41,6 +49,7 @@ public class DetailInvoice extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         txtKy = new javax.swing.JTextField();
         btQL = new javax.swing.JButton();
+        btRef = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("CHI TIẾT HÓA ĐƠN");
@@ -78,6 +87,7 @@ public class DetailInvoice extends javax.swing.JFrame {
 
         jLabel3.setText("Phòng");
 
+        txtPhong.setText("p");
         txtPhong.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtPhongActionPerformed(evt);
@@ -86,6 +96,7 @@ public class DetailInvoice extends javax.swing.JFrame {
 
         jLabel1.setText("Kỳ đóng tiền");
 
+        txtKy.setText("k");
         txtKy.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtKyActionPerformed(evt);
@@ -99,6 +110,8 @@ public class DetailInvoice extends javax.swing.JFrame {
             }
         });
 
+        btRef.setText("refresh");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -109,26 +122,29 @@ public class DetailInvoice extends javax.swing.JFrame {
                         .addGap(0, 8, Short.MAX_VALUE)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 574, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(154, 154, 154)
-                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtPhong, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtKy, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(130, 130, 130)
+                                .addComponent(btQL)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btThem)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btSua)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btXoa))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(98, 98, 98)
+                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtPhong, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtKy, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(28, 28, 28)
+                                .addComponent(btRef)))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(130, 130, 130)
-                .addComponent(btQL)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btThem)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btSua)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btXoa)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -138,9 +154,10 @@ public class DetailInvoice extends javax.swing.JFrame {
                     .addComponent(jLabel3)
                     .addComponent(txtPhong, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1)
-                    .addComponent(txtKy, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtKy, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btRef))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 298, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 297, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btThem)
@@ -173,19 +190,19 @@ public class DetailInvoice extends javax.swing.JFrame {
     public void createTable()
     {
         tblModelTT = new DefaultTableModel();
-        String title[] = {"Loại Hóa Đơn", "Số lượng", "Đơn giá", "Đơn vụ", "Thành tiền"};
+        String title[] = {"Loại Hóa Đơn", "Số lượng", "Đơn giá", "Đơn vị", "Thành tiền"};
         tblModelTT.setColumnIdentifiers(title);
         tbDetail.setModel(tblModelTT);
         setVisible(true);
     }
     private void txtPhongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPhongActionPerformed
         // TODO add your handling code here:
-        txtPhong.setEditable(false);
+        
     }//GEN-LAST:event_txtPhongActionPerformed
 
     private void txtKyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtKyActionPerformed
         // TODO add your handling code here:
-        txtKy.setEditable(false);
+        
     }//GEN-LAST:event_txtKyActionPerformed
 
     private void btThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btThemActionPerformed
@@ -210,6 +227,7 @@ public class DetailInvoice extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btQL;
+    private javax.swing.JButton btRef;
     private javax.swing.JButton btSua;
     private javax.swing.JButton btThem;
     private javax.swing.JButton btXoa;
@@ -222,7 +240,5 @@ public class DetailInvoice extends javax.swing.JFrame {
     private javax.swing.JTextField txtPhong;
     // End of variables declaration//GEN-END:variables
 
-    private void Visible(boolean b) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
+    
 }

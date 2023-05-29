@@ -49,6 +49,19 @@ public class ManageInvoiceController {
             System.out.println("Error at InvoiceController/insertInvoice\nError is: " + e);
             return false;
         }        
-    }    
+    }   
+    
+    public boolean deleteInvoice(String id){
+        try{
+            String deSQL = "DELETE FROM INVOICE WHERE ID = ?";
+            PreparedStatement pStat = conn.prepareStatement(deSQL);
+            pStat.setString(1,id);
+            int n = pStat.executeUpdate();
+            return true;
+        }catch(SQLException e){
+            System.out.println("Error at InvoiceController/deleteInvoice\nError is: " + e);
+            return false;
+        }
+    }
     
 }
