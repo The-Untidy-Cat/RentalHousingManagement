@@ -4,7 +4,7 @@ import java.sql.*;
 
 import io.github.cdimascio.dotenv.Dotenv;
 
-public class                                                                                                                                   Oracle {
+public class Oracle {
     Dotenv dotenv = Dotenv.load();
     private final String DB_URL = dotenv.get("DB_URL");
     private final String DB_USERNAME = dotenv.get("DB_USERNAME");
@@ -17,6 +17,7 @@ public class                                                                    
             conn = DriverManager.getConnection(DB_URL, DB_USERNAME, DB_PASSWORD);
             System.out.println("connect successfully!");
         } catch (Exception e) {
+            System.out.println("Error at Oracle/getConn");
             e.printStackTrace();
         }
         return conn;
