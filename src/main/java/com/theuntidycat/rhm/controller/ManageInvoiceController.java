@@ -18,11 +18,7 @@ public class ManageInvoiceController {
     public ResultSet getInvoices(){
         ResultSet rs = null;
         try{
-<<<<<<< HEAD
-            String sql = "SELECT INV.ID, MONTH, R.NAME, INV.TOTAL_MONEY, S.NAME FROM INVOICE INV, INVOICE_STATUS S, ROOM R WHERE INV.STATUS_ID = S.ID AND R.ID = INV.ROOM_ID ORDER BY INV.ID DESC";
-=======
             String sql = "SELECT INV.ID, MONTH || '/' || YEAR, R.NAME, INV.TOTAL_MONEY, S.NAME FROM INVOICE INV, INVOICE_STATUS S, ROOM R WHERE INV.STATUS_ID = S.ID AND INV.ROOM_ID = R.ID ORDER BY INV.ID DESC";
->>>>>>> 86e71b1647b3622de5b840f6e160223836af84fe
             Statement stat = conn.createStatement();
             rs = stat.executeQuery(sql);
         } catch(SQLException e){
