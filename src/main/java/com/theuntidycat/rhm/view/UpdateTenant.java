@@ -1,5 +1,6 @@
 package com.theuntidycat.rhm.view;
 
+import com.theuntidycat.rhm.controller.ManageTenantController;
 import java.sql.Connection;
 import java.sql.Date;
 import static java.sql.Date.valueOf;
@@ -33,14 +34,10 @@ public class UpdateTenant extends javax.swing.JFrame {
     public String sdt;
     public String id;
     public String txtID;
-    String url ="jdbc:oracle:thin:@localhost:1521:orcl";
-    String user = "DB";
-    String password = "1234";
-    DefaultTableModel model;
+    ManageTenantController ctrl = new ManageTenantController();
     public UpdateTenant() {
         initComponents();
         setVisible(true);
-        model = new DefaultTableModel();
     }
     public void setInformation(){
         txtTen.setText(ten);
@@ -259,59 +256,34 @@ public class UpdateTenant extends javax.swing.JFrame {
 
     private void txtQueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtQueActionPerformed
         // TODO add your handling code here
-        String s = txtQue.getText();
     }//GEN-LAST:event_txtQueActionPerformed
 
     private void txtDobActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDobActionPerformed
         // TODO add your handling code here:
-        String s = txtDob.getText();
     }//GEN-LAST:event_txtDobActionPerformed
 
     private void txtTenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTenActionPerformed
         // TODO add your handling code here:
-        String s = txtTen.getText();
     }//GEN-LAST:event_txtTenActionPerformed
 
     private void txtCmnd1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCmnd1ActionPerformed
         // TODO add your handling code here:
-        String s = txtCmnd1.getText();
     }//GEN-LAST:event_txtCmnd1ActionPerformed
 
     private void txtEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEmailActionPerformed
         // TODO add your handling code here:
-        String s = txtEmail.getText();
     }//GEN-LAST:event_txtEmailActionPerformed
 
     private void BtnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnUpdateActionPerformed
         // TODO add your handling code here:
-        Connection con = null;
-        int ret = JOptionPane.showConfirmDialog(null, "Bạn chắc chắn muốn sửa ?", "Sửa dữ liệu", JOptionPane.YES_NO_OPTION);
-        if (ret == JOptionPane.YES_OPTION){
-            String sql = "UPDATE TENANT SET name = ?, Home_Town = ?, dob = ?, Phone_Number = ?, Id_number = ?, email = ? WHERE id = ?";
-            try{
-                DriverManager.registerDriver(new oracle.jdbc.OracleDriver());
-                con = DriverManager.getConnection(url, user, password);
-                PreparedStatement pre = con.prepareStatement(sql);
-                pre.setString(1, txtTen.getText());
-                pre.setString(2, txtQue.getText());
-                pre.setString(3, txtDob.getText());
-                pre.setString(4, txtSdt.getText());
-                pre.setString(5, txtCmnd1.getText());
-                pre.setString(6, txtEmail.getText());
-                pre.setString(7, txtID);
-                pre.executeUpdate();
-                JOptionPane.showMessageDialog(this,"Cập nhật thông tin thành công");
-                con.close();
-            }
-            catch(Exception e){
-                System.out.println(e);
-            }
+        boolean check = ctrl.updateTenant(txtTen.getText(), txtQue.getText(), txtDob.getText(), txtSdt.getText(), txtCmnd1.getText(), txtEmail.getText(), txtID);
+        if(check){
+            JOptionPane.showMessageDialog(this, "Cập nhật thành công");
         }
     }//GEN-LAST:event_BtnUpdateActionPerformed
 
     private void txtSdtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSdtActionPerformed
         // TODO add your handling code here:
-        String s = txtSdt.getText();
     }//GEN-LAST:event_txtSdtActionPerformed
 
     /**

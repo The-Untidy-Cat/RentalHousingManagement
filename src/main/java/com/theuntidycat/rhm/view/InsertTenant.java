@@ -19,7 +19,7 @@ public class InsertTenant extends javax.swing.JFrame {
         initComponents();
         setVisible(true);    
     }
-
+    ManageTenantController ctrl = new ManageTenantController();
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -253,7 +253,6 @@ public class InsertTenant extends javax.swing.JFrame {
         String cmnd = txtCmnd.getText();
         String sdt = txtSdt.getText();
         
-        ManageTenantController ctrl = new ManageTenantController();
         boolean check = ctrl.insertTenant(ten, que, ntns, sdt, cmnd, email);
         if(check){
             JOptionPane.showMessageDialog(this, "Thêm thành công");
@@ -264,7 +263,10 @@ public class InsertTenant extends javax.swing.JFrame {
         // TODO add your handling code here:
         int ret = JOptionPane.showConfirmDialog(null, "Chắc chắn thoát ?","Thoát", JOptionPane.YES_NO_OPTION);
         if (ret == JOptionPane.YES_OPTION)
+        {
             setVisible(false);
+            
+        }
     }//GEN-LAST:event_BtnCancelActionPerformed
 
     /**

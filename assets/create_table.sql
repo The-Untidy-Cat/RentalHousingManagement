@@ -354,33 +354,13 @@ END;
 /
 
  ---------------TRIGGER UPDATE STATUS WHEN ADD NEW CHILD INVOICE---------------
-CREATE or replace PROCEDURE Up_inv(id_input in varchar2, moneyy in number)
-as
-    temp_total_money NUMBER;
-BEGIN
-    SELECT
-        SUM(sum_money)
-    INTO temp_total_money
-    FROM
-        detail_invoice
-    WHERE
-        invoice_id = id_input;
-        
-    temp_total_money := temp_total_money + moneyy;
-    
-    UPDATE invoice
-    SET
-        total_money = temp_total_money,
-        status_id = 0
-    WHERE
-        id = id_input;
-end;
-/
-CREATE OR REPLACE TRIGGER update_invoice before
+create or replace TRIGGER update_invoice after  
 INSERT ON detail_invoice   
-FOR EACH ROW    
+FOR EACH ROW
 BEGIN
-   Up_inv(:new.invoice_id, :new.sum_money);
+    update invoice
+    set total_money = total_money + :new.sum_money
+    where id = :new.invoice_id;
 END;
 /
 CREATE TABLE account (

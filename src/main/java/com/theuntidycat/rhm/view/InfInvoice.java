@@ -7,6 +7,8 @@ package com.theuntidycat.rhm.view;
 import com.theuntidycat.rhm.controller.ManageInvoiceController;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
@@ -23,6 +25,7 @@ public class InfInvoice extends javax.swing.JFrame {
     public InfInvoice() {
         initComponents();
         setVisible(true);
+        setCbbRoom();
     }
 
     /**
@@ -38,9 +41,9 @@ public class InfInvoice extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        CbbPhong = new javax.swing.JComboBox<>();
+        CbbRoom = new javax.swing.JComboBox<>();
         jLabel4 = new javax.swing.JLabel();
-        cbbThang = new javax.swing.JComboBox<>();
+        CbbThang = new javax.swing.JComboBox<>();
         jLabel5 = new javax.swing.JLabel();
         txtNam = new javax.swing.JTextField();
         btThem = new javax.swing.JButton();
@@ -56,19 +59,18 @@ public class InfInvoice extends javax.swing.JFrame {
 
         jLabel3.setText("Kỳ đóng");
 
-        CbbPhong.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "P101", "P102" }));
-        CbbPhong.addActionListener(new java.awt.event.ActionListener() {
+        CbbRoom.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                CbbPhongActionPerformed(evt);
+                CbbRoomActionPerformed(evt);
             }
         });
 
         jLabel4.setText("tháng");
 
-        cbbThang.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12" }));
-        cbbThang.addActionListener(new java.awt.event.ActionListener() {
+        CbbThang.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12" }));
+        CbbThang.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbbThangActionPerformed(evt);
+                CbbThangActionPerformed(evt);
             }
         });
 
@@ -105,7 +107,7 @@ public class InfInvoice extends javax.swing.JFrame {
                         .addGap(31, 31, 31)
                         .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cbbThang, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(CbbThang, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(27, 27, 27)
                         .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -113,7 +115,7 @@ public class InfInvoice extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel2)
                         .addGap(31, 31, 31)
-                        .addComponent(CbbPhong, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(CbbRoom, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(23, 23, 23))
         );
         jPanel1Layout.setVerticalGroup(
@@ -121,14 +123,14 @@ public class InfInvoice extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(32, 32, 32)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(CbbPhong, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(CbbRoom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
                 .addGap(27, 27, 27)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(jLabel5)
                     .addComponent(txtNam, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cbbThang, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(CbbThang, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -152,24 +154,67 @@ public class InfInvoice extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void cbbThangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbbThangActionPerformed
+    /*public void updateExisted(String room, String month, String year, String id){
+        CbbRoom.setSelectedItem(room);
+        CbbThang.setSelectedItem(month);
+        txtNam.setText(year);
+        
+        btThem.addActionListener(e->{
+            
+        });
+        ManageInvoiceController controller = new ManageInvoiceController();
+        boolean check = controller.updateInvoice(room, month, year, id);
+        if(check){
+            
+        }
+        
+    }*/
+    
+    public void setCbbRoom(){
+        try{
+            ManageInvoiceController controller = new ManageInvoiceController();
+            ResultSet rs = controller.getRooms_Contract();
+            while(rs.next()){
+                CbbRoom.addItem(rs.getString(1));
+            }
+        } catch(SQLException e){
+            System.out.println("Error at InforInvoice/setCbbRoom\nError: " + e);
+        }
+    }
+    private void CbbThangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CbbThangActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_cbbThangActionPerformed
+    }//GEN-LAST:event_CbbThangActionPerformed
 
-    private void CbbPhongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CbbPhongActionPerformed
+    private void CbbRoomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CbbRoomActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_CbbPhongActionPerformed
+    }//GEN-LAST:event_CbbRoomActionPerformed
 
     private void btQuayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btQuayActionPerformed
         // TODO add your handling code here:
         setVisible(false);
     }//GEN-LAST:event_btQuayActionPerformed
 
+    /*public void insertNew(){
+        String room = CbbRoom.getItemAt(CbbRoom.getSelectedIndex());
+        String month = CbbThang.getItemAt(CbbThang.getSelectedIndex());
+        String year = txtNam.getText();
+        
+        btThem.addActionListener(e->{
+            ManageInvoiceController controller = new ManageInvoiceController();
+            boolean check = controller.insertInvoice(room, month, year);
+            if(check){
+                JOptionPane.showMessageDialog(null, "Thêm thành công", "Xác nhận", JOptionPane.INFORMATION_MESSAGE);
+                setVisible(false);
+            }
+            else{
+                JOptionPane.showMessageDialog(null, "Thất bại", "Xác nhận", JOptionPane.ERROR_MESSAGE);
+            }
+        });
+    }*/
     private void btThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btThemActionPerformed
         // TODO add your handling code here:
-        String room = CbbPhong.getItemAt(CbbPhong.getSelectedIndex());
-        String month = cbbThang.getItemAt(cbbThang.getSelectedIndex());
+        String room = CbbRoom.getItemAt(CbbRoom.getSelectedIndex());
+        String month = CbbThang.getItemAt(CbbThang.getSelectedIndex());
         String year = txtNam.getText();
         
         ManageInvoiceController controller = new ManageInvoiceController();
@@ -200,7 +245,6 @@ public class InfInvoice extends javax.swing.JFrame {
             dialog.pack();
             dialog.setVisible(true);
         }
-        
     }//GEN-LAST:event_btThemActionPerformed
 
     /**
@@ -208,10 +252,10 @@ public class InfInvoice extends javax.swing.JFrame {
      */
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox<String> CbbPhong;
+    private javax.swing.JComboBox<String> CbbRoom;
+    private javax.swing.JComboBox<String> CbbThang;
     private javax.swing.JButton btQuay;
     private javax.swing.JButton btThem;
-    private javax.swing.JComboBox<String> cbbThang;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

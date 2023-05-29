@@ -4,8 +4,10 @@
  */
 package com.theuntidycat.rhm.view;
 import com.theuntidycat.rhm.controller.ManageTenantController;
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -18,11 +20,13 @@ public class ManageTenant extends javax.swing.JPanel {
      * Creates new form ManageTenant
      */
     DefaultTableModel model;
+    
     public ManageTenant(){
         initComponents();
         taoTable();
         capnhatTable();
     }
+    ManageTenantController ctrl = new ManageTenantController();
     public void taoTable(){
         model = new DefaultTableModel();
         String title[] = {"Mã KH", "Tên KH", "Quê quán", "Ngày sinh", "SĐT", "CMND", "Email"};
@@ -126,6 +130,11 @@ public class ManageTenant extends javax.swing.JPanel {
         searchPanel.add(CBMaKH);
 
         jButton3.setText("Tìm");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
         searchPanel.add(jButton3);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -163,17 +172,47 @@ public class ManageTenant extends javax.swing.JPanel {
 
     private void BtnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnXoaActionPerformed
         // TODO add your handling code here:
-
+        int row = jTable1.getSelectedRow();
+        int ret = JOptionPane.showConfirmDialog(null,"Bạn chắc chắc muốn xóa ?", "Xóa dữ liệu", JOptionPane.YES_NO_OPTION);
+        if (ret == JOptionPane.YES_OPTION){
+            String id = jTable1.getValueAt(row, 0).toString();
+            model.removeRow(row);
+            boolean check = ctrl.deleteTenant(id);
+            if(check){
+                JOptionPane.showMessageDialog(this, "Xóa thành công");
+            }
+        }
     }//GEN-LAST:event_BtnXoaActionPerformed
 
     private void BtnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnSuaActionPerformed
         // TODO add your handling code here:
-       
+       if(jTable1.getSelectedRowCount() != 1){
+            JOptionPane.showMessageDialog(this, "Chọn dòng dữ liệu muốn sửa.");
+        }
+        else{
+            int row = jTable1.getSelectedRow();
+            UpdateTenant update = new UpdateTenant();
+            update.ten = model.getValueAt(row, 1).toString(); 
+            update.quequan = model.getValueAt(row, 2).toString();
+            update.dob = model.getValueAt(row, 3).toString();
+            update.sdt = model.getValueAt(row, 4).toString();
+            update.cmnd = model.getValueAt(row, 5).toString();
+            update.email = model.getValueAt(row, 6).toString();
+            update.id = model.getValueAt(row, 0).toString();
+            update.setInformation();
+            update.setVisible(true);
+        }
     }//GEN-LAST:event_BtnSuaActionPerformed
 
     private void CBMaKHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CBMaKHActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_CBMaKHActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+        model.setRowCount(0);
+        capnhatTable();
+    }//GEN-LAST:event_jButton3ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
