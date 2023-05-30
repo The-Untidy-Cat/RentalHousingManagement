@@ -360,8 +360,9 @@ INSERT ON detail_invoice
 FOR EACH ROW
 BEGIN
     update invoice
-    set total_money = total_money + :new.sum_money,
-        status_id = 0;
+    set 
+		total_money = total_money + :new.sum_money,
+        status_id = 0
     where id = :new.invoice_id;
 END;
 /
