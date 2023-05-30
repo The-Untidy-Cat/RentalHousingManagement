@@ -1,5 +1,6 @@
 package com.theuntidycat.rhm.view;
 
+import com.theuntidycat.rhm.controller.ManageTenantController;
 import java.sql.Connection;
 import java.sql.Date;
 import static java.sql.Date.valueOf;
@@ -33,14 +34,10 @@ public class UpdateTenant extends javax.swing.JFrame {
     public String sdt;
     public String id;
     public String txtID;
-    String url ="jdbc:oracle:thin:@localhost:1521:orcl";
-    String user = "DB";
-    String password = "1234";
-    DefaultTableModel model;
+    ManageTenantController ctrl = new ManageTenantController();
     public UpdateTenant() {
         initComponents();
         setVisible(true);
-        model = new DefaultTableModel();
     }
     public void setInformation(){
         txtTen.setText(ten);
@@ -75,7 +72,7 @@ public class UpdateTenant extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         txtEmail = new javax.swing.JTextField();
         jPanel1 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
+        BtnCancel = new javax.swing.JButton();
         BtnUpdate = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -202,8 +199,13 @@ public class UpdateTenant extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jButton1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jButton1.setText("Cancel");
+        BtnCancel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        BtnCancel.setText("Cancel");
+        BtnCancel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnCancelActionPerformed(evt);
+            }
+        });
 
         BtnUpdate.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         BtnUpdate.setText("Cập nhật");
@@ -220,7 +222,7 @@ public class UpdateTenant extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(87, 87, 87)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(BtnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(BtnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(84, 84, 84))
@@ -231,7 +233,7 @@ public class UpdateTenant extends javax.swing.JFrame {
                 .addContainerGap(19, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(BtnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(BtnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18))
         );
 
@@ -259,60 +261,44 @@ public class UpdateTenant extends javax.swing.JFrame {
 
     private void txtQueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtQueActionPerformed
         // TODO add your handling code here
-        String s = txtQue.getText();
     }//GEN-LAST:event_txtQueActionPerformed
 
     private void txtDobActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDobActionPerformed
         // TODO add your handling code here:
-        String s = txtDob.getText();
     }//GEN-LAST:event_txtDobActionPerformed
 
     private void txtTenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTenActionPerformed
         // TODO add your handling code here:
-        String s = txtTen.getText();
     }//GEN-LAST:event_txtTenActionPerformed
 
     private void txtCmnd1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCmnd1ActionPerformed
         // TODO add your handling code here:
-        String s = txtCmnd1.getText();
     }//GEN-LAST:event_txtCmnd1ActionPerformed
 
     private void txtEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEmailActionPerformed
         // TODO add your handling code here:
-        String s = txtEmail.getText();
     }//GEN-LAST:event_txtEmailActionPerformed
 
     private void BtnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnUpdateActionPerformed
         // TODO add your handling code here:
-        Connection con = null;
-        int ret = JOptionPane.showConfirmDialog(null, "Bạn chắc chắn muốn sửa ?", "Sửa dữ liệu", JOptionPane.YES_NO_OPTION);
-        if (ret == JOptionPane.YES_OPTION){
-            String sql = "UPDATE TENANT SET name = ?, Home_Town = ?, dob = ?, Phone_Number = ?, Id_number = ?, email = ? WHERE id = ?";
-            try{
-                DriverManager.registerDriver(new oracle.jdbc.OracleDriver());
-                con = DriverManager.getConnection(url, user, password);
-                PreparedStatement pre = con.prepareStatement(sql);
-                pre.setString(1, txtTen.getText());
-                pre.setString(2, txtQue.getText());
-                pre.setString(3, txtDob.getText());
-                pre.setString(4, txtSdt.getText());
-                pre.setString(5, txtCmnd1.getText());
-                pre.setString(6, txtEmail.getText());
-                pre.setString(7, txtID);
-                pre.executeUpdate();
-                JOptionPane.showMessageDialog(this,"Cập nhật thông tin thành công");
-                con.close();
-            }
-            catch(Exception e){
-                System.out.println(e);
-            }
+        boolean check = ctrl.updateTenant(txtTen.getText(), txtQue.getText(), txtDob.getText(), txtSdt.getText(), txtCmnd1.getText(), txtEmail.getText(), txtID);
+        if(check){
+            JOptionPane.showMessageDialog(this, "Cập nhật thành công");
         }
     }//GEN-LAST:event_BtnUpdateActionPerformed
 
     private void txtSdtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSdtActionPerformed
         // TODO add your handling code here:
-        String s = txtSdt.getText();
     }//GEN-LAST:event_txtSdtActionPerformed
+
+    private void BtnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnCancelActionPerformed
+        // TODO add your handling code here:
+        int ret = JOptionPane.showConfirmDialog(null, "Chắc chắn thoát ?","Thoát", JOptionPane.YES_NO_OPTION);
+        if (ret == JOptionPane.YES_OPTION)
+        {
+            dispose();
+        }
+    }//GEN-LAST:event_BtnCancelActionPerformed
 
     /**
      * @param args the command line arguments
@@ -350,8 +336,8 @@ public class UpdateTenant extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton BtnCancel;
     private javax.swing.JButton BtnUpdate;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

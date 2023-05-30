@@ -4,31 +4,23 @@
  */
 package com.theuntidycat.rhm.view;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import com.theuntidycat.rhm.controller.ManageTenantController;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-
 /**
  *
  * @author Admin
  */
-public class InsertTenant1 extends javax.swing.JFrame {
+public class InsertTenant extends javax.swing.JFrame {
 
     /**
-     * Creates new form InsertTenant1
+     * Creates new form InsertTenant
      */
-      DefaultTableModel model;
-    String url ="jdbc:oracle:thin:@localhost:1521:orcl";
-    String user = "THEUNTIDYCAT";
-    String password = "theuntidycat";
-    public InsertTenant1() {
-        model = new DefaultTableModel();
+    public InsertTenant() {
         initComponents();
-        setVisible(true);    }
-
+        setVisible(true);    
+    }
+    ManageTenantController ctrl = new ManageTenantController();
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -52,7 +44,7 @@ public class InsertTenant1 extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         txtEmail1 = new javax.swing.JTextField();
         jPanel3 = new javax.swing.JPanel();
-        jButton2 = new javax.swing.JButton();
+        BtnCancel = new javax.swing.JButton();
         BtnThem = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -173,8 +165,13 @@ public class InsertTenant1 extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jButton2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jButton2.setText("Cancel");
+        BtnCancel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        BtnCancel.setText("Cancel");
+        BtnCancel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnCancelActionPerformed(evt);
+            }
+        });
 
         BtnThem.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         BtnThem.setText("Thêm");
@@ -191,7 +188,7 @@ public class InsertTenant1 extends javax.swing.JFrame {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(87, 87, 87)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(BtnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(BtnThem, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(84, 84, 84))
@@ -199,10 +196,10 @@ public class InsertTenant1 extends javax.swing.JFrame {
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap(19, Short.MAX_VALUE)
+                .addContainerGap(13, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(BtnThem, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(BtnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18))
         );
 
@@ -210,21 +207,19 @@ public class InsertTenant1 extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         pack();
@@ -252,40 +247,32 @@ public class InsertTenant1 extends javax.swing.JFrame {
 
     private void BtnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnThemActionPerformed
         // TODO add your handling code here:
-        String row[] = new String[6];
-        row[0] = txtTen.getText();
-        row[1] = txtQue.getText();
-        row[2] = txtDob.getText();
-        row[3] = txtSdt.getText();
-        row[4] = txtCmnd.getText();
-        row[5] = txtEmail1.getText();
-        model.addRow(row);
-        Connection con = null; 
-        String strSql = "INSERT INTO TENANT (name, Home_Town, dob, Phone_Number, ID_Number, Email) VALUES (?,?,?,?,?,?)";
-        try{
-            DriverManager.registerDriver(new oracle.jdbc.OracleDriver());
-            con = DriverManager.getConnection(url, user, password);
-            PreparedStatement ps = con.prepareStatement(strSql);
-            ps.setString(1, txtTen.getText());
-            ps.setString(2, txtQue.getText());
-            ps.setString(3, txtDob.getText());
-            ps.setString(4, txtSdt.getText());
-            ps.setString(5, txtEmail1.getText());
-            ps.setString(6, txtCmnd.getText());
-            ps.executeUpdate();               
-            JOptionPane.showMessageDialog(this,"Thêm thông tin thành công");
-            con.close();
-        }
-        catch(SQLException e){
-            System.out.println(e);
-            System.out.println("Error. Moi nhap lai.");
+        String ten = txtTen.getText();
+        String que = txtQue.getText();
+        String ntns = txtDob.getText();
+        String email = txtEmail1.getText();
+        String cmnd = txtCmnd.getText();
+        String sdt = txtSdt.getText();
+        
+        boolean check = ctrl.insertTenant(ten, que, ntns, sdt, cmnd, email);
+        if(check){
+            JOptionPane.showMessageDialog(this, "Thêm thành công");
         }
     }//GEN-LAST:event_BtnThemActionPerformed
+
+    private void BtnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnCancelActionPerformed
+        // TODO add your handling code here:
+        int ret = JOptionPane.showConfirmDialog(null, "Chắc chắn thoát ?","Thoát", JOptionPane.YES_NO_OPTION);
+        if (ret == JOptionPane.YES_OPTION)
+        {
+            dispose();
+        }
+    }//GEN-LAST:event_BtnCancelActionPerformed
 
     /**
      * @param args the command line arguments
      */
-    /*public static void main(String args[]) {
+    public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -299,36 +286,28 @@ public class InsertTenant1 extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(InsertTenant1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(InsertTenant.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(InsertTenant1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(InsertTenant.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(InsertTenant1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(InsertTenant.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(InsertTenant1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(InsertTenant.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
-        /*java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new InsertTenant1().setVisible(true);
-            }
-        });
-    }*/
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton BtnCancel;
     private javax.swing.JButton BtnThem;
-    private javax.swing.JButton BtnUpdate;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JTextField txtCmnd;
