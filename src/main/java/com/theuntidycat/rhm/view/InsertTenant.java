@@ -6,6 +6,7 @@ package com.theuntidycat.rhm.view;
 
 import com.theuntidycat.rhm.controller.ManageTenantController;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 /**
  *
  * @author Admin
@@ -264,8 +265,7 @@ public class InsertTenant extends javax.swing.JFrame {
         int ret = JOptionPane.showConfirmDialog(null, "Chắc chắn thoát ?","Thoát", JOptionPane.YES_NO_OPTION);
         if (ret == JOptionPane.YES_OPTION)
         {
-            setVisible(false);
-            
+            dispose();
         }
     }//GEN-LAST:event_BtnCancelActionPerformed
 

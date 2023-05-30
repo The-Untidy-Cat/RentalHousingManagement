@@ -27,6 +27,7 @@ public class ManageTenant extends javax.swing.JPanel {
         capnhatTable();
     }
     ManageTenantController ctrl = new ManageTenantController();
+    ResultSet rs = null;
     public void taoTable(){
         model = new DefaultTableModel();
         String title[] = {"Mã KH", "Tên KH", "Quê quán", "Ngày sinh", "SĐT", "CMND", "Email"};
@@ -36,8 +37,7 @@ public class ManageTenant extends javax.swing.JPanel {
     }
     public void capnhatTable(){
         try{
-            ManageTenantController controller = new ManageTenantController();
-            ResultSet rs = controller.getListOfTenant();
+            rs = ctrl.getListOfTenant();
             while(rs.next()){
                 String arr[] = new String[7];
                 arr[0] = rs.getString(1);
@@ -72,6 +72,7 @@ public class ManageTenant extends javax.swing.JPanel {
         jComboBox2 = new javax.swing.JComboBox<>();
         CBMaKH = new javax.swing.JComboBox<>();
         jButton3 = new javax.swing.JButton();
+        BtnReload = new javax.swing.JButton();
 
         jScrollPane1.setPreferredSize(new java.awt.Dimension(500, 285));
 
@@ -136,6 +137,14 @@ public class ManageTenant extends javax.swing.JPanel {
             }
         });
         searchPanel.add(jButton3);
+
+        BtnReload.setText("Refresh");
+        BtnReload.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnReloadActionPerformed(evt);
+            }
+        });
+        searchPanel.add(BtnReload);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -210,12 +219,18 @@ public class ManageTenant extends javax.swing.JPanel {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
+        
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void BtnReloadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnReloadActionPerformed
+        // TODO add your handling code here:
         model.setRowCount(0);
         capnhatTable();
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_BtnReloadActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton BtnReload;
     private javax.swing.JButton BtnSua;
     private javax.swing.JButton BtnThem;
     private javax.swing.JButton BtnXoa;
