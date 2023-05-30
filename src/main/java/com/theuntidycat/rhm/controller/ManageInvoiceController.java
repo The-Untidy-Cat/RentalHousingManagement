@@ -5,6 +5,7 @@
 package com.theuntidycat.rhm.controller;
 
 import com.theuntidycat.rhm.database.Oracle;
+import com.theuntidycat.rhm.model.*;
 import java.sql.*;
 
 /**
@@ -18,7 +19,7 @@ public class ManageInvoiceController {
     public ResultSet getInvoices(){
         ResultSet rs = null;
         try{
-            String sql = "SELECT INV.ID, MONTH || '/' || YEAR, R.NAME, INV.TOTAL_MONEY, S.NAME FROM INVOICE INV, INVOICE_STATUS S, ROOM R WHERE INV.STATUS_ID = S.ID AND INV.ROOM_ID = R.ID ORDER BY INV.ID DESC";
+            String sql = "SELECT INV.ID, MONTH || '/' || YEAR, R.NAME, INV.TOTAL_MONEY, S.NAME, MONEY_PAID FROM INVOICE INV, INVOICE_STATUS S, ROOM R WHERE INV.STATUS_ID = S.ID AND INV.ROOM_ID = R.ID ORDER BY INV.ID DESC";
             Statement stat = conn.createStatement();
             rs = stat.executeQuery(sql);
         } catch(SQLException e){
@@ -26,18 +27,65 @@ public class ManageInvoiceController {
         }
         return rs;
     }
-    
-    public boolean insertInvoice(String name, String mm, String yy){
+           
+    public String getRoomID(String name){
+        String id = null;
         try{
-            String id = null;
             String getID = "SELECT ID FROM ROOM WHERE NAME = ?";
             PreparedStatement psta = conn.prepareStatement(getID);
             psta.setString(1,name);
-            ResultSet rs = psta.executeQuery();
-            if(rs.next()){
-                id = rs.getString(1);
+            ResultSet rs1 = psta.executeQuery();
+            if(rs1.next()){
+                id = rs1.getString(1);
             }
-            
+        }catch(SQLException e){
+            System.out.println("Error at ManageInvoiceController/filterInvoices/getRoomID\nError: " + e);
+        }
+        return id;
+    }
+    
+    public ResultSet filterInvoices(String room, String per){
+        String id = null;        
+        if(!room.equals("Tất cả")){
+            id = getRoomID(room);
+        }
+        String[] ky = null;
+        if(!per.equals("Tất cả")){
+            ky = per.split("/");
+        }
+        
+        ResultSet rs = null;
+        try{
+            if(!room.equals("Tất cả") && per.equals("Tất cả")){
+                String sql = "SELECT INV.ID, MONTH || '/' || YEAR, R.NAME, INV.TOTAL_MONEY, S.NAME FROM INVOICE INV, INVOICE_STATUS S, ROOM R WHERE INV.STATUS_ID = S.ID AND INV.ROOM_ID = R.ID AND ROOM_ID =? ORDER BY INV.ID DESC";
+                PreparedStatement pstat = conn.prepareStatement(sql);
+                pstat.setString(1,id);
+                rs = pstat.executeQuery();
+            }
+            else if(room.equals("Tất cả") && !per.equals("Tất cả")){
+                String sql = "SELECT INV.ID, MONTH || '/' || YEAR, R.NAME, INV.TOTAL_MONEY, S.NAME FROM INVOICE INV, INVOICE_STATUS S, ROOM R WHERE INV.STATUS_ID = S.ID AND INV.ROOM_ID = R.ID AND INV.MONTH = ? AND INV.YEAR = ? ORDER BY INV.ID DESC";
+                PreparedStatement pstat = conn.prepareStatement(sql);
+                pstat.setString(1,ky[0]);
+                pstat.setString(2,ky[1]);
+                rs = pstat.executeQuery();
+            }
+            else{
+                String sql = "SELECT INV.ID, MONTH || '/' || YEAR, R.NAME, INV.TOTAL_MONEY, S.NAME FROM INVOICE INV, INVOICE_STATUS S, ROOM R WHERE INV.STATUS_ID = S.ID AND INV.ROOM_ID = R.ID AND ROOM_ID = ? AND INV.MONTH = ? AND INV.YEAR = ? ORDER BY INV.ID DESC";
+                PreparedStatement pstat = conn.prepareStatement(sql);
+                pstat.setString(1,id);
+                pstat.setString(2,ky[0]);
+                pstat.setString(3,ky[1]);
+                rs = pstat.executeQuery();
+            } 
+        } catch(SQLException e){
+            System.out.println("Error at ManageInvoiceController/filterInvoices");
+        }
+        return rs;
+    }
+    
+    public boolean insertInvoice(String name, String mm, String yy){
+        String id = getRoomID(name);
+        try{            
             String SQLins = "INSERT INTO INVOICE(ROOM_ID, MONTH, YEAR) VALUES (?,?,?)";
             PreparedStatement pIns = conn.prepareStatement(SQLins);
             pIns.setString(1, id);
@@ -65,23 +113,16 @@ public class ManageInvoiceController {
         }
     }
     
-    public boolean updateInvoice(String name, String mm, String yy, String id){
+    public boolean updateInvoice(String name, String mm, String yy, String id, String S_id){
+        String r_id = getRoomID(name);
         try{
-            String r_id = null;
-            String getRoomid = "SELECT ID FROM ROOM WHERE NAME = ?";
-            PreparedStatement pstat = conn.prepareStatement(getRoomid);
-            pstat.setString(1, name);
-            ResultSet rs = pstat.executeQuery();
-            while(rs.next()){
-                r_id = rs.getString(1);
-            }
-            
-            String upSQL = "UPDATE INVOICE SET ROOM_ID = ?, MONTH = ?, YEAR = ? WHERE ID = ?";
+            String upSQL = "UPDATE INVOICE SET ROOM_ID = ?, MONTH = ?, YEAR = ?, STATUS_ID = ? WHERE ID = ?";
             PreparedStatement pStat = conn.prepareStatement(upSQL);
             pStat.setString(1,r_id);
             pStat.setString(2,mm);
             pStat.setString(3,yy);
-            pStat.setString(4,id);
+            pStat.setString(4,S_id);
+            pStat.setString(5,id);
             int n = pStat.executeUpdate();
             return true;
         }catch(SQLException e){
@@ -117,7 +158,7 @@ public class ManageInvoiceController {
     public ResultSet getRooms_Contract(){
         ResultSet rs = null;
         try{
-            String sql = "SELECT DISTINCT R.NAME FROM CONTRACT CO join ROOM R on CO.ROOM_ID = R.ID AND CO.STATUS_ID = 1";
+            String sql = "SELECT DISTINCT R.NAME FROM CONTRACT CO join ROOM R on CO.ROOM_ID = R.ID WHERE CO.STATUS_ID = 1";
             Statement stat = conn.createStatement();
             rs = stat.executeQuery(sql);
         } catch(SQLException e){
@@ -126,4 +167,95 @@ public class ManageInvoiceController {
         return rs;
     }
     
+    public ResultSet  getDetailInvoices(String id){
+        ResultSet rs = null;
+        try{
+            String sql = "SELECT T.NAME, QUANTITY, UNIT_PRICE, T.UNIT, SUM_MONEY FROM DETAIL_INVOICE D JOIN DETAIL_INVOICE_TYPE T ON D.TYPE_ID = T.ID WHERE D.INVOICE_ID = ? ORDER BY D.TYPE_ID";
+            PreparedStatement stat = conn.prepareStatement(sql);
+            stat.setString(1,id);
+            rs = stat.executeQuery();
+        } catch(SQLException e){
+            System.out.println("Error at ManageInvoiceController/getDetialInvoices");
+        }
+        return rs;
+    }
+    
+    public ResultSet getTypeInv(){
+        ResultSet rs = null;
+        try{
+            String sql = "SELECT NAME FROM DETAIL_INVOICE_TYPE";
+            Statement stat = conn.createStatement();
+            rs = stat.executeQuery(sql);
+        } catch(SQLException e){
+            System.out.println("Error at ManageInvoiceController/getRooms\n" + e);
+        }
+        return rs;
+    }
+    
+    public String getTypeID(String name){
+        String id = null;
+        try{
+            String getID = "SELECT ID FROM DETAIL_INVOICE_TYPE WHERE NAME = ?";
+            PreparedStatement psta = conn.prepareStatement(getID);
+            psta.setString(1,name);
+            ResultSet rs1 = psta.executeQuery();
+            if(rs1.next()){
+                id = rs1.getString(1);
+            }
+        }catch(SQLException e){
+            System.out.println("Error at ManageInvoiceController/getTypeID\nError: " + e);
+        }
+        return id;
+    }
+    
+    public boolean InsertDetailInv(String id, String loai, String sl, String dg){
+        String type = getTypeID(loai);
+        try{            
+            String SQLins = "INSERT INTO DETAIL_INVOICE(INVOICE_ID, TYPE_ID, QUANTITY, UNIT_PRICE) VALUES (?,?,?,?)";
+            PreparedStatement pIns = conn.prepareStatement(SQLins);
+            pIns.setString(1, id);
+            pIns.setString(2, type);
+            pIns.setString(3, sl);
+            pIns.setString(4, dg);
+            int n = pIns.executeUpdate();
+            return true;
+            
+        } catch(SQLException e){
+            System.out.println("Error at InvoiceController/insertInvoice\nError is: " + e);
+            return false;
+        }     
+    }
+    
+    public boolean updateDetail(String id, String loai, String sl, String dg){
+        String t_id = getTypeID(loai);
+        try{
+            String upSQL = "UPDATE DETAIL_INVOICE SET QUANTITY = ?, UNIT_PRICE = ? WHERE INVOICE_ID = ? AND TYPE_ID = ?";
+            PreparedStatement pStat = conn.prepareStatement(upSQL);
+            pStat.setString(1,sl);
+            pStat.setString(2,dg);
+            pStat.setString(3,id);
+            pStat.setString(4,t_id);
+            
+            int n = pStat.executeUpdate();
+            return true;
+        }catch(SQLException e){
+            System.out.println("Error at InvoiceController/updateDetailInvoice\nError is: " + e);
+            return false;
+        }
+    }
+    
+    public boolean deleteDetailInvoice(String id, String loai){
+        String t_id = getTypeID(loai);
+        try{
+            String deSQL = "DELETE FROM DETAIL_INVOICE WHERE INVOICE_ID = ? AND TYPE_ID = ?";
+            PreparedStatement pStat = conn.prepareStatement(deSQL);
+            pStat.setString(1,id);
+            pStat.setString(2,t_id);
+            int n = pStat.executeUpdate();
+            return true;
+        }catch(SQLException e){
+            System.out.println("Error at InvoiceController/deleteDetailInvoice\nError is: " + e);
+            return false;
+        }
+    }
 }

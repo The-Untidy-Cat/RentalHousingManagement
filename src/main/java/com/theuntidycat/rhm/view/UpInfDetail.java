@@ -5,23 +5,20 @@
 package com.theuntidycat.rhm.view;
 
 import com.theuntidycat.rhm.controller.ManageInvoiceController;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import javax.swing.JOptionPane;
 
 /**
  *
  * @author TTMC
  */
-public class InfDetail extends javax.swing.JFrame {
+public class UpInfDetail extends javax.swing.JFrame {
 
     /**
-     * Creates new form InfDetail
+     * Creates new form UpInfDetail
      */
-    public InfDetail() {
+    public UpInfDetail() {
         initComponents();
         setVisible(true);
-        setCbbRoom();
         setLocationRelativeTo(null);
     }
 
@@ -38,7 +35,6 @@ public class InfDetail extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        CbbLoai = new javax.swing.JComboBox<>();
         txtDG = new javax.swing.JTextField();
         txtSL = new javax.swing.JTextField();
         btThem = new javax.swing.JButton();
@@ -46,21 +42,15 @@ public class InfDetail extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         txtID = new javax.swing.JTextField();
+        txtloai = new javax.swing.JTextField();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("THÔNG TIN CTHD");
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setText("Loại hóa đơn");
 
-        jLabel2.setText("Đơn giá");
+        jLabel2.setText("Số lượng");
 
-        jLabel3.setText("Số lượng");
-
-        CbbLoai.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                CbbLoaiActionPerformed(evt);
-            }
-        });
+        jLabel3.setText("Đơn giá");
 
         txtDG.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -102,18 +92,18 @@ public class InfDetail extends javax.swing.JFrame {
                             .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(CbbLoai, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(txtDG, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(22, 22, 22)
                                 .addComponent(jLabel3)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtSL, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE))))
+                                .addComponent(txtSL, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtloai)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtID)))
-                .addContainerGap(12, Short.MAX_VALUE))
+                .addContainerGap(18, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -127,7 +117,7 @@ public class InfDetail extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(CbbLoai, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtloai, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
@@ -154,48 +144,37 @@ public class InfDetail extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    public void setCbbRoom(){
-        try{
-            ManageInvoiceController controller = new ManageInvoiceController();
-            ResultSet rs = controller.getTypeInv();
-            while(rs.next()){
-                CbbLoai.addItem(rs.getString(1));
-            }
-        } catch(SQLException e){
-            System.out.println("Error at InforInvoice/setCbbRoom\nError: " + e);
-        }
+    public void displayExisted(String id, String type, String sl, String dg){
+        txtID.setText(id);
+        txtID.setEditable(false);
+        txtloai.setText(type);
+        txtloai.setEditable(false);
+        txtSL.setText(sl);
+        txtDG.setText(dg);
+        
+        
     }
-    private void CbbLoaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CbbLoaiActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_CbbLoaiActionPerformed
-
     private void txtDGActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDGActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtDGActionPerformed
 
-    public void displayID(String id){
-        txtID.setText(id);
-        txtID.setEditable(false);
-    }
-    
     private void btThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btThemActionPerformed
         // TODO add your handling code here:
         String id = txtID.getText();
-        String loai = CbbLoai.getItemAt(CbbLoai.getSelectedIndex());
-        String sl = txtSL.getText();
+        String loai = txtloai.getText();
+       String sl = txtSL.getText();
         String dg = txtDG.getText();
-        
+
         ManageInvoiceController controller = new ManageInvoiceController();
-        boolean check = controller.InsertDetailInv(id, loai, sl, dg);
-        
+        boolean check = controller.updateDetail(id, loai, sl, dg);
+
         if(check){
-                JOptionPane.showMessageDialog(null, "Thêm thành công", "Xác nhận", JOptionPane.INFORMATION_MESSAGE);
-                setVisible(false);
-            }
-            else{
-                JOptionPane.showMessageDialog(null, "Trùng thông tin với chi tiết hóa đơn khác. Vui lòng nhập lại", "Xác nhận", JOptionPane.ERROR_MESSAGE);
-            }
+            JOptionPane.showMessageDialog(null, "Thêm thành công", "Xác nhận", JOptionPane.INFORMATION_MESSAGE);
+            setVisible(false);
+        }
+        else{
+            JOptionPane.showMessageDialog(null, "Trùng thông tin với chi tiết hóa đơn khác. Vui lòng nhập lại", "Xác nhận", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_btThemActionPerformed
 
     private void btQuayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btQuayActionPerformed
@@ -220,5 +199,6 @@ public class InfDetail extends javax.swing.JFrame {
     private javax.swing.JTextField txtDG;
     private javax.swing.JTextField txtID;
     private javax.swing.JTextField txtSL;
+    private javax.swing.JTextField txtloai;
     // End of variables declaration//GEN-END:variables
 }

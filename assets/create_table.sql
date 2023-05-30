@@ -146,6 +146,7 @@ CREATE TABLE invoice (
     status_id   NUMBER(1, 0) DEFAULT 0,
     created_date    DATE DEFAULT SYSDATE,
     modified_date   DATE DEFAULT NULL,
+    money_paid  NUMBER DEFAULT 0,
     CONSTRAINT invoice_room_id_fk FOREIGN KEY ( room_id )
         REFERENCES room ( id ),
     CONSTRAINT invoice_status_id_fk FOREIGN KEY ( status_id )
@@ -353,16 +354,53 @@ BEGIN
 END;
 /
 
- ---------------TRIGGER UPDATE STATUS WHEN ADD NEW CHILD INVOICE---------------
+ ---------------TRIGGER UPDATE TOTAL_MONEY OF INVOICE WHEN INSERT DETAIL INVOICE---------------
 create or replace TRIGGER update_invoice after  
 INSERT ON detail_invoice   
 FOR EACH ROW
 BEGIN
     update invoice
-    set total_money = total_money + :new.sum_money
+    set total_money = total_money + :new.sum_money,
+        status_id = 0;
     where id = :new.invoice_id;
 END;
 /
+
+---------------------------TRIGGER UPDATE TOTAL_MONEY OF INVOICE WHEN DELETE DETAIL INVOICE-------------
+CREATE OR REPLACE TRIGGER update_invoice_delete_detail after   
+DELETE ON detail_invoice   
+FOR EACH ROW    
+BEGIN    
+    update invoice
+    set total_money = total_money - :old.sum_money
+    where id = :old.invoice_id;
+END;
+/
+---------------------------TRIGGER UPDATE TOTAL_MONEY OF INVOICE WHEN UPDATE DETAIL INVOICE-------------
+CREATE OR REPLACE TRIGGER update_invoice1 after 
+UPDATE ON detail_invoice   
+FOR EACH ROW    
+DECLARE
+    moneyy number;
+BEGIN
+    moneyy := :new.sum_money - :old.sum_money;
+    
+    update invoice
+    set total_money = total_money + moneyy
+    where id = :new.invoice_id;
+END;
+/
+---------------------------TRIGGER UPDATE MONEY_PAID OF INVOICE WHEN UPDATE STATUS OF INVOICE-------------
+CREATE OR REPLACE TRIGGER UPDATE_MONEY_PAID BEFORE 
+UPDATE ON INVOICE
+FOR EACH ROW
+BEGIN
+    if :new.Status_id = 1 then
+        :new.money_paid := :new.total_money;
+    end if;
+END;
+/
+-----------------------------ACCOUNT------------------------------
 CREATE TABLE account (
     username VARCHAR(255) PRIMARY KEY,
     password VARCHAR(255)
