@@ -38,6 +38,7 @@ public class ManageTenant extends javax.swing.JPanel {
     public void capnhatTable(){
         try{
             rs = ctrl.getListOfTenant();
+            model.setRowCount(0);
             while(rs.next()){
                 String arr[] = new String[8];
                 arr[0] = rs.getString(1);
@@ -179,21 +180,26 @@ public class ManageTenant extends javax.swing.JPanel {
     private void BtnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnXoaActionPerformed
         // TODO add your handling code here:
         int row = jTable1.getSelectedRow();
-        int ret = JOptionPane.showConfirmDialog(null,"Bạn chắc chắc muốn xóa ?", "Xóa dữ liệu", JOptionPane.YES_NO_OPTION);
-        if (ret == JOptionPane.YES_OPTION){
-            String id = jTable1.getValueAt(row, 0).toString();
-            model.removeRow(row);
-            boolean check = ctrl.deleteTenant(id);
-            if(check){
-                JOptionPane.showMessageDialog(this, "Xóa thành công");
+        if(jTable1.getSelectedRowCount() != 1){
+            JOptionPane.showMessageDialog(this, "Chọn dòng dữ liệu muốn xóa.", "Lỗi", JOptionPane.ERROR_MESSAGE);
+        }
+        else{
+            int ret = JOptionPane.showConfirmDialog(null,"Bạn chắc chắc muốn xóa ?", "Xóa dữ liệu", JOptionPane.YES_NO_OPTION);
+            if (ret == JOptionPane.YES_OPTION){
+                String id = jTable1.getValueAt(row, 0).toString();
+                model.removeRow(row);
+                boolean check = ctrl.deleteTenant(id);
+                if(check){
+                    JOptionPane.showMessageDialog(this, "Xóa thành công", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+                }
             }
         }
     }//GEN-LAST:event_BtnXoaActionPerformed
 
     private void BtnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnSuaActionPerformed
         // TODO add your handling code here:
-       if(jTable1.getSelectedRowCount() != 1){
-            JOptionPane.showMessageDialog(this, "Chọn dòng dữ liệu muốn sửa.");
+        if(jTable1.getSelectedRowCount() != 1){
+            JOptionPane.showMessageDialog(this, "Chọn dòng dữ liệu muốn sửa.", "Lỗi", JOptionPane.ERROR_MESSAGE);
         }
         else{
             int row = jTable1.getSelectedRow();
@@ -210,19 +216,33 @@ public class ManageTenant extends javax.swing.JPanel {
             update.setVisible(true);
         }
     }//GEN-LAST:event_BtnSuaActionPerformed
-
+    public void timKhach(String tt){
+        try{
+            rs = ctrl.queryTenant(tt);
+            model.setRowCount(0);
+            while(rs.next()){
+                String arr[] = new String[8];
+                arr[0] = rs.getString(1);
+                arr[1] = rs.getString(2);
+                arr[2] = rs.getString(3);
+                arr[3] = rs.getString(4);
+                arr[4] = rs.getString(5);
+                arr[5] = rs.getString(6);
+                arr[6] = rs.getString(7);
+                arr[7] = rs.getString(8);
+                model.addRow(arr);
+            }
+        } catch(SQLException e){
+            System.out.println(e);
+        }
+    }
     private void BtnTimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnTimActionPerformed
         // TODO add your handling code here:
-        boolean check = ctrl.queryTenant(CBType.getSelectedItem().toString());
-        //model.setRowCount(0);
-        if(!check){
-            JOptionPane.showMessageDialog(this, "Không tìm thấy thông tin");
-        }
+        timKhach(CBType.getSelectedItem().toString());
     }//GEN-LAST:event_BtnTimActionPerformed
 
     private void BtnReloadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnReloadActionPerformed
         // TODO add your handling code here:
-        model.setRowCount(0);
         capnhatTable();
     }//GEN-LAST:event_BtnReloadActionPerformed
 

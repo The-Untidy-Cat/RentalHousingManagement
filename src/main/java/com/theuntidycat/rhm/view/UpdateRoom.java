@@ -18,6 +18,7 @@ public class UpdateRoom extends javax.swing.JFrame {
      */
     public UpdateRoom() {
         initComponents();
+        setLocationRelativeTo(null);
     }
     public String ten;
     public String succhua;
@@ -270,11 +271,9 @@ public class UpdateRoom extends javax.swing.JFrame {
 
     private void BtnCancel2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnCancel2ActionPerformed
         // TODO add your handling code here:
-        int ret = JOptionPane.showConfirmDialog(null, "Chắc chắn thoát ?","Thoát", JOptionPane.YES_NO_OPTION);
+        int ret = JOptionPane.showConfirmDialog(this, "Thoát mà không lưu ?", "Thoát", JOptionPane.YES_NO_OPTION);
         if (ret == JOptionPane.YES_OPTION)
-        {
-            dispose();
-        }
+            setVisible(false);
     }//GEN-LAST:event_BtnCancel2ActionPerformed
 
     private void BtnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnUpdateActionPerformed
@@ -285,9 +284,14 @@ public class UpdateRoom extends javax.swing.JFrame {
         String loaiphong = txtLoai.getText();
         int dt = Integer.parseInt(txtDientich.getText());
         String tt = txtTrangthai.getText();
+        
         boolean check = ctrl.updateRoom(ten, sc, gia, loaiphong, dt, tt, txtID);
         if(check){
-            JOptionPane.showMessageDialog(this, "Cập nhật thành công");
+            JOptionPane.showMessageDialog(null, "Cập nhật thành công", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+            setVisible(false);
+        }
+        else{
+            JOptionPane.showMessageDialog(null, "Trùng thông tin. Vui lòng nhập lại", "Thông báo", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_BtnUpdateActionPerformed
 

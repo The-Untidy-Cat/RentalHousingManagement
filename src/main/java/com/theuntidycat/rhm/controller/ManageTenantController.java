@@ -82,25 +82,33 @@ public class ManageTenantController {
             return false;
         }
     }
-    public boolean queryTenant(String trangthai){
+    public int getStatusID(String status){
+        int id = 0;
         try{
-            int tenant_status = 0;
             String getStatus = "SELECT id FROM TENANT_STATUS WHERE name = ?";
             PreparedStatement ps = con.prepareStatement(getStatus);
-            ps.setString(1,trangthai);
-            ResultSet result = ps.executeQuery();
-            if(result.next()){
-                tenant_status = result.getInt(1);
+            ps.setString(1,status);
+            ResultSet rs = ps.executeQuery();
+            if(rs.next()){
+                id = rs.getInt(1);
             }
-            
-            String strSQL = "SELECT T.id, T.name, Home_town, TO_CHAR(dob, 'DD/MM/YYYY'), phone_number, id_number, email, S.name FROM TENANT T, TENANT_STATUS S WHERE T.status_id = S.id AND status_id = ? ORDER BY T.id";
-            ps = con.prepareStatement(strSQL);
-            ps.setInt(1,tenant_status);
-            return true;
         }
         catch(SQLException e){
             System.out.println(e);
-            return false;
         }
+        return id;
+    }
+    public ResultSet queryTenant(String trangthai){
+        ResultSet rs = null;
+        try{
+            String strSQL = "SELECT T.id, T.name, Home_town, TO_CHAR(dob, 'DD/MM/YYYY'), phone_number, id_number, email, S.name FROM TENANT T, TENANT_STATUS S WHERE T.status_id = S.id AND status_id = ? ORDER BY T.id";
+            PreparedStatement ps = con.prepareStatement(strSQL);
+            ps.setInt(1,getStatusID(trangthai));
+            rs = ps.executeQuery();
+        }
+        catch(SQLException e){
+            System.out.println(e);
+        }
+        return rs;
     }
 }  

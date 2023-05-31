@@ -37,6 +37,7 @@ public class ManageRoom extends javax.swing.JPanel {
     public void capnhatTable(){
         try{
             rs = ctrl.getListOfRoom();
+            model.setRowCount(0);
             while(rs.next()){
                 String arr[] = new String[7];
                 arr[0] = rs.getString(1);
@@ -66,7 +67,7 @@ public class ManageRoom extends javax.swing.JPanel {
         searchPanel = new javax.swing.JPanel();
         CBType = new javax.swing.JComboBox<>();
         CBStatus = new javax.swing.JComboBox<>();
-        jButton3 = new javax.swing.JButton();
+        BtnTim = new javax.swing.JButton();
         BtnRefresh = new javax.swing.JButton();
         actionButtonPanel = new javax.swing.JPanel();
         BtnThem = new javax.swing.JButton();
@@ -108,8 +109,13 @@ public class ManageRoom extends javax.swing.JPanel {
         });
         searchPanel.add(CBStatus);
 
-        jButton3.setText("Tìm");
-        searchPanel.add(jButton3);
+        BtnTim.setText("Tìm");
+        BtnTim.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnTimActionPerformed(evt);
+            }
+        });
+        searchPanel.add(BtnTim);
 
         BtnRefresh.setText("Refresh");
         BtnRefresh.addActionListener(new java.awt.event.ActionListener() {
@@ -181,7 +187,7 @@ public class ManageRoom extends javax.swing.JPanel {
         // TODO add your handling code here:
         
         if(tbRoom.getSelectedRowCount() != 1){
-            JOptionPane.showMessageDialog(this, "Chọn dòng dữ liệu để xóa.");
+            JOptionPane.showMessageDialog(null, "Chọn dòng dữ liệu để xóa.", "Lỗi", JOptionPane.ERROR_MESSAGE);
         }
         else{
             int row = tbRoom.getSelectedRow();
@@ -191,7 +197,7 @@ public class ManageRoom extends javax.swing.JPanel {
                 model.removeRow(row);
                 boolean check = ctrl.deleteRoom(id);
                 if(check){
-                    JOptionPane.showMessageDialog(this, "Xóa thành công"); 
+                    JOptionPane.showMessageDialog(null, "Xóa thành công", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
                 }
             }
         }
@@ -199,7 +205,7 @@ public class ManageRoom extends javax.swing.JPanel {
 
     private void BtnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnSuaActionPerformed
         if(tbRoom.getSelectedRowCount() != 1){
-            JOptionPane.showMessageDialog(this, "Chọn dòng dữ liệu muốn sửa.");
+            JOptionPane.showMessageDialog(this, "Chọn dòng dữ liệu muốn sửa.", "Lỗi", JOptionPane.ERROR_MESSAGE);
         }
         else{
             int row = tbRoom.getSelectedRow();
@@ -226,20 +232,47 @@ public class ManageRoom extends javax.swing.JPanel {
 
     private void BtnRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnRefreshActionPerformed
         // TODO add your handling code here:
-        model.setRowCount(0);
         capnhatTable();
     }//GEN-LAST:event_BtnRefreshActionPerformed
+
+    public void timPhong(String type, String status){
+        try{
+            rs = ctrl.queryRoom(type, status);
+            model.setRowCount(0);
+            while(rs.next()){
+                String arr[] = new String[7];
+                arr[0] = rs.getString(1);
+                arr[1] = rs.getString(2);
+                arr[2] = rs.getString(3);
+                arr[3] = rs.getString(4);
+                arr[4] = rs.getString(5);
+                arr[5] = rs.getString(6);
+                arr[6] = rs.getString(7);
+                model.addRow(arr);
+            }
+        } catch(SQLException e){
+            //System.out.println(e);
+            System.out.println(type);
+            System.out.println(status);
+        }
+    }
+    private void BtnTimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnTimActionPerformed
+        // TODO add your handling code here:
+        String type = CBType.getSelectedItem().toString();
+        String status = CBStatus.getSelectedItem().toString();
+        timPhong(type, status);
+    }//GEN-LAST:event_BtnTimActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BtnRefresh;
     private javax.swing.JButton BtnSua;
     private javax.swing.JButton BtnThem;
+    private javax.swing.JButton BtnTim;
     private javax.swing.JButton BtnXoa;
     private javax.swing.JComboBox<String> CBStatus;
     private javax.swing.JComboBox<String> CBType;
     private javax.swing.JPanel actionButtonPanel;
-    private javax.swing.JButton jButton3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JPanel searchPanel;
     private javax.swing.JTable tbRoom;

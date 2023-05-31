@@ -18,7 +18,8 @@ public class InsertTenant extends javax.swing.JFrame {
      */
     public InsertTenant() {
         initComponents();
-        setVisible(true);    
+        setVisible(true);   
+        setLocationRelativeTo(null);
     }
     ManageTenantController ctrl = new ManageTenantController();
     /**
@@ -274,22 +275,24 @@ public class InsertTenant extends javax.swing.JFrame {
         int trangthai = Integer.parseInt(txtTrangthai.getText());
         boolean check = ctrl.insertTenant(ten, que, ntns, sdt, cmnd, email, trangthai);
         if(check){
-            JOptionPane.showMessageDialog(this, "Thêm thành công");
+            JOptionPane.showMessageDialog(null, "Thêm thành công", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+            setVisible(false);
+        }
+        else{
+            JOptionPane.showMessageDialog(null, "Trùng thông tin. Vui lòng nhập lại", "Thông báo", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_BtnThemActionPerformed
-
-    private void BtnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnCancelActionPerformed
-        // TODO add your handling code here:
-        int ret = JOptionPane.showConfirmDialog(null, "Chắc chắn thoát ?","Thoát", JOptionPane.YES_NO_OPTION);
-        if (ret == JOptionPane.YES_OPTION)
-        {
-            dispose();
-        }
-    }//GEN-LAST:event_BtnCancelActionPerformed
 
     private void txtTrangthaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTrangthaiActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtTrangthaiActionPerformed
+
+    private void BtnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnCancelActionPerformed
+        // TODO add your handling code here:
+        int ret = JOptionPane.showConfirmDialog(this, "Thoát mà không lưu ?", "Thoát", JOptionPane.YES_NO_OPTION);
+        if (ret == JOptionPane.YES_OPTION)
+            setVisible(false);
+    }//GEN-LAST:event_BtnCancelActionPerformed
 
     /**
      * @param args the command line arguments

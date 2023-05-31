@@ -54,31 +54,14 @@ public class ManageRoomController {
 
     public boolean updateRoom(String ten, int succhua, int giathue, String loai, int dientich, String trangthai, String id){
         try{
-            String room_type = null;
-            String getTypeID = "SELECT ID FROM ROOM_TYPE WHERE NAME = ?";
-            PreparedStatement ps = con.prepareStatement(getTypeID);
-            ps.setString(1,loai);
-            ResultSet rs = ps.executeQuery();
-            if(rs.next()){
-                room_type = rs.getString(1);
-            }
-            
-            String room_status = null;
-            String getStatusID = "SELECT ID FROM ROOM_STATUS WHERE NAME = ?";
-            ps = con.prepareStatement(getStatusID);
-            ps.setString(1,trangthai);
-            rs = ps.executeQuery();
-            if(rs.next()){
-                room_status = rs.getString(1);
-            }
             String strSql2 = "UPDATE ROOM SET name = ?, capacity = ?, rental_price = ?, type_id = ?, area = ?, status_id = ? WHERE id = ?";
             PreparedStatement pre2 = con.prepareStatement(strSql2);
             pre2.setString(1, ten);
             pre2.setInt(2, succhua);
             pre2.setInt(3, giathue);
-            pre2.setInt(4, Integer.parseInt(room_type));
+            pre2.setInt(4, getTypeID(loai));
             pre2.setInt(5, dientich);
-            pre2.setInt(6, Integer.parseInt(room_status));
+            pre2.setInt(6, getStatusID(trangthai));
             pre2.setString(7, id);
             pre2.executeUpdate();   
             return true;
@@ -100,5 +83,50 @@ public class ManageRoomController {
             return false;
         }
     }
-   
+    public int getTypeID(String type){
+        int id = 0;
+        try{
+            String getID = "SELECT id FROM ROOM_TYPE WHERE name = ?";
+            PreparedStatement ps = con.prepareStatement(getID);
+            ps.setString(1,type);
+            ResultSet rs = ps.executeQuery();
+            if(rs.next()){
+                id = rs.getInt(1);
+            }
+        }
+            catch(SQLException e){
+            System.out.println(e);
+        }
+        return id;
+    }
+    public int getStatusID(String status){
+        int id = 0;
+        try{
+            String getID = "SELECT id FROM ROOM_STATUS WHERE name = ?";
+            PreparedStatement ps = con.prepareStatement(getID);
+            ps.setString(1,status);
+            ResultSet rs = ps.executeQuery();
+            if(rs.next()){
+                id = rs.getInt(1);
+            }
+        }
+            catch(SQLException e){
+            System.out.println(e);
+        }
+        return id;
+    }
+    public ResultSet queryRoom(String type, String status){
+        ResultSet rs = null;
+        try{
+            String strSQL = "SELECT R.id, R.name, capacity, rental_price, T.name, area, S.name FROM ROOM R, ROOM_STATUS S, ROOM_TYPE T WHERE T.id = R.type_id AND S.id = R.status_id AND T.id = ? AND S.id = ? ORDER BY R.id";
+            PreparedStatement ps = con.prepareStatement(strSQL);
+            ps.setInt(1,getTypeID(type));
+            ps.setInt(2,getStatusID(status));
+            rs = ps.executeQuery();
+        }
+        catch(SQLException e){
+            System.out.println(e);
+        }
+        return rs;
+    }
 }  

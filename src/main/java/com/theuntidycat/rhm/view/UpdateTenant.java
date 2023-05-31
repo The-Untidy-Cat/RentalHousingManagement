@@ -39,6 +39,7 @@ public class UpdateTenant extends javax.swing.JFrame {
     public UpdateTenant() {
         initComponents();
         setVisible(true);
+        setLocationRelativeTo(null);
     }
     public void setInformation(){
         txtTen.setText(ten);
@@ -295,9 +296,20 @@ public class UpdateTenant extends javax.swing.JFrame {
 
     private void BtnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnUpdateActionPerformed
         // TODO add your handling code here:
-        boolean check = ctrl.updateTenant(txtTen.getText(), txtQue.getText(), txtDob.getText(), txtSdt.getText(), txtCmnd1.getText(), txtEmail.getText(), Integer.parseInt(txtTrangthai.getText()), txtID);
+        String ten = txtTen.getText();
+        String que = txtQue.getText();
+        String ntns = txtDob.getText();
+        String sdt = txtSdt.getText();
+        String cmnd = txtCmnd1.getText();
+        String email = txtEmail.getText();
+        int trangthai = Integer.parseInt(txtTrangthai.getText());
+        boolean check = ctrl.updateTenant(ten, que, ntns, sdt, cmnd, email, trangthai, txtID);
         if(check){
-            JOptionPane.showMessageDialog(this, "Cập nhật thành công");
+            JOptionPane.showMessageDialog(null, "Cập nhật thành công", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+            setVisible(false);
+        }
+        else{
+            JOptionPane.showMessageDialog(null, "Trùng thông tin. Vui lòng nhập lại", "Thông báo", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_BtnUpdateActionPerformed
 
@@ -307,11 +319,9 @@ public class UpdateTenant extends javax.swing.JFrame {
 
     private void BtnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnCancelActionPerformed
         // TODO add your handling code here:
-        int ret = JOptionPane.showConfirmDialog(null, "Chắc chắn thoát ?","Thoát", JOptionPane.YES_NO_OPTION);
+        int ret = JOptionPane.showConfirmDialog(this, "Thoát mà không lưu ?", "Thoát", JOptionPane.YES_NO_OPTION);
         if (ret == JOptionPane.YES_OPTION)
-        {
-            dispose();
-        }
+            setVisible(false);
     }//GEN-LAST:event_BtnCancelActionPerformed
 
     /**

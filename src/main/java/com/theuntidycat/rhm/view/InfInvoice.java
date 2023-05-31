@@ -181,23 +181,6 @@ public class InfInvoice extends javax.swing.JFrame {
         setVisible(false);
     }//GEN-LAST:event_btQuayActionPerformed
 
-    /*public void insertNew(){
-        String room = CbbRoom.getItemAt(CbbRoom.getSelectedIndex());
-        String month = CbbThang.getItemAt(CbbThang.getSelectedIndex());
-        String year = txtNam.getText();
-        
-        btThem.addActionListener(e->{
-            ManageInvoiceController controller = new ManageInvoiceController();
-            boolean check = controller.insertInvoice(room, month, year);
-            if(check){
-                JOptionPane.showMessageDialog(null, "Thêm thành công", "Xác nhận", JOptionPane.INFORMATION_MESSAGE);
-                setVisible(false);
-            }
-            else{
-                JOptionPane.showMessageDialog(null, "Trùng hóa đơn. Vui lòng nhập lại", "Xác nhận", JOptionPane.ERROR_MESSAGE);
-            }
-        });
-    }*/
     private void btThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btThemActionPerformed
         // TODO add your handling code here:
         String room = CbbRoom.getItemAt(CbbRoom.getSelectedIndex());
