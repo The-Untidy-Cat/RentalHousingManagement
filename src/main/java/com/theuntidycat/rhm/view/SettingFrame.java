@@ -120,6 +120,7 @@ public class SettingFrame extends javax.swing.JFrame {
             config.setData("smtp_host", inpSmtpHost.getText());
             config.setData("smtp_port", inpSmtpPort.getText());
             config.setData("ssl", String.valueOf(cbSsl.isSelected()));
+            setVisible(false);
             JOptionPane.showMessageDialog(this, "Cập nhật thành công");
         } catch (Exception e) {
             e.printStackTrace();

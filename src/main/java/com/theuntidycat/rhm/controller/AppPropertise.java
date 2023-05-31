@@ -57,8 +57,10 @@ public class AppPropertise {
         return (String)data.getProperty(key);
     }
     
-    public void setData(String key, String value) {
+    public void setData(String key, String value) throws IOException {
         data.setProperty(key, value);
+        FileOutputStream outputStream = new FileOutputStream(filePath);
+        data.store(outputStream, "#");
     }
 
     public void initConfigFile() throws IOException {
