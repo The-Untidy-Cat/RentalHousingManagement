@@ -23,18 +23,21 @@ import com.theuntidycat.rhm.model.User;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 
 public class LoginView {
-    private JFrame frame; 
+
+    private JFrame frame;
     private MainView mainView;
+
     public LoginView() {
         FlatLightLaf.setup();
         frame = new JFrame("Rental Housing Management");
         LoginController controller = new LoginController();
         Path currentRelativePath = Paths.get("");
         String s = currentRelativePath.toAbsolutePath().toString();
-
+        
         ImageIcon imageIcon = new ImageIcon(s + "/assets/building.png"); // load the image to a // imageIcon
         Image image = imageIcon.getImage(); // transform it
         Image newimg = image.getScaledInstance(390, 100, java.awt.Image.SCALE_SMOOTH); // scale it the smooth way
@@ -69,9 +72,9 @@ public class LoginView {
         passwordInput.setSize(70, 14);
 
         button.setText("<html><center>" + "Đăng" + "<br>" + "nhập" + "</center></html>");
-        
+
         button.setPreferredSize(new Dimension(80, 60));
-        
+
         button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -82,8 +85,6 @@ public class LoginView {
                     User user = controller.getUser(username, password);
                     close();
                     mainView.run();
-                    JOptionPane.showMessageDialog(null, "Welcome " + user.displayName, "Success",
-                            JOptionPane.INFORMATION_MESSAGE);
                 } else {
                     JOptionPane.showMessageDialog(null, "Xác thực thất bại. Vui lòng kiểm tra lại", "Lỗi", JOptionPane.ERROR_MESSAGE);
                 }
@@ -118,12 +119,12 @@ public class LoginView {
         frame.setResizable(false);
     }
 
-    public void run(MainView tempMainView){
+    public void run(MainView tempMainView) {
         mainView = tempMainView;
         frame.setVisible(true);
     }
-    
-    public void close(){
+
+    public void close() {
         frame.setVisible(false);
     }
 }
