@@ -32,8 +32,6 @@ public class ManageInvoice extends javax.swing.JPanel {
         initComponents();
         createTable();
         updateTable();
-        setCbbRoom();
-        setCbbPeriod();
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -77,6 +75,11 @@ public class ManageInvoice extends javax.swing.JPanel {
         searchPanel.add(CbbRoom);
 
         jButton1.setText("Tìm");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
         searchPanel.add(jButton1);
 
         btRef.setText("refresh");
@@ -172,6 +175,7 @@ public class ManageInvoice extends javax.swing.JPanel {
     public void setCbbRoom(){
         try{
             ManageInvoiceController controller = new ManageInvoiceController();
+            CbbRoom.removeAllItems();
             CbbRoom.addItem("Tất cả");
             ResultSet rs = controller.getRooms();
             while(rs.next()){
@@ -185,6 +189,7 @@ public class ManageInvoice extends javax.swing.JPanel {
     public void setCbbPeriod(){
         try{
             ManageInvoiceController controller = new ManageInvoiceController();            
+            CbbKy.removeAllItems();
             CbbKy.addItem("Tất cả");
             ResultSet rs = controller.getPeriod();
             while(rs.next()){
@@ -199,18 +204,24 @@ public class ManageInvoice extends javax.swing.JPanel {
     public void createTable()
     {
         tblModelTT = new DefaultTableModel();
-        String title[] = {"Mã Hóa Đơn", "Kỳ đóng", "Phòng", "Tổng tiền", "Trạng thái"};
+        String title[] = {"Mã Hóa Đơn", "Kỳ đóng", "Phòng", "Tổng tiền", "Trạng thái", "Còn nợ"};
         tblModelTT.setColumnIdentifiers(title);
         tbInvoice.setModel(tblModelTT);
         setVisible(true);
     }
     
     public void updateTable(){
+        setCbbRoom();
+        setCbbPeriod();
+        int Money_unpaid;
         try{
             ManageInvoiceController controller = new ManageInvoiceController();
             ResultSet rs = controller.getInvoices();
+            tblModelTT.setRowCount(0);
             while(rs.next()){
-                String arr[] = {rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5)};
+                Money_unpaid = rs.getInt(4) - rs.getInt(6);
+                String unpaid = String.valueOf(Money_unpaid);
+                String arr[] = {rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5),unpaid};
                 tblModelTT.addRow(arr);
             }
             setVisible(true);
@@ -228,13 +239,17 @@ public class ManageInvoice extends javax.swing.JPanel {
     private void btXemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btXemActionPerformed
         // TODO add your handling code here:
         int n = tbInvoice.getSelectedRow();
+        
+        String Status = (String) tbInvoice.getValueAt(n,4);
         String ph = (String) tbInvoice.getValueAt(n, 2);
         String k = (String) tbInvoice.getValueAt(n, 1);
-        System.out.println(ph);
-        System.out.println(k);
+        String id = (String) tbInvoice.getValueAt(n, 0);
+        
         DetailInvoice detail = new DetailInvoice();
-        detail.setTxt(ph, k);
-        //DetailInvoice detail = new DetailInvoice(ph,k);
+        detail.setTxt(ph, k, id);
+        detail.updateDeTable();
+        detail.setNoPaid(Status);
+        detail.setButton(Status);
     }//GEN-LAST:event_btXemActionPerformed
 
     private void CbbKyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CbbKyActionPerformed
@@ -243,50 +258,80 @@ public class ManageInvoice extends javax.swing.JPanel {
 
     private void btXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btXoaActionPerformed
         // TODO add your handling code here:
-        int n = tbInvoice.getSelectedRow();
-        String id = (String) tbInvoice.getValueAt(n, 0);
-        ManageInvoiceController controller = new ManageInvoiceController();
-        boolean check = controller.deleteInvoice(id);
-        if(check){
-            JOptionPane.showMessageDialog(null, "Thêm thành công", "Xác nhận", JOptionPane.INFORMATION_MESSAGE);
-
-            /*JFrame fr = new JFrame();
-            JDialog dialog = new JDialog(fr, "Thông báo", true);
-            JPanel mGUI = new JPanel(new BorderLayout());
-            mGUI.setBorder(new EmptyBorder(20,50,20,50));
-            mGUI.add(new JLabel("Xóa thành công"), BorderLayout.CENTER);
-       
-            JPanel PanBt = new JPanel(new FlowLayout());
-            mGUI.add(PanBt, BorderLayout.SOUTH);
-            JButton btOK = new JButton("OK");
-            btOK.addActionListener(e->{                
-                dialog.setVisible(false);
-            });
-            PanBt.add(btOK);
-       
-            dialog.setContentPane(mGUI);
-            dialog.pack();
-            dialog.setVisible(true);*/
+        int r = JOptionPane.showConfirmDialog(null, "Chắc chắn xóa?", "Xác nhận", JOptionPane.YES_NO_OPTION);
+        if(r == JOptionPane.YES_OPTION){
+            int n = tbInvoice.getSelectedRow();
+            String id = (String) tbInvoice.getValueAt(n, 0);
+            ManageInvoiceController controller = new ManageInvoiceController();
+            boolean check = controller.deleteInvoice(id);
+            if(check){
+                JOptionPane.showMessageDialog(null, "Xóa thành công", "Xác nhận", JOptionPane.INFORMATION_MESSAGE);
+            }
+            else{
+                JOptionPane.showMessageDialog(null, "Không thể xóa hóa đơn tồn tại chi tiết hóa đơn", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            }
         }
+        //else{
+            
+        //}
     }//GEN-LAST:event_btXoaActionPerformed
 
     private void btRefActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btRefActionPerformed
         // TODO add your handling code here:
-        tblModelTT.setRowCount(0);
         updateTable();
     }//GEN-LAST:event_btRefActionPerformed
 
     private void btSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSuaActionPerformed
         // TODO add your handling code here:
         int n = tbInvoice.getSelectedRow();
+        String status = (String) tbInvoice.getValueAt(n,4);
+        String Str_tong =  (String) tbInvoice.getValueAt(n,3);
+        int tong = Integer.parseInt(Str_tong);
         String ph = (String) tbInvoice.getValueAt(n, 2);
         String k = (String) tbInvoice.getValueAt(n, 1);
         String[] ky = k.split("/");
         String id = (String) tbInvoice.getValueAt(n, 0);
         
-        //InfInvoice inf = new InfInvoice();
-        //inf.updateExisted(ph, ky[0], ky[1], id);
+        if(status.equals("Da thanh toan")){
+            JOptionPane.showMessageDialog(null,"Không thể sửa hóa đơn đã thanh toán", "Xác nhận", JOptionPane.INFORMATION_MESSAGE);
+        }
+        else if(tong > 0){
+            updateInfInvoice inf = new updateInfInvoice();
+            inf.displayEditable(ph, ky[0], ky[1], id, status);
+        }
+        else {
+            updateInfInvoice inf = new updateInfInvoice();
+            inf.displayExisted(ph, ky[0], ky[1], id, status);
+        }   
     }//GEN-LAST:event_btSuaActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        String room = CbbRoom.getItemAt(CbbRoom.getSelectedIndex());
+        String k = CbbKy.getItemAt(CbbKy.getSelectedIndex());
+        String[] ky;
+        if(!k.equals("Tất cả")){
+            ky = k.split("/");
+        }
+        try{
+        if(room.equals("Tất cả")&&k.equals("Tất cả")){
+            tblModelTT.setRowCount(0);
+            updateTable();
+        }
+        else{
+            ManageInvoiceController controller = new ManageInvoiceController();
+            ResultSet rs = controller.filterInvoices(room, k);
+            tblModelTT.setRowCount(0);
+            while(rs.next()){
+                String arr[] = {rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5)};
+                tblModelTT.addRow(arr);
+            }
+            setVisible(true);
+        }
+        }catch(SQLException e){
+            System.out.println("Error at ManageInvoice/searchInvoice");
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     
 
