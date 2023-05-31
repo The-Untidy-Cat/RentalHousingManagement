@@ -23,21 +23,21 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
+          <Component id="jPanel3" alignment="0" max="32767" attributes="0"/>
           <Group type="102" alignment="1" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="jPanel3" max="32767" attributes="0"/>
-              <EmptySpace min="-2" max="-2" attributes="0"/>
+              <Component id="jPanel2" max="32767" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
           </Group>
-          <Component id="jPanel2" alignment="0" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" alignment="0" attributes="0">
-              <Component id="jPanel2" max="32767" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
-              <Component id="jPanel3" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
+          <Group type="102" alignment="1" attributes="0">
+              <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
+              <EmptySpace pref="12" max="32767" attributes="0"/>
+              <Component id="jPanel3" min="-2" pref="52" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -54,14 +54,12 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="jLabel6" alignment="0" max="32767" attributes="0"/>
-                              <Component id="jLabel5" alignment="0" pref="211" max="32767" attributes="0"/>
-                              <Component id="jLabel7" max="32767" attributes="0"/>
+                              <Component id="jLabel5" alignment="0" min="-2" pref="211" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="txtEmail1" alignment="0" pref="360" max="32767" attributes="0"/>
-                              <Component id="txtCmnd" alignment="0" pref="360" max="32767" attributes="0"/>
-                              <Component id="txtTrangthai" alignment="0" max="32767" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="txtTrangthai" alignment="0" min="-2" pref="360" max="-2" attributes="0"/>
+                              <Component id="txtDientich" alignment="0" min="-2" pref="360" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <Group type="102" alignment="1" attributes="0">
@@ -72,14 +70,14 @@
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="jLabel4" max="32767" attributes="0"/>
                               </Group>
-                              <Component id="jLabel1" alignment="0" pref="217" max="32767" attributes="0"/>
+                              <Component id="jLabel1" alignment="0" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="103" alignment="0" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="txtQue" alignment="0" pref="360" max="32767" attributes="0"/>
-                                  <Component id="txtSdt" alignment="0" pref="360" max="32767" attributes="0"/>
-                                  <Component id="txtDob" alignment="0" pref="360" max="32767" attributes="0"/>
+                                  <Component id="txtLoai" alignment="0" pref="360" max="32767" attributes="0"/>
+                                  <Component id="txtGia" alignment="0" pref="360" max="32767" attributes="0"/>
+                                  <Component id="txtSucchua" alignment="0" pref="360" max="32767" attributes="0"/>
                               </Group>
                               <Component id="txtTen" alignment="0" min="-2" pref="360" max="-2" attributes="0"/>
                           </Group>
@@ -99,33 +97,28 @@
                   </Group>
                   <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="txtQue" alignment="0" min="-2" pref="31" max="-2" attributes="0"/>
+                      <Component id="txtLoai" alignment="0" min="-2" pref="31" max="-2" attributes="0"/>
                       <Component id="jLabel2" alignment="0" min="-2" pref="33" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="7" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="jLabel3" alignment="0" min="-2" pref="32" max="-2" attributes="0"/>
-                      <Component id="txtDob" alignment="0" min="-2" pref="31" max="-2" attributes="0"/>
+                      <Component id="txtSucchua" alignment="0" min="-2" pref="31" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="7" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
                       <Component id="jLabel4" alignment="0" max="32767" attributes="0"/>
-                      <Component id="txtSdt" alignment="0" pref="31" max="32767" attributes="0"/>
+                      <Component id="txtGia" alignment="0" pref="31" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jLabel5" alignment="3" min="-2" pref="32" max="-2" attributes="0"/>
-                      <Component id="txtCmnd" alignment="3" pref="31" max="32767" attributes="0"/>
+                      <Component id="txtDientich" alignment="3" pref="31" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="txtEmail1" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
-                      <Component id="jLabel6" alignment="3" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="txtTrangthai" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
-                      <Component id="jLabel7" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabel6" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -139,7 +132,7 @@
               <Font name="Segoe UI" size="14" style="0"/>
             </Property>
             <Property name="horizontalAlignment" type="int" value="0"/>
-            <Property name="text" type="java.lang.String" value="T&#xea;n ng&#x1b0;&#x1edd;i thu&#xea;"/>
+            <Property name="text" type="java.lang.String" value="T&#xea;n ph&#xf2;ng"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtTen">
@@ -153,12 +146,12 @@
               <Font name="Segoe UI" size="14" style="0"/>
             </Property>
             <Property name="horizontalAlignment" type="int" value="0"/>
-            <Property name="text" type="java.lang.String" value="Qu&#xea; qu&#xe1;n "/>
+            <Property name="text" type="java.lang.String" value="Lo&#x1ea1;i ph&#xf2;ng"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="txtQue">
+        <Component class="javax.swing.JTextField" name="txtLoai">
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtQueActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtLoaiActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel3">
@@ -167,12 +160,12 @@
               <Font name="Segoe UI" size="14" style="0"/>
             </Property>
             <Property name="horizontalAlignment" type="int" value="0"/>
-            <Property name="text" type="java.lang.String" value="Ng&#xe0;y sinh"/>
+            <Property name="text" type="java.lang.String" value="S&#x1ee9;c ch&#x1ee9;a"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="txtDob">
+        <Component class="javax.swing.JTextField" name="txtSucchua">
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtDobActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtSucchuaActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel4">
@@ -181,10 +174,10 @@
               <Font name="Segoe UI" size="14" style="0"/>
             </Property>
             <Property name="horizontalAlignment" type="int" value="0"/>
-            <Property name="text" type="java.lang.String" value="S&#x1ed1; &#x111;i&#x1ec7;n tho&#x1ea1;i"/>
+            <Property name="text" type="java.lang.String" value="Gi&#xe1; thu&#xea;"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="txtSdt">
+        <Component class="javax.swing.JTextField" name="txtGia">
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel5">
           <Properties>
@@ -192,29 +185,15 @@
               <Font name="Segoe UI" size="14" style="0"/>
             </Property>
             <Property name="horizontalAlignment" type="int" value="0"/>
-            <Property name="text" type="java.lang.String" value="S&#x1ed1; CCCD/ CMND"/>
+            <Property name="text" type="java.lang.String" value="Di&#x1ec7;n t&#xed;ch"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="txtCmnd">
+        <Component class="javax.swing.JTextField" name="txtDientich">
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtCmndActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtDientichActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel6">
-          <Properties>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Segoe UI" size="14" style="0"/>
-            </Property>
-            <Property name="horizontalAlignment" type="int" value="0"/>
-            <Property name="text" type="java.lang.String" value="Email"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JTextField" name="txtEmail1">
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtEmail1ActionPerformed"/>
-          </Events>
-        </Component>
-        <Component class="javax.swing.JLabel" name="jLabel7">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI" size="14" style="0"/>
@@ -247,7 +226,7 @@
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="1" attributes="0">
-                  <EmptySpace pref="13" max="32767" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="BtnThem" alignment="3" min="-2" pref="36" max="-2" attributes="0"/>
                       <Component id="BtnCancel" alignment="3" min="-2" pref="36" max="-2" attributes="0"/>
