@@ -30,7 +30,7 @@ public class ManageTenant extends javax.swing.JPanel {
     ResultSet rs = null;
     public void taoTable(){
         model = new DefaultTableModel();
-        String title[] = {"Mã KH", "Tên KH", "Quê quán", "Ngày sinh", "SĐT", "CMND", "Email"};
+        String title[] = {"Mã KH", "Tên KH", "Quê quán", "Ngày sinh", "SĐT", "CMND", "Email", "Trạng thái"};
         model.setColumnIdentifiers(title);
         jTable1.setModel(model);
         setVisible(true);
@@ -39,7 +39,7 @@ public class ManageTenant extends javax.swing.JPanel {
         try{
             rs = ctrl.getListOfTenant();
             while(rs.next()){
-                String arr[] = new String[7];
+                String arr[] = new String[8];
                 arr[0] = rs.getString(1);
                 arr[1] = rs.getString(2);
                 arr[2] = rs.getString(3);
@@ -47,6 +47,7 @@ public class ManageTenant extends javax.swing.JPanel {
                 arr[4] = rs.getString(5);
                 arr[5] = rs.getString(6);
                 arr[6] = rs.getString(7);
+                arr[7] = rs.getString(8);
                 model.addRow(arr);
             }
         } catch(SQLException e){
@@ -69,9 +70,8 @@ public class ManageTenant extends javax.swing.JPanel {
         BtnXoa = new javax.swing.JButton();
         BtnSua = new javax.swing.JButton();
         searchPanel = new javax.swing.JPanel();
-        jComboBox2 = new javax.swing.JComboBox<>();
-        CBMaKH = new javax.swing.JComboBox<>();
-        jButton3 = new javax.swing.JButton();
+        CBType = new javax.swing.JComboBox<>();
+        BtnTim = new javax.swing.JButton();
         BtnReload = new javax.swing.JButton();
 
         jScrollPane1.setPreferredSize(new java.awt.Dimension(500, 285));
@@ -81,7 +81,7 @@ public class ManageTenant extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Mã KH", "Tên KH", "Quê quán", "Ngày sinh", "SĐT", "CMND", "Email"
+                "Mã KH", "Tên KH", "Quê quán", "Ngày sinh", "SĐT", "CMND", "Email", "Trạng thái"
             }
         ));
         jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -119,24 +119,21 @@ public class ManageTenant extends javax.swing.JPanel {
 
         searchPanel.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 10, 10));
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        searchPanel.add(jComboBox2);
-
-        CBMaKH.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        CBMaKH.addActionListener(new java.awt.event.ActionListener() {
+        CBType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Hoat dong", "Khong hoat dong", "Vo hieu hoa" }));
+        CBType.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                CBMaKHActionPerformed(evt);
+                CBTypeActionPerformed(evt);
             }
         });
-        searchPanel.add(CBMaKH);
+        searchPanel.add(CBType);
 
-        jButton3.setText("Tìm");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        BtnTim.setText("Tìm");
+        BtnTim.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                BtnTimActionPerformed(evt);
             }
         });
-        searchPanel.add(jButton3);
+        searchPanel.add(BtnTim);
 
         BtnReload.setText("Refresh");
         BtnReload.addActionListener(new java.awt.event.ActionListener() {
@@ -151,7 +148,7 @@ public class ManageTenant extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(actionButtonPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(searchPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 500, Short.MAX_VALUE)
+            .addComponent(searchPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 529, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
@@ -207,20 +204,21 @@ public class ManageTenant extends javax.swing.JPanel {
             update.sdt = model.getValueAt(row, 4).toString();
             update.cmnd = model.getValueAt(row, 5).toString();
             update.email = model.getValueAt(row, 6).toString();
+            update.trangthai = model.getValueAt(row, 7).toString();
             update.id = model.getValueAt(row, 0).toString();
             update.setInformation();
             update.setVisible(true);
         }
     }//GEN-LAST:event_BtnSuaActionPerformed
 
-    private void CBMaKHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CBMaKHActionPerformed
+    private void BtnTimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnTimActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_CBMaKHActionPerformed
-
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
-        
-    }//GEN-LAST:event_jButton3ActionPerformed
+        boolean check = ctrl.queryTenant(CBType.getSelectedItem().toString());
+        //model.setRowCount(0);
+        if(!check){
+            JOptionPane.showMessageDialog(this, "Không tìm thấy thông tin");
+        }
+    }//GEN-LAST:event_BtnTimActionPerformed
 
     private void BtnReloadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnReloadActionPerformed
         // TODO add your handling code here:
@@ -228,16 +226,19 @@ public class ManageTenant extends javax.swing.JPanel {
         capnhatTable();
     }//GEN-LAST:event_BtnReloadActionPerformed
 
+    private void CBTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CBTypeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_CBTypeActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BtnReload;
     private javax.swing.JButton BtnSua;
     private javax.swing.JButton BtnThem;
+    private javax.swing.JButton BtnTim;
     private javax.swing.JButton BtnXoa;
-    private javax.swing.JComboBox<String> CBMaKH;
+    private javax.swing.JComboBox<String> CBType;
     private javax.swing.JPanel actionButtonPanel;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JPanel searchPanel;
