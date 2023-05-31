@@ -4,6 +4,10 @@
  */
 package com.theuntidycat.rhm.view;
 
+import com.theuntidycat.rhm.controller.ManageInvoiceController;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -15,19 +19,56 @@ public class DetailInvoice extends javax.swing.JFrame {
     /**
      * Creates new form DetailInvoice
      */
+    int NoCu = 0;
     public DetailInvoice() {
         initComponents();
         setVisible(true);
         createTable();
-        
+        updateDeTable();
+        setLocationRelativeTo(null);
     }
     
-    public void setTxt(String ph, String ky){
+    public void setTxt(String ph, String ky, String id){
         txtPhong.setText(ph);
         txtPhong.setEditable(false);
         txtKy.setText(ky);
         txtKy.setEditable(false);
+        txtID.setText(id);
+        txtID.setEditable(false);
+        txtNo.setEditable(false);
+        txtNo.setVisible(false);
     }
+    
+    public void setButton(String Status){
+        if(Status.equals("Da thanh toan")){
+            btSua.setVisible(false);
+            btXoa.setVisible(false);
+        }
+    }
+    
+    public void setNoPaid(String Status){
+        if(Status.equals("Da thanh toan")){
+            NoCu = setNoInt();
+            txtNo.setText("0");
+        }
+    }
+    
+    public int setNoInt(){
+        String StrNo = txtNo.getText();
+        int no = Integer.parseInt(StrNo);
+        return no;
+    }
+    
+    /*public void setNoUn(String StrNo){
+        String StrTien = txtNo.getText();
+        int No = Integer.parseInt(StrNo);
+        int Tien = Integer.parseInt(StrTien);
+        Tien = Tien + No;
+        String str = String.valueOf(Tien);
+        txtNo.setText(str);
+    }*/
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -50,6 +91,9 @@ public class DetailInvoice extends javax.swing.JFrame {
         txtKy = new javax.swing.JTextField();
         btQL = new javax.swing.JButton();
         btRef = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        txtID = new javax.swing.JTextField();
+        txtNo = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("CHI TIẾT HÓA ĐƠN");
@@ -77,6 +121,11 @@ public class DetailInvoice extends javax.swing.JFrame {
         });
 
         btSua.setText("Sửa");
+        btSua.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btSuaActionPerformed(evt);
+            }
+        });
 
         btXoa.setText("Xóa");
         btXoa.addActionListener(new java.awt.event.ActionListener() {
@@ -111,40 +160,59 @@ public class DetailInvoice extends javax.swing.JFrame {
         });
 
         btRef.setText("refresh");
+        btRef.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btRefActionPerformed(evt);
+            }
+        });
+
+        jLabel2.setText("Mã hóa đơn");
+
+        txtID.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtIDActionPerformed(evt);
+            }
+        });
+
+        txtNo.setText("0");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 8, Short.MAX_VALUE)
+                        .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 574, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(130, 130, 130)
-                                .addComponent(btQL)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(btThem)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(btSua)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(btXoa))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(98, 98, 98)
-                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtPhong, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jLabel1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtKy, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(28, 28, 28)
-                                .addComponent(btRef)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btQL)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btThem)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btSua)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btXoa)
+                        .addGap(75, 75, 75)
+                        .addComponent(txtNo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(43, 43, 43)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
+                .addComponent(txtID, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtPhong, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtKy, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(24, 24, 24)
+                .addComponent(btRef)
+                .addGap(36, 36, 36))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -155,16 +223,23 @@ public class DetailInvoice extends javax.swing.JFrame {
                     .addComponent(txtPhong, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1)
                     .addComponent(txtKy, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btRef))
+                    .addComponent(btRef)
+                    .addComponent(jLabel2)
+                    .addComponent(txtID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 297, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btThem)
-                    .addComponent(btSua)
-                    .addComponent(btXoa)
-                    .addComponent(btQL))
-                .addContainerGap())
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(4, 4, 4)
+                        .addComponent(txtNo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btThem)
+                            .addComponent(btSua)
+                            .addComponent(btXoa)
+                            .addComponent(btQL))))
+                .addGap(12, 12, 12))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -195,6 +270,27 @@ public class DetailInvoice extends javax.swing.JFrame {
         tbDetail.setModel(tblModelTT);
         setVisible(true);
     }
+    
+    public void updateDeTable(){
+        String id = txtID.getText();
+        int t = 0;
+        tblModelTT.setRowCount(0);
+        ManageInvoiceController controller = new ManageInvoiceController();
+        ResultSet rs = controller.getDetailInvoices(id);
+        try{
+            while(rs.next()){
+                t = t + rs.getInt(5);
+                Object[] arr = {rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getInt(5)};
+                tblModelTT.addRow(arr);
+            }
+            t = t - NoCu;
+            String StrTong = String.valueOf(t);
+            txtNo.setText(StrTong);
+        }catch(SQLException e){
+            System.out.println("Error at ManageInvoiceController/getDetialInvoices");
+        }
+        
+    }
     private void txtPhongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPhongActionPerformed
         // TODO add your handling code here:
         
@@ -208,18 +304,56 @@ public class DetailInvoice extends javax.swing.JFrame {
     private void btThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btThemActionPerformed
         // TODO add your handling code here:
         InfDetail inf = new InfDetail();
+        inf.displayID(txtID.getText());
     }//GEN-LAST:event_btThemActionPerformed
 
     private void btXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btXoaActionPerformed
         // TODO add your handling code here:
+        int r = JOptionPane.showConfirmDialog(null, "Chắc chắn xóa?", "Xác nhận", JOptionPane.YES_NO_OPTION);
+        if(r == JOptionPane.YES_OPTION){
+            int n = tbDetail.getSelectedRow();
+            String id = txtID.getText();
+            String loai = (String) tbDetail.getValueAt(n, 0);
+            ManageInvoiceController controller = new ManageInvoiceController();
+            boolean check = controller.deleteDetailInvoice(id,loai);
+            if(check){
+                JOptionPane.showMessageDialog(null, "Xóa thành công", "Xác nhận", JOptionPane.INFORMATION_MESSAGE);
+            }
+            else{
+                JOptionPane.showMessageDialog(null, "Không thể xóa hóa đơn tồn tại chi tiết hóa đơn", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            }
+        }
     }//GEN-LAST:event_btXoaActionPerformed
 
     private void btQLActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btQLActionPerformed
         // TODO add your handling code here:
-        ManageInvoice mgInv = new ManageInvoice();
         setVisible(false);
-                
     }//GEN-LAST:event_btQLActionPerformed
+
+    private void btRefActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btRefActionPerformed
+        // TODO add your handling code here:
+        updateDeTable();
+        if(setNoInt() > 0){
+            btSua.setVisible(true);
+            btXoa.setVisible(true);
+        }
+    }//GEN-LAST:event_btRefActionPerformed
+
+    private void txtIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIDActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtIDActionPerformed
+
+    private void btSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSuaActionPerformed
+        // TODO add your handling code here:
+        int n = tbDetail.getSelectedRow();
+        String id = txtID.getText();
+        String l = (String) tbDetail.getValueAt(n, 0);
+        String sl = (String) tbDetail.getValueAt(n, 1);
+        String dg = (String) tbDetail.getValueAt(n, 2);
+        
+        UpInfDetail inf = new UpInfDetail();
+        inf.displayExisted(id, l, sl, dg);
+    }//GEN-LAST:event_btSuaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -232,11 +366,14 @@ public class DetailInvoice extends javax.swing.JFrame {
     private javax.swing.JButton btThem;
     private javax.swing.JButton btXoa;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable tbDetail;
+    private javax.swing.JTextField txtID;
     private javax.swing.JTextField txtKy;
+    private javax.swing.JTextField txtNo;
     private javax.swing.JTextField txtPhong;
     // End of variables declaration//GEN-END:variables
 

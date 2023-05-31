@@ -26,7 +26,9 @@ public class InfInvoice extends javax.swing.JFrame {
         initComponents();
         setVisible(true);
         setCbbRoom();
+        setLocationRelativeTo(null);
     }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -154,22 +156,7 @@ public class InfInvoice extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    /*public void updateExisted(String room, String month, String year, String id){
-        CbbRoom.setSelectedItem(room);
-        CbbThang.setSelectedItem(month);
-        txtNam.setText(year);
-        
-        btThem.addActionListener(e->{
-            
-        });
-        ManageInvoiceController controller = new ManageInvoiceController();
-        boolean check = controller.updateInvoice(room, month, year, id);
-        if(check){
-            
-        }
-        
-    }*/
-    
+
     public void setCbbRoom(){
         try{
             ManageInvoiceController controller = new ManageInvoiceController();
@@ -207,7 +194,7 @@ public class InfInvoice extends javax.swing.JFrame {
                 setVisible(false);
             }
             else{
-                JOptionPane.showMessageDialog(null, "Thất bại", "Xác nhận", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Trùng hóa đơn. Vui lòng nhập lại", "Xác nhận", JOptionPane.ERROR_MESSAGE);
             }
         });
     }*/
@@ -219,32 +206,14 @@ public class InfInvoice extends javax.swing.JFrame {
         
         ManageInvoiceController controller = new ManageInvoiceController();
         boolean check = controller.insertInvoice(room, month, year);
+        
         if(check){
-            JFrame fr = new JFrame();
-            JDialog dialog = new JDialog(fr, "Thông báo", true);
-            JPanel mGUI = new JPanel(new BorderLayout());
-            mGUI.setBorder(new EmptyBorder(20,50,20,50));
-            mGUI.add(new JLabel("Thêm thành công"), BorderLayout.CENTER);
-       
-            JPanel PanBt = new JPanel(new FlowLayout());
-            mGUI.add(PanBt, BorderLayout.SOUTH);
-            JButton btOK = new JButton("OK");
-            btOK.addActionListener(e->{
-                //MainView main = new MainView();
-                //ManageInvoice manInv = new ManageInvoice();
-                //main.setVisible(false);
-                //main.run();
-                
-                dialog.setVisible(false);
+                JOptionPane.showMessageDialog(null, "Thêm thành công", "Xác nhận", JOptionPane.INFORMATION_MESSAGE);
                 setVisible(false);
-                //manInv.tblModelTT.setModel(new DefaultTableModel());
-            });
-            PanBt.add(btOK);
-       
-            dialog.setContentPane(mGUI);
-            dialog.pack();
-            dialog.setVisible(true);
-        }
+            }
+            else{
+                JOptionPane.showMessageDialog(null, "Trùng hóa đơn. Vui lòng nhập lại", "Xác nhận", JOptionPane.ERROR_MESSAGE);
+            }
     }//GEN-LAST:event_btThemActionPerformed
 
     /**
