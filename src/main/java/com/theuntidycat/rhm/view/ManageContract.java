@@ -18,7 +18,7 @@ public class ManageContract extends javax.swing.JPanel {
     public ManageContract() {
         initComponents();
         setVisible(true);
-        createTable();
+        // createTable();
     }
     DefaultTableModel tblModelTT;
     public void createTable()

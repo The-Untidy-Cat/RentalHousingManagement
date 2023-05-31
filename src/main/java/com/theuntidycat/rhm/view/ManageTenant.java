@@ -24,7 +24,7 @@ public class ManageTenant extends javax.swing.JPanel {
     public ManageTenant(){
         initComponents();
         taoTable();
-        capnhatTable();
+        // capnhatTable();
     }
     ManageTenantController ctrl = new ManageTenantController();
     ResultSet rs = null;
@@ -37,6 +37,7 @@ public class ManageTenant extends javax.swing.JPanel {
     }
     public void capnhatTable(){
         try{
+            System.out.println("Update table");
             rs = ctrl.getListOfTenant();
             while(rs.next()){
                 String arr[] = new String[7];

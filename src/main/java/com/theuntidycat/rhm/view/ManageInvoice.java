@@ -31,7 +31,7 @@ public class ManageInvoice extends javax.swing.JPanel {
     public ManageInvoice() {
         initComponents();
         createTable();
-        updateTable();
+        // updateTable();
     }
     /**
      * This method is called from within the constructor to initialize the form.
