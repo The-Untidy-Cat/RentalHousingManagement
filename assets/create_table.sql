@@ -378,7 +378,7 @@ BEGIN
 END;
 /
 ---------------------------TRIGGER UPDATE TOTAL_MONEY OF INVOICE WHEN UPDATE DETAIL INVOICE-------------
-CREATE OR REPLACE TRIGGER update_invoice1 after 
+CREATE OR REPLACE TRIGGER update_invoice_update_detail after 
 UPDATE ON detail_invoice   
 FOR EACH ROW    
 DECLARE
