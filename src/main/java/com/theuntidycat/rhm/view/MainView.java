@@ -25,11 +25,6 @@ public class MainView extends javax.swing.JFrame {
         initComponents();
     }
     
-    /*public void update(){
-        this.manageInvoice1.updateTable();
-    }*/
-    
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -44,8 +39,10 @@ public class MainView extends javax.swing.JFrame {
         lbWaitingTicketCount = new javax.swing.JLabel();
         tabPanel = new javax.swing.JTabbedPane();
         reportView1 = new com.theuntidycat.rhm.view.ReportView();
+        manageInvoice1 = new com.theuntidycat.rhm.view.ManageInvoice();
         manageContract1 = new com.theuntidycat.rhm.view.ManageContract();
         manageRoom1 = new com.theuntidycat.rhm.view.ManageRoom();
+        manageTenant1 = new com.theuntidycat.rhm.view.ManageTenant();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Rental Housing Management");
@@ -65,8 +62,10 @@ public class MainView extends javax.swing.JFrame {
         tabPanel.setTabPlacement(javax.swing.JTabbedPane.LEFT);
         tabPanel.setMinimumSize(new java.awt.Dimension(640, 500));
         tabPanel.addTab("Thống kê", reportView1);
+        tabPanel.addTab("Hoá đơn", manageInvoice1);
         tabPanel.addTab("Hợp đồng", manageContract1);
         tabPanel.addTab("Phòng", manageRoom1);
+        tabPanel.addTab("Khách thuê", manageTenant1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -95,6 +94,8 @@ public class MainView extends javax.swing.JFrame {
     private javax.swing.JLabel lbTicketIcon;
     private javax.swing.JLabel lbWaitingTicketCount;
     private com.theuntidycat.rhm.view.ManageContract manageContract1;
+    private com.theuntidycat.rhm.view.ManageInvoice manageInvoice1;
+    private com.theuntidycat.rhm.view.ManageTenant manageTenant1;
     private com.theuntidycat.rhm.view.ManageRoom manageRoom1;
     private com.theuntidycat.rhm.view.ReportView reportView1;
     private javax.swing.JTabbedPane tabPanel;
