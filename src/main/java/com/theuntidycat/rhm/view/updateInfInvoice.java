@@ -68,7 +68,8 @@ public class updateInfInvoice extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         CbbS = new javax.swing.JComboBox<>();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setAlwaysOnTop(true);
 
         btQuay.setText("Quay lại");
         btQuay.addActionListener(new java.awt.event.ActionListener() {
@@ -180,6 +181,7 @@ public class updateInfInvoice extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
     public void setCbbRoom(){
         try{

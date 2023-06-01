@@ -1,26 +1,36 @@
 package com.theuntidycat.rhm.view;
 
-import java.time.Month;
+import com.theuntidycat.rhm.controller.ReportController;
+import com.theuntidycat.rhm.model.BarChartDataset;
+import com.theuntidycat.rhm.model.PieChartDataset;
+import com.theuntidycat.rhm.view.chart.BarChart;
+import com.theuntidycat.rhm.view.chart.PieChart;
+import java.sql.ResultSet;
+import java.text.DecimalFormat;
 import java.time.Year;
 import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JLabel;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
-
 /**
  *
  * @author SHeroAnh
  */
 public class ReportView extends javax.swing.JPanel {
 
+    private LoadingFrame loadingFrame = new LoadingFrame();
+    private ReportController rpCtrl = new ReportController();
+
     /**
      * Creates new form ReportView
      */
     public ReportView() {
+//        TestPieChart pieChart = new TestPieChart();
         initComponents();
         initSearchBar();
     }
@@ -44,6 +54,9 @@ public class ReportView extends javax.swing.JPanel {
         cbbYear = new javax.swing.JComboBox<>();
         jSeparator2 = new javax.swing.JSeparator();
         btSearch = new javax.swing.JButton();
+        revenueInfoPanel = new javax.swing.JPanel();
+        revenueChartPanel = new javax.swing.JPanel();
+        jPanel1 = new javax.swing.JPanel();
 
         setMinimumSize(new java.awt.Dimension(500, 385));
 
@@ -84,20 +97,42 @@ public class ReportView extends javax.swing.JPanel {
         });
         searchBar.add(btSearch);
 
+        revenueInfoPanel.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 25, 5));
+
+        revenueChartPanel.setLayout(new java.awt.GridLayout(1, 2));
+
         javax.swing.GroupLayout revenueTabLayout = new javax.swing.GroupLayout(revenueTab);
         revenueTab.setLayout(revenueTabLayout);
         revenueTabLayout.setHorizontalGroup(
             revenueTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(searchBar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(searchBar, javax.swing.GroupLayout.DEFAULT_SIZE, 500, Short.MAX_VALUE)
+            .addComponent(revenueInfoPanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(revenueChartPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         revenueTabLayout.setVerticalGroup(
             revenueTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(revenueTabLayout.createSequentialGroup()
                 .addComponent(searchBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 360, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(revenueChartPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 325, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(revenueInfoPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         reportTabPane.addTab("Doanh thu", revenueTab);
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 500, Short.MAX_VALUE)
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 403, Short.MAX_VALUE)
+        );
+
+        reportTabPane.addTab("tab2", jPanel1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -112,7 +147,47 @@ public class ReportView extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSearchActionPerformed
-        // TODO add your handling code here:
+        try {
+            PieChart revenuePieChart = new PieChart();
+            BarChart revenueBarChart = new BarChart();
+            if (String.valueOf(cbbMonth.getSelectedItem()) == "Tất cả") {
+                ResultSet rsMonthlyRevenue = rpCtrl.getMonthlyRevenueByYear(String.valueOf(cbbYear.getSelectedItem()));
+                double sumReceived = rpCtrl.getTotalReceivedByYear(String.valueOf(cbbYear.getSelectedItem()));
+                double sumRevenue = rpCtrl.getTotalRevenueByYear(String.valueOf(cbbYear.getSelectedItem()));
+                ArrayList<PieChartDataset> dataset = new ArrayList<>();
+                ArrayList<BarChartDataset> dataset1 = new ArrayList<>();
+                dataset.add(new PieChartDataset("Đã thu", sumReceived));
+                dataset.add(new PieChartDataset("Còn thiếu", sumRevenue - sumReceived));
+                JLabel lbSumRevenue = new JLabel("Tổng doanh thu: " + new DecimalFormat("'$'0.0").format(sumRevenue));
+                JLabel lbSumReceived = new JLabel("Đã thu: " + new DecimalFormat("'$'0.0").format(sumReceived));
+                loadingFrame.run();
+                while (rsMonthlyRevenue.next()) {
+                    dataset1.add(new BarChartDataset("Tháng " + rsMonthlyRevenue.getString("MONTH"), Double.valueOf(rsMonthlyRevenue.getString("SUM_RENTAL_PRICE")), "$"));
+                }
+                revenueBarChart.loadChart("Biểu đồ doanh thu theo tháng năm " + String.valueOf(cbbYear.getSelectedItem()), dataset1);
+                revenuePieChart.loadChart("Biểu đồ doanh thu năm " + String.valueOf(cbbYear.getSelectedItem()), dataset);
+                revenueChartPanel.removeAll();
+                revenueInfoPanel.removeAll();
+                revenueInfoPanel.updateUI();
+                revenueChartPanel.updateUI();
+                revenueChartPanel.add(revenueBarChart);
+                revenueChartPanel.add(revenuePieChart);
+                revenueInfoPanel.add(lbSumRevenue);
+                revenueInfoPanel.add(lbSumReceived);
+                revenueInfoPanel.updateUI();
+                revenueChartPanel.updateUI();
+                loadingFrame.close();
+            } else {
+                loadingFrame.run();
+                revenueChartPanel.removeAll();
+                revenueInfoPanel.removeAll();
+                revenueInfoPanel.updateUI();
+                revenueChartPanel.updateUI();
+                loadingFrame.close();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }//GEN-LAST:event_btSearchActionPerformed
 
     private void cbbMonthActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbbMonthActionPerformed
@@ -123,13 +198,49 @@ public class ReportView extends javax.swing.JPanel {
         DefaultComboBoxModel<String> cbbMonthModel = new DefaultComboBoxModel<>();
 
         Date now = new Date();
+        cbbMonthModel.addElement("Tất cả");
         for (int i = String.valueOf(cbbYear.getSelectedItem()).equals(Integer.toString(Year.now().getValue())) ? now.getMonth() : 11; i >= 0; i--) {
             cbbMonthModel.addElement(Integer.toString(i + 1));
         }
         cbbMonth.setModel(cbbMonthModel);
     }//GEN-LAST:event_cbbYearItemStateChanged
 
-    public void initSearchBar (){
+    public void initRevenueChart() {
+        try {
+            PieChart revenuePieChart = new PieChart();
+            BarChart revenueBarChart = new BarChart();
+            ResultSet rsMonthlyRevenue = rpCtrl.getMonthlyRevenueByYear(String.valueOf(cbbYear.getSelectedItem()));
+            double sumReceived = rpCtrl.getTotalReceivedByYear(String.valueOf(cbbYear.getSelectedItem()));
+            double sumRevenue = rpCtrl.getTotalRevenueByYear(String.valueOf(cbbYear.getSelectedItem()));
+            ArrayList<PieChartDataset> dataset = new ArrayList<>();
+            ArrayList<BarChartDataset> dataset1 = new ArrayList<>();
+            dataset.add(new PieChartDataset("Đã thu", sumReceived));
+            dataset.add(new PieChartDataset("Còn thiếu", sumRevenue - sumReceived));
+            JLabel lbSumRevenue = new JLabel("Tổng doanh thu: " + new DecimalFormat("'$'0.0").format(sumRevenue));
+                JLabel lbSumReceived = new JLabel("Đã thu: " + new DecimalFormat("'$'0.0").format(sumReceived));
+            loadingFrame.run();
+            while (rsMonthlyRevenue.next()) {
+                dataset1.add(new BarChartDataset("Tháng " + rsMonthlyRevenue.getString("MONTH"), Double.valueOf(rsMonthlyRevenue.getString("SUM_RENTAL_PRICE")), "$"));
+            }
+            revenueBarChart.loadChart("Biểu đồ doanh thu theo tháng năm " + String.valueOf(cbbYear.getSelectedItem()), dataset1);
+            revenuePieChart.loadChart("Biểu đồ doanh thu năm " + String.valueOf(cbbYear.getSelectedItem()), dataset);
+            revenueChartPanel.removeAll();
+            revenueInfoPanel.removeAll();
+            revenueInfoPanel.updateUI();
+            revenueChartPanel.updateUI();
+            revenueChartPanel.add(revenueBarChart);
+            revenueChartPanel.add(revenuePieChart);
+            revenueInfoPanel.add(lbSumRevenue);
+            revenueInfoPanel.add(lbSumReceived);
+            revenueInfoPanel.updateUI();
+            revenueChartPanel.updateUI();
+            loadingFrame.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void initSearchBar() {
         DefaultComboBoxModel<String> cbbMonthModel = new DefaultComboBoxModel<>();
         DefaultComboBoxModel<String> cbbYearModel = new DefaultComboBoxModel<>();
         Date now = new Date();
@@ -137,6 +248,7 @@ public class ReportView extends javax.swing.JPanel {
             cbbYearModel.addElement(Integer.toString(i));
         }
         cbbYear.setModel(cbbYearModel);
+        cbbMonthModel.addElement("Tất cả");
         for (int i = now.getMonth(); i >= 0; i--) {
             cbbMonthModel.addElement(Integer.toString(i + 1));
         }
@@ -147,10 +259,13 @@ public class ReportView extends javax.swing.JPanel {
     private javax.swing.JComboBox<String> cbbMonth;
     private javax.swing.JComboBox<String> cbbYear;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JLabel lbMonth;
     private javax.swing.JTabbedPane reportTabPane;
+    private javax.swing.JPanel revenueChartPanel;
+    private javax.swing.JPanel revenueInfoPanel;
     private javax.swing.JPanel revenueTab;
     private javax.swing.JPanel searchBar;
     // End of variables declaration//GEN-END:variables

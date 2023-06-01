@@ -7,7 +7,7 @@ package com.theuntidycat.rhm.view;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import com.formdev.flatlaf.FlatLightLaf;
-import com.theuntidycat.rhm.controller.AppPropertise;
+import com.theuntidycat.rhm.controller.AppPropertiseController;
 import javax.swing.ImageIcon;
 
 /**
@@ -21,12 +21,12 @@ public class MainView extends javax.swing.JFrame {
      */
     private Path currentRelativePath = Paths.get("");
     private String s;
-    private AppPropertise config;
+    private AppPropertiseController config;
     private com.theuntidycat.rhm.view.SettingFrame settingFrame;
     
     public MainView() {
         settingFrame = new SettingFrame();
-        config = new AppPropertise();
+        config = new AppPropertiseController();
         s = currentRelativePath.toAbsolutePath().toString();
         System.out.println(s);
     }
@@ -59,7 +59,7 @@ public class MainView extends javax.swing.JFrame {
         setResizable(false);
         setSize(new java.awt.Dimension(700, 500));
 
-        jPanel1.setLayout(new java.awt.GridLayout(1, 2));
+        jPanel1.setLayout(new java.awt.BorderLayout());
 
         lbSetting.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lbSetting.setIcon(new javax.swing.ImageIcon(s+"/assets/gear.png"));
@@ -72,7 +72,7 @@ public class MainView extends javax.swing.JFrame {
                 lbSettingMouseClicked(evt);
             }
         });
-        jPanel1.add(lbSetting);
+        jPanel1.add(lbSetting, java.awt.BorderLayout.LINE_END);
 
         tabPanel.setTabPlacement(javax.swing.JTabbedPane.LEFT);
         tabPanel.setMinimumSize(new java.awt.Dimension(640, 500));
@@ -97,7 +97,7 @@ public class MainView extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(tabPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 464, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(tabPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 464, Short.MAX_VALUE))
         );
 
         pack();
@@ -135,6 +135,12 @@ public class MainView extends javax.swing.JFrame {
             }
         });
         initRoom.start();
+        Thread initReport = new Thread(new Runnable() {
+            public void run() {
+                reportView1.initRevenueChart();
+            }
+        });
+        initReport.start();
         // manageContract1.createTable();
         // manageInvoice1.updateTable();
         // manageTenant1.capnhatTable();

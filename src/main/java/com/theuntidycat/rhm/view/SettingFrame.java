@@ -4,7 +4,7 @@
  */
 package com.theuntidycat.rhm.view;
 
-import com.theuntidycat.rhm.controller.AppPropertise;
+import com.theuntidycat.rhm.controller.AppPropertiseController;
 import javax.swing.JOptionPane;
 
 /**
@@ -114,7 +114,7 @@ public class SettingFrame extends javax.swing.JFrame {
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
         try {
-            AppPropertise config = new AppPropertise();
+            AppPropertiseController config = new AppPropertiseController();
             config.setData("email", inpEmail.getText());
             config.setData("password", String.valueOf(inpPassword.getPassword()));
             config.setData("smtp_host", inpSmtpHost.getText());
@@ -138,7 +138,7 @@ public class SettingFrame extends javax.swing.JFrame {
     }
 
     public void loadConfig() {
-        AppPropertise config = new AppPropertise();
+        AppPropertiseController config = new AppPropertiseController();
         System.out.println(Boolean.valueOf(config.getData("ssl")));
         inpEmail.setText(config.getData("email"));
         inpPassword.setText(config.getData("password"));

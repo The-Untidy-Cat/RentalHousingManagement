@@ -17,13 +17,13 @@ import java.nio.file.Paths;
  *
  * @author SHeroAnh
  */
-public class AppPropertise {
+public class AppPropertiseController {
 
     private Path currentRelativePath = Paths.get("");
     private String filePath;
     private Properties data;
 
-    public AppPropertise(){
+    public AppPropertiseController(){
         String s = currentRelativePath.toAbsolutePath().toString();
         filePath = s + "/app.propertise";
         File appConfig = new File(filePath);

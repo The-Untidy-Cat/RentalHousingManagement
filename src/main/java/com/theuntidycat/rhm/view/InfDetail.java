@@ -49,6 +49,7 @@ public class InfDetail extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("THÔNG TIN CTHD");
+        setAlwaysOnTop(true);
 
         jLabel1.setText("Loại hóa đơn");
 
@@ -153,6 +154,7 @@ public class InfDetail extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     public void setCbbRoom(){

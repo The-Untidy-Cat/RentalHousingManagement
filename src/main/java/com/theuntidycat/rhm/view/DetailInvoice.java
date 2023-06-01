@@ -95,8 +95,9 @@ public class DetailInvoice extends javax.swing.JFrame {
         txtID = new javax.swing.JTextField();
         txtNo = new javax.swing.JTextField();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("CHI TIẾT HÓA ĐƠN");
+        setAlwaysOnTop(true);
 
         jPanel1.setToolTipText("CTHD");
 
@@ -260,6 +261,7 @@ public class DetailInvoice extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
     DefaultTableModel tblModelTT;
     public void createTable()
