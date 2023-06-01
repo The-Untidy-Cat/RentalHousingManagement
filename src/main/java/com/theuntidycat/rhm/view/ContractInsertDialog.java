@@ -10,6 +10,9 @@ import java.sql.*;
 import java.util.ArrayList;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
+import java.util.Date;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 
 /**
  *
@@ -22,7 +25,9 @@ public class ContractInsertDialog extends javax.swing.JFrame {
      */
     public ContractInsertDialog() {
         initComponents();
-        txtTenantID.setEditable(false);
+        txtRoomID.setEditable(false);
+        Date date = new Date();
+        dateStartDate.setDate(date);
         loadCBBRoomName();
         setVisible(true);
     }
@@ -47,7 +52,7 @@ public class ContractInsertDialog extends javax.swing.JFrame {
                 listRoomName.add(rs.getString("NAME"));
             }
             
-            cbbRoomName.setModel(new DefaultComboBoxModel<String>(listRoomID.toArray(new String[0])));
+            cbbRoomName.setModel(new DefaultComboBoxModel<String>(listRoomName.toArray(new String[0])));
         }
         catch(SQLException e)
         {
@@ -56,6 +61,13 @@ public class ContractInsertDialog extends javax.swing.JFrame {
         }
     }
     
+    public void checkDate()
+    {
+        if(dateStartDate.getDate().compareTo(dateEndDate.getDate()) > 0)
+        {
+            JOptionPane.showMessageDialog(null, "Contract end Date must after Contract start date", "Notification", JOptionPane.INFORMATION_MESSAGE);
+        }
+    }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -84,6 +96,7 @@ public class ContractInsertDialog extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Contract Insert Dialog");
+        setAlwaysOnTop(true);
         setPreferredSize(new java.awt.Dimension(500, 385));
 
         contractCancelButton.setText("Cancel");
@@ -131,17 +144,17 @@ public class ContractInsertDialog extends javax.swing.JFrame {
         jPanel2.add(jLabel3);
 
         cbbRoomName.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbbRoomName.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbbRoomNameActionPerformed(evt);
+            }
+        });
         jPanel2.add(cbbRoomName);
 
         jLabel4.setText("Mã Phòng");
         jPanel2.add(jLabel4);
 
         txtRoomID.setPreferredSize(new java.awt.Dimension(70, 30));
-        txtRoomID.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtRoomIDActionPerformed(evt);
-            }
-        });
         jPanel2.add(txtRoomID);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -193,19 +206,50 @@ public class ContractInsertDialog extends javax.swing.JFrame {
 
     private void contractCancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_contractCancelButtonActionPerformed
         // TODO add your handling code here:
-        int ret = JOptionPane.showConfirmDialog(null, "Ban co muon huy?", "Thong bao", JOptionPane.YES_NO_OPTION);
+        int ret = JOptionPane.showConfirmDialog(this, "Ban co muon huy?", "Thong bao", JOptionPane.YES_NO_OPTION);
         if(ret == JOptionPane.YES_OPTION)
             setVisible(false);
     }//GEN-LAST:event_contractCancelButtonActionPerformed
 
     private void contractSubmitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_contractSubmitButtonActionPerformed
         // TODO add your handling code here:
+        try
+        {
+            ManageContractController controller = new ManageContractController();
+            checkDate();
+            DateFormat df = new SimpleDateFormat("dd/MMM/yyyy");
+            String start_date = df.format(dateStartDate.getDate());
+            String end_date = df.format(dateEndDate.getDate());
+            float price = Float.parseFloat(txtPrice.getText());
+            float deposit = Float.parseFloat(txtDeposit.getText());
+            controller.insertContract(start_date, end_date, price, deposit, txtTenantID.getText(), txtRoomID.getText());
+            JOptionPane.showMessageDialog(this, "Insert new contract successfully");
+        }
+        catch(Exception e)
+        {
+            System.out.println(e);
+            JOptionPane.showMessageDialog(this, "Cannot Submit");
+        }
+        
         
     }//GEN-LAST:event_contractSubmitButtonActionPerformed
 
-    private void txtRoomIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtRoomIDActionPerformed
+    private void cbbRoomNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbbRoomNameActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtRoomIDActionPerformed
+        try
+        {
+            ManageContractController controller = new ManageContractController();
+            ResultSet rs = controller.cbbRoomIDAction(cbbRoomName.getSelectedItem().toString());
+            
+            rs.next();
+            txtRoomID.setText(rs.getString("ID"));
+        }
+        catch(SQLException e)
+        {
+            System.out.println(e);
+            System.out.println("Error in ContractInsertDialog cbbRoomNameAction");
+        }
+    }//GEN-LAST:event_cbbRoomNameActionPerformed
 
     /**
      * @param args the command line arguments

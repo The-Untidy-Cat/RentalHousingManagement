@@ -33,6 +33,22 @@ public class ManageContractController
         return rs;
     }
     
+    public ResultSet cbbRoomIDAction(String room_name)
+    {
+        ResultSet rs = null;
+        try
+        {
+            Statement stmt = con.createStatement();
+            rs = stmt.executeQuery("SELECT ID FROM ROOM WHERE NAME = '"+room_name+"'");
+        }
+        catch(SQLException e)
+        {
+            System.out.println(e);
+            System.out.println("Error in ContractController cbbRoomIDAction");
+        }
+        return rs;
+    }
+    
     public boolean insertContract(String start_date, String end_date, float price, float deposit, String tenant_id, String room_id)
     {
         try
@@ -44,7 +60,7 @@ public class ManageContractController
             prestmt.setFloat(4, deposit);
             prestmt.setString(5, tenant_id);
             prestmt.setString(6, room_id);
-            
+            prestmt.executeUpdate();
             return true;
         }
         catch(SQLException e)
