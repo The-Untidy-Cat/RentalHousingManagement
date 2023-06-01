@@ -59,15 +59,10 @@ public class MainView extends javax.swing.JFrame {
         setResizable(false);
         setSize(new java.awt.Dimension(700, 500));
 
-        /*lbTicketIcon.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lbTicketIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/theuntidycat/rhm/view/ticket-detailed.png"))); // NOI18N
-        lbTicketIcon.setLabelFor(lbWaitingTicketCount);
-        lbTicketIcon.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jPanel1.add(lbTicketIcon);
-        jPanel1.setLayout(new java.awt.GridLayout(1, 2));*/
+        jPanel1.setLayout(new java.awt.GridLayout(1, 2));
 
         lbSetting.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lbSetting.setIcon(new javax.swing.ImageIcon("/icons/ticket-detailed.png"));
+        lbSetting.setIcon(new javax.swing.ImageIcon(s+"/assets/gear.png"));
         lbSetting.setText("Cài đặt");
         lbSetting.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         lbSetting.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
@@ -91,16 +86,12 @@ public class MainView extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(tabPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(tabPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 640, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap());
-        //);
+                .addContainerGap())
+        );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
@@ -108,12 +99,6 @@ public class MainView extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(tabPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 464, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(tabPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 464, javax.swing.GroupLayout.PREFERRED_SIZE));
-        //);
 
         pack();
         setLocationRelativeTo(null);
@@ -128,7 +113,7 @@ public class MainView extends javax.swing.JFrame {
         initComponents();
         Thread initContract = new Thread(new Runnable() {
             public void run() {
-                manageContract1.loadTable();
+                manageContract1.createTable();
             }
         });
         initContract.start();

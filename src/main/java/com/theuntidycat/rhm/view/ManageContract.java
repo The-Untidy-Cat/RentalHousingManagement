@@ -18,20 +18,16 @@ public class ManageContract extends javax.swing.JPanel {
      */
     public ManageContract() {
         initComponents();
-        createTable();
     }
+    
+    
     DefaultTableModel tblModelTT;
     public void createTable()
     {
         tblModelTT = new DefaultTableModel();
         String title[] = {"Mã HĐ", "Ngày BĐ", "Ngày KT", "Giá thuê", "Đặt cọc","Mã khách", "Mã phòng","Trạng thái"};
         tblModelTT.setColumnIdentifiers(title);
-        tbContract.setModel(tblModelTT);
-        setVisible(true);
-    }
-    
-    public void loadTable()
-    {
+        
         try
         {
             ManageContractController controller = new ManageContractController();
@@ -54,9 +50,13 @@ public class ManageContract extends javax.swing.JPanel {
         {
             System.out.println(e);
             System.out.println("Error in ManageContract loadTable");
-        }
+        } 
         
+        tbContract.setModel(tblModelTT);
+        setVisible(true);
     }
+    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
