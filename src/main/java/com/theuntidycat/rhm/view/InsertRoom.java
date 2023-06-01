@@ -4,24 +4,24 @@
  */
 package com.theuntidycat.rhm.view;
 
-import com.theuntidycat.rhm.controller.ManageTenantController;
+import com.theuntidycat.rhm.controller.ManageRoomController;
 import javax.swing.JOptionPane;
-import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Admin
  */
-public class InsertTenant extends javax.swing.JFrame {
+public class InsertRoom extends javax.swing.JFrame {
 
     /**
-     * Creates new form InsertTenant
+     * Creates new form InsertRoom
      */
-    public InsertTenant() {
+    public InsertRoom() {
         initComponents();
-        setVisible(true);   
         setLocationRelativeTo(null);
     }
-    ManageTenantController ctrl = new ManageTenantController();
+    ManageRoomController ctrl = new ManageRoomController();
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -35,16 +35,14 @@ public class InsertTenant extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         txtTen = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        txtQue = new javax.swing.JTextField();
+        txtLoai = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        txtDob = new javax.swing.JTextField();
+        txtSucchua = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        txtSdt = new javax.swing.JTextField();
+        txtGia = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        txtCmnd = new javax.swing.JTextField();
+        txtDientich = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
-        txtEmail1 = new javax.swing.JTextField();
-        jLabel7 = new javax.swing.JLabel();
         txtTrangthai = new javax.swing.JTextField();
         jPanel3 = new javax.swing.JPanel();
         BtnCancel = new javax.swing.JButton();
@@ -54,7 +52,7 @@ public class InsertTenant extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Tên người thuê");
+        jLabel1.setText("Tên phòng");
 
         txtTen.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -64,51 +62,41 @@ public class InsertTenant extends javax.swing.JFrame {
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("Quê quán ");
+        jLabel2.setText("Loại phòng");
 
-        txtQue.addActionListener(new java.awt.event.ActionListener() {
+        txtLoai.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtQueActionPerformed(evt);
+                txtLoaiActionPerformed(evt);
             }
         });
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel3.setText("Ngày sinh");
+        jLabel3.setText("Sức chứa");
 
-        txtDob.addActionListener(new java.awt.event.ActionListener() {
+        txtSucchua.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtDobActionPerformed(evt);
+                txtSucchuaActionPerformed(evt);
             }
         });
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel4.setText("Số điện thoại");
+        jLabel4.setText("Giá thuê");
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel5.setText("Số CCCD/ CMND");
+        jLabel5.setText("Diện tích");
 
-        txtCmnd.addActionListener(new java.awt.event.ActionListener() {
+        txtDientich.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtCmndActionPerformed(evt);
+                txtDientichActionPerformed(evt);
             }
         });
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel6.setText("Email");
-
-        txtEmail1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtEmail1ActionPerformed(evt);
-            }
-        });
-
-        jLabel7.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel7.setText("Trạng thái");
+        jLabel6.setText("Trạng thái");
 
         txtTrangthai.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -126,13 +114,11 @@ public class InsertTenant extends javax.swing.JFrame {
                         .addContainerGap()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, 211, Short.MAX_VALUE)
-                            .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtEmail1, javax.swing.GroupLayout.DEFAULT_SIZE, 360, Short.MAX_VALUE)
-                            .addComponent(txtCmnd, javax.swing.GroupLayout.DEFAULT_SIZE, 360, Short.MAX_VALUE)
-                            .addComponent(txtTrangthai)))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtTrangthai, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtDientich, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -140,13 +126,13 @@ public class InsertTenant extends javax.swing.JFrame {
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addContainerGap()
                                 .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 217, Short.MAX_VALUE))
+                            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(txtQue, javax.swing.GroupLayout.DEFAULT_SIZE, 360, Short.MAX_VALUE)
-                                .addComponent(txtSdt, javax.swing.GroupLayout.DEFAULT_SIZE, 360, Short.MAX_VALUE)
-                                .addComponent(txtDob, javax.swing.GroupLayout.DEFAULT_SIZE, 360, Short.MAX_VALUE))
+                                .addComponent(txtLoai, javax.swing.GroupLayout.DEFAULT_SIZE, 360, Short.MAX_VALUE)
+                                .addComponent(txtGia, javax.swing.GroupLayout.DEFAULT_SIZE, 360, Short.MAX_VALUE)
+                                .addComponent(txtSucchua, javax.swing.GroupLayout.DEFAULT_SIZE, 360, Short.MAX_VALUE))
                             .addComponent(txtTen, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(22, 22, 22))
         );
@@ -159,28 +145,24 @@ public class InsertTenant extends javax.swing.JFrame {
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(4, 4, 4)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtQue, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtLoai, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(7, 7, 7)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtDob, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtSucchua, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(7, 7, 7)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txtSdt, javax.swing.GroupLayout.DEFAULT_SIZE, 31, Short.MAX_VALUE))
+                    .addComponent(txtGia, javax.swing.GroupLayout.DEFAULT_SIZE, 31, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtCmnd, javax.swing.GroupLayout.DEFAULT_SIZE, 31, Short.MAX_VALUE))
+                    .addComponent(txtDientich, javax.swing.GroupLayout.DEFAULT_SIZE, 31, Short.MAX_VALUE))
                 .addGap(6, 6, 6)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtEmail1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel6))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtTrangthai, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel7))
+                    .addComponent(jLabel6))
                 .addContainerGap())
         );
 
@@ -215,7 +197,7 @@ public class InsertTenant extends javax.swing.JFrame {
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap(13, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(BtnThem, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(BtnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -226,19 +208,19 @@ public class InsertTenant extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(15, 15, 15))
         );
 
         pack();
@@ -248,40 +230,17 @@ public class InsertTenant extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtTenActionPerformed
 
-    private void txtQueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtQueActionPerformed
+    private void txtLoaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtLoaiActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtQueActionPerformed
+    }//GEN-LAST:event_txtLoaiActionPerformed
 
-    private void txtDobActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDobActionPerformed
+    private void txtSucchuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSucchuaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtDobActionPerformed
+    }//GEN-LAST:event_txtSucchuaActionPerformed
 
-    private void txtCmndActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCmndActionPerformed
+    private void txtDientichActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDientichActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtCmndActionPerformed
-
-    private void txtEmail1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEmail1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtEmail1ActionPerformed
-
-    private void BtnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnThemActionPerformed
-        // TODO add your handling code here:
-        String ten = txtTen.getText();
-        String que = txtQue.getText();
-        String ntns = txtDob.getText();
-        String email = txtEmail1.getText();
-        String cmnd = txtCmnd.getText();
-        String sdt = txtSdt.getText();
-        int trangthai = Integer.parseInt(txtTrangthai.getText());
-        boolean check = ctrl.insertTenant(ten, que, ntns, sdt, cmnd, email, trangthai);
-        if(check){
-            JOptionPane.showMessageDialog(null, "Thêm thành công", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
-            setVisible(false);
-        }
-        else{
-            JOptionPane.showMessageDialog(null, "Trùng thông tin. Vui lòng nhập lại", "Thông báo", JOptionPane.ERROR_MESSAGE);
-        }
-    }//GEN-LAST:event_BtnThemActionPerformed
+    }//GEN-LAST:event_txtDientichActionPerformed
 
     private void txtTrangthaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTrangthaiActionPerformed
         // TODO add your handling code here:
@@ -293,6 +252,26 @@ public class InsertTenant extends javax.swing.JFrame {
         if (ret == JOptionPane.YES_OPTION)
             setVisible(false);
     }//GEN-LAST:event_BtnCancelActionPerformed
+
+    private void BtnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnThemActionPerformed
+        // TODO add your handling code here:
+        String ten = txtTen.getText();
+        int loai = Integer.parseInt(txtLoai.getText());
+        int succhua = Integer.parseInt(txtSucchua.getText());
+        int trangthai = Integer.parseInt(txtTrangthai.getText());
+        int dientich = Integer.parseInt(txtDientich.getText());
+        int gia = Integer.parseInt(txtGia.getText());
+
+        boolean check = ctrl.insertRoom(ten, succhua, gia, loai, dientich, trangthai);
+        if(check){
+            JOptionPane.showMessageDialog(null, "Thêm thành công", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+            setVisible(false);
+        }
+        else{
+            JOptionPane.showMessageDialog(null, "Trùng thông tin. Vui lòng nhập lại", "Thông báo", JOptionPane.ERROR_MESSAGE);
+        }
+
+    }//GEN-LAST:event_BtnThemActionPerformed
 
     /**
      * @param args the command line arguments
@@ -311,17 +290,22 @@ public class InsertTenant extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(InsertTenant.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(InsertRoom.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(InsertTenant.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(InsertRoom.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(InsertTenant.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(InsertRoom.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(InsertTenant.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(InsertRoom.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new InsertRoom().setVisible(true);
+            }
+        });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -333,14 +317,12 @@ public class InsertTenant extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JTextField txtCmnd;
-    private javax.swing.JTextField txtDob;
-    private javax.swing.JTextField txtEmail1;
-    private javax.swing.JTextField txtQue;
-    private javax.swing.JTextField txtSdt;
+    private javax.swing.JTextField txtDientich;
+    private javax.swing.JTextField txtGia;
+    private javax.swing.JTextField txtLoai;
+    private javax.swing.JTextField txtSucchua;
     private javax.swing.JTextField txtTen;
     private javax.swing.JTextField txtTrangthai;
     // End of variables declaration//GEN-END:variables

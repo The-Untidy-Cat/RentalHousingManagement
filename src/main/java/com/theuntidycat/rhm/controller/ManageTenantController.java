@@ -10,8 +10,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import javax.swing.JOptionPane;
-import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -24,7 +22,7 @@ public class ManageTenantController {
     public ResultSet getListOfTenant(){
         ResultSet result = null;
         try{
-            String strSQL = "SELECT id, name, Home_town, dob, phone_number, id_number, email FROM TENANT ORDER BY id";
+            String strSQL = "SELECT T.id, T.name, Home_town, TO_CHAR(dob, 'DD/MM/YYYY'), phone_number, id_number, email, S.name FROM TENANT T, TENANT_STATUS S WHERE T.status_id = S.id ORDER BY T.id";
             Statement stat = con.createStatement();
             result = stat.executeQuery(strSQL);
         }
@@ -34,9 +32,9 @@ public class ManageTenantController {
         return result;
     }
     
-    public boolean insertTenant(String ten, String que, String ntns, String sdt, String cmnd, String email){
+    public boolean insertTenant(String ten, String que, String ntns, String sdt, String cmnd, String email, int status){
         try{
-            String strSql = "INSERT INTO TENANT (name, Home_Town, dob, Phone_Number, ID_Number, Email) VALUES (?,?,?,?,?,?)";
+            String strSql = "INSERT INTO TENANT (name, Home_Town, dob, Phone_Number, ID_Number, Email, Status_ID) VALUES (?,?,?,?,?,?,?)";
             PreparedStatement ps = con.prepareStatement(strSql);
             ps.setString(1, ten);
             ps.setString(2, que);
@@ -44,6 +42,7 @@ public class ManageTenantController {
             ps.setString(4, sdt);
             ps.setString(5, cmnd);
             ps.setString(6, email);
+            ps.setInt(7, status);
             ps.executeUpdate();   
             return true;
         } catch(SQLException e){
@@ -51,9 +50,9 @@ public class ManageTenantController {
             return false;
         }  
     }
-    public boolean updateTenant(String ten, String que, String ntns, String sdt, String cmnd, String email, String id){
+    public boolean updateTenant(String ten, String que, String ntns, String sdt, String cmnd, String email, int status, String id){
         try{
-            String strSql = "UPDATE TENANT SET name = ?, Home_Town = ?, dob = ?, Phone_Number = ?, Id_number = ?, email = ? WHERE id = ?";
+            String strSql = "UPDATE TENANT SET name = ?, Home_Town = ?, dob = ?, Phone_Number = ?, Id_number = ?, email = ?, status_id = ? WHERE id = ?";
             PreparedStatement pre = con.prepareStatement(strSql);
             pre.setString(1, ten);
             pre.setString(2, que);
@@ -61,7 +60,8 @@ public class ManageTenantController {
             pre.setString(4, sdt);
             pre.setString(5, cmnd);
             pre.setString(6, email);
-            pre.setString(7, id);
+            pre.setInt(7, status);
+            pre.setString(8, id);
             pre.executeUpdate();   
             return true;
         } catch(SQLException e){
@@ -82,5 +82,33 @@ public class ManageTenantController {
             return false;
         }
     }
-   
+    public int getStatusID(String status){
+        int id = 0;
+        try{
+            String getStatus = "SELECT id FROM TENANT_STATUS WHERE name = ?";
+            PreparedStatement ps = con.prepareStatement(getStatus);
+            ps.setString(1,status);
+            ResultSet rs = ps.executeQuery();
+            if(rs.next()){
+                id = rs.getInt(1);
+            }
+        }
+        catch(SQLException e){
+            System.out.println(e);
+        }
+        return id;
+    }
+    public ResultSet queryTenant(String trangthai){
+        ResultSet rs = null;
+        try{
+            String strSQL = "SELECT T.id, T.name, Home_town, TO_CHAR(dob, 'DD/MM/YYYY'), phone_number, id_number, email, S.name FROM TENANT T, TENANT_STATUS S WHERE T.status_id = S.id AND status_id = ? ORDER BY T.id";
+            PreparedStatement ps = con.prepareStatement(strSQL);
+            ps.setInt(1,getStatusID(trangthai));
+            rs = ps.executeQuery();
+        }
+        catch(SQLException e){
+            System.out.println(e);
+        }
+        return rs;
+    }
 }  

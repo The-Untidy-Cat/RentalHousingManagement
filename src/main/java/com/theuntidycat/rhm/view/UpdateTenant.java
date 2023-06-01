@@ -32,12 +32,14 @@ public class UpdateTenant extends javax.swing.JFrame {
     public String email;
     public String cmnd;
     public String sdt;
+    public String trangthai;
     public String id;
     public String txtID;
     ManageTenantController ctrl = new ManageTenantController();
     public UpdateTenant() {
         initComponents();
         setVisible(true);
+        setLocationRelativeTo(null);
     }
     public void setInformation(){
         txtTen.setText(ten);
@@ -46,6 +48,7 @@ public class UpdateTenant extends javax.swing.JFrame {
         txtSdt.setText(sdt);
         txtEmail.setText(email);
         txtCmnd1.setText(cmnd);
+        txtTrangthai.setText(trangthai);
         txtID = id;
     }
 
@@ -71,6 +74,8 @@ public class UpdateTenant extends javax.swing.JFrame {
         txtCmnd1 = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         txtEmail = new javax.swing.JTextField();
+        jLabel7 = new javax.swing.JLabel();
+        txtTrangthai = new javax.swing.JTextField();
         jPanel1 = new javax.swing.JPanel();
         BtnCancel = new javax.swing.JButton();
         BtnUpdate = new javax.swing.JButton();
@@ -137,6 +142,10 @@ public class UpdateTenant extends javax.swing.JFrame {
             }
         });
 
+        jLabel7.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel7.setText("Trạng thái");
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -147,11 +156,13 @@ public class UpdateTenant extends javax.swing.JFrame {
                         .addContainerGap()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, 211, Short.MAX_VALUE)
+                            .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtCmnd1, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(txtCmnd1, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtTrangthai, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -196,7 +207,11 @@ public class UpdateTenant extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6))
-                .addContainerGap())
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel7)
+                    .addComponent(txtTrangthai, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(10, 10, 10))
         );
 
         BtnCancel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -230,7 +245,7 @@ public class UpdateTenant extends javax.swing.JFrame {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(19, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(BtnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(BtnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -245,7 +260,7 @@ public class UpdateTenant extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(29, 29, 29))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -253,7 +268,7 @@ public class UpdateTenant extends javax.swing.JFrame {
                 .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(16, 16, 16))
+                .addContainerGap())
         );
 
         pack();
@@ -281,9 +296,20 @@ public class UpdateTenant extends javax.swing.JFrame {
 
     private void BtnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnUpdateActionPerformed
         // TODO add your handling code here:
-        boolean check = ctrl.updateTenant(txtTen.getText(), txtQue.getText(), txtDob.getText(), txtSdt.getText(), txtCmnd1.getText(), txtEmail.getText(), txtID);
+        String ten = txtTen.getText();
+        String que = txtQue.getText();
+        String ntns = txtDob.getText();
+        String sdt = txtSdt.getText();
+        String cmnd = txtCmnd1.getText();
+        String email = txtEmail.getText();
+        int trangthai = Integer.parseInt(txtTrangthai.getText());
+        boolean check = ctrl.updateTenant(ten, que, ntns, sdt, cmnd, email, trangthai, txtID);
         if(check){
-            JOptionPane.showMessageDialog(this, "Cập nhật thành công");
+            JOptionPane.showMessageDialog(null, "Cập nhật thành công", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+            setVisible(false);
+        }
+        else{
+            JOptionPane.showMessageDialog(null, "Trùng thông tin. Vui lòng nhập lại", "Thông báo", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_BtnUpdateActionPerformed
 
@@ -293,11 +319,9 @@ public class UpdateTenant extends javax.swing.JFrame {
 
     private void BtnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnCancelActionPerformed
         // TODO add your handling code here:
-        int ret = JOptionPane.showConfirmDialog(null, "Chắc chắn thoát ?","Thoát", JOptionPane.YES_NO_OPTION);
+        int ret = JOptionPane.showConfirmDialog(this, "Thoát mà không lưu ?", "Thoát", JOptionPane.YES_NO_OPTION);
         if (ret == JOptionPane.YES_OPTION)
-        {
-            dispose();
-        }
+            setVisible(false);
     }//GEN-LAST:event_BtnCancelActionPerformed
 
     /**
@@ -344,6 +368,7 @@ public class UpdateTenant extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JTextField txtCmnd1;
@@ -352,5 +377,6 @@ public class UpdateTenant extends javax.swing.JFrame {
     private javax.swing.JTextField txtQue;
     private javax.swing.JTextField txtSdt;
     private javax.swing.JTextField txtTen;
+    private javax.swing.JTextField txtTrangthai;
     // End of variables declaration//GEN-END:variables
 }

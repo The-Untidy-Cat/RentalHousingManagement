@@ -7,12 +7,9 @@ package com.theuntidycat.rhm.view;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import com.formdev.flatlaf.FlatLightLaf;
-import java.time.Year;
-import java.util.Date;
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.JDialog;
-import javax.swing.JOptionPane;
-import javax.swing.JProgressBar;
+import com.theuntidycat.rhm.controller.AppPropertise;
+import javax.swing.ImageIcon;
+
 /**
  *
  * @author SHeroAnh
@@ -22,7 +19,16 @@ public class MainView extends javax.swing.JFrame {
     /**
      * Creates new form MainView
      */
+    private Path currentRelativePath = Paths.get("");
+    private String s;
+    private AppPropertise config;
+    private com.theuntidycat.rhm.view.SettingFrame settingFrame;
+    
     public MainView() {
+        settingFrame = new SettingFrame();
+        config = new AppPropertise();
+        s = currentRelativePath.toAbsolutePath().toString();
+        System.out.println(s);
     }
 
     /**
@@ -33,12 +39,13 @@ public class MainView extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated
     // <editor-fold defaultstate="collapsed" desc="Generated
-    // Code">//GEN-BEGIN:initComponents
+    // <editor-fold defaultstate="collapsed" desc="Generated
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
-        lbTicketIcon = new javax.swing.JLabel();
         lbWaitingTicketCount = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
+        lbSetting = new javax.swing.JLabel();
         tabPanel = new javax.swing.JTabbedPane();
         reportView1 = new com.theuntidycat.rhm.view.ReportView();
         manageInvoice1 = new com.theuntidycat.rhm.view.ManageInvoice();
@@ -46,21 +53,32 @@ public class MainView extends javax.swing.JFrame {
         manageRoom1 = new com.theuntidycat.rhm.view.ManageRoom();
         manageTenant1 = new com.theuntidycat.rhm.view.ManageTenant();
 
+        lbWaitingTicketCount.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lbWaitingTicketCount.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/ticket-detailed.png"))); // NOI18N
+        lbWaitingTicketCount.setText("0 phiếu cần hỗ trợ");
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Rental Housing Management");
+        setAlwaysOnTop(true);
         setPreferredSize(new java.awt.Dimension(700, 500));
         setResizable(false);
         setSize(new java.awt.Dimension(700, 500));
 
-        lbTicketIcon.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lbTicketIcon.setIcon(
-                new javax.swing.ImageIcon(getClass().getResource("/com/theuntidycat/rhm/view/ticket-detailed.png"))); // NOI18N
-        lbTicketIcon.setLabelFor(lbWaitingTicketCount);
-        lbTicketIcon.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jPanel1.add(lbTicketIcon);
+        jPanel1.setLayout(new java.awt.GridLayout(1, 2));
 
-        lbWaitingTicketCount.setText("0 phiếu cần hỗ trợ");
-        jPanel1.add(lbWaitingTicketCount);
+        lbSetting.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lbSetting.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/gear.png"))); // NOI18N
+        lbSetting.setLabelFor(lbSetting);
+        lbSetting.setText("Cài đặt");
+        lbSetting.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        lbSetting.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        lbSetting.setIconTextGap(5);
+        lbSetting.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lbSettingMouseClicked(evt);
+            }
+        });
+        jPanel1.add(lbSetting);
 
         tabPanel.setTabPlacement(javax.swing.JTabbedPane.LEFT);
         tabPanel.setMinimumSize(new java.awt.Dimension(640, 500));
@@ -73,35 +91,30 @@ public class MainView extends javax.swing.JFrame {
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
-                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(tabPanel, javax.swing.GroupLayout.DEFAULT_SIZE,
-                                javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE,
-                                javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE));
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(tabPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 640, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
         layout.setVerticalGroup(
-                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 25,
-                                        javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(tabPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 464,
-                                        javax.swing.GroupLayout.PREFERRED_SIZE)));
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(tabPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 464, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    public void run() {
-//        final JOptionPane optionPane = new JOptionPane("Hello world", JOptionPane.INFORMATION_MESSAGE, JOptionPane.DEFAULT_OPTION, null, new Object[]{}, null);
-//        final JDialog dialog = new JDialog();
-//        dialog.setTitle("Message");
-//        dialog.setModal(true);
-//
-//        dialog.setContentPane(optionPane);
-//
-//        dialog.setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
-//        dialog.pack();
-//        dialog.setVisible(true);
+    private void lbSettingMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbSettingMouseClicked
+        settingFrame.run();
+    }//GEN-LAST:event_lbSettingMouseClicked
+
+    public void run() {        
         FlatLightLaf.setup();
         initComponents();
         
@@ -111,6 +124,7 @@ public class MainView extends javax.swing.JFrame {
             }
         });
         initContract.start();
+        
         Thread initInvoice = new Thread(new Runnable() {
             public void run() {
                 manageInvoice1.updateTable();
@@ -122,16 +136,23 @@ public class MainView extends javax.swing.JFrame {
                 manageTenant1.capnhatTable();
             }
         });
+        
         initTenant.start();
         // manageContract1.createTable();
         // manageInvoice1.updateTable();
         // manageTenant1.capnhatTable();
-        setVisible(true);
+//        setVisible(true);
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                setVisible(true);
+            }
+        });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JLabel lbTicketIcon;
+    private javax.swing.JLabel lbSetting;
     private javax.swing.JLabel lbWaitingTicketCount;
     private com.theuntidycat.rhm.view.ManageContract manageContract1;
     private com.theuntidycat.rhm.view.ManageInvoice manageInvoice1;
