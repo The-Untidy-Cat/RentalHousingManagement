@@ -15,6 +15,7 @@ public class ContractUpdateDialog extends javax.swing.JFrame {
      */
     public ContractUpdateDialog() {
         initComponents();
+        setVisible(true);
     }
 
     /**
