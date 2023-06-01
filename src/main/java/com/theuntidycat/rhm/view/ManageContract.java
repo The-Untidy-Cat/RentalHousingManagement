@@ -149,6 +149,12 @@ public class ManageContract extends javax.swing.JPanel {
 
     private void updateContractActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateContractActionPerformed
         // TODO add your handling code here:
+        int indexTB = tbContract.getSelectedRow();
+        if(indexTB < tblModelTT.getRowCount() && indexTB >= 0)
+        {
+            ContractUpdateDialog update = new ContractUpdateDialog();
+            update.getTxtRoomID().setText(tblModelTT.getValueAt(indexTB, 6).toString());
+        }
     }//GEN-LAST:event_updateContractActionPerformed
 
 
