@@ -113,7 +113,7 @@ public class MainView extends javax.swing.JFrame {
         initComponents();
         Thread initContract = new Thread(new Runnable() {
             public void run() {
-                manageContract1.createTable();
+                manageContract1.loadTable();
             }
         });
         initContract.start();

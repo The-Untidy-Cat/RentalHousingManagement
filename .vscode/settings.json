@@ -5,7 +5,7 @@
         "lib/**/*.jar",
         "assets/ojdbc10.jar"
     ],
-    "java.configuration.updateBuildConfiguration": "interactive",
+    "java.configuration.updateBuildConfiguration": "automatic",
     "sqltools.connections": [
         {
             "oracleOptions": {
