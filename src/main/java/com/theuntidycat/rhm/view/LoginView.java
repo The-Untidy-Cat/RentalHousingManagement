@@ -23,13 +23,13 @@ import com.theuntidycat.rhm.model.User;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 
 public class LoginView {
 
     private JFrame frame;
     private MainView mainView;
+    private LoadingFrame loadingFrame;
 
     public LoginView() {
         FlatLightLaf.setup();
@@ -37,7 +37,7 @@ public class LoginView {
         LoginController controller = new LoginController();
         Path currentRelativePath = Paths.get("");
         String s = currentRelativePath.toAbsolutePath().toString();
-        
+
         ImageIcon imageIcon = new ImageIcon(s + "/assets/building.png"); // load the image to a // imageIcon
         Image image = imageIcon.getImage(); // transform it
         Image newimg = image.getScaledInstance(390, 100, java.awt.Image.SCALE_SMOOTH); // scale it the smooth way
@@ -82,9 +82,12 @@ public class LoginView {
                 String password = new String(passwordInput.getPassword());
                 boolean check = controller.verifyUser(username, password);
                 if (check) {
+                    loadingFrame = new LoadingFrame();
                     User user = controller.getUser(username, password);
                     close();
+                    loadingFrame.run();
                     mainView.run();
+                    loadingFrame.close();
                 } else {
                     JOptionPane.showMessageDialog(null, "Xác thực thất bại. Vui lòng kiểm tra lại", "Lỗi", JOptionPane.ERROR_MESSAGE);
                 }
