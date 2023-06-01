@@ -17,6 +17,23 @@ public class ManageContractController
     private final Oracle database = new Oracle();
     private final Connection con = database.getConnection();
     
+    public ResultSet getContractTable()
+    {
+        ResultSet rs = null;
+        try
+        {
+            Statement stmt = con.createStatement();
+            rs = stmt.executeQuery("SELECT * FROM CONTRACT");
+        }
+        catch(SQLException e)
+        {
+            System.out.println(e);
+            System.out.println("Error in ContractController getContractTable");
+        }
+        return rs;
+    }
+         
+    
     public ResultSet getCBBRoom()
     {
         ResultSet rs = null;
@@ -28,7 +45,7 @@ public class ManageContractController
         catch(SQLException e)
         {
             System.out.println(e);
-            System.out.println("Error in Contract_GetCBBRoom");
+            System.out.println("Error in ContractController getCBBRoom");
         }
         return rs;
     }
