@@ -23,7 +23,8 @@ public class ManageContractController
         try
         {
             Statement stmt = con.createStatement();
-            rs = stmt.executeQuery("SELECT * FROM CONTRACT");
+            rs = stmt.executeQuery("SELECT CONTRACT.ID, START_DATE, END_DATE, PRICE_PER_PERIOD, DEPOSIT, TENANT_ID, ROOM_ID, CONTRACT_STATUS.NAME FROM CONTRACT JOIN CONTRACT_STATUS ON CONTRACT.STATUS_ID = CONTRACT_STATUS.ID ORDER BY CONTRACT.ID");
+//            rs = stmt.executeQuery("SELECT * FROM CONTRACT");
         }
         catch(SQLException e)
         {
