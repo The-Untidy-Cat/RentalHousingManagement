@@ -5,7 +5,8 @@
 package com.theuntidycat.rhm.view;
 
 import javax.swing.table.DefaultTableModel;
-
+import com.theuntidycat.rhm.controller.ManageContractController;
+import java.sql.*;
 /**
  *
  * @author Dell
@@ -17,17 +18,46 @@ public class ManageContract extends javax.swing.JPanel {
      */
     public ManageContract() {
         initComponents();
+        createTable();
+        loadTable();
         setVisible(true);
-        // createTable();
     }
     DefaultTableModel tblModelTT;
     public void createTable()
     {
         tblModelTT = new DefaultTableModel();
-        String title[] = {"Mã HĐ", "Tên khách", "SĐT", "Mã phòng", "Tên phòng", "Ngày BĐ", "Ngày KT", "Trạng thái"};
+        String title[] = {"Mã HĐ", "Ngày BĐ", "Ngày KT", "Giá thuê", "Đặt cọc","Mã khách", "Mã phòng","Trạng thái"};
         tblModelTT.setColumnIdentifiers(title);
         tbContract.setModel(tblModelTT);
         setVisible(true);
+    }
+    
+    public void loadTable()
+    {
+        try
+        {
+            ManageContractController controller = new ManageContractController();
+            String row[] = new String[8];
+            ResultSet rs = controller.getContractTable();
+            while(rs.next())
+            {
+                row[0] = rs.getString("ID");
+                row[1] = rs.getString("START_DATE");
+                row[2] = rs.getString("END_DATE");
+                row[3] = rs.getString("PRICE_PER_PERIOD");
+                row[4] = rs.getString("DEPOSIT");
+                row[5] = rs.getString("TENANT_ID");
+                row[6] = rs.getString("ROOM_ID");
+                row[7] = rs.getString("STATUS_ID");
+                tblModelTT.addRow(row);
+            }
+        }
+        catch(SQLException e)
+        {
+            System.out.println(e);
+            System.out.println("Error in ManageContract loadTable");
+        }
+        
     }
     /**
      * This method is called from within the constructor to initialize the form.
