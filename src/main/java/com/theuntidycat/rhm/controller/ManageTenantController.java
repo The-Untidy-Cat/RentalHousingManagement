@@ -32,9 +32,9 @@ public class ManageTenantController {
         return result;
     }
     
-    public boolean insertTenant(String ten, String que, String ntns, String sdt, String cmnd, String email, int status){
+    public boolean insertTenant(String ten, String que, String ntns, String sdt, String cmnd, String email){
         try{
-            String strSql = "INSERT INTO TENANT (name, Home_Town, dob, Phone_Number, ID_Number, Email, Status_ID) VALUES (?,?,?,?,?,?,?)";
+            String strSql = "INSERT INTO TENANT (name, Home_Town, dob, Phone_Number, ID_Number, Email) VALUES (?,?,?,?,?,?)";
             PreparedStatement ps = con.prepareStatement(strSql);
             ps.setString(1, ten);
             ps.setString(2, que);
@@ -42,7 +42,6 @@ public class ManageTenantController {
             ps.setString(4, sdt);
             ps.setString(5, cmnd);
             ps.setString(6, email);
-            ps.setInt(7, status);
             ps.executeUpdate();   
             return true;
         } catch(SQLException e){
@@ -50,7 +49,7 @@ public class ManageTenantController {
             return false;
         }  
     }
-    public boolean updateTenant(String ten, String que, String ntns, String sdt, String cmnd, String email, int status, String id){
+    public boolean updateTenant(String ten, String que, String ntns, String sdt, String cmnd, String email, String status, String id){
         try{
             String strSql = "UPDATE TENANT SET name = ?, Home_Town = ?, dob = ?, Phone_Number = ?, Id_number = ?, email = ?, status_id = ? WHERE id = ?";
             PreparedStatement pre = con.prepareStatement(strSql);
@@ -60,7 +59,7 @@ public class ManageTenantController {
             pre.setString(4, sdt);
             pre.setString(5, cmnd);
             pre.setString(6, email);
-            pre.setInt(7, status);
+            pre.setInt(7, getStatusID(status));
             pre.setString(8, id);
             pre.executeUpdate();   
             return true;

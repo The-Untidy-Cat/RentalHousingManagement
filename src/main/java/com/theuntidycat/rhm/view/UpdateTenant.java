@@ -48,7 +48,6 @@ public class UpdateTenant extends javax.swing.JFrame {
         txtSdt.setText(sdt);
         txtEmail.setText(email);
         txtCmnd1.setText(cmnd);
-        txtTrangthai.setText(trangthai);
         txtID = id;
     }
 
@@ -75,7 +74,7 @@ public class UpdateTenant extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         txtEmail = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
-        txtTrangthai = new javax.swing.JTextField();
+        txtTrangthai = new javax.swing.JComboBox<>();
         jPanel1 = new javax.swing.JPanel();
         BtnCancel = new javax.swing.JButton();
         BtnUpdate = new javax.swing.JButton();
@@ -146,6 +145,8 @@ public class UpdateTenant extends javax.swing.JFrame {
         jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel7.setText("Trạng thái");
 
+        txtTrangthai.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Hoat dong", "Khong hoat dong", "Vo hieu hoa" }));
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -211,7 +212,7 @@ public class UpdateTenant extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
                     .addComponent(txtTrangthai, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(10, 10, 10))
+                .addGap(17, 17, 17))
         );
 
         BtnCancel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -302,7 +303,7 @@ public class UpdateTenant extends javax.swing.JFrame {
         String sdt = txtSdt.getText();
         String cmnd = txtCmnd1.getText();
         String email = txtEmail.getText();
-        int trangthai = Integer.parseInt(txtTrangthai.getText());
+        String trangthai = txtTrangthai.getSelectedItem().toString();
         boolean check = ctrl.updateTenant(ten, que, ntns, sdt, cmnd, email, trangthai, txtID);
         if(check){
             JOptionPane.showMessageDialog(null, "Cập nhật thành công", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
@@ -377,6 +378,6 @@ public class UpdateTenant extends javax.swing.JFrame {
     private javax.swing.JTextField txtQue;
     private javax.swing.JTextField txtSdt;
     private javax.swing.JTextField txtTen;
-    private javax.swing.JTextField txtTrangthai;
+    private javax.swing.JComboBox<String> txtTrangthai;
     // End of variables declaration//GEN-END:variables
 }

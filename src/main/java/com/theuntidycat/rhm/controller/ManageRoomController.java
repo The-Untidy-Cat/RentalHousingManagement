@@ -34,16 +34,15 @@ public class ManageRoomController {
         return result;
     }
     
-    public boolean insertRoom(String ten, int succhua, int giathue, int loai, int dientich, int trangthai){
+    public boolean insertRoom(String ten, int succhua, int giathue, String loai, int dientich){
         try{
-            String strSql = "INSERT INTO ROOM (name, capacity, rental_price, type_id, area, status_id) VALUES (?,?,?,?,?,?)";
+            String strSql = "INSERT INTO ROOM (name, capacity, rental_price, type_id, area) VALUES (?,?,?,?,?)";
             PreparedStatement ps = con.prepareStatement(strSql);
             ps.setString(1, ten);
             ps.setInt(2, succhua);
             ps.setInt(3, giathue);
-            ps.setInt(4, loai);
+            ps.setInt(4, getTypeID(loai));
             ps.setInt(5, dientich);
-            ps.setInt(6, trangthai);
             ps.executeUpdate();   
             return true;
         } catch(SQLException e){
