@@ -22,7 +22,6 @@ public class ManageRoom extends javax.swing.JPanel {
     public ManageRoom(){
         initComponents();
         taoTable();
-        capnhatTable();
     }
     DefaultTableModel model;
     ManageRoomController ctrl = new ManageRoomController();

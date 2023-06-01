@@ -43,7 +43,6 @@ public class MainView extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        lbWaitingTicketCount = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         lbSetting = new javax.swing.JLabel();
         tabPanel = new javax.swing.JTabbedPane();
@@ -52,10 +51,6 @@ public class MainView extends javax.swing.JFrame {
         manageContract1 = new com.theuntidycat.rhm.view.ManageContract();
         manageRoom1 = new com.theuntidycat.rhm.view.ManageRoom();
         manageTenant1 = new com.theuntidycat.rhm.view.ManageTenant();
-
-        lbWaitingTicketCount.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        lbWaitingTicketCount.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/ticket-detailed.png"))); // NOI18N
-        lbWaitingTicketCount.setText("0 phiếu cần hỗ trợ");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Rental Housing Management");
@@ -67,8 +62,7 @@ public class MainView extends javax.swing.JFrame {
         jPanel1.setLayout(new java.awt.GridLayout(1, 2));
 
         lbSetting.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lbSetting.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/gear.png"))); // NOI18N
-        lbSetting.setLabelFor(lbSetting);
+        lbSetting.setIcon(new javax.swing.ImageIcon("/icons/ticket-detailed.png"));
         lbSetting.setText("Cài đặt");
         lbSetting.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         lbSetting.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
@@ -117,14 +111,12 @@ public class MainView extends javax.swing.JFrame {
     public void run() {        
         FlatLightLaf.setup();
         initComponents();
-        
         Thread initContract = new Thread(new Runnable() {
             public void run() {
                 manageContract1.createTable();
             }
         });
         initContract.start();
-        
         Thread initInvoice = new Thread(new Runnable() {
             public void run() {
                 manageInvoice1.updateTable();
@@ -136,8 +128,13 @@ public class MainView extends javax.swing.JFrame {
                 manageTenant1.capnhatTable();
             }
         });
-        
         initTenant.start();
+        Thread initRoom = new Thread(new Runnable() {
+            public void run() {
+                manageRoom1.capnhatTable();
+            }
+        });
+        initRoom.start();
         // manageContract1.createTable();
         // manageInvoice1.updateTable();
         // manageTenant1.capnhatTable();
@@ -153,7 +150,6 @@ public class MainView extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lbSetting;
-    private javax.swing.JLabel lbWaitingTicketCount;
     private com.theuntidycat.rhm.view.ManageContract manageContract1;
     private com.theuntidycat.rhm.view.ManageInvoice manageInvoice1;
     private com.theuntidycat.rhm.view.ManageRoom manageRoom1;
