@@ -25,7 +25,7 @@ CREATE TABLE room (
 );
 /
 
-CREATE OR REPLACE TRIGGER roomid_increment BEFORE
+CREATE OR REPLACE TRIGGER TG1_roomid_increment BEFORE    
     INSERT ON room
     FOR EACH ROW
 BEGIN
@@ -62,7 +62,7 @@ CREATE TABLE tenant (
 );
 /
 
-CREATE OR REPLACE TRIGGER tenantid_increment BEFORE
+CREATE OR REPLACE TRIGGER TG2_tenantid_increment BEFORE
     INSERT ON tenant
     FOR EACH ROW
 BEGIN
@@ -78,13 +78,7 @@ BEGIN
 END;
 /
 
-CREATE OR REPLACE TRIGGER create_password BEFORE
-    INSERT ON tenant
-    FOR EACH ROW
-BEGIN
-    :new.password := concat(concat(TO_CHAR(:NEW.DOB, 'DD'),TO_CHAR(:NEW.DOB, 'MM')),TO_CHAR(:NEW.DOB, 'YYYY'));
-END;
-/
+
 ---------------SUPPORT TICKET---------------
 CREATE TABLE support_ticket_type (
     id   NUMBER(1, 0) PRIMARY KEY,
@@ -114,7 +108,7 @@ CREATE TABLE support_ticket (
         REFERENCES support_ticket_status ( id )
 );
 /
-CREATE OR REPLACE TRIGGER ticketid_increment BEFORE
+CREATE OR REPLACE TRIGGER TG3_ticketid_increment BEFORE
     INSERT ON support_ticket
     FOR EACH ROW
 BEGIN
@@ -156,7 +150,7 @@ CREATE TABLE invoice (
 );
 /
 
-CREATE OR REPLACE TRIGGER invoiceid_increment BEFORE
+CREATE OR REPLACE TRIGGER TG4_invoiceid_increment BEFORE
     INSERT ON invoice
     FOR EACH ROW
 BEGIN
@@ -199,13 +193,6 @@ CREATE TABLE detail_invoice (
 );
 
 
-CREATE OR REPLACE TRIGGER insert_detail_invoice BEFORE
-    INSERT ON detail_invoice
-    FOR EACH ROW
-BEGIN
-    :new.sum_money := :new.quantity * :new.unit_price;
-END;
-/
  ---------------CONTRACT---------------
 CREATE TABLE contract_status (
     id   NUMBER(1, 0) PRIMARY KEY,
@@ -232,7 +219,7 @@ CREATE TABLE contract (
 
 
 
-CREATE OR REPLACE TRIGGER contractid_increment BEFORE
+CREATE OR REPLACE TRIGGER TG5_contractid_increment BEFORE
     INSERT ON contract
     FOR EACH ROW
 BEGIN
@@ -247,7 +234,7 @@ BEGIN
 
 END;
 /
---DROP TRIGGER contractid_increment;
+
 ---------------DETAIL_CONTRACT---------------
 CREATE TABLE detail_contract_status (
     id   NUMBER(1, 0) PRIMARY KEY,
@@ -271,10 +258,111 @@ CREATE TABLE detail_contract (
                                                 tenant_id )
 );
 /
-
- ---------------TRIGGER DELETE INVOICE---------------
-CREATE OR REPLACE TRIGGER delete_detail_invoice BEFORE
-    DELETE ON detail_invoice
+-----------------------------ACCOUNT------------------------------
+CREATE TABLE account (
+    username VARCHAR(255) PRIMARY KEY,
+    password VARCHAR(255)
+);
+/
+INSERT INTO account (username, password) VALUES('admin', 'admin');
+/
+---------------------------------------------TRIGGER-----------------------------------------------
+--#######-- Trigger auto create password for a tenant
+CREATE OR REPLACE TRIGGER Ten_create_password_Tenant BEFORE
+    INSERT ON tenant
+    FOR EACH ROW
+BEGIN
+    :new.password := concat(concat(TO_CHAR(:NEW.DOB, 'DD'),TO_CHAR(:NEW.DOB, 'MM')),TO_CHAR(:NEW.DOB, 'YYYY'));
+END;
+/
+--######-- Trigger update total money when insert a new invoice
+create or replace trigger inv_update_total BEFORE   
+insert on invoice
+for each row
+declare
+    price number;
+begin
+    select price_per_period into price
+    from contract
+    where room_id = :new.room_id and status_id = 1;
+    :new.total_money := price;
+end;
+/
+--######-- Trigger insert a detail invoice with type is rent house when insert invoice
+create or replace trigger inv_insert_detail AFTER  
+insert on invoice
+for each row
+declare
+    price number;
+    id varchar2(5);
+    r_id varchar2(5);
+begin
+    r_id := :new.room_id;
+    select price_per_period into price
+    from contract
+    where room_id = r_id and status_id = 1;
+    id := :NEW.id;
+    insert into DETAIL_INVOICE(INVOICE_ID, type_id,quantity,unit_price) VALUES(id, 0, 1, price);
+end;
+/
+--######-- Trigger update money_paid when update status of invoice 
+CREATE OR REPLACE TRIGGER inv_UPDATE_MONEY_PAID BEFORE 
+UPDATE ON INVOICE
+FOR EACH ROW
+BEGIN
+    if :new.Status_id = 1 then
+        :new.money_paid := :new.total_money;
+    end if;
+END;
+/
+--######-- Trigger calculate sum_money base on quantity and unit_price when insert a detail invoice
+CREATE OR REPLACE TRIGGER dinv_cal_sum BEFORE
+    INSERT ON detail_invoice
+    FOR EACH ROW
+BEGIN
+    :new.sum_money := :new.quantity * :new.unit_price;
+END;
+/
+--#####-- Update total money of invoice when insert a detail invoice
+create or replace TRIGGER dinv_update_total_ins after  
+INSERT ON detail_invoice   
+FOR EACH ROW
+BEGIN
+    IF :new.type_id <> 0 then
+        update invoice
+        set total_money = total_money + :new.sum_money,
+            Status_id = 0
+        where id = :new.invoice_id;
+    end if;
+END;
+/
+--#####-- Update total money of invoice when update a detail invoice
+CREATE OR REPLACE TRIGGER dinv_update_total_up after 
+UPDATE ON detail_invoice   
+FOR EACH ROW    
+DECLARE
+    moneyy number;
+BEGIN
+    moneyy := :new.sum_money - :old.sum_money;
+    
+    update invoice
+    set total_money = total_money + moneyy
+    where id = :new.invoice_id;
+END;
+/
+--#####-- Update total money of invoice when delete a detail invoice
+CREATE OR REPLACE TRIGGER dinv_update_detail_del after   
+DELETE ON detail_invoice   
+FOR EACH ROW    
+BEGIN    
+    update invoice
+    set total_money = total_money - :old.sum_money
+    where id = :old.invoice_id;
+END;
+/
+--#####-- Trigger guarantee: detail invoice deleted or updated when invoice in status unpaid
+CREATE OR REPLACE TRIGGER dinv_check_delete_update_detail BEFORE
+    DELETE OR UPDATE ON detail_invoice
     FOR EACH ROW
 DECLARE
     temp_invoice_status_id invoice.status_id%TYPE;
@@ -292,8 +380,8 @@ BEGIN
     END IF;
 END;
 /
- ---------------TRIGGER INSERT REPRESENTATIVE WHO IS REPRESENTATIVE IN CONTRACT---------------
-CREATE OR REPLACE TRIGGER insert_detail_contract BEFORE
+--#####-- Trigger guarantee: insert detail contract when contract's status is can use 
+CREATE OR REPLACE TRIGGER dcon_check_status_contract BEFORE
     INSERT ON detail_contract
     FOR EACH ROW
 DECLARE
@@ -312,8 +400,8 @@ BEGIN
     END IF;
 END;
 /
- ---------------TRIGGER INSERT TENANT IN DETAIL_CONTRACT---------------
-CREATE OR REPLACE TRIGGER insert_roomates BEFORE
+--#####-- Trigger guarantee: Capacity of a room when insert a tenant into contract(insert detail contract)
+CREATE OR REPLACE TRIGGER dcon_check_capacity BEFORE
     INSERT ON detail_contract
     FOR EACH ROW
 DECLARE
@@ -352,61 +440,5 @@ BEGIN
     END IF;
 
 END;
-/
-
- ---------------TRIGGER UPDATE TOTAL_MONEY OF INVOICE WHEN INSERT DETAIL INVOICE---------------
-create or replace TRIGGER update_invoice after  
-INSERT ON detail_invoice   
-FOR EACH ROW
-BEGIN
-    update invoice
-    set 
-		total_money = total_money + :new.sum_money,
-        status_id = 0
-    where id = :new.invoice_id;
-END;
-/
-
----------------------------TRIGGER UPDATE TOTAL_MONEY OF INVOICE WHEN DELETE DETAIL INVOICE-------------
-CREATE OR REPLACE TRIGGER update_invoice_delete_detail after   
-DELETE ON detail_invoice   
-FOR EACH ROW    
-BEGIN    
-    update invoice
-    set total_money = total_money - :old.sum_money
-    where id = :old.invoice_id;
-END;
-/
----------------------------TRIGGER UPDATE TOTAL_MONEY OF INVOICE WHEN UPDATE DETAIL INVOICE-------------
-CREATE OR REPLACE TRIGGER update_invoice_update_detail after 
-UPDATE ON detail_invoice   
-FOR EACH ROW    
-DECLARE
-    moneyy number;
-BEGIN
-    moneyy := :new.sum_money - :old.sum_money;
-    
-    update invoice
-    set total_money = total_money + moneyy
-    where id = :new.invoice_id;
-END;
-/
----------------------------TRIGGER UPDATE MONEY_PAID OF INVOICE WHEN UPDATE STATUS OF INVOICE-------------
-CREATE OR REPLACE TRIGGER UPDATE_MONEY_PAID BEFORE 
-UPDATE ON INVOICE
-FOR EACH ROW
-BEGIN
-    if :new.Status_id = 1 then
-        :new.money_paid := :new.total_money;
-    end if;
-END;
-/
------------------------------ACCOUNT------------------------------
-CREATE TABLE account (
-    username VARCHAR(255) PRIMARY KEY,
-    password VARCHAR(255)
-);
-/
-INSERT INTO account (username, password) VALUES('admin', 'admin');
 /
 commit;
