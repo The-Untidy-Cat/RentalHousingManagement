@@ -24,7 +24,9 @@ public class ManageRoomController {
     public ResultSet getListOfRoom(){
         ResultSet result = null;
         try{
-            String strSQL = "SELECT R.id, R.name, capacity, rental_price, T.name, area, S.name FROM ROOM R, ROOM_TYPE T, ROOM_STATUS S WHERE R.type_id = T.id AND R.status_id = S.id ORDER BY R.id";
+//            String strSQL = "SELECT R.id, R.name, capacity, rental_price, T.name, area, S.name FROM ROOM R, ROOM_TYPE T, ROOM_STATUS S WHERE R.type_id = T.id AND R.status_id = S.id ORDER BY R.id";
+            
+            String strSQL = "SELECT * FROM ROOM ORDER BY id";
             Statement stat = con.createStatement();
             result = stat.executeQuery(strSQL);
         }
@@ -34,16 +36,15 @@ public class ManageRoomController {
         return result;
     }
     
-    public boolean insertRoom(String ten, int succhua, int giathue, int loai, int dientich, int trangthai){
+    public boolean insertRoom(String ten, int succhua, int giathue, String loai, int dientich){
         try{
-            String strSql = "INSERT INTO ROOM (name, capacity, rental_price, type_id, area, status_id) VALUES (?,?,?,?,?,?)";
+            String strSql = "INSERT INTO ROOM (name, capacity, rental_price, type_id, area) VALUES (?,?,?,?,?)";
             PreparedStatement ps = con.prepareStatement(strSql);
             ps.setString(1, ten);
             ps.setInt(2, succhua);
             ps.setInt(3, giathue);
-            ps.setInt(4, loai);
+            ps.setInt(4, getTypeID(loai));
             ps.setInt(5, dientich);
-            ps.setInt(6, trangthai);
             ps.executeUpdate();   
             return true;
         } catch(SQLException e){

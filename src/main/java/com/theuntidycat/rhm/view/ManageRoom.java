@@ -80,9 +80,10 @@ public class ManageRoom extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Mã phòng", "Tên phòng", "Sức chứa", "Loại phòng", "Diện tích", "Trạng thái"
+                "Mã phòng", "Tên phòng", "Sức chứa", "Giá thuê", "Loại phòng", "Diện tích", "Trạng thái"
             }
         ));
+        tbRoom.setToolTipText("");
         tbRoom.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tbRoomMouseClicked(evt);
@@ -184,7 +185,6 @@ public class ManageRoom extends javax.swing.JPanel {
 
     private void BtnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnXoaActionPerformed
         // TODO add your handling code here:
-        
         if(tbRoom.getSelectedRowCount() != 1){
             JOptionPane.showMessageDialog(null, "Chọn dòng dữ liệu để xóa.", "Lỗi", JOptionPane.ERROR_MESSAGE);
         }
@@ -197,6 +197,9 @@ public class ManageRoom extends javax.swing.JPanel {
                 boolean check = ctrl.deleteRoom(id);
                 if(check){
                     JOptionPane.showMessageDialog(null, "Xóa thành công", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+                }
+                else{
+                    JOptionPane.showMessageDialog(this, "Không thể xóa", "Lỗi", JOptionPane.ERROR_MESSAGE);
                 }
             }
         }
@@ -212,9 +215,7 @@ public class ManageRoom extends javax.swing.JPanel {
             update.ten = model.getValueAt(row, 1).toString(); 
             update.succhua = model.getValueAt(row, 2).toString();
             update.gia = model.getValueAt(row, 3).toString();
-            update.loai = model.getValueAt(row, 4).toString();
             update.dientich = model.getValueAt(row, 5).toString();
-            update.trangthai = model.getValueAt(row, 6).toString();
             update.id = model.getValueAt(row, 0).toString();
             update.setInformation();
             update.setVisible(true);

@@ -39,14 +39,14 @@ public class ManageContract extends javax.swing.JPanel {
             ResultSet rs = controller.getContractTable();
             while(rs.next())
             {
-                row[0] = rs.getString("ID");
-                row[1] = rs.getString("START_DATE");
-                row[2] = rs.getString("END_DATE");
-                row[3] = rs.getString("PRICE_PER_PERIOD");
-                row[4] = rs.getString("DEPOSIT");
-                row[5] = rs.getString("TENANT_ID");
-                row[6] = rs.getString("ROOM_ID");
-                row[7] = rs.getString("STATUS_ID");
+                row[0] = rs.getString(1);
+                row[1] = rs.getString(2);
+                row[2] = rs.getString(3);
+                row[3] = rs.getString(4);
+                row[4] = rs.getString(5);
+                row[5] = rs.getString(6);
+                row[6] = rs.getString(7);
+                row[7] = rs.getString(8);
                 tblModelTT.addRow(row);
             }
         }
@@ -79,13 +79,13 @@ public class ManageContract extends javax.swing.JPanel {
 
         tbContract.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4", "Title 5"
+                "Title 1", "Title 2", "Title 3", "Title 4", "Title 5", "Title 6", "Title 7", "Title 8"
             }
         ));
         tbContract.setPreferredSize(new java.awt.Dimension(488, 335));

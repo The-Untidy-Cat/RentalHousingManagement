@@ -193,6 +193,9 @@ public class ManageTenant extends javax.swing.JPanel {
                 if(check){
                     JOptionPane.showMessageDialog(this, "Xóa thành công", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
                 }
+                else{
+                    JOptionPane.showMessageDialog(this, "Không thể xóa", "Lỗi", JOptionPane.ERROR_MESSAGE);
+                }
             }
         }
     }//GEN-LAST:event_BtnXoaActionPerformed
@@ -211,7 +214,6 @@ public class ManageTenant extends javax.swing.JPanel {
             update.sdt = model.getValueAt(row, 4).toString();
             update.cmnd = model.getValueAt(row, 5).toString();
             update.email = model.getValueAt(row, 6).toString();
-            update.trangthai = model.getValueAt(row, 7).toString();
             update.id = model.getValueAt(row, 0).toString();
             update.setInformation();
             update.setVisible(true);
