@@ -33,7 +33,7 @@ public class MainView extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated
     // <editor-fold defaultstate="collapsed" desc="Generated
-    // Code">//GEN-BEGIN:initComponents
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
@@ -53,8 +53,7 @@ public class MainView extends javax.swing.JFrame {
         setSize(new java.awt.Dimension(700, 500));
 
         lbTicketIcon.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lbTicketIcon.setIcon(
-                new javax.swing.ImageIcon(getClass().getResource("/com/theuntidycat/rhm/view/ticket-detailed.png"))); // NOI18N
+        lbTicketIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/theuntidycat/rhm/view/ticket-detailed.png"))); // NOI18N
         lbTicketIcon.setLabelFor(lbWaitingTicketCount);
         lbTicketIcon.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jPanel1.add(lbTicketIcon);
@@ -73,19 +72,17 @@ public class MainView extends javax.swing.JFrame {
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
-                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(tabPanel, javax.swing.GroupLayout.DEFAULT_SIZE,
-                                javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE,
-                                javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE));
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(tabPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
         layout.setVerticalGroup(
-                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 25,
-                                        javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(tabPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 464,
-                                        javax.swing.GroupLayout.PREFERRED_SIZE)));
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(tabPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 464, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
 
         pack();
         setLocationRelativeTo(null);
@@ -135,8 +132,8 @@ public class MainView extends javax.swing.JFrame {
     private javax.swing.JLabel lbWaitingTicketCount;
     private com.theuntidycat.rhm.view.ManageContract manageContract1;
     private com.theuntidycat.rhm.view.ManageInvoice manageInvoice1;
-    private com.theuntidycat.rhm.view.ManageTenant manageTenant1;
     private com.theuntidycat.rhm.view.ManageRoom manageRoom1;
+    private com.theuntidycat.rhm.view.ManageTenant manageTenant1;
     private com.theuntidycat.rhm.view.ReportView reportView1;
     private javax.swing.JTabbedPane tabPanel;
     // End of variables declaration//GEN-END:variables
