@@ -26,8 +26,11 @@ import java.awt.event.ActionListener;
 import javax.swing.JOptionPane;
 
 public class LoginView {
-    private JFrame frame; 
+
+    private JFrame frame;
     private MainView mainView;
+    private LoadingFrame loadingFrame;
+
     public LoginView() {
         FlatLightLaf.setup();
         frame = new JFrame("Rental Housing Management");
@@ -69,9 +72,9 @@ public class LoginView {
         passwordInput.setSize(70, 14);
 
         button.setText("<html><center>" + "Đăng" + "<br>" + "nhập" + "</center></html>");
-        
+
         button.setPreferredSize(new Dimension(80, 60));
-        
+
         button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -79,11 +82,12 @@ public class LoginView {
                 String password = new String(passwordInput.getPassword());
                 boolean check = controller.verifyUser(username, password);
                 if (check) {
+                    loadingFrame = new LoadingFrame();
                     User user = controller.getUser(username, password);
                     close();
+                    loadingFrame.run();
                     mainView.run();
-                    JOptionPane.showMessageDialog(null, "Welcome " + user.displayName, "Success",
-                            JOptionPane.INFORMATION_MESSAGE);
+                    loadingFrame.close();
                 } else {
                     JOptionPane.showMessageDialog(null, "Xác thực thất bại. Vui lòng kiểm tra lại", "Lỗi", JOptionPane.ERROR_MESSAGE);
                 }
@@ -118,12 +122,12 @@ public class LoginView {
         frame.setResizable(false);
     }
 
-    public void run(MainView tempMainView){
+    public void run(MainView tempMainView) {
         mainView = tempMainView;
         frame.setVisible(true);
     }
-    
-    public void close(){
+
+    public void close() {
         frame.setVisible(false);
     }
 }
