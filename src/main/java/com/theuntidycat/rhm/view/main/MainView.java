@@ -9,11 +9,13 @@ import java.nio.file.Paths;
 import com.formdev.flatlaf.FlatLightLaf;
 import com.theuntidycat.rhm.controller.AppPropertiseController;
 import com.theuntidycat.rhm.view.utils.LoadingDialog;
+import java.awt.Image;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 
 /**
  *
@@ -93,7 +95,7 @@ public class MainView extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(tabPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 700, Short.MAX_VALUE)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
@@ -101,8 +103,9 @@ public class MainView extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(0, 0, 0)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(0, 0, 0)
                 .addComponent(tabPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 464, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -116,10 +119,8 @@ public class MainView extends javax.swing.JFrame {
 
     public void run() {
         LoadingDialog loading = new LoadingDialog();
-//        loading.setVisible(true);
         FlatLightLaf.setup();
         initComponents();
-        
         CompletableFuture<Void> initContract = CompletableFuture.runAsync(new Runnable() {
             public void run() {
                 manageContract1.createTable();
@@ -168,7 +169,6 @@ public class MainView extends javax.swing.JFrame {
             }
         });
         try {
-
             initComponentInTab.get();
             setVisible(true);
         } catch (InterruptedException ex) {
@@ -176,10 +176,10 @@ public class MainView extends javax.swing.JFrame {
         } catch (ExecutionException ex) {
             ex.printStackTrace();
         }
-//        loading.setVisible(false);
-        // manageContract1.createTable();
-        // manageInvoice1.updateTable();
-        // manageTenant1.capnhatTable();
+        loading.setVisible(false);
+//         manageContract1.createTable();
+//         manageInvoice1.updateTable();
+//         manageTenant1.capnhatTable();
 //        setVisible(true);
 //        java.awt.EventQueue.invokeLater(new Runnable() {
 //            @Override

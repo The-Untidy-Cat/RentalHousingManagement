@@ -4,6 +4,7 @@
  */
 package com.theuntidycat.rhm.view.main;
 
+import com.formdev.flatlaf.FlatLightLaf;
 import com.theuntidycat.rhm.controller.AppPropertiseController;
 import javax.swing.JOptionPane;
 
@@ -17,6 +18,7 @@ public class SettingFrame extends javax.swing.JFrame {
      * Creates new form SettingFrame
      */
     public SettingFrame() {
+        FlatLightLaf.setup();
         initComponents();
     }
 

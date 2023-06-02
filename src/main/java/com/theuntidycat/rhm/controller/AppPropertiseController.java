@@ -23,7 +23,7 @@ public class AppPropertiseController {
     private String filePath;
     private Properties data;
 
-    public AppPropertiseController(){
+    public AppPropertiseController() {
         String s = currentRelativePath.toAbsolutePath().toString();
         filePath = s + "/app.propertise";
         File appConfig = new File(filePath);
@@ -49,14 +49,18 @@ public class AppPropertiseController {
             fnfe.printStackTrace();
         } catch (IOException ioe) {
             ioe.printStackTrace();
-        } 
+        }
         return prop;
     }
-    
+
     public String getData(String key) {
-        return (String)data.getProperty(key);
+        if (data != null) {
+            return (String) data.getProperty(key);
+        } else {
+            return null;
+        }
     }
-    
+
     public void setData(String key, String value) throws IOException {
         data.setProperty(key, value);
         FileOutputStream outputStream = new FileOutputStream(filePath);
@@ -72,6 +76,9 @@ public class AppPropertiseController {
         props.put("smtp_port", "465");
         props.put("smtp_host", "smtp.gmail.com");
         props.put("ssl", "true");
+        props.put("account_remember_me", "true");
+        props.put("account_username", "");
+        props.put("account_password", "");
         //Instantiating the FileInputStream for output file
 
         FileOutputStream outputStream = new FileOutputStream(filePath);
