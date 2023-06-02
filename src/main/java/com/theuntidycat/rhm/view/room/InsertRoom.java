@@ -166,11 +166,11 @@ public class InsertRoom extends javax.swing.JFrame {
 
         boolean check = ctrl.insertRoom(ten, succhua, gia, loai, dientich);
         if(check){
-            JOptionPane.showMessageDialog(null, "Thêm thành công", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Thêm thành công", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
             setVisible(false);
         }
         else{
-            JOptionPane.showMessageDialog(null, "Trùng thông tin. Vui lòng nhập lại", "Thông báo", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Trùng thông tin. Vui lòng nhập lại", "Thông báo", JOptionPane.ERROR_MESSAGE);
         }
 
     }//GEN-LAST:event_BtnThemActionPerformed

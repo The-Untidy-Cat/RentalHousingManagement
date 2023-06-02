@@ -31,7 +31,6 @@ public class ManageRoom extends javax.swing.JPanel {
         String title[] = {"Mã phòng", "Tên phòng", "Sức chứa", "Giá thuê", "Loại phòng", "Diện tích", "Trạng thái"};
         model.setColumnIdentifiers(title);
         tbRoom.setModel(model);
-        setVisible(true);
     }
     public void capnhatTable(){
         try{
@@ -186,17 +185,17 @@ public class ManageRoom extends javax.swing.JPanel {
     private void BtnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnXoaActionPerformed
         // TODO add your handling code here:
         if(tbRoom.getSelectedRowCount() != 1){
-            JOptionPane.showMessageDialog(null, "Chọn dòng dữ liệu để xóa.", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Chọn dòng dữ liệu để xóa.", "Lỗi", JOptionPane.ERROR_MESSAGE);
         }
         else{
             int row = tbRoom.getSelectedRow();
-            int ret = JOptionPane.showConfirmDialog(null,"Bạn chắc chắc muốn xóa ?", "Xóa dữ liệu", JOptionPane.YES_NO_OPTION);
+            int ret = JOptionPane.showConfirmDialog(this,"Bạn chắc chắc muốn xóa ?", "Xóa dữ liệu", JOptionPane.YES_NO_OPTION);
             if (ret == JOptionPane.YES_OPTION){
                 String id = tbRoom.getValueAt(row, 0).toString();
                 model.removeRow(row);
                 boolean check = ctrl.deleteRoom(id);
                 if(check){
-                    JOptionPane.showMessageDialog(null, "Xóa thành công", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "Xóa thành công", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
                 }
                 else{
                     JOptionPane.showMessageDialog(this, "Không thể xóa", "Lỗi", JOptionPane.ERROR_MESSAGE);
