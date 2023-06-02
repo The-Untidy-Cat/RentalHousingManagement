@@ -55,6 +55,7 @@ public class MainView extends javax.swing.JFrame {
         manageContract1 = new com.theuntidycat.rhm.view.contract.ManageContract();
         manageRoom1 = new com.theuntidycat.rhm.view.room.ManageRoom();
         manageTenant1 = new com.theuntidycat.rhm.view.tenant.ManageTenant();
+        manageSupportTicket1 = new com.theuntidycat.rhm.view.ticket.ManageSupportTicket();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Rental Housing Management");
@@ -85,12 +86,13 @@ public class MainView extends javax.swing.JFrame {
         tabPanel.addTab("Hợp đồng", manageContract1);
         tabPanel.addTab("Phòng", manageRoom1);
         tabPanel.addTab("Khách thuê", manageTenant1);
+        tabPanel.addTab("Phiếu hỗ trợ", manageSupportTicket1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(tabPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 640, Short.MAX_VALUE)
+            .addComponent(tabPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 700, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -143,7 +145,11 @@ public class MainView extends javax.swing.JFrame {
                 reportView1.initRevenueChart();
             }
         });
-
+        CompletableFuture<Void> initTicket = CompletableFuture.runAsync(new Runnable() {
+            public void run() {
+                manageSupportTicket1.capnhatTable();
+            }
+        });
         CompletableFuture<Void> initComponentInTab = CompletableFuture.runAsync(new Runnable() {
             public void run() {
                 try {
@@ -152,6 +158,7 @@ public class MainView extends javax.swing.JFrame {
                     initContract.get();
                     initRoom.get();
                     initTenant.get();
+                    initTicket.get();
                     tabPanel.updateUI();
                 } catch (InterruptedException ex) {
                     ex.printStackTrace();
@@ -188,6 +195,7 @@ public class MainView extends javax.swing.JFrame {
     private com.theuntidycat.rhm.view.contract.ManageContract manageContract1;
     private com.theuntidycat.rhm.view.invoice.ManageInvoice manageInvoice1;
     private com.theuntidycat.rhm.view.room.ManageRoom manageRoom1;
+    private com.theuntidycat.rhm.view.ticket.ManageSupportTicket manageSupportTicket1;
     private com.theuntidycat.rhm.view.tenant.ManageTenant manageTenant1;
     private com.theuntidycat.rhm.view.report.ReportView reportView1;
     private javax.swing.JTabbedPane tabPanel;

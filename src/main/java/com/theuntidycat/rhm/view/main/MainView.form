@@ -32,7 +32,7 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="tabPanel" pref="640" max="32767" attributes="0"/>
+          <Component id="tabPanel" pref="700" max="32767" attributes="0"/>
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jPanel1" max="32767" attributes="0"/>
@@ -136,6 +136,15 @@
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
               <JTabbedPaneConstraints tabName="Kh&#xe1;ch thu&#xea;">
                 <Property name="tabTitle" type="java.lang.String" value="Kh&#xe1;ch thu&#xea;"/>
+              </JTabbedPaneConstraints>
+            </Constraint>
+          </Constraints>
+        </Component>
+        <Component class="com.theuntidycat.rhm.view.ticket.ManageSupportTicket" name="manageSupportTicket1">
+          <Constraints>
+            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
+              <JTabbedPaneConstraints tabName="Phi&#x1ebf;u h&#x1ed7; tr&#x1ee3;">
+                <Property name="tabTitle" type="java.lang.String" value="Phi&#x1ebf;u h&#x1ed7; tr&#x1ee3;"/>
               </JTabbedPaneConstraints>
             </Constraint>
           </Constraints>
