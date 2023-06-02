@@ -194,11 +194,11 @@ public class UpdateRoom extends javax.swing.JFrame {
         String trangthai = txtTrangthai.getSelectedItem().toString();
         boolean check = ctrl.updateRoom(ten, succhua, gia, loai, dientich, trangthai, txtID);
         if(check){
-            JOptionPane.showMessageDialog(null, "Cập nhật thành công", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Cập nhật thành công", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
             setVisible(false);
         }
         else{
-            JOptionPane.showMessageDialog(null, "Trùng thông tin. Vui lòng nhập lại", "Thông báo", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Trùng thông tin. Vui lòng nhập lại", "Thông báo", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_BtnUpdateActionPerformed
 
