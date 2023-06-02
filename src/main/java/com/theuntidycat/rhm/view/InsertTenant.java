@@ -18,7 +18,6 @@ public class InsertTenant extends javax.swing.JFrame {
      */
     public InsertTenant() {
         initComponents();
-        setVisible(true);   
         setLocationRelativeTo(null);
     }
     ManageTenantController ctrl = new ManageTenantController();

@@ -24,9 +24,7 @@ public class ManageRoomController {
     public ResultSet getListOfRoom(){
         ResultSet result = null;
         try{
-//            String strSQL = "SELECT R.id, R.name, capacity, rental_price, T.name, area, S.name FROM ROOM R, ROOM_TYPE T, ROOM_STATUS S WHERE R.type_id = T.id AND R.status_id = S.id ORDER BY R.id";
-            
-            String strSQL = "SELECT * FROM ROOM ORDER BY id";
+            String strSQL = "SELECT R.id, R.name, capacity, rental_price, T.name, area, S.name FROM ROOM R, ROOM_TYPE T, ROOM_STATUS S WHERE R.type_id = T.id AND R.status_id = S.id ORDER BY R.id";
             Statement stat = con.createStatement();
             result = stat.executeQuery(strSQL);
         }
