@@ -33,7 +33,6 @@ public class ManageTenant extends javax.swing.JPanel {
         String title[] = {"Mã KH", "Tên KH", "Quê quán", "Ngày sinh", "SĐT", "CMND", "Email", "Trạng thái"};
         model.setColumnIdentifiers(title);
         jTable1.setModel(model);
-        setVisible(true);
     }
     public void capnhatTable(){
         try{

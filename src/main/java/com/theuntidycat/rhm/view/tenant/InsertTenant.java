@@ -18,7 +18,6 @@ public class InsertTenant extends javax.swing.JFrame {
      */
     public InsertTenant() {
         initComponents();
-        setVisible(true);   
         setLocationRelativeTo(null);
     }
     ManageTenantController ctrl = new ManageTenantController();
@@ -184,11 +183,11 @@ public class InsertTenant extends javax.swing.JFrame {
         String sdt = txtSdt.getText();
         boolean check = ctrl.insertTenant(ten, que, ntns, sdt, cmnd, email);
         if(check){
-            JOptionPane.showMessageDialog(null, "Thêm thành công", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Thêm thành công", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
             setVisible(false);
         }
         else{
-            JOptionPane.showMessageDialog(null, "Trùng thông tin. Vui lòng nhập lại", "Thông báo", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Trùng thông tin. Vui lòng nhập lại", "Thông báo", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_BtnThemActionPerformed
 

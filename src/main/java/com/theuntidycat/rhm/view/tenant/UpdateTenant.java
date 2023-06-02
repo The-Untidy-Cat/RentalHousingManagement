@@ -229,11 +229,11 @@ public class UpdateTenant extends javax.swing.JFrame {
         String trangthai = txtTrangthai.getSelectedItem().toString();
         boolean check = ctrl.updateTenant(ten, que, ntns, sdt, cmnd, email, trangthai, txtID);
         if(check){
-            JOptionPane.showMessageDialog(null, "Cập nhật thành công", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Cập nhật thành công", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
             setVisible(false);
         }
         else{
-            JOptionPane.showMessageDialog(null, "Trùng thông tin. Vui lòng nhập lại", "Thông báo", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Trùng thông tin. Vui lòng nhập lại", "Thông báo", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_BtnUpdateActionPerformed
 
