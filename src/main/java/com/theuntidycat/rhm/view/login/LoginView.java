@@ -2,10 +2,10 @@ package com.theuntidycat.rhm.view.login;
 
 import com.theuntidycat.rhm.view.main.MainView;
 import com.formdev.flatlaf.FlatLightLaf;
+import com.theuntidycat.rhm.controller.AppPropertiseController;
 
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.nio.file.Path;
@@ -22,22 +22,25 @@ import javax.swing.border.EmptyBorder;
 import com.theuntidycat.rhm.controller.LoginController;
 import com.theuntidycat.rhm.model.User;
 import com.theuntidycat.rhm.view.utils.LoadingDialog;
+import java.awt.BorderLayout;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
+import javax.swing.JCheckBox;
 import javax.swing.JOptionPane;
 
-public class LoginView {
+public class LoginView extends JFrame {
 
-    private JFrame frame;
     private MainView mainView;
-    private LoadingDialog loading;
+    private AppPropertiseController config = new AppPropertiseController();
 
     public LoginView() {
+        
         FlatLightLaf.setup();
-        frame = new JFrame("Rental Housing Management");
+        setTitle("Rental Housing Management");
         LoginController controller = new LoginController();
         Path currentRelativePath = Paths.get("");
         String s = currentRelativePath.toAbsolutePath().toString();
@@ -65,20 +68,24 @@ public class LoginView {
         JLabel headerImg = new JLabel(imageIcon);
         JTextField usernameInput = new JTextField(14);
         JPasswordField passwordInput = new JPasswordField(14);
-        JButton button = new JButton();
-
-        usernameLabel.setLocation(0, 0);
 
         passwordLabel.setBorder(new EmptyBorder(0, 0, 0, 34));
 
+        usernameInput.setText(config.getData("account_username"));
+        passwordInput.setText(config.getData("account_password"));
         usernameInput.setSize(70, 14);
-
         passwordInput.setSize(70, 14);
 
-        button.setText("<html><center>" + "Đăng" + "<br>" + "nhập" + "</center></html>");
+        JPanel footerPanel = new JPanel();
+        footerPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
 
+        JCheckBox cbRememberMe = new JCheckBox("Nhớ tài khoản", Boolean.valueOf(config.getData("account_remember_me")));
+        footerPanel.setBorder(new EmptyBorder(0, 8, 10, 0));
+        footerPanel.add(cbRememberMe);
+
+        JButton button = new JButton();
+        button.setIcon(new ImageIcon(s + "/assets/box-arrow-in-right.png"));
         button.setPreferredSize(new Dimension(80, 60));
-
         button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -86,6 +93,22 @@ public class LoginView {
                 String password = new String(passwordInput.getPassword());
                 boolean check = controller.verifyUser(username, password);
                 LoadingDialog loading = new LoadingDialog();
+                if (cbRememberMe.isSelected()) {
+                    try {
+                        config.setData("account_remember_me", String.valueOf(cbRememberMe.isSelected()));
+                        config.setData("account_username", String.valueOf(usernameInput.getText()));
+                        config.setData("account_password", String.valueOf(passwordInput.getPassword()));
+                    } catch (IOException ex) {
+                        ex.printStackTrace();
+                    }
+                } else {
+                    try {
+                        config.setData("account_username", "");
+                        config.setData("account_password", "");
+                    } catch (IOException ex) {
+                        ex.printStackTrace();
+                    }
+                }
                 if (check) {
                     loading.setVisible(true);
                     CompletableFuture<Void> loadMainView = CompletableFuture.runAsync(new Runnable() {
@@ -96,7 +119,7 @@ public class LoginView {
                     User user = controller.getUser(username, password);
                     try {
                         close();
-                        loadMainView.get();            
+                        loadMainView.get();
                     } catch (InterruptedException ex) {
                         ex.printStackTrace();
                     } catch (ExecutionException ex) {
@@ -109,40 +132,44 @@ public class LoginView {
             }
         });
 
-        // formPanel.add(headerImg);
         usernamePanel.add(usernameLabel);
-        usernamePanel.setBorder(new EmptyBorder(20, 0, 0, 0));
         usernamePanel.add(usernameInput);
 
         formPanel.add(usernamePanel);
 
         passwordPanel.add(passwordLabel);
-        passwordPanel.setBorder(new EmptyBorder(5, 0, 0, 0));
+//        passwordPanel.setBorder(new EmptyBorder(5, 0, 0, 0));
         passwordPanel.add(passwordInput);
 
         formPanel.add(passwordPanel);
 
         actionPanel.add(button);
 
-        frame.add(headerImg);
-        frame.add(formPanel);
-        frame.add(actionPanel);
+        JPanel bodyPanel = new JPanel();
+        bodyPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
+        bodyPanel.setBorder(new EmptyBorder(10, 0, 0, 0));
+        bodyPanel.add(formPanel);
+        bodyPanel.add(actionPanel);
 
-        // frame.add(button);
-        frame.setLayout(new FlowLayout(FlowLayout.CENTER));
-        frame.setSize(400, 260);
-        frame.setLocationRelativeTo(null);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setVisible(true);
-        frame.setResizable(false);
+        add(headerImg, BorderLayout.NORTH);
+        add(bodyPanel, BorderLayout.CENTER);
+        add(footerPanel, BorderLayout.SOUTH);
+//        add(actionPanel);
+        // add(button);
+//        setLayout(new FlowLayout(FlowLayout.CENTER));
+        setSize(400, 260);
+        setLocationRelativeTo(null);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setVisible(true);
+        setResizable(false);
     }
 
     public void run(MainView tempMainView) {
         mainView = tempMainView;
-        frame.setVisible(true);
+        setVisible(true);
     }
 
     public void close() {
-        frame.setVisible(false);
+        setVisible(false);
     }
 }
