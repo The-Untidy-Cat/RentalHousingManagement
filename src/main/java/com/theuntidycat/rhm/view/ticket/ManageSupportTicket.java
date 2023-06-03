@@ -31,7 +31,6 @@ public class ManageSupportTicket extends javax.swing.JPanel {
         String title[] = {"Mã phiếu", "Mã phòng", "Mã KH", "Ngày xảy ra", "Trạng thái"};
         model.setColumnIdentifiers(title);
         tbRoom.setModel(model);
-        setVisible(true);
     }
     public void capnhatTable(){
         try{
