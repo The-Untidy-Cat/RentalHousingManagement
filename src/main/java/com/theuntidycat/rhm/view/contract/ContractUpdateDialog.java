@@ -4,6 +4,9 @@
  */
 package com.theuntidycat.rhm.view.contract;
 
+import com.theuntidycat.rhm.controller.ManageContractController;
+import java.sql.*;
+import javax.swing.JOptionPane;
 /**
  *
  * @author Dell
@@ -16,8 +19,43 @@ public class ContractUpdateDialog extends javax.swing.JFrame {
     public ContractUpdateDialog() {
         initComponents();
         setVisible(true);
+        txtRoomID.setEditable(false);
+        txtRoomName.setEditable(false);
+        txtRepID.setEditable(false);
+        txtRepCCCD.setEditable(false);
     }
-
+    
+    public void loadRepName()
+    {
+        try
+        {
+            ManageContractController controller = new ManageContractController();
+            ResultSet rs = controller.getRepCCCD(txtRepID.getText());
+            rs.next();
+            txtRepCCCD.setText(rs.getString(1));
+        }
+        catch(SQLException e)
+        {
+            System.out.println(e);
+            System.out.println("Error in ContractUpdateDialog loadRepName");
+        }
+    }
+    
+    public void loadRoomName()
+    {
+        try
+        {
+            ManageContractController controller = new ManageContractController();
+            ResultSet rs = controller.getRoomName(txtRoomID.getText());
+            rs.next();
+            txtRoomName.setText(rs.getString("NAME"));
+        }
+        catch(SQLException e)
+        {
+            System.out.println(e);
+            System.out.println("Error in ContractUpdateDialog RoomIDAction");
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -34,7 +72,7 @@ public class ContractUpdateDialog extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         txtRoomID = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        cbbRoomName = new javax.swing.JComboBox<>();
+        txtRoomName = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         txtRepID = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
@@ -46,8 +84,14 @@ public class ContractUpdateDialog extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Contract Update Dialog");
+        setAlwaysOnTop(true);
 
         buttonCancel.setText("Cancel");
+        buttonCancel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonCancelActionPerformed(evt);
+            }
+        });
 
         buttonAdd.setText("Thêm");
 
@@ -80,9 +124,7 @@ public class ContractUpdateDialog extends javax.swing.JFrame {
 
         jLabel2.setText("Tên phòng");
         jPanel2.add(jLabel2);
-
-        cbbRoomName.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jPanel2.add(cbbRoomName);
+        jPanel2.add(txtRoomName);
 
         jLabel3.setText("Mã người đại diện");
         jPanel2.add(jLabel3);
@@ -123,21 +165,36 @@ public class ContractUpdateDialog extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void buttonCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCancelActionPerformed
+        // TODO add your handling code here:
+        int ret = JOptionPane.showConfirmDialog(this, "Bạn có muốn huỷ?", "Thông báo", JOptionPane.YES_NO_OPTION);
+        if(ret == JOptionPane.YES_OPTION)
+            setVisible(false);
+    }//GEN-LAST:event_buttonCancelActionPerformed
+
     /**
      * @param args the command line arguments
      * @return 
      * 
      */
-    
+     
     public javax.swing.JTextField getTxtRoomID()
     {
         return txtRoomID;
+    }
+    public javax.swing.JTextField getRepCCCD()
+    {
+        return txtRepCCCD;
+    }
+    
+    public javax.swing.JTextField getRepID()
+    {
+        return txtRepID;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonAdd;
     private javax.swing.JButton buttonCancel;
-    private javax.swing.JComboBox<String> cbbRoomName;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -149,6 +206,7 @@ public class ContractUpdateDialog extends javax.swing.JFrame {
     private javax.swing.JTextField txtRepCCCD;
     private javax.swing.JTextField txtRepID;
     private javax.swing.JTextField txtRoomID;
+    private javax.swing.JTextField txtRoomName;
     private javax.swing.JTextField txtTenantCCCD;
     private javax.swing.JTextField txtTenantID;
     // End of variables declaration//GEN-END:variables

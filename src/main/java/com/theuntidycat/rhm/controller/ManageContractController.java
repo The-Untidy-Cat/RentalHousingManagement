@@ -86,4 +86,53 @@ public class ManageContractController
             return false;
         }
     }
+    
+    public ResultSet loadNewDataContractTable(String contract_id)
+    {
+        ResultSet rs = null;
+        try
+        {
+            Statement stmt = con.createStatement();
+            rs = stmt.executeQuery("SELECT CONTRACT.ID, START_DATE, END_DATE, PRICE_PER_PERIOD, DEPOSIT, TENANT_ID, ROOM_ID, CONTRACT_STATUS.NAME FROM CONTRACT JOIN CONTRACT_STATUS ON CONTRACT.STATUS_ID = CONTRACT_STATUS.ID WHERE CONTRACT.ID = '"+contract_id+"'");
+            
+        }
+        catch(SQLException e)
+        {
+            System.out.println(e);
+            System.out.println("Error in ContractController loadNewDataContractTable");
+        }
+        return rs;
+    }
+    
+    public ResultSet getRoomName(String room_id)
+    {
+        ResultSet rs = null;
+        try
+        {
+            Statement stmt = con.createStatement();
+            rs = stmt.executeQuery("SELECT NAME FROM ROOM WHERE ID = '"+room_id+"'");
+        }   
+        catch(SQLException e)
+        {
+            System.out.println(e);
+            System.out.println("Error in ContractController getRoomName");
+        }
+        return rs;
+    }
+    
+    public ResultSet getRepCCCD(String rep_id)
+    {
+        ResultSet rs = null;
+        try
+        {
+            Statement stmt = con.createStatement();
+            rs = stmt.executeQuery("SELECT ID_NUMBER FROM TENANT WHERE ID = '"+rep_id+"'");
+        }   
+        catch(SQLException e)
+        {
+            System.out.println(e);
+            System.out.println("Error in ContractController getRepCCCD");
+        }
+        return rs;
+    }
 }
