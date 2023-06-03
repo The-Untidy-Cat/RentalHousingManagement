@@ -38,16 +38,20 @@ public class UpdateTenant extends javax.swing.JFrame {
     ManageTenantController ctrl = new ManageTenantController();
     public UpdateTenant() {
         initComponents();
-        setVisible(true);
         setLocationRelativeTo(null);
+        setTitle("CẬP NHẬT NGƯỜI THUÊ");
     }
     public void setInformation(){
         txtTen.setText(ten);
+        txtTen.setEditable(false);
         txtQue.setText(quequan);
+        txtQue.setEditable(false);
         txtDob.setText(dob) ;
+        txtDob.setEditable(false);
         txtSdt.setText(sdt);
         txtEmail.setText(email);
         txtCmnd1.setText(cmnd);
+        txtCmnd1.setEditable(false);
         txtID = id;
     }
 
@@ -220,14 +224,10 @@ public class UpdateTenant extends javax.swing.JFrame {
 
     private void BtnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnUpdateActionPerformed
         // TODO add your handling code here:
-        String ten = txtTen.getText();
-        String que = txtQue.getText();
-        String ntns = txtDob.getText();
         String sdt = txtSdt.getText();
-        String cmnd = txtCmnd1.getText();
         String email = txtEmail.getText();
         String trangthai = txtTrangthai.getSelectedItem().toString();
-        boolean check = ctrl.updateTenant(ten, que, ntns, sdt, cmnd, email, trangthai, txtID);
+        boolean check = ctrl.updateTenant(sdt, email, trangthai, txtID);
         if(check){
             JOptionPane.showMessageDialog(this, "Cập nhật thành công", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
             setVisible(false);

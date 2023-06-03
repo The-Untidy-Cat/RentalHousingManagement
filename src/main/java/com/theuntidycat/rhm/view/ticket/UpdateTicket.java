@@ -18,20 +18,22 @@ public class UpdateTicket extends javax.swing.JFrame {
      */
     public UpdateTicket() {
         initComponents();
+        setAlwaysOnTop(true);
+        setLocationRelativeTo(null);    
+        setTitle("CẬP NHẬT PHIẾU HỖ TRỢ");
     }
-    public String maPhieu;
-    public String maPhong;
-    public String maKH;
-    public String ngay;
-    public String trangthai;
-    public String noidung;
     ManageTicketController ctrl = new ManageTicketController();
     public void setInformation(String maPhieu, String maPhong, String maKH, String ngay, String noidung){
-        txtID.setText(maKH);
+        txtID.setText(maPhieu);
+        txtID.setEditable(false);
         txtRoomID.setText(maPhong);
+        txtRoomID.setEditable(false);
         txtTenantID.setText(maKH);
+        txtTenantID.setEditable(false);
         txtDate.setText(ngay);
+        txtDate.setEditable(false);
         txtDetail.setText(noidung);
+        txtDetail.setEditable(false);
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -54,8 +56,9 @@ public class UpdateTicket extends javax.swing.JFrame {
         txtTenantID = new javax.swing.JTextField();
         jLabel13 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
-        txtDetail = new javax.swing.JTextField();
         CBStatus = new javax.swing.JComboBox<>();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        txtDetail = new javax.swing.JTextArea();
         jPanel4 = new javax.swing.JPanel();
         BtnThoat = new javax.swing.JButton();
         BtnUpdate = new javax.swing.JButton();
@@ -98,13 +101,11 @@ public class UpdateTicket extends javax.swing.JFrame {
 
         jLabel12.setText("Trạng thái");
 
-        txtDetail.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtDetailActionPerformed(evt);
-            }
-        });
-
         CBStatus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Hoan tat", "Cho xu ly" }));
+
+        txtDetail.setColumns(20);
+        txtDetail.setRows(5);
+        jScrollPane1.setViewportView(txtDetail);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -138,8 +139,8 @@ public class UpdateTicket extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtDate, javax.swing.GroupLayout.PREFERRED_SIZE, 322, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtDetail, javax.swing.GroupLayout.PREFERRED_SIZE, 321, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(CBStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(CBStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 321, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 0, Short.MAX_VALUE))))
         );
         jPanel3Layout.setVerticalGroup(
@@ -168,11 +169,9 @@ public class UpdateTicket extends javax.swing.JFrame {
                             .addComponent(txtDate, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(jLabel13)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addComponent(txtDetail, javax.swing.GroupLayout.DEFAULT_SIZE, 74, Short.MAX_VALUE))
-                        .addGap(18, 18, 18)
+                            .addComponent(jLabel13)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, Short.MAX_VALUE)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel12)
                             .addComponent(CBStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -220,11 +219,11 @@ public class UpdateTicket extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(30, 30, 30)
-                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 469, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(30, 30, 30)
+                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 456, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -234,7 +233,7 @@ public class UpdateTicket extends javax.swing.JFrame {
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(28, Short.MAX_VALUE))
+                .addContainerGap(22, Short.MAX_VALUE))
         );
 
         pack();
@@ -242,7 +241,7 @@ public class UpdateTicket extends javax.swing.JFrame {
 
     private void txtDateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDateActionPerformed
         // TODO add your handling code here:
-        txtDate.setEditable(false);
+        
     }//GEN-LAST:event_txtDateActionPerformed
 
     private void BtnThoatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnThoatActionPerformed
@@ -251,32 +250,28 @@ public class UpdateTicket extends javax.swing.JFrame {
 
     private void txtIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIDActionPerformed
         // TODO add your handling code here:
-        txtID.setEditable(false);
+        
     }//GEN-LAST:event_txtIDActionPerformed
 
     private void txtRoomIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtRoomIDActionPerformed
         // TODO add your handling code here:
-        txtRoomID.setEditable(false);
+        
     }//GEN-LAST:event_txtRoomIDActionPerformed
 
     private void txtTenantIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTenantIDActionPerformed
         // TODO add your handling code here:
-        txtTenantID.setEditable(false);
+        
     }//GEN-LAST:event_txtTenantIDActionPerformed
-
-    private void txtDetailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDetailActionPerformed
-        // TODO add your handling code here:
-        txtDetail.setEditable(false);
-    }//GEN-LAST:event_txtDetailActionPerformed
 
     private void BtnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnUpdateActionPerformed
         // TODO add your handling code here:
         boolean check = ctrl.updateTicket(CBStatus.getSelectedItem().toString(), txtID.getText());
         if(check){
-            JOptionPane.showMessageDialog(null,"Cập nhật thành công", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(this,"Cập nhật thành công", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+            setVisible(false);
         }
         else{
-            JOptionPane.showMessageDialog(null,"Không thể cập nhật", "Lỗi", JOptionPane.ERROR_MESSAGE);            
+            JOptionPane.showMessageDialog(this,"Không thể cập nhật", "Lỗi", JOptionPane.ERROR_MESSAGE);            
         }
     }//GEN-LAST:event_BtnUpdateActionPerformed
 
@@ -328,8 +323,9 @@ public class UpdateTicket extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField txtDate;
-    private javax.swing.JTextField txtDetail;
+    private javax.swing.JTextArea txtDetail;
     private javax.swing.JTextField txtID;
     private javax.swing.JTextField txtRoomID;
     private javax.swing.JTextField txtTenantID;

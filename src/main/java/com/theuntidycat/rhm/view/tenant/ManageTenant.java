@@ -24,7 +24,6 @@ public class ManageTenant extends javax.swing.JPanel {
     public ManageTenant(){
         initComponents();
         taoTable();
-        // capnhatTable();
     }
     ManageTenantController ctrl = new ManageTenantController();
     ResultSet rs = null;

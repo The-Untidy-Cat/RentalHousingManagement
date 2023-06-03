@@ -19,6 +19,7 @@ public class InsertTenant extends javax.swing.JFrame {
     public InsertTenant() {
         initComponents();
         setLocationRelativeTo(null);
+        setTitle("THÊM NGƯỜI THUÊ");
     }
     ManageTenantController ctrl = new ManageTenantController();
     /**
