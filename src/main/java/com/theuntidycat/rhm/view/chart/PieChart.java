@@ -5,17 +5,14 @@
 package com.theuntidycat.rhm.view.chart;
 
 import com.theuntidycat.rhm.model.PieChartDataset;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import javax.swing.UIManager;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
-import org.jfree.chart.labels.PieSectionLabelGenerator;
-import org.jfree.chart.labels.StandardPieSectionLabelGenerator;
+import org.jfree.chart.plot.PiePlot;
 import org.jfree.chart.title.TextTitle;
 import org.jfree.data.general.DefaultPieDataset;
 import org.jfree.data.general.PieDataset;
@@ -69,5 +66,9 @@ public class PieChart extends javax.swing.JPanel {
         pieChart.getPlot().setOutlinePaint(null);
         chartPanel = new ChartPanel(pieChart);
         add(chartPanel, java.awt.BorderLayout.CENTER);
+    }
+    
+    public PiePlot getPlot(){
+        return (PiePlot) pieChart.getPlot();
     }
 }

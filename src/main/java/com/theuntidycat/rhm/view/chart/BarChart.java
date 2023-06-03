@@ -13,7 +13,10 @@ import javax.swing.UIManager;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.CategoryPlot;
+import org.jfree.chart.plot.Plot;
 import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.chart.renderer.category.BarRenderer;
 import org.jfree.chart.title.TextTitle;
 import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.category.DefaultCategoryDataset;
@@ -69,5 +72,13 @@ public class BarChart extends javax.swing.JPanel {
         chartPanel = new ChartPanel(barChart);
         add(chartPanel, java.awt.BorderLayout.CENTER);
         
+    }
+    
+    public CategoryPlot getPlot(){
+        return (CategoryPlot) barChart.getCategoryPlot();
+    }
+    
+    public BarRenderer getRenderer(){
+        return (BarRenderer)getPlot().getRenderer();
     }
 }
