@@ -187,6 +187,7 @@ public class ManageContract extends javax.swing.JPanel {
         if(indexTB < tblModelTT.getRowCount() && indexTB >= 0)
         {
             ContractUpdateDialog update = new ContractUpdateDialog();
+            update.getContractID().setText(tblModelTT.getValueAt(indexTB, 0).toString());
             update.getTxtRoomID().setText(tblModelTT.getValueAt(indexTB, 6).toString());
             update.getRepID().setText(tblModelTT.getValueAt(indexTB, 5).toString());
             update.loadRepName();

@@ -83,6 +83,7 @@ public class ManageContractController
         catch(SQLException e)
         {
             System.out.println(e);
+            System.out.println("Error in ContractController insertContract");
             return false;
         }
     }
@@ -135,4 +136,39 @@ public class ManageContractController
         }
         return rs;
     }
+    
+    public boolean updateContract(String contract_id, String tenant_id)
+    {
+        try
+        {
+            PreparedStatement prestmt = con.prepareStatement("INSERT INTO DETAIL_CONTRACT(CONTRACT_ID, TENANT_ID) VALUES (?, ?)");
+            prestmt.setString(1, contract_id);
+            prestmt.setString(2, tenant_id);
+            prestmt.executeUpdate();
+            return true;
+        }
+        catch(SQLException e)
+        {
+            System.out.println(e);
+            System.out.println("Error in ContractController updateContract");
+            return false;
+        }
+    }
+    
+    public ResultSet getTenantID(String cccd)
+    {
+        ResultSet rs = null;
+        try
+        {
+            Statement stmt = con.createStatement();
+            rs = stmt.executeQuery("SELECT ID FROM TENANT WHERE ID_NUMBER = '"+cccd+"'");
+        }
+        catch(SQLException e)
+        {
+            System.out.println(e);
+            System.out.println("Error in ContractController getTenantName");
+        }
+        return rs;
+    }
+    
 }
