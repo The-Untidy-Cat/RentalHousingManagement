@@ -173,6 +173,21 @@ public class ManageContract extends javax.swing.JPanel {
 
     private void viewContractDetailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewContractDetailActionPerformed
         // TODO add your handling code here:
+        int indexTB = tbContract.getSelectedRow();
+        if(indexTB < tblModelTT.getRowCount() && indexTB >= 0)
+        {
+            ContractViewDetailDialog view = new ContractViewDetailDialog();
+            view.getContractID().setText(tblModelTT.getValueAt(indexTB, 0).toString());
+            view.getTxtRoomID().setText(tblModelTT.getValueAt(indexTB, 6).toString());
+            view.getRepID().setText(tblModelTT.getValueAt(indexTB, 5).toString());
+            view.getStartDate().setText(tblModelTT.getValueAt(indexTB, 1).toString());
+            view.getEndDate().setText(tblModelTT.getValueAt(indexTB, 2).toString());
+            view.getPrice().setText(tblModelTT.getValueAt(indexTB, 3).toString());
+            view.getTxtStatus().setText(tblModelTT.getValueAt(indexTB, 7).toString());
+            view.getDeposit().setText(tblModelTT.getValueAt(indexTB, 4).toString());
+            view.loadRoomCapacity();
+            view.createTable();
+        }
     }//GEN-LAST:event_viewContractDetailActionPerformed
 
     private void insertNewContractActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_insertNewContractActionPerformed
