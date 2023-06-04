@@ -4,6 +4,11 @@
  */
 package com.theuntidycat.rhm.view.contract;
 
+import javax.swing.JOptionPane;
+import com.theuntidycat.rhm.controller.ManageContractController;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import javax.swing.table.DefaultTableModel;
 /**
  *
  * @author Dell
@@ -24,7 +29,53 @@ public class ContractViewDetailDialog extends javax.swing.JFrame {
         txtContractID.setEditable(false);
         txtStatus.setEditable(false);
         tbTenant.setEnabled(false);
+        startDate.setEditable(false);
+        endDate.setEditable(false);
         setVisible(true);
+    }
+    
+    public void loadRoomCapacity()
+    {
+        try
+        {
+            ManageContractController controller = new ManageContractController();
+            ResultSet rs = controller.getRoomCapacity(txtRoomID.getText());
+            rs.next();
+            txtCapacity.setText(rs.getString(1));
+        }
+        catch(SQLException e)
+        {
+            System.out.println(e);
+            System.out.println("Error in ContractViewDetailDialog loadRoomCapacity");
+        }
+    }
+    
+    DefaultTableModel model;
+    public void createTable()
+    {
+        model = new DefaultTableModel();
+        String title[] = {"Mã khách thuê", "Tên khách thuê", "Số CCCD", "Số ĐT"};
+        model.setColumnIdentifiers(title);
+        try
+        {
+            ManageContractController controller = new ManageContractController();
+            String row[] = new String[4];
+            ResultSet rs = controller.loadTenantTb(txtContractID.getText());
+            while(rs.next())
+            {
+                row[0] = rs.getString(1);
+                row[1] = rs.getString(2);
+                row[2] = rs.getString(3);
+                row[3] = rs.getString(4);
+                model.addRow(row);
+            }
+        }
+        catch(SQLException e)
+        {
+            System.out.println(e);
+            System.out.println("Error in ContractViewDetailDialog createTable");
+        } 
+        tbTenant.setModel(model);
     }
 
     /**
@@ -107,12 +158,6 @@ public class ContractViewDetailDialog extends javax.swing.JFrame {
 
         jLabel7.setText("Giá thuê hàng tháng");
         jPanel1.add(jLabel7);
-
-        txtPrice.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtPriceActionPerformed(evt);
-            }
-        });
         jPanel1.add(txtPrice);
 
         jLabel8.setText("Trạng thái hợp đồng");
@@ -197,19 +242,50 @@ public class ContractViewDetailDialog extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtPriceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPriceActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtPriceActionPerformed
-
     private void buttonBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonBackActionPerformed
         // TODO add your handling code here:
+        int ret = JOptionPane.showConfirmDialog(this, "Bạn có muốn quay lại?", "Thông báo", JOptionPane.YES_NO_OPTION);
+        if(ret == JOptionPane.YES_OPTION)
+            setVisible(false);
     }//GEN-LAST:event_buttonBackActionPerformed
 
     /**
      * @param args the command line arguments
+     * @return 
      */
-   
-
+    public javax.swing.JTextField getContractID()
+    {
+        return txtContractID;
+    }
+    public javax.swing.JTextField getTxtRoomID()
+    {
+        return txtRoomID;
+    }
+    public javax.swing.JTextField getTxtStatus()
+    {
+        return txtStatus;
+    }
+    public javax.swing.JTextField getStartDate()
+    {
+        return startDate;
+    }
+    public javax.swing.JTextField getEndDate()
+    {
+        return endDate;
+    }
+    public javax.swing.JTextField getPrice()
+    {
+        return txtPrice;
+    }
+    public javax.swing.JTextField getRepID()
+    {
+        return txtRep;
+    }
+    public javax.swing.JTextField getDeposit()
+    {
+        return txtDeposit;
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonBack;
     private javax.swing.JButton buttonPrint;
