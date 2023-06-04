@@ -173,6 +173,8 @@ public class ManageContract extends javax.swing.JPanel {
 
     private void viewContractDetailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewContractDetailActionPerformed
         // TODO add your handling code here:
+        ContractViewDetailDialog view = new ContractViewDetailDialog();
+        view.setVisible(true);
     }//GEN-LAST:event_viewContractDetailActionPerformed
 
     private void insertNewContractActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_insertNewContractActionPerformed
