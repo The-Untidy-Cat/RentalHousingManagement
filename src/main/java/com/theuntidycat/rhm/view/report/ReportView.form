@@ -49,29 +49,6 @@
 
           <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout"/>
           <SubComponents>
-            <Container class="javax.swing.JPanel" name="headerPanel">
-              <AuxValues>
-                <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new javax.swing.JPanel()"/>
-              </AuxValues>
-              <Constraints>
-                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout" value="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout$BorderConstraintsDescription">
-                  <BorderConstraints direction="First"/>
-                </Constraint>
-              </Constraints>
-
-              <Layout class="org.netbeans.modules.form.compat2.layouts.DesignFlowLayout"/>
-              <SubComponents>
-                <Component class="javax.swing.JLabel" name="lbHeader">
-                  <Properties>
-                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                      <Font name="Segoe UI" size="14" style="1"/>
-                    </Property>
-                    <Property name="horizontalAlignment" type="int" value="0"/>
-                    <Property name="text" type="java.lang.String" value="T&#x1ed5;ng quan"/>
-                  </Properties>
-                </Component>
-              </SubComponents>
-            </Container>
             <Container class="javax.swing.JPanel" name="bodyPanel">
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout" value="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout$BorderConstraintsDescription">
@@ -82,10 +59,10 @@
                 <Container class="javax.swing.JPanel" name="labelPanel">
                   <Properties>
                     <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                      <Dimension value="[150, 150]"/>
+                      <Dimension value="[200, 150]"/>
                     </Property>
                     <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                      <Dimension value="[150, 150]"/>
+                      <Dimension value="[160, 150]"/>
                     </Property>
                   </Properties>
 
@@ -94,29 +71,29 @@
                     <Property name="rows" type="int" value="5"/>
                   </Layout>
                   <SubComponents>
-                    <Component class="javax.swing.JLabel" name="lbEmptyRoom">
+                    <Component class="javax.swing.JLabel" name="lbUsedRoom">
                       <Properties>
-                        <Property name="text" type="java.lang.String" value="S&#x1ed1; ph&#xf2;ng tr&#x1ed1;ng"/>
+                        <Property name="text" type="java.lang.String" value="Ph&#xf2;ng &#x111;ang cho thu&#xea;"/>
                       </Properties>
                     </Component>
                     <Component class="javax.swing.JLabel" name="lbWaitingTicket">
                       <Properties>
-                        <Property name="text" type="java.lang.String" value="S&#x1ed1; phi&#x1ebf;u h&#x1ed7; tr&#x1ee3; ch&#x1edd; x&#x1eed; l&#xfd;"/>
+                        <Property name="text" type="java.lang.String" value="Phi&#x1ebf;u h&#x1ed7; tr&#x1ee3; ch&#x1edd; x&#x1eed; l&#xfd;"/>
                       </Properties>
                     </Component>
                     <Component class="javax.swing.JLabel" name="lbActiveTenant">
                       <Properties>
-                        <Property name="text" type="java.lang.String" value="jLabel4"/>
+                        <Property name="text" type="java.lang.String" value="Kh&#xe1;ch h&#xe0;ng &#x111;ang ho&#x1ea1;t &#x111;&#x1ed9;ng"/>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JLabel" name="jLabel5">
+                    <Component class="javax.swing.JLabel" name="lbUnpaidInvoice">
                       <Properties>
-                        <Property name="text" type="java.lang.String" value="jLabel5"/>
+                        <Property name="text" type="java.lang.String" value="Ho&#xe1; &#x111;&#x1a1;n ch&#x1b0;a thanh to&#xe1;n"/>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JLabel" name="jLabel6">
+                    <Component class="javax.swing.JLabel" name="lbDueSoonContract">
                       <Properties>
-                        <Property name="text" type="java.lang.String" value="jLabel6"/>
+                        <Property name="text" type="java.lang.String" value="H&#x1ee3;p &#x111;&#x1ed3;ng s&#x1eaf;p &#x111;&#x1ebf;n h&#x1ea1;n"/>
                       </Properties>
                     </Component>
                   </SubComponents>
@@ -124,57 +101,56 @@
                 <Container class="javax.swing.JPanel" name="inputPanel">
                   <Properties>
                     <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                      <Dimension value="[100, 150]"/>
+                      <Dimension value="[50, 150]"/>
                     </Property>
                     <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                      <Dimension value="[300, 150]"/>
+                      <Dimension value="[50, 150]"/>
                     </Property>
                   </Properties>
 
                   <Layout class="org.netbeans.modules.form.compat2.layouts.DesignGridLayout">
-                    <Property name="columns" type="int" value="1"/>
+                    <Property name="columns" type="int" value="2"/>
                     <Property name="rows" type="int" value="5"/>
-                    <Property name="verticalGap" type="int" value="5"/>
                   </Layout>
                   <SubComponents>
-                    <Component class="javax.swing.JLabel" name="jLabel2">
+                    <Component class="javax.swing.JLabel" name="lbUsedRoomValue">
                       <Properties>
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                           <Font name="Segoe UI" size="12" style="1"/>
                         </Property>
-                        <Property name="text" type="java.lang.String" value="jLabel2"/>
+                        <Property name="text" type="java.lang.String" value="0/0"/>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JLabel" name="jLabel3">
+                    <Component class="javax.swing.JLabel" name="lbWaitingTicketValue">
                       <Properties>
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                           <Font name="Segoe UI" size="12" style="1"/>
                         </Property>
-                        <Property name="text" type="java.lang.String" value="jLabel3"/>
+                        <Property name="text" type="java.lang.String" value="0"/>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JLabel" name="jLabel7">
+                    <Component class="javax.swing.JLabel" name="lbActiveTenantValue">
                       <Properties>
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                           <Font name="Segoe UI" size="12" style="1"/>
                         </Property>
-                        <Property name="text" type="java.lang.String" value="jLabel7"/>
+                        <Property name="text" type="java.lang.String" value="0"/>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JLabel" name="jLabel8">
+                    <Component class="javax.swing.JLabel" name="lbUnpaidInvoiceValue">
                       <Properties>
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                           <Font name="Segoe UI" size="12" style="1"/>
                         </Property>
-                        <Property name="text" type="java.lang.String" value="jLabel8"/>
+                        <Property name="text" type="java.lang.String" value="0"/>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JLabel" name="jLabel9">
+                    <Component class="javax.swing.JLabel" name="lbDueSoonContractValue">
                       <Properties>
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                           <Font name="Segoe UI" size="12" style="1"/>
                         </Property>
-                        <Property name="text" type="java.lang.String" value="jLabel9"/>
+                        <Property name="text" type="java.lang.String" value="0"/>
                       </Properties>
                     </Component>
                   </SubComponents>
@@ -257,6 +233,23 @@
                 </CodeStatement>
               </LayoutCode>
             </Container>
+            <Container class="javax.swing.JPanel" name="ovRevenueChartPanel">
+              <Properties>
+                <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                  <Dimension value="[500, 230]"/>
+                </Property>
+              </Properties>
+              <Constraints>
+                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout" value="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout$BorderConstraintsDescription">
+                  <BorderConstraints direction="Last"/>
+                </Constraint>
+              </Constraints>
+
+              <Layout class="org.netbeans.modules.form.compat2.layouts.DesignGridLayout">
+                <Property name="columns" type="int" value="2"/>
+                <Property name="rows" type="int" value="1"/>
+              </Layout>
+            </Container>
           </SubComponents>
         </Container>
         <Container class="javax.swing.JPanel" name="revenueTab">
@@ -271,7 +264,7 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="searchBar" pref="500" max="32767" attributes="0"/>
+                  <Component id="r_searchBar" pref="500" max="32767" attributes="0"/>
                   <Component id="revenueInfoPanel" alignment="1" max="32767" attributes="0"/>
                   <Component id="revenueChartPanel" alignment="0" max="32767" attributes="0"/>
               </Group>
@@ -279,7 +272,7 @@
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
-                      <Component id="searchBar" min="-2" max="-2" attributes="0"/>
+                      <Component id="r_searchBar" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
                       <Component id="revenueChartPanel" min="-2" pref="325" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
@@ -289,19 +282,19 @@
             </DimensionLayout>
           </Layout>
           <SubComponents>
-            <Container class="javax.swing.JPanel" name="searchBar">
+            <Container class="javax.swing.JPanel" name="r_searchBar">
 
               <Layout class="org.netbeans.modules.form.compat2.layouts.DesignFlowLayout">
                 <Property name="horizontalGap" type="int" value="10"/>
                 <Property name="verticalGap" type="int" value="10"/>
               </Layout>
               <SubComponents>
-                <Component class="javax.swing.JLabel" name="lbMonth">
+                <Component class="javax.swing.JLabel" name="r_lbMonth">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Th&#xe1;ng"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JComboBox" name="cbbMonth">
+                <Component class="javax.swing.JComboBox" name="r_cbbMonth">
                   <Properties>
                     <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                       <StringArray count="12">
@@ -321,7 +314,7 @@
                     </Property>
                   </Properties>
                   <Events>
-                    <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="cbbMonthItemStateChanged"/>
+                    <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="r_cbbMonthItemStateChanged"/>
                   </Events>
                   <AuxValues>
                     <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
@@ -329,12 +322,12 @@
                 </Component>
                 <Component class="javax.swing.JSeparator" name="jSeparator1">
                 </Component>
-                <Component class="javax.swing.JLabel" name="jLabel1">
+                <Component class="javax.swing.JLabel" name="r_lbYear">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="N&#x103;m"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JComboBox" name="cbbYear">
+                <Component class="javax.swing.JComboBox" name="r_cbbYear">
                   <Properties>
                     <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                       <StringArray count="4">
@@ -346,7 +339,7 @@
                     </Property>
                   </Properties>
                   <Events>
-                    <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="cbbYearItemStateChanged"/>
+                    <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="r_cbbYearItemStateChanged"/>
                   </Events>
                   <AuxValues>
                     <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
@@ -363,6 +356,118 @@
               </Layout>
             </Container>
             <Container class="javax.swing.JPanel" name="revenueChartPanel">
+
+              <Layout class="org.netbeans.modules.form.compat2.layouts.DesignGridLayout">
+                <Property name="columns" type="int" value="2"/>
+                <Property name="rows" type="int" value="1"/>
+              </Layout>
+            </Container>
+          </SubComponents>
+        </Container>
+        <Container class="javax.swing.JPanel" name="invoiceTab">
+          <Constraints>
+            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
+              <JTabbedPaneConstraints tabName="Ho&#xe1; &#x111;&#x1a1;n">
+                <Property name="tabTitle" type="java.lang.String" value="Ho&#xe1; &#x111;&#x1a1;n"/>
+              </JTabbedPaneConstraints>
+            </Constraint>
+          </Constraints>
+
+          <Layout>
+            <DimensionLayout dim="0">
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="i_searchBar" alignment="0" pref="500" max="32767" attributes="0"/>
+                  <Component id="invoiceInfoPanel" alignment="1" max="32767" attributes="0"/>
+                  <Component id="invoiceChartPanel" alignment="0" max="32767" attributes="0"/>
+              </Group>
+            </DimensionLayout>
+            <DimensionLayout dim="1">
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
+                      <Component id="i_searchBar" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
+                      <Component id="invoiceChartPanel" min="-2" pref="325" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="invoiceInfoPanel" min="-2" pref="33" max="-2" attributes="0"/>
+                  </Group>
+              </Group>
+            </DimensionLayout>
+          </Layout>
+          <SubComponents>
+            <Container class="javax.swing.JPanel" name="i_searchBar">
+
+              <Layout class="org.netbeans.modules.form.compat2.layouts.DesignFlowLayout">
+                <Property name="horizontalGap" type="int" value="10"/>
+                <Property name="verticalGap" type="int" value="10"/>
+              </Layout>
+              <SubComponents>
+                <Component class="javax.swing.JLabel" name="i_lbMonth">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Th&#xe1;ng"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JComboBox" name="i_cbbMonth">
+                  <Properties>
+                    <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                      <StringArray count="12">
+                        <StringItem index="0" value="1"/>
+                        <StringItem index="1" value="2"/>
+                        <StringItem index="2" value="3"/>
+                        <StringItem index="3" value="4"/>
+                        <StringItem index="4" value="5"/>
+                        <StringItem index="5" value="6"/>
+                        <StringItem index="6" value="7"/>
+                        <StringItem index="7" value="8"/>
+                        <StringItem index="8" value="9"/>
+                        <StringItem index="9" value="10"/>
+                        <StringItem index="10" value="11"/>
+                        <StringItem index="11" value="12"/>
+                      </StringArray>
+                    </Property>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="i_cbbMonthItemStateChanged"/>
+                  </Events>
+                  <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+                  </AuxValues>
+                </Component>
+                <Component class="javax.swing.JSeparator" name="jSeparator3">
+                </Component>
+                <Component class="javax.swing.JLabel" name="i_lbYear">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="N&#x103;m"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JComboBox" name="i_cbbYear">
+                  <Properties>
+                    <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                      <StringArray count="4">
+                        <StringItem index="0" value="Item 1"/>
+                        <StringItem index="1" value="Item 2"/>
+                        <StringItem index="2" value="Item 3"/>
+                        <StringItem index="3" value="Item 4"/>
+                      </StringArray>
+                    </Property>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="i_cbbYearItemStateChanged"/>
+                  </Events>
+                  <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+                  </AuxValues>
+                </Component>
+                <Component class="javax.swing.JSeparator" name="jSeparator4">
+                </Component>
+              </SubComponents>
+            </Container>
+            <Container class="javax.swing.JPanel" name="invoiceInfoPanel">
+
+              <Layout class="org.netbeans.modules.form.compat2.layouts.DesignFlowLayout">
+                <Property name="horizontalGap" type="int" value="25"/>
+              </Layout>
+            </Container>
+            <Container class="javax.swing.JPanel" name="invoiceChartPanel">
 
               <Layout class="org.netbeans.modules.form.compat2.layouts.DesignGridLayout">
                 <Property name="columns" type="int" value="2"/>
