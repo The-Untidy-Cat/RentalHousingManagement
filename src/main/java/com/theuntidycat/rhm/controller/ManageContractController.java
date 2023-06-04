@@ -204,5 +204,19 @@ public class ManageContractController
         }
         return rs;
     }
-    
+    public ResultSet getTenantName(String tenant_id)
+    {
+        ResultSet rs = null;
+        try
+        {
+            Statement stmt = con.createStatement();
+            rs = stmt.executeQuery("SELECT NAME, HOMETOWN FROM TENANT WHERE ID = '"+tenant_id+"'");
+        }
+        catch(SQLException e)
+        {
+            System.out.println(e);
+            System.out.println("Error in ContractController getTenantName");
+        }
+        return rs;
+    }
 }
