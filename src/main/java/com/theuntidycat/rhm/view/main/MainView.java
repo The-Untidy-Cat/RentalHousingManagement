@@ -49,8 +49,6 @@ public class MainView extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
-        lbSetting = new javax.swing.JLabel();
         tabPanel = new javax.swing.JTabbedPane();
         reportView1 = new com.theuntidycat.rhm.view.report.ReportView();
         manageInvoice1 = new com.theuntidycat.rhm.view.invoice.ManageInvoice();
@@ -58,28 +56,19 @@ public class MainView extends javax.swing.JFrame {
         manageRoom1 = new com.theuntidycat.rhm.view.room.ManageRoom();
         manageTenant1 = new com.theuntidycat.rhm.view.tenant.ManageTenant();
         manageSupportTicket1 = new com.theuntidycat.rhm.view.ticket.ManageSupportTicket();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        accountSection = new javax.swing.JMenu();
+        changePasswordItem = new javax.swing.JMenuItem();
+        exitItem = new javax.swing.JMenuItem();
+        settingSection = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Rental Housing Management");
         setAlwaysOnTop(true);
+        setIconImage(new ImageIcon(s + "/assets/appIcon.png").getImage());
         setPreferredSize(new java.awt.Dimension(700, 500));
         setResizable(false);
         setSize(new java.awt.Dimension(700, 500));
-
-        jPanel1.setLayout(new java.awt.BorderLayout());
-
-        lbSetting.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lbSetting.setIcon(new javax.swing.ImageIcon(s+"/assets/gear.png"));
-        lbSetting.setText("Cài đặt");
-        lbSetting.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        lbSetting.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
-        lbSetting.setIconTextGap(5);
-        lbSetting.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lbSettingMouseClicked(evt);
-            }
-        });
-        jPanel1.add(lbSetting, java.awt.BorderLayout.LINE_END);
 
         tabPanel.setTabPlacement(javax.swing.JTabbedPane.LEFT);
         tabPanel.setMinimumSize(new java.awt.Dimension(640, 500));
@@ -90,21 +79,40 @@ public class MainView extends javax.swing.JFrame {
         tabPanel.addTab("Khách thuê", manageTenant1);
         tabPanel.addTab("Phiếu hỗ trợ", manageSupportTicket1);
 
+        accountSection.setText("Tài khoản");
+
+        changePasswordItem.setText("Đổi mật khẩu");
+        accountSection.add(changePasswordItem);
+
+        exitItem.setText("Thoát khỏi hệ thống");
+        exitItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                exitItemActionPerformed(evt);
+            }
+        });
+        accountSection.add(exitItem);
+
+        jMenuBar1.add(accountSection);
+
+        settingSection.setText("Cài đặt");
+        settingSection.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                settingSectionMouseClicked(evt);
+            }
+        });
+        jMenuBar1.add(settingSection);
+
+        setJMenuBar(jMenuBar1);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(tabPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 700, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(0, 0, 0)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
                 .addComponent(tabPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 464, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -113,9 +121,13 @@ public class MainView extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void lbSettingMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbSettingMouseClicked
+    private void settingSectionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_settingSectionMouseClicked
         settingFrame.run();
-    }//GEN-LAST:event_lbSettingMouseClicked
+    }//GEN-LAST:event_settingSectionMouseClicked
+
+    private void exitItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitItemActionPerformed
+        dispose();
+    }//GEN-LAST:event_exitItemActionPerformed
 
     public void run() {
         LoadingDialog loading = new LoadingDialog();
@@ -190,14 +202,17 @@ public class MainView extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JLabel lbSetting;
+    private javax.swing.JMenu accountSection;
+    private javax.swing.JMenuItem changePasswordItem;
+    private javax.swing.JMenuItem exitItem;
+    private javax.swing.JMenuBar jMenuBar1;
     private com.theuntidycat.rhm.view.contract.ManageContract manageContract1;
     private com.theuntidycat.rhm.view.invoice.ManageInvoice manageInvoice1;
     private com.theuntidycat.rhm.view.room.ManageRoom manageRoom1;
     private com.theuntidycat.rhm.view.ticket.ManageSupportTicket manageSupportTicket1;
     private com.theuntidycat.rhm.view.tenant.ManageTenant manageTenant1;
     private com.theuntidycat.rhm.view.report.ReportView reportView1;
+    private javax.swing.JMenu settingSection;
     private javax.swing.JTabbedPane tabPanel;
     // End of variables declaration//GEN-END:variables
 }

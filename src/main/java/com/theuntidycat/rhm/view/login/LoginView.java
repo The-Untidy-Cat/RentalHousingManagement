@@ -49,6 +49,8 @@ public class LoginView extends JFrame {
         Image image = imageIcon.getImage(); // transform it
         Image newimg = image.getScaledInstance(390, 100, java.awt.Image.SCALE_SMOOTH); // scale it the smooth way
         imageIcon = new ImageIcon(newimg);
+        
+        setIconImage(new ImageIcon(s + "/assets/appIcon.png").getImage());
 
         JPanel formPanel = new JPanel();
 

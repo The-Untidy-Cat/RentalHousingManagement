@@ -18,6 +18,7 @@ class RootController {
     private final Connection conn = database.getConnection();
 
     public class RoomController {
+
         public int getTotalRoom() {
             ResultSet rs = null;
             String sql = null;
@@ -34,6 +35,7 @@ class RootController {
             }
             return 0;
         }
+
         public int getTotalRoomByStatus(int status) {
             ResultSet rs = null;
             String sql = null;
@@ -54,6 +56,7 @@ class RootController {
     }
 
     public class TicketController {
+
         public int getTotalTicket() {
             ResultSet rs = null;
             String sql = null;
@@ -70,6 +73,7 @@ class RootController {
             }
             return 0;
         }
+
         public int getTotalTicketByStatus(int status) {
             ResultSet rs = null;
             String sql = null;
@@ -88,8 +92,9 @@ class RootController {
             return 0;
         }
     }
-    
+
     public class InvoiceController {
+
         public int getTotalInvoice() {
             ResultSet rs = null;
             String sql = null;
@@ -106,6 +111,7 @@ class RootController {
             }
             return 0;
         }
+
         public int getTotalInvoiceByStatus(int status) {
             ResultSet rs = null;
             String sql = null;
@@ -123,9 +129,115 @@ class RootController {
             }
             return 0;
         }
-    }
+
+        public double getTotalMoneyInvoiveByYear(String year) {
+            ResultSet rs = null;
+            String sql = null;
+            PreparedStatement pstmt = null;
+            try {
+                sql = "SELECT SUM(TOTAL_MONEY) FROM invoice WHERE YEAR = ?";
+                pstmt = conn.prepareStatement(sql);
+                pstmt.setInt(1, Integer.valueOf(year));
+                rs = pstmt.executeQuery();
+                if (rs.next()) {
+                    return rs.getDouble(1);
+                }
+            } catch (SQLException e) {
+                System.out.println(e);
+            }
+            return 0;
+        }
+
+        public double getTotalMoneyPaidInvoiveByYear(String year) {
+            ResultSet rs = null;
+            String sql = null;
+            PreparedStatement pstmt = null;
+            try {
+                sql = "SELECT SUM(MONEY_PAID) FROM invoice WHERE YEAR = ?";
+                pstmt = conn.prepareStatement(sql);
+                pstmt.setInt(1, Integer.valueOf(year));
+                rs = pstmt.executeQuery();
+                if (rs.next()) {
+                    return rs.getDouble(1);
+                }
+            } catch (SQLException e) {
+                System.out.println(e);
+            }
+            return 0;
+        }
+
+        public double getTotalMoneyInvoiveByMonth(String month, String year) {
+            ResultSet rs = null;
+            String sql = null;
+            PreparedStatement pstmt = null;
+            try {
+                sql = "SELECT SUM(TOTAL_MONEY) FROM invoice WHERE YEAR = ? AND MONTH = ? ";
+                pstmt = conn.prepareStatement(sql);
+                pstmt.setInt(1, Integer.valueOf(year));
+                pstmt.setInt(2, Integer.valueOf(month));
+                rs = pstmt.executeQuery();
+                if (rs.next()) {
+                    return rs.getDouble(1);
+                }
+            } catch (SQLException e) {
+                System.out.println(e);
+            }
+            return 0;
+        }
+
+        public double getTotalMoneyPaidInvoiveByMonth(String month, String year) {
+            ResultSet rs = null;
+            String sql = null;
+            PreparedStatement pstmt = null;
+            try {
+                sql = "SELECT SUM(MONEY_PAID) FROM invoice WHERE YEAR = ? AND MONTH = ? ";
+                pstmt = conn.prepareStatement(sql);
+                pstmt.setInt(1, Integer.valueOf(year));
+                pstmt.setInt(2, Integer.valueOf(month));
+                rs = pstmt.executeQuery();
+                if (rs.next()) {
+                    return rs.getDouble(1);
+                }
+            } catch (SQLException e) {
+                System.out.println(e);
+            }
+            return 0;
+        }
+
+        public ResultSet getMonthlyInvoiceByYear(String year) {
+            ResultSet rs = null;
+            String sql = null;
+            PreparedStatement pstmt = null;
+            try {
+                sql = "SELECT SUM(TOTAL_MONEY) AS SUM_MONEY, MONTH FROM invoice WHERE YEAR = ? AND MONTH BETWEEN 1 AND 12 GROUP BY MONTH ORDER BY MONTH ASC";
+                pstmt = conn.prepareStatement(sql);
+                pstmt.setInt(1, Integer.valueOf(year));
+                rs = pstmt.executeQuery();
+            } catch (SQLException e) {
+                System.out.println(e);
+            }
+            return rs;
+        }
     
+        public ResultSet getRoomInvoiceByMonth(String month, String year){
+            ResultSet rs = null;
+            String sql = null;
+            PreparedStatement pstmt = null;
+            try {
+                sql = "SELECT SUM(TOTAL_MONEY) AS SUM_MONEY, ROOM_ID FROM invoice WHERE YEAR = ? AND MONTH = ? GROUP BY ROOM_ID";
+                pstmt = conn.prepareStatement(sql);
+                pstmt.setInt(1, Integer.valueOf(year));
+                pstmt.setInt(2, Integer.valueOf(month));
+                rs = pstmt.executeQuery();
+            } catch (SQLException e) {
+                System.out.println(e);
+            }
+            return rs;
+        }
+    }
+
     public class TenantController {
+
         public int getTotalTenant() {
             ResultSet rs = null;
             String sql = null;
@@ -142,6 +254,7 @@ class RootController {
             }
             return 0;
         }
+
         public int getTotalTenantByStatus(int status) {
             ResultSet rs = null;
             String sql = null;
@@ -160,8 +273,9 @@ class RootController {
             return 0;
         }
     }
-    
+
     public class ContractController {
+
         public int getTotalDueSoonContract() {
             ResultSet rs = null;
             String sql = null;
@@ -178,8 +292,8 @@ class RootController {
             }
             return 0;
         }
- }
-    
+    }
+
     public class RevenueController {
 
         public double getTotalRevenueByYear(String year) {
@@ -306,28 +420,28 @@ public class ReportController {
     private RootController.ContractController contractController = rootController.new ContractController();
     private RootController.InvoiceController invoiceController = rootController.new InvoiceController();
     private RootController.RoomController roomController = rootController.new RoomController();
-    
+
     public RootController.RevenueController getRevenue() {
         return revenueController;
     }
-    
+
     public RootController.TicketController getTicket() {
         return ticketController;
     }
-    
+
     public RootController.TenantController getTenant() {
         return tenantController;
     }
-    
-    public RootController.ContractController getContract(){
+
+    public RootController.ContractController getContract() {
         return contractController;
     }
-    
-    public RootController.InvoiceController getInvoice(){
+
+    public RootController.InvoiceController getInvoice() {
         return invoiceController;
     }
-    
-    public RootController.RoomController getRoom(){
+
+    public RootController.RoomController getRoom() {
         return roomController;
     }
 }
