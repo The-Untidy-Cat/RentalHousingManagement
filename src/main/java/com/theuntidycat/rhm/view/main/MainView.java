@@ -72,7 +72,6 @@ public class MainView extends javax.swing.JFrame {
 
         tabPanel.setTabPlacement(javax.swing.JTabbedPane.LEFT);
         tabPanel.setMinimumSize(new java.awt.Dimension(640, 500));
-        tabPanel.setPreferredSize(null);
 
         reportView1.setPreferredSize(null);
         tabPanel.addTab("Thống kê", reportView1);
