@@ -48,6 +48,7 @@ public class SettingFrame extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Cài đặt");
         setAlwaysOnTop(true);
+        setResizable(false);
 
         emailFromPanel.setLayout(new java.awt.GridLayout(6, 2, 0, 15));
 
