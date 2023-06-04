@@ -357,7 +357,7 @@ public class ContractViewDetailDialog extends javax.swing.JFrame {
                         listTTKH.add(new ListItem("Mã người đại diện: "+txtRep.getText().toUpperCase(), fontNoiDung1));
                         
                         //Que quan
-                        
+                        listTTKH.add(new ListItem("Quê quán: "+rs.getString("HOMETOWN").toUpperCase(), fontNoiDung1));
                         
                         //Ngay sinh
                         String[] arrayNgSinh = rs.getString("NgSinh").split("-");
