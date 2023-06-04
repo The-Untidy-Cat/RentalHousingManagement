@@ -218,8 +218,8 @@ class RootController {
             }
             return rs;
         }
-    
-        public ResultSet getRoomInvoiceByMonth(String month, String year){
+
+        public ResultSet getRoomInvoiceByMonth(String month, String year) {
             ResultSet rs = null;
             String sql = null;
             PreparedStatement pstmt = null;
@@ -291,6 +291,18 @@ class RootController {
                 System.out.println(e);
             }
             return 0;
+        }
+
+        public ResultSet getDueSoonContractTable() {
+            ResultSet rs = null;
+            try {
+                Statement stmt = conn.createStatement();
+                rs = stmt.executeQuery("SELECT CONTRACT.ID, START_DATE, END_DATE, PRICE_PER_PERIOD, DEPOSIT, TENANT_ID, ROOM_ID, CONTRACT_STATUS.NAME FROM CONTRACT JOIN CONTRACT_STATUS ON CONTRACT.STATUS_ID = CONTRACT_STATUS.ID where to_date(CONTRACT.END_DATE, 'yyyy-mm-dd') >= trunc(sysdate) AND (to_date(CONTRACT.END_DATE, 'yyyy-mm-dd') - trunc(sysdate)) BETWEEN 1 AND 30 GROUP BY CONTRACT.ID, START_DATE, END_DATE, PRICE_PER_PERIOD, DEPOSIT, TENANT_ID, ROOM_ID, CONTRACT_STATUS.NAME ORDER BY CONTRACT.ID ASC");
+            } catch (SQLException e) {
+                System.out.println(e);
+                System.out.println("Error in ContractController getContractTable");
+            }
+            return rs;
         }
     }
 

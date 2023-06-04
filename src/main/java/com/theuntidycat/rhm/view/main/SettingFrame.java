@@ -50,12 +50,11 @@ public class SettingFrame extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Cài đặt");
         setAlwaysOnTop(true);
-        setMaximumSize(new java.awt.Dimension(400, 200));
-        setMinimumSize(new java.awt.Dimension(400, 200));
         setResizable(false);
-        setSize(new java.awt.Dimension(400, 200));
+        setSize(0,0);
+        getContentPane().setLayout(new java.awt.BorderLayout(10, 10));
 
-        java.awt.FlowLayout flowLayout1 = new java.awt.FlowLayout();
+        java.awt.FlowLayout flowLayout1 = new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 10, 10);
         flowLayout1.setAlignOnBaseline(true);
         jPanel2.setLayout(flowLayout1);
 
@@ -100,7 +99,9 @@ public class SettingFrame extends javax.swing.JFrame {
 
         getContentPane().add(jPanel2, java.awt.BorderLayout.CENTER);
 
-        jPanel3.setPreferredSize(new java.awt.Dimension(400, 33));
+        java.awt.FlowLayout flowLayout2 = new java.awt.FlowLayout();
+        flowLayout2.setAlignOnBaseline(true);
+        jPanel3.setLayout(flowLayout2);
 
         btnUpdate.setText("Cập nhật");
         btnUpdate.addActionListener(new java.awt.event.ActionListener() {

@@ -1,5 +1,6 @@
 package com.theuntidycat.rhm.view.report;
 
+import com.theuntidycat.rhm.controller.ManageInvoiceController;
 import com.theuntidycat.rhm.controller.ReportController;
 import com.theuntidycat.rhm.model.BarChartDataset;
 import com.theuntidycat.rhm.model.PieChartDataset;
@@ -8,6 +9,7 @@ import com.theuntidycat.rhm.view.chart.BarChart;
 import com.theuntidycat.rhm.view.chart.PieChart;
 import java.awt.Color;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.text.NumberFormat;
 import java.time.Year;
 import java.util.ArrayList;
@@ -15,6 +17,7 @@ import java.util.Date;
 import java.util.Locale;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JLabel;
+import javax.swing.table.DefaultTableModel;
 import org.jfree.chart.renderer.category.StandardBarPainter;
 
 /*
@@ -31,6 +34,7 @@ public class ReportView extends javax.swing.JPanel {
     private LoadingDialog loading = new LoadingDialog();
     private ReportController rpCtrl = new ReportController();
     private NumberFormat nf = NumberFormat.getCurrencyInstance(lc);
+    private DefaultTableModel tbDueSoonContractModel;
 
     /**
      * Creates new form ReportView
@@ -39,6 +43,31 @@ public class ReportView extends javax.swing.JPanel {
 //        TestPieChart pieChart = new TestPieChart();
         initComponents();
 
+    }
+
+    public void createDueSoonContractTable() {
+        tbDueSoonContractModel = new DefaultTableModel();
+        String title[] = {"Mã HĐ", "Ngày BĐ", "Ngày KT", "Giá thuê", "Đặt cọc","Mã khách", "Mã phòng","Trạng thái"};
+        tbDueSoonContractModel.setColumnIdentifiers(title);
+        tbDueSoonContract.setModel(tbDueSoonContractModel);
+        int Money_unpaid;
+        try {
+            ResultSet rs = rpCtrl.getContract().getDueSoonContractTable();
+            tbDueSoonContractModel.setRowCount(0);
+            while (rs.next()) {
+                Money_unpaid = rs.getInt(4) - rs.getInt(6);
+                String unpaid = String.valueOf(Money_unpaid);
+                String arr[] = {rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), unpaid};
+                tbDueSoonContractModel.addRow(arr);
+            }
+            lbTotalDueSoonContractValue.setText(String.valueOf(rpCtrl.getContract().getTotalDueSoonContract()));
+        } catch (SQLException e) {
+            System.out.println("Error at ManageInvoice/updateTable");
+        }
+    }
+
+    public void loadContract() {
+        createDueSoonContractTable();
     }
 
     public void loadRevenue() {
@@ -218,6 +247,15 @@ public class ReportView extends javax.swing.JPanel {
         jSeparator4 = new javax.swing.JSeparator();
         invoiceInfoPanel = new javax.swing.JPanel();
         invoiceChartPanel = new javax.swing.JPanel();
+        contractTab = new javax.swing.JPanel();
+        c_headerPanel = new javax.swing.JPanel();
+        lbDueSoonContractList = new javax.swing.JLabel();
+        btRefresh = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tbDueSoonContract = new javax.swing.JTable();
+        jPanel1 = new javax.swing.JPanel();
+        lbTotalDueSoonContract = new javax.swing.JLabel();
+        lbTotalDueSoonContractValue = new javax.swing.JLabel();
 
         setMinimumSize(new java.awt.Dimension(500, 385));
 
@@ -225,7 +263,6 @@ public class ReportView extends javax.swing.JPanel {
 
         overviewTab.setMinimumSize(new java.awt.Dimension(200, 200));
 
-        bodyPanel.setPreferredSize(null);
         java.awt.FlowLayout flowLayout1 = new java.awt.FlowLayout();
         flowLayout1.setAlignOnBaseline(true);
         bodyPanel.setLayout(flowLayout1);
@@ -396,6 +433,52 @@ public class ReportView extends javax.swing.JPanel {
 
         reportTabPane.addTab("Hoá đơn", invoiceTab);
 
+        contractTab.setLayout(new java.awt.BorderLayout());
+
+        java.awt.FlowLayout flowLayout2 = new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 10, 10);
+        flowLayout2.setAlignOnBaseline(true);
+        c_headerPanel.setLayout(flowLayout2);
+
+        lbDueSoonContractList.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbDueSoonContractList.setText("Danh sách hợp đồng sắp đến hạn");
+        c_headerPanel.add(lbDueSoonContractList);
+
+        btRefresh.setText("Làm mới");
+        btRefresh.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btRefreshActionPerformed(evt);
+            }
+        });
+        c_headerPanel.add(btRefresh);
+
+        contractTab.add(c_headerPanel, java.awt.BorderLayout.PAGE_START);
+
+        tbDueSoonContract.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane1.setViewportView(tbDueSoonContract);
+
+        contractTab.add(jScrollPane1, java.awt.BorderLayout.CENTER);
+
+        lbTotalDueSoonContract.setText("Tổng:");
+        jPanel1.add(lbTotalDueSoonContract);
+
+        lbTotalDueSoonContractValue.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lbTotalDueSoonContractValue.setText("0");
+        jPanel1.add(lbTotalDueSoonContractValue);
+
+        contractTab.add(jPanel1, java.awt.BorderLayout.PAGE_END);
+
+        reportTabPane.addTab("Hợp đồng", contractTab);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -439,6 +522,10 @@ public class ReportView extends javax.swing.JPanel {
         i_cbbMonth.setModel(cbbMonthModel);
         loadInvoice();
     }//GEN-LAST:event_i_cbbYearItemStateChanged
+
+    private void btRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btRefreshActionPerformed
+        loadContract();
+    }//GEN-LAST:event_btRefreshActionPerformed
 
     public void initOverviewTab() {
         try {
@@ -591,9 +678,13 @@ public class ReportView extends javax.swing.JPanel {
         initOverviewTab();
         initRevenueChart();
         initInvoiceChart();
+        loadContract();
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel bodyPanel;
+    private javax.swing.JButton btRefresh;
+    private javax.swing.JPanel c_headerPanel;
+    private javax.swing.JPanel contractTab;
     private javax.swing.JComboBox<String> i_cbbMonth;
     private javax.swing.JComboBox<String> i_cbbYear;
     private javax.swing.JLabel i_lbMonth;
@@ -603,6 +694,8 @@ public class ReportView extends javax.swing.JPanel {
     private javax.swing.JPanel invoiceChartPanel;
     private javax.swing.JPanel invoiceInfoPanel;
     private javax.swing.JPanel invoiceTab;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
@@ -611,7 +704,10 @@ public class ReportView extends javax.swing.JPanel {
     private javax.swing.JLabel lbActiveTenant;
     private javax.swing.JLabel lbActiveTenantValue;
     private javax.swing.JLabel lbDueSoonContract;
+    private javax.swing.JLabel lbDueSoonContractList;
     private javax.swing.JLabel lbDueSoonContractValue;
+    private javax.swing.JLabel lbTotalDueSoonContract;
+    private javax.swing.JLabel lbTotalDueSoonContractValue;
     private javax.swing.JLabel lbUnpaidInvoice;
     private javax.swing.JLabel lbUnpaidInvoiceValue;
     private javax.swing.JLabel lbUsedRoom;
@@ -629,5 +725,6 @@ public class ReportView extends javax.swing.JPanel {
     private javax.swing.JPanel revenueChartPanel;
     private javax.swing.JPanel revenueInfoPanel;
     private javax.swing.JPanel revenueTab;
+    private javax.swing.JTable tbDueSoonContract;
     // End of variables declaration//GEN-END:variables
 }

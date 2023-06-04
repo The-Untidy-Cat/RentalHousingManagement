@@ -32,16 +32,18 @@ public class InsertRoom extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel4 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        txtTen = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        txtLoai = new javax.swing.JComboBox<>();
         jLabel3 = new javax.swing.JLabel();
-        txtSucchua = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        txtGia = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
+        txtTen = new javax.swing.JTextField();
+        txtLoai = new javax.swing.JComboBox<>();
+        txtSucchua = new javax.swing.JTextField();
+        txtGia = new javax.swing.JTextField();
         txtDientich = new javax.swing.JTextField();
         jPanel3 = new javax.swing.JPanel();
         BtnCancel = new javax.swing.JButton();
@@ -50,52 +52,64 @@ public class InsertRoom extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setAlwaysOnTop(true);
 
-        jPanel2.setLayout(new java.awt.GridLayout(5, 2, 0, 12));
+        jPanel4.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 10, 10));
+
+        jPanel2.setPreferredSize(new java.awt.Dimension(80, 150));
+        jPanel2.setLayout(new java.awt.GridLayout(5, 1, 0, 10));
 
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel1.setText("Tên phòng");
         jPanel2.add(jLabel1);
+
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel2.setText("Loại phòng");
+        jPanel2.add(jLabel2);
+
+        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel3.setText("Sức chứa");
+        jPanel2.add(jLabel3);
+
+        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel4.setText("Giá thuê");
+        jPanel2.add(jLabel4);
+
+        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel5.setText("Diện tích");
+        jPanel2.add(jLabel5);
+
+        jPanel4.add(jPanel2);
+
+        jPanel1.setPreferredSize(new java.awt.Dimension(149, 150));
+        jPanel1.setLayout(new java.awt.GridLayout(5, 1, 0, 10));
 
         txtTen.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtTenActionPerformed(evt);
             }
         });
-        jPanel2.add(txtTen);
-
-        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel2.setText("Loại phòng");
-        jPanel2.add(jLabel2);
+        jPanel1.add(txtTen);
 
         txtLoai.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Co may lanh", "Khong may lanh" }));
-        jPanel2.add(txtLoai);
-
-        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel3.setText("Sức chứa");
-        jPanel2.add(jLabel3);
+        jPanel1.add(txtLoai);
 
         txtSucchua.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtSucchuaActionPerformed(evt);
             }
         });
-        jPanel2.add(txtSucchua);
-
-        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel4.setText("Giá thuê");
-        jPanel2.add(jLabel4);
-        jPanel2.add(txtGia);
-
-        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel5.setText("Diện tích");
-        jPanel2.add(jLabel5);
+        jPanel1.add(txtSucchua);
+        jPanel1.add(txtGia);
 
         txtDientich.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtDientichActionPerformed(evt);
             }
         });
-        jPanel2.add(txtDientich);
+        jPanel1.add(txtDientich);
+
+        jPanel4.add(jPanel1);
+
+        getContentPane().add(jPanel4, java.awt.BorderLayout.CENTER);
 
         BtnCancel.setText("Huỷ");
         BtnCancel.addActionListener(new java.awt.event.ActionListener() {
@@ -114,25 +128,7 @@ public class InsertRoom extends javax.swing.JFrame {
         });
         jPanel3.add(BtnThem);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, 424, Short.MAX_VALUE)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(14, 14, 14)
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(36, Short.MAX_VALUE)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(27, 27, 27)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(25, 25, 25))
-        );
+        getContentPane().add(jPanel3, java.awt.BorderLayout.PAGE_END);
 
         pack();
         setLocationRelativeTo(null);
@@ -219,8 +215,10 @@ public class InsertRoom extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
     private javax.swing.JTextField txtDientich;
     private javax.swing.JTextField txtGia;
     private javax.swing.JComboBox<String> txtLoai;
