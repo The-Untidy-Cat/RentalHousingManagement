@@ -14,7 +14,6 @@ public class Oracle {
             String DB_PASSWORD = dotenv.get("DB_PASSWORD");
             Class.forName("oracle.jdbc.driver.OracleDriver");
             conn = DriverManager.getConnection(DB_URL, DB_USERNAME, DB_PASSWORD);
-            System.out.println("connect successfully!");
             return conn;
         } catch (Exception e) {
             System.out.println("Error at Oracle/getConn");

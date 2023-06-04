@@ -16,6 +16,7 @@ import java.util.Date;
 import java.util.Locale;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import org.jfree.chart.renderer.category.StandardBarPainter;
 
 /*
@@ -39,7 +40,7 @@ public class ReportView extends javax.swing.JPanel {
     public ReportView() {
 //        TestPieChart pieChart = new TestPieChart();
         initComponents();
-        initSearchBar();
+        
     }
 
     public void loadRevenue() {
@@ -48,9 +49,9 @@ public class ReportView extends javax.swing.JPanel {
             PieChart revenuePieChart = new PieChart();
             BarChart revenueBarChart = new BarChart();
             if (String.valueOf(cbbMonth.getSelectedItem()) == "Tất cả") {
-                ResultSet rsMonthlyRevenue = rpCtrl.getMonthlyRevenueByYear(String.valueOf(cbbYear.getSelectedItem()));
-                double sumReceived = rpCtrl.getTotalReceivedByYear(String.valueOf(cbbYear.getSelectedItem()));
-                double sumRevenue = rpCtrl.getTotalRevenueByYear(String.valueOf(cbbYear.getSelectedItem()));
+                ResultSet rsMonthlyRevenue = rpCtrl.getRevenue().getMonthlyRevenueByYear(String.valueOf(cbbYear.getSelectedItem()));
+                double sumReceived = rpCtrl.getRevenue().getTotalReceivedByYear(String.valueOf(cbbYear.getSelectedItem()));
+                double sumRevenue = rpCtrl.getRevenue().getTotalRevenueByYear(String.valueOf(cbbYear.getSelectedItem()));
                 ArrayList<PieChartDataset> dataset = new ArrayList<>();
                 ArrayList<BarChartDataset> dataset1 = new ArrayList<>();
                 dataset.add(new PieChartDataset("Đã thu", sumReceived));
@@ -80,8 +81,8 @@ public class ReportView extends javax.swing.JPanel {
             } else {
                 revenueChartPanel.removeAll();
                 revenueInfoPanel.removeAll();
-                double sumReceived = rpCtrl.getTotalReceivedByMonth(String.valueOf(cbbMonth.getSelectedItem()), String.valueOf(cbbYear.getSelectedItem()));
-                double sumRevenue = rpCtrl.getTotalRevenueByMonth(String.valueOf(cbbMonth.getSelectedItem()), String.valueOf(cbbYear.getSelectedItem()));
+                double sumReceived = rpCtrl.getRevenue().getTotalReceivedByMonth(String.valueOf(cbbMonth.getSelectedItem()), String.valueOf(cbbYear.getSelectedItem()));
+                double sumRevenue = rpCtrl.getRevenue().getTotalRevenueByMonth(String.valueOf(cbbMonth.getSelectedItem()), String.valueOf(cbbYear.getSelectedItem()));
                 ArrayList<PieChartDataset> dataset = new ArrayList<>();
                 dataset.add(new PieChartDataset("Đã thu", sumReceived));
                 dataset.add(new PieChartDataset("Còn thiếu", sumRevenue - sumReceived));
@@ -113,21 +114,20 @@ public class ReportView extends javax.swing.JPanel {
 
         reportTabPane = new javax.swing.JTabbedPane();
         overviewTab = new javax.swing.JPanel();
-        headerPanel = new javax.swing.JPanel();
-        lbHeader = new javax.swing.JLabel();
         bodyPanel = new javax.swing.JPanel();
         labelPanel = new javax.swing.JPanel();
-        lbEmptyRoom = new javax.swing.JLabel();
+        lbUsedRoom = new javax.swing.JLabel();
         lbWaitingTicket = new javax.swing.JLabel();
         lbActiveTenant = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
+        lbUnpaidInvoice = new javax.swing.JLabel();
+        lbDueSoonContract = new javax.swing.JLabel();
         inputPanel = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
+        lbUsedRoomValue = new javax.swing.JLabel();
+        lbWaitingTicketValue = new javax.swing.JLabel();
+        lbActiveTenantValue = new javax.swing.JLabel();
+        lbUnpaidInvoiceValue = new javax.swing.JLabel();
+        lbDueSoonContractValue = new javax.swing.JLabel();
+        ovRevenueChartPanel = new javax.swing.JPanel();
         revenueTab = new javax.swing.JPanel();
         searchBar = new javax.swing.JPanel();
         lbMonth = new javax.swing.JLabel();
@@ -145,65 +145,62 @@ public class ReportView extends javax.swing.JPanel {
 
         overviewTab.setLayout(new java.awt.BorderLayout());
 
-        lbHeader.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        lbHeader.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lbHeader.setText("Tổng quan");
-        headerPanel.add(lbHeader);
-
-        overviewTab.add(headerPanel, java.awt.BorderLayout.PAGE_START);
-
         java.awt.FlowLayout flowLayout1 = new java.awt.FlowLayout();
         flowLayout1.setAlignOnBaseline(true);
         bodyPanel.setLayout(flowLayout1);
 
-        labelPanel.setMinimumSize(new java.awt.Dimension(150, 150));
-        labelPanel.setPreferredSize(new java.awt.Dimension(150, 150));
+        labelPanel.setMinimumSize(new java.awt.Dimension(200, 150));
+        labelPanel.setPreferredSize(new java.awt.Dimension(160, 150));
         labelPanel.setLayout(new java.awt.GridLayout(5, 1));
 
-        lbEmptyRoom.setText("Số phòng trống");
-        labelPanel.add(lbEmptyRoom);
+        lbUsedRoom.setText("Phòng đang cho thuê");
+        labelPanel.add(lbUsedRoom);
 
-        lbWaitingTicket.setText("Số phiếu hỗ trợ chờ xử lý");
+        lbWaitingTicket.setText("Phiếu hỗ trợ chờ xử lý");
         labelPanel.add(lbWaitingTicket);
 
-        lbActiveTenant.setText("jLabel4");
+        lbActiveTenant.setText("Khách hàng đang hoạt động");
         labelPanel.add(lbActiveTenant);
 
-        jLabel5.setText("jLabel5");
-        labelPanel.add(jLabel5);
+        lbUnpaidInvoice.setText("Hoá đơn chưa thanh toán");
+        labelPanel.add(lbUnpaidInvoice);
 
-        jLabel6.setText("jLabel6");
-        labelPanel.add(jLabel6);
+        lbDueSoonContract.setText("Hợp đồng sắp đến hạn");
+        labelPanel.add(lbDueSoonContract);
 
         bodyPanel.add(labelPanel);
 
-        inputPanel.setMinimumSize(new java.awt.Dimension(100, 150));
-        inputPanel.setPreferredSize(new java.awt.Dimension(300, 150));
-        inputPanel.setLayout(new java.awt.GridLayout(5, 1, 0, 5));
+        inputPanel.setMinimumSize(new java.awt.Dimension(50, 150));
+        inputPanel.setPreferredSize(new java.awt.Dimension(50, 150));
+        inputPanel.setLayout(new java.awt.GridLayout(5, 2));
 
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel2.setText("jLabel2");
-        inputPanel.add(jLabel2);
+        lbUsedRoomValue.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lbUsedRoomValue.setText("0/0");
+        inputPanel.add(lbUsedRoomValue);
 
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel3.setText("jLabel3");
-        inputPanel.add(jLabel3);
+        lbWaitingTicketValue.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lbWaitingTicketValue.setText("0");
+        inputPanel.add(lbWaitingTicketValue);
 
-        jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel7.setText("jLabel7");
-        inputPanel.add(jLabel7);
+        lbActiveTenantValue.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lbActiveTenantValue.setText("0");
+        inputPanel.add(lbActiveTenantValue);
 
-        jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel8.setText("jLabel8");
-        inputPanel.add(jLabel8);
+        lbUnpaidInvoiceValue.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lbUnpaidInvoiceValue.setText("0");
+        inputPanel.add(lbUnpaidInvoiceValue);
 
-        jLabel9.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel9.setText("jLabel9");
-        inputPanel.add(jLabel9);
+        lbDueSoonContractValue.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lbDueSoonContractValue.setText("0");
+        inputPanel.add(lbDueSoonContractValue);
 
         bodyPanel.add(inputPanel);
 
         overviewTab.add(bodyPanel, java.awt.BorderLayout.CENTER);
+
+        ovRevenueChartPanel.setPreferredSize(new java.awt.Dimension(500, 230));
+        ovRevenueChartPanel.setLayout(new java.awt.GridLayout(1, 2));
+        overviewTab.add(ovRevenueChartPanel, java.awt.BorderLayout.PAGE_END);
 
         reportTabPane.addTab("Tổng quan", overviewTab);
 
@@ -284,14 +281,52 @@ public class ReportView extends javax.swing.JPanel {
     private void cbbMonthItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbbMonthItemStateChanged
         loadRevenue();
     }//GEN-LAST:event_cbbMonthItemStateChanged
-
+    
+    public void initOverviewTab() {
+        try {
+            // init chart
+            PieChart revenuePieChart = new PieChart();
+            BarChart revenueBarChart = new BarChart();
+            ResultSet rsMonthlyRevenue = rpCtrl.getRevenue().getMonthlyRevenueByYear(String.valueOf(cbbYear.getSelectedItem()));
+            double sumReceived = rpCtrl.getRevenue().getTotalReceivedByYear(String.valueOf(cbbYear.getSelectedItem()));
+            double sumRevenue = rpCtrl.getRevenue().getTotalRevenueByYear(String.valueOf(cbbYear.getSelectedItem()));
+            ArrayList<PieChartDataset> dataset = new ArrayList<>();
+            ArrayList<BarChartDataset> dataset1 = new ArrayList<>();
+            dataset.add(new PieChartDataset("Đã thu", sumReceived));
+            dataset.add(new PieChartDataset("Còn thiếu", sumRevenue - sumReceived));
+            while (rsMonthlyRevenue.next()) {
+                dataset1.add(new BarChartDataset("Tháng " + rsMonthlyRevenue.getString("MONTH"), Double.valueOf(rsMonthlyRevenue.getString("SUM_RENTAL_PRICE")), "Đồng"));
+            }
+            revenueBarChart.loadChart("Biểu đồ doanh thu theo tháng năm " + String.valueOf(cbbYear.getSelectedItem()), dataset1);
+            revenuePieChart.loadChart("Biểu đồ doanh thu năm " + String.valueOf(cbbYear.getSelectedItem()), dataset);
+            revenueBarChart.getRenderer().setSeriesPaint(0, new Color(185, 215, 234, 255));
+            revenueBarChart.getRenderer().setBarPainter(new StandardBarPainter());
+            revenuePieChart.getPlot().setSectionPaint("Đã thu", new Color(118, 159, 205, 255));
+            revenuePieChart.getPlot().setSectionPaint("Còn thiếu", new Color(185, 215, 234, 255));
+            ovRevenueChartPanel.removeAll();
+            ovRevenueChartPanel.updateUI();
+            ovRevenueChartPanel.add(revenueBarChart);
+            ovRevenueChartPanel.add(revenuePieChart);
+            ovRevenueChartPanel.updateUI();
+            
+            //init data
+            lbUsedRoomValue.setText(String.valueOf(rpCtrl.getRoom().getTotalRoomByStatus(1))+"/"+String.valueOf(rpCtrl.getRoom().getTotalRoom()));
+            lbWaitingTicketValue.setText(String.valueOf(rpCtrl.getTicket().getTotalTicketByStatus(0)));
+            lbActiveTenantValue.setText(String.valueOf(rpCtrl.getTenant().getTotalTenantByStatus(1)));
+            lbUnpaidInvoiceValue.setText(String.valueOf(rpCtrl.getInvoice().getTotalInvoiceByStatus(0)));
+            lbDueSoonContractValue.setText(String.valueOf(rpCtrl.getContract().getTotalDueSoonContract()));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
     public void initRevenueChart() {
         try {
             PieChart revenuePieChart = new PieChart();
             BarChart revenueBarChart = new BarChart();
-            ResultSet rsMonthlyRevenue = rpCtrl.getMonthlyRevenueByYear(String.valueOf(cbbYear.getSelectedItem()));
-            double sumReceived = rpCtrl.getTotalReceivedByYear(String.valueOf(cbbYear.getSelectedItem()));
-            double sumRevenue = rpCtrl.getTotalRevenueByYear(String.valueOf(cbbYear.getSelectedItem()));
+            ResultSet rsMonthlyRevenue = rpCtrl.getRevenue().getMonthlyRevenueByYear(String.valueOf(cbbYear.getSelectedItem()));
+            double sumReceived = rpCtrl.getRevenue().getTotalReceivedByYear(String.valueOf(cbbYear.getSelectedItem()));
+            double sumRevenue = rpCtrl.getRevenue().getTotalRevenueByYear(String.valueOf(cbbYear.getSelectedItem()));
             ArrayList<PieChartDataset> dataset = new ArrayList<>();
             ArrayList<BarChartDataset> dataset1 = new ArrayList<>();
             dataset.add(new PieChartDataset("Đã thu", sumReceived));
@@ -336,28 +371,33 @@ public class ReportView extends javax.swing.JPanel {
         }
         cbbMonth.setModel(cbbMonthModel);
     }
+    
+    public void initRerortView(){
+        initSearchBar();
+        initOverviewTab();
+        initRevenueChart();
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel bodyPanel;
     private javax.swing.JComboBox<String> cbbMonth;
     private javax.swing.JComboBox<String> cbbYear;
-    private javax.swing.JPanel headerPanel;
     private javax.swing.JPanel inputPanel;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JPanel labelPanel;
     private javax.swing.JLabel lbActiveTenant;
-    private javax.swing.JLabel lbEmptyRoom;
-    private javax.swing.JLabel lbHeader;
+    private javax.swing.JLabel lbActiveTenantValue;
+    private javax.swing.JLabel lbDueSoonContract;
+    private javax.swing.JLabel lbDueSoonContractValue;
     private javax.swing.JLabel lbMonth;
+    private javax.swing.JLabel lbUnpaidInvoice;
+    private javax.swing.JLabel lbUnpaidInvoiceValue;
+    private javax.swing.JLabel lbUsedRoom;
+    private javax.swing.JLabel lbUsedRoomValue;
     private javax.swing.JLabel lbWaitingTicket;
+    private javax.swing.JLabel lbWaitingTicketValue;
+    private javax.swing.JPanel ovRevenueChartPanel;
     private javax.swing.JPanel overviewTab;
     private javax.swing.JTabbedPane reportTabPane;
     private javax.swing.JPanel revenueChartPanel;
