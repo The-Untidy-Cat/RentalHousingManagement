@@ -62,7 +62,7 @@ public class ManageSupportTicket extends javax.swing.JPanel {
         jLabel2 = new javax.swing.JLabel();
         CBTime = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
-        CBStatus = new javax.swing.JComboBox<>();
+        txtRoom = new javax.swing.JTextField();
         BtnTim = new javax.swing.JButton();
         BtnRefresh = new javax.swing.JButton();
         jScrollPane4 = new javax.swing.JScrollPane();
@@ -79,11 +79,9 @@ public class ManageSupportTicket extends javax.swing.JPanel {
         CBTime.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "5/2023", "4/2023", "3/2023", "2/2023", "1/2023" }));
         searchPanel.add(CBTime);
 
-        jLabel1.setText("Trạng thái");
+        jLabel1.setText("Phòng");
         searchPanel.add(jLabel1);
-
-        CBStatus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tất cả", "Hoan tat", "Cho xu ly" }));
-        searchPanel.add(CBStatus);
+        searchPanel.add(txtRoom);
 
         BtnTim.setText("Tìm");
         BtnTim.addActionListener(new java.awt.event.ActionListener() {
@@ -145,7 +143,7 @@ public class ManageSupportTicket extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 488, Short.MAX_VALUE)
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(actionButtonPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -181,8 +179,8 @@ public class ManageSupportTicket extends javax.swing.JPanel {
     private void BtnTimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnTimActionPerformed
         // TODO add your handling code here:
         String period = CBTime.getSelectedItem().toString();
-        String status = CBStatus.getSelectedItem().toString();
-        timTicket(status, period);
+        String roomid = txtRoom.getText();
+        timTicket(roomid, period);
     }//GEN-LAST:event_BtnTimActionPerformed
 
     private void BtnRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnRefreshActionPerformed
@@ -235,7 +233,6 @@ public class ManageSupportTicket extends javax.swing.JPanel {
     private javax.swing.JButton BtnSua;
     private javax.swing.JButton BtnTim;
     private javax.swing.JButton BtnViewDetail;
-    private javax.swing.JComboBox<String> CBStatus;
     private javax.swing.JComboBox<String> CBTime;
     private javax.swing.JPanel actionButtonPanel;
     private javax.swing.JLabel jLabel1;
@@ -243,5 +240,6 @@ public class ManageSupportTicket extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JPanel searchPanel;
     private javax.swing.JTable tbTicket;
+    private javax.swing.JTextField txtRoom;
     // End of variables declaration//GEN-END:variables
 }

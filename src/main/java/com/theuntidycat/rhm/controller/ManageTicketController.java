@@ -110,26 +110,26 @@ public class ManageTicketController {
         }  
         return s;
     }
-    public ResultSet queryTicket(String status, String date){
+    public ResultSet queryTicket(String room_id, String date){
         ResultSet rs = null;
-        if(getStatusID(status) < 0){
+//        if(getStatusID(status) < 0){
+//            try{
+//                String strSQL = "SELECT T.id, room_id, tenant_id, TO_CHAR(incident_time, 'dd/mm/yyyy'), S.name T FROM SUPPORT_TICKET T, SUPPORT_TICKET_STATUS S WHERE T.status_id = S.id AND EXTRACT(MONTH FROM incident_time) = ? AND EXTRACT(YEAR FROM incident_time) = ? ORDER BY T.id";
+//                PreparedStatement ps = con.prepareStatement(strSQL);
+//                ps.setInt(1,getMonth(date));
+//                ps.setInt(2,getYear(date));
+//                rs = ps.executeQuery();
+//            }
+//            catch(SQLException e){
+//                System.out.println(e);
+//            }
+//            return rs;
+//        }
+//       else{
             try{
-                String strSQL = "SELECT T.id, room_id, tenant_id, TO_CHAR(incident_time, 'dd/mm/yyyy'), S.name T FROM SUPPORT_TICKET T, SUPPORT_TICKET_STATUS S WHERE T.status_id = S.id AND EXTRACT(MONTH FROM incident_time) = ? AND EXTRACT(YEAR FROM incident_time) = ? ORDER BY T.id";
+                String strSQL = "SELECT T.id, room_id, tenant_id, TO_CHAR(incident_time, 'dd/mm/yyyy'), S.name T FROM SUPPORT_TICKET T, SUPPORT_TICKET_STATUS S WHERE T.status_id = S.id AND room_id = ? AND EXTRACT(MONTH FROM incident_time) = ? AND EXTRACT(YEAR FROM incident_time) = ? ORDER BY T.id";
                 PreparedStatement ps = con.prepareStatement(strSQL);
-                ps.setInt(1,getMonth(date));
-                ps.setInt(2,getYear(date));
-                rs = ps.executeQuery();
-            }
-            catch(SQLException e){
-                System.out.println(e);
-            }
-            return rs;
-        }
-        else{
-            try{
-                String strSQL = "SELECT T.id, room_id, tenant_id, TO_CHAR(incident_time, 'dd/mm/yyyy'), S.name T FROM SUPPORT_TICKET T, SUPPORT_TICKET_STATUS S WHERE T.status_id = S.id AND status_id = ? AND EXTRACT(MONTH FROM incident_time) = ? AND EXTRACT(YEAR FROM incident_time) = ? ORDER BY T.id";
-                PreparedStatement ps = con.prepareStatement(strSQL);
-                ps.setInt(1, getStatusID(status));
+                ps.setString(1, room_id);
                 ps.setInt(2,getMonth(date));
                 ps.setInt(3,getYear(date));
                 rs = ps.executeQuery();
@@ -139,5 +139,5 @@ public class ManageTicketController {
             }
             return rs;
         }
-    }
+//    }
 }
