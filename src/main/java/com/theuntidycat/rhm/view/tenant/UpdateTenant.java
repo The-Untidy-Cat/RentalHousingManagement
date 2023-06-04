@@ -88,7 +88,7 @@ public class UpdateTenant extends javax.swing.JFrame {
 
         jPanel2.setLayout(new java.awt.GridLayout(7, 2, 0, 12));
 
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel1.setText("Tên người thuê");
         jPanel2.add(jLabel1);
 
@@ -99,7 +99,7 @@ public class UpdateTenant extends javax.swing.JFrame {
         });
         jPanel2.add(txtTen);
 
-        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel2.setText("Quê quán ");
         jPanel2.add(jLabel2);
 
@@ -110,7 +110,7 @@ public class UpdateTenant extends javax.swing.JFrame {
         });
         jPanel2.add(txtQue);
 
-        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel3.setText("Ngày sinh");
         jPanel2.add(jLabel3);
 
@@ -121,7 +121,7 @@ public class UpdateTenant extends javax.swing.JFrame {
         });
         jPanel2.add(txtDob);
 
-        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel4.setText("Số điện thoại");
         jPanel2.add(jLabel4);
 
@@ -132,7 +132,7 @@ public class UpdateTenant extends javax.swing.JFrame {
         });
         jPanel2.add(txtSdt);
 
-        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel5.setText("Số CMND");
         jPanel2.add(jLabel5);
 
@@ -143,7 +143,7 @@ public class UpdateTenant extends javax.swing.JFrame {
         });
         jPanel2.add(txtCmnd1);
 
-        jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel6.setText("Email");
         jPanel2.add(jLabel6);
 
@@ -154,7 +154,7 @@ public class UpdateTenant extends javax.swing.JFrame {
         });
         jPanel2.add(txtEmail);
 
-        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel7.setText("Trạng thái");
         jPanel2.add(jLabel7);
 
@@ -182,18 +182,18 @@ public class UpdateTenant extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(layout.createSequentialGroup()
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 424, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 368, Short.MAX_VALUE)
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(13, 13, 13)
                 .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );

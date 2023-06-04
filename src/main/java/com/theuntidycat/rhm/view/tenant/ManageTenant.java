@@ -177,7 +177,7 @@ public class ManageTenant extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Chọn dòng dữ liệu muốn xóa.", "Lỗi", JOptionPane.ERROR_MESSAGE);
         }
         else{
-            int ret = JOptionPane.showConfirmDialog(this,"Bạn chắc chắc muốn xóa ?", "Xóa dữ liệu", JOptionPane.YES_NO_OPTION);
+            int ret = JOptionPane.showConfirmDialog(this,"Xác nhận xóa ?", "Xóa dữ liệu", JOptionPane.YES_NO_OPTION);
             if (ret == JOptionPane.YES_OPTION){
                 String id = jTable1.getValueAt(row, 0).toString();
                 model.removeRow(row);
