@@ -31,45 +31,62 @@ public class SettingFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        emailFromPanel = new javax.swing.JPanel();
+        jPanel2 = new javax.swing.JPanel();
+        labelPanel = new javax.swing.JPanel();
         lbEmail = new javax.swing.JLabel();
-        inpEmail = new javax.swing.JTextField();
         lbPassword = new javax.swing.JLabel();
-        inpPassword = new javax.swing.JPasswordField();
         lbSmtpHost = new javax.swing.JLabel();
-        inpSmtpHost = new javax.swing.JTextField();
         lbSmtpPort = new javax.swing.JLabel();
-        inpSmtpPort = new javax.swing.JTextField();
         lbCert = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
+        inpEmail = new javax.swing.JTextField();
+        inpPassword = new javax.swing.JPasswordField();
+        inpSmtpHost = new javax.swing.JTextField();
+        inpSmtpPort = new javax.swing.JTextField();
         cbSsl = new javax.swing.JCheckBox();
-        jSeparator1 = new javax.swing.JSeparator();
+        jPanel3 = new javax.swing.JPanel();
         btnUpdate = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Cài đặt");
         setAlwaysOnTop(true);
+        setMaximumSize(new java.awt.Dimension(400, 200));
+        setMinimumSize(new java.awt.Dimension(400, 200));
         setResizable(false);
+        setSize(new java.awt.Dimension(400, 200));
 
-        emailFromPanel.setLayout(new java.awt.GridLayout(6, 2, 0, 15));
+        java.awt.FlowLayout flowLayout1 = new java.awt.FlowLayout();
+        flowLayout1.setAlignOnBaseline(true);
+        jPanel2.setLayout(flowLayout1);
+
+        labelPanel.setMaximumSize(new java.awt.Dimension(120, 150));
+        labelPanel.setMinimumSize(new java.awt.Dimension(120, 150));
+        labelPanel.setPreferredSize(new java.awt.Dimension(120, 150));
+        labelPanel.setLayout(new java.awt.GridLayout(5, 1, 0, 10));
 
         lbEmail.setText("Địa chỉ Email");
-        emailFromPanel.add(lbEmail);
-        emailFromPanel.add(inpEmail);
+        labelPanel.add(lbEmail);
 
         lbPassword.setText("Mật khẩu");
-        emailFromPanel.add(lbPassword);
-        emailFromPanel.add(inpPassword);
+        labelPanel.add(lbPassword);
 
         lbSmtpHost.setText("Địa chỉ máy chủ SMTP");
-        emailFromPanel.add(lbSmtpHost);
-        emailFromPanel.add(inpSmtpHost);
+        labelPanel.add(lbSmtpHost);
 
         lbSmtpPort.setText("Cổng SMTP");
-        emailFromPanel.add(lbSmtpPort);
-        emailFromPanel.add(inpSmtpPort);
+        labelPanel.add(lbSmtpPort);
 
         lbCert.setText("Chứng chỉ");
-        emailFromPanel.add(lbCert);
+        labelPanel.add(lbCert);
+
+        jPanel2.add(labelPanel);
+
+        jPanel1.setPreferredSize(new java.awt.Dimension(200, 150));
+        jPanel1.setLayout(new java.awt.GridLayout(5, 1, 0, 10));
+        jPanel1.add(inpEmail);
+        jPanel1.add(inpPassword);
+        jPanel1.add(inpSmtpHost);
+        jPanel1.add(inpSmtpPort);
 
         cbSsl.setText("SSL");
         cbSsl.addActionListener(new java.awt.event.ActionListener() {
@@ -77,10 +94,13 @@ public class SettingFrame extends javax.swing.JFrame {
                 cbSslActionPerformed(evt);
             }
         });
-        emailFromPanel.add(cbSsl);
+        jPanel1.add(cbSsl);
 
-        jSeparator1.setForeground(java.awt.SystemColor.control);
-        emailFromPanel.add(jSeparator1);
+        jPanel2.add(jPanel1);
+
+        getContentPane().add(jPanel2, java.awt.BorderLayout.CENTER);
+
+        jPanel3.setPreferredSize(new java.awt.Dimension(400, 33));
 
         btnUpdate.setText("Cập nhật");
         btnUpdate.addActionListener(new java.awt.event.ActionListener() {
@@ -88,24 +108,9 @@ public class SettingFrame extends javax.swing.JFrame {
                 btnUpdateActionPerformed(evt);
             }
         });
-        emailFromPanel.add(btnUpdate);
+        jPanel3.add(btnUpdate);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(emailFromPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 361, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(emailFromPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+        getContentPane().add(jPanel3, java.awt.BorderLayout.PAGE_END);
 
         pack();
         setLocationRelativeTo(null);
@@ -153,12 +158,14 @@ public class SettingFrame extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnUpdate;
     private javax.swing.JCheckBox cbSsl;
-    private javax.swing.JPanel emailFromPanel;
     private javax.swing.JTextField inpEmail;
     private javax.swing.JPasswordField inpPassword;
     private javax.swing.JTextField inpSmtpHost;
     private javax.swing.JTextField inpSmtpPort;
-    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel labelPanel;
     private javax.swing.JLabel lbCert;
     private javax.swing.JLabel lbEmail;
     private javax.swing.JLabel lbPassword;

@@ -68,9 +68,12 @@ public class ManageSupportTicket extends javax.swing.JPanel {
         jScrollPane4 = new javax.swing.JScrollPane();
         tbTicket = new javax.swing.JTable();
         actionButtonPanel = new javax.swing.JPanel();
-        BtnViewDetail = new javax.swing.JButton();
         BtnSua = new javax.swing.JButton();
+        BtnViewDetail = new javax.swing.JButton();
 
+        setLayout(new java.awt.BorderLayout());
+
+        searchPanel.setMinimumSize(new java.awt.Dimension(447, 33));
         searchPanel.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 10, 10));
 
         jLabel2.setText("Thời gian");
@@ -93,7 +96,7 @@ public class ManageSupportTicket extends javax.swing.JPanel {
         });
         searchPanel.add(BtnTim);
 
-        BtnRefresh.setText("Refresh");
+        BtnRefresh.setText("Làm mới");
         BtnRefresh.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BtnRefreshActionPerformed(evt);
@@ -101,7 +104,7 @@ public class ManageSupportTicket extends javax.swing.JPanel {
         });
         searchPanel.add(BtnRefresh);
 
-        jScrollPane4.setPreferredSize(new java.awt.Dimension(500, 270));
+        add(searchPanel, java.awt.BorderLayout.PAGE_START);
 
         tbTicket.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -119,15 +122,9 @@ public class ManageSupportTicket extends javax.swing.JPanel {
         });
         jScrollPane4.setViewportView(tbTicket);
 
-        actionButtonPanel.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 10, 10));
+        add(jScrollPane4, java.awt.BorderLayout.CENTER);
 
-        BtnViewDetail.setText("Xem chi tiết");
-        BtnViewDetail.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BtnViewDetailActionPerformed(evt);
-            }
-        });
-        actionButtonPanel.add(BtnViewDetail);
+        actionButtonPanel.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 10, 10));
 
         BtnSua.setText("Sửa");
         BtnSua.addActionListener(new java.awt.event.ActionListener() {
@@ -137,28 +134,15 @@ public class ManageSupportTicket extends javax.swing.JPanel {
         });
         actionButtonPanel.add(BtnSua);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(searchPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 488, Short.MAX_VALUE)
-                    .addComponent(actionButtonPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(searchPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(8, 8, 8)
-                .addComponent(actionButtonPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
+        BtnViewDetail.setText("Xem chi tiết");
+        BtnViewDetail.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnViewDetailActionPerformed(evt);
+            }
+        });
+        actionButtonPanel.add(BtnViewDetail);
+
+        add(actionButtonPanel, java.awt.BorderLayout.PAGE_END);
     }// </editor-fold>//GEN-END:initComponents
 
     public void timTicket(String status, String period){

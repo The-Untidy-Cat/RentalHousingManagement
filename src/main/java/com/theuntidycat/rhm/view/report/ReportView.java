@@ -223,8 +223,9 @@ public class ReportView extends javax.swing.JPanel {
 
         reportTabPane.setTabPlacement(javax.swing.JTabbedPane.BOTTOM);
 
-        overviewTab.setLayout(new java.awt.BorderLayout());
+        overviewTab.setMinimumSize(new java.awt.Dimension(200, 200));
 
+        bodyPanel.setPreferredSize(null);
         java.awt.FlowLayout flowLayout1 = new java.awt.FlowLayout();
         flowLayout1.setAlignOnBaseline(true);
         bodyPanel.setLayout(flowLayout1);
@@ -276,11 +277,22 @@ public class ReportView extends javax.swing.JPanel {
 
         bodyPanel.add(inputPanel);
 
-        overviewTab.add(bodyPanel, java.awt.BorderLayout.CENTER);
+        ovRevenueChartPanel.setLayout(new java.awt.GridLayout(1, 2, 10, 0));
 
-        ovRevenueChartPanel.setPreferredSize(new java.awt.Dimension(500, 230));
-        ovRevenueChartPanel.setLayout(new java.awt.GridLayout(1, 2));
-        overviewTab.add(ovRevenueChartPanel, java.awt.BorderLayout.PAGE_END);
+        javax.swing.GroupLayout overviewTabLayout = new javax.swing.GroupLayout(overviewTab);
+        overviewTab.setLayout(overviewTabLayout);
+        overviewTabLayout.setHorizontalGroup(
+            overviewTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(bodyPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 500, Short.MAX_VALUE)
+            .addComponent(ovRevenueChartPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        overviewTabLayout.setVerticalGroup(
+            overviewTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(overviewTabLayout.createSequentialGroup()
+                .addComponent(bodyPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(ovRevenueChartPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
 
         reportTabPane.addTab("Tổng quan", overviewTab);
 
@@ -318,7 +330,7 @@ public class ReportView extends javax.swing.JPanel {
         revenueTab.setLayout(revenueTabLayout);
         revenueTabLayout.setHorizontalGroup(
             revenueTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(r_searchBar, javax.swing.GroupLayout.DEFAULT_SIZE, 500, Short.MAX_VALUE)
+            .addComponent(r_searchBar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(revenueInfoPanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(revenueChartPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
@@ -368,7 +380,7 @@ public class ReportView extends javax.swing.JPanel {
         invoiceTab.setLayout(invoiceTabLayout);
         invoiceTabLayout.setHorizontalGroup(
             invoiceTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(i_searchBar, javax.swing.GroupLayout.DEFAULT_SIZE, 500, Short.MAX_VALUE)
+            .addComponent(i_searchBar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(invoiceInfoPanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(invoiceChartPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
@@ -392,7 +404,7 @@ public class ReportView extends javax.swing.JPanel {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(reportTabPane, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 434, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(reportTabPane, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 434, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 

@@ -66,17 +66,30 @@ public class MainView extends javax.swing.JFrame {
         setTitle("Rental Housing Management");
         setAlwaysOnTop(true);
         setIconImage(new ImageIcon(s + "/assets/appIcon.png").getImage());
-        setPreferredSize(new java.awt.Dimension(700, 500));
+        setPreferredSize(null);
         setResizable(false);
-        setSize(new java.awt.Dimension(700, 500));
+        setSize(new java.awt.Dimension(0, 0));
 
         tabPanel.setTabPlacement(javax.swing.JTabbedPane.LEFT);
         tabPanel.setMinimumSize(new java.awt.Dimension(640, 500));
+        tabPanel.setPreferredSize(null);
+
+        reportView1.setPreferredSize(null);
         tabPanel.addTab("Thống kê", reportView1);
+
+        manageInvoice1.setPreferredSize(null);
         tabPanel.addTab("Hoá đơn", manageInvoice1);
+
+        manageContract1.setPreferredSize(null);
         tabPanel.addTab("Hợp đồng", manageContract1);
+
+        manageRoom1.setPreferredSize(null);
         tabPanel.addTab("Phòng", manageRoom1);
+
+        manageTenant1.setPreferredSize(null);
         tabPanel.addTab("Khách thuê", manageTenant1);
+
+        manageSupportTicket1.setPreferredSize(null);
         tabPanel.addTab("Phiếu hỗ trợ", manageSupportTicket1);
 
         accountSection.setText("Tài khoản");
@@ -114,7 +127,7 @@ public class MainView extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(0, 0, 0)
-                .addComponent(tabPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 464, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(tabPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 464, Short.MAX_VALUE))
         );
 
         pack();

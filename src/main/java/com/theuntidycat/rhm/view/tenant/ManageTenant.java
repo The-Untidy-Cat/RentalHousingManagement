@@ -67,14 +67,18 @@ public class ManageTenant extends javax.swing.JPanel {
         jTable1 = new javax.swing.JTable();
         actionButtonPanel = new javax.swing.JPanel();
         BtnThem = new javax.swing.JButton();
-        BtnXoa = new javax.swing.JButton();
         BtnSua = new javax.swing.JButton();
+        BtnXoa = new javax.swing.JButton();
         searchPanel = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
         CBType = new javax.swing.JComboBox<>();
         BtnTim = new javax.swing.JButton();
         BtnReload = new javax.swing.JButton();
 
-        jScrollPane1.setPreferredSize(new java.awt.Dimension(500, 285));
+        setPreferredSize(null);
+        setLayout(new java.awt.BorderLayout());
+
+        jScrollPane1.setPreferredSize(null);
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -84,6 +88,7 @@ public class ManageTenant extends javax.swing.JPanel {
                 "Mã KH", "Tên KH", "Quê quán", "Ngày sinh", "SĐT", "CMND", "Email", "Trạng thái"
             }
         ));
+        jTable1.setPreferredSize(null);
         jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jTable1MouseClicked(evt);
@@ -91,6 +96,9 @@ public class ManageTenant extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(jTable1);
 
+        add(jScrollPane1, java.awt.BorderLayout.CENTER);
+
+        actionButtonPanel.setPreferredSize(null);
         actionButtonPanel.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 10, 10));
 
         BtnThem.setText("Thêm");
@@ -101,14 +109,6 @@ public class ManageTenant extends javax.swing.JPanel {
         });
         actionButtonPanel.add(BtnThem);
 
-        BtnXoa.setText("Xóa");
-        BtnXoa.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BtnXoaActionPerformed(evt);
-            }
-        });
-        actionButtonPanel.add(BtnXoa);
-
         BtnSua.setText("Sửa");
         BtnSua.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -117,7 +117,20 @@ public class ManageTenant extends javax.swing.JPanel {
         });
         actionButtonPanel.add(BtnSua);
 
+        BtnXoa.setText("Xóa");
+        BtnXoa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnXoaActionPerformed(evt);
+            }
+        });
+        actionButtonPanel.add(BtnXoa);
+
+        add(actionButtonPanel, java.awt.BorderLayout.SOUTH);
+
         searchPanel.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 10, 10));
+
+        jLabel1.setText("Trạng thái");
+        searchPanel.add(jLabel1);
 
         CBType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Hoat dong", "Khong hoat dong", "Vo hieu hoa" }));
         CBType.addActionListener(new java.awt.event.ActionListener() {
@@ -135,7 +148,7 @@ public class ManageTenant extends javax.swing.JPanel {
         });
         searchPanel.add(BtnTim);
 
-        BtnReload.setText("Refresh");
+        BtnReload.setText("Làm mới");
         BtnReload.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BtnReloadActionPerformed(evt);
@@ -143,26 +156,7 @@ public class ManageTenant extends javax.swing.JPanel {
         });
         searchPanel.add(BtnReload);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(actionButtonPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(searchPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 529, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(searchPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0)
-                .addComponent(actionButtonPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+        add(searchPanel, java.awt.BorderLayout.NORTH);
     }// </editor-fold>//GEN-END:initComponents
 
     private void BtnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnThemActionPerformed
@@ -260,6 +254,7 @@ public class ManageTenant extends javax.swing.JPanel {
     private javax.swing.JButton BtnXoa;
     private javax.swing.JComboBox<String> CBType;
     private javax.swing.JPanel actionButtonPanel;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JPanel searchPanel;

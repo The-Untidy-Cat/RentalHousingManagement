@@ -67,16 +67,16 @@ public class ManageContract extends javax.swing.JPanel {
         jScrollPane2 = new javax.swing.JScrollPane();
         tbContract = new javax.swing.JTable();
         ContractButton = new javax.swing.JPanel();
-        viewContractDetail = new javax.swing.JButton();
         insertNewContract = new javax.swing.JButton();
         updateContract = new javax.swing.JButton();
+        viewContractDetail = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         txtSearch = new javax.swing.JTextField();
 
-        setPreferredSize(new java.awt.Dimension(500, 385));
+        setLayout(new java.awt.BorderLayout());
 
-        jScrollPane2.setPreferredSize(new java.awt.Dimension(488, 335));
+        jScrollPane2.setPreferredSize(null);
 
         tbContract.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -92,15 +92,9 @@ public class ManageContract extends javax.swing.JPanel {
         tbContract.setPreferredSize(new java.awt.Dimension(488, 335));
         jScrollPane2.setViewportView(tbContract);
 
-        ContractButton.setPreferredSize(new java.awt.Dimension(500, 30));
+        add(jScrollPane2, java.awt.BorderLayout.CENTER);
 
-        viewContractDetail.setText("Xem chi tiết");
-        viewContractDetail.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                viewContractDetailActionPerformed(evt);
-            }
-        });
-        ContractButton.add(viewContractDetail);
+        ContractButton.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 10, 10));
 
         insertNewContract.setText("Thêm");
         insertNewContract.addActionListener(new java.awt.event.ActionListener() {
@@ -118,57 +112,31 @@ public class ManageContract extends javax.swing.JPanel {
         });
         ContractButton.add(updateContract);
 
-        jLabel1.setText("Tìm kiếm hợp đồng");
+        viewContractDetail.setText("Xem chi tiết");
+        viewContractDetail.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                viewContractDetailActionPerformed(evt);
+            }
+        });
+        ContractButton.add(viewContractDetail);
 
+        add(ContractButton, java.awt.BorderLayout.SOUTH);
+
+        jPanel1.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 10, 10));
+
+        jLabel1.setText("Tìm kiếm hợp đồng");
+        jPanel1.add(jLabel1);
+
+        txtSearch.setMinimumSize(new java.awt.Dimension(150, 22));
+        txtSearch.setPreferredSize(new java.awt.Dimension(200, 22));
         txtSearch.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtSearchActionPerformed(evt);
             }
         });
+        jPanel1.add(txtSearch);
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(67, 67, 67)
-                .addComponent(jLabel1)
-                .addGap(18, 18, 18)
-                .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtSearch, javax.swing.GroupLayout.DEFAULT_SIZE, 29, Short.MAX_VALUE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
-        );
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(ContractButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(9, 9, 9)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(ContractButton, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
+        add(jPanel1, java.awt.BorderLayout.NORTH);
     }// </editor-fold>//GEN-END:initComponents
 
     private void viewContractDetailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewContractDetailActionPerformed
