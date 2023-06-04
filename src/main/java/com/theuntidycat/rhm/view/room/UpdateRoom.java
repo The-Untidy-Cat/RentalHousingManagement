@@ -19,6 +19,7 @@ public class UpdateRoom extends javax.swing.JFrame {
     public UpdateRoom() {
         initComponents();
         setLocationRelativeTo(null);
+        setTitle("CẬP NHẬT PHÒNG");
     }
     public String ten;
     public String succhua;

@@ -4,6 +4,12 @@
  */
 package com.theuntidycat.rhm.view.contract;
 
+import com.theuntidycat.rhm.controller.ManageContractController;
+import java.sql.*;
+import javax.swing.JOptionPane;
+import java.util.Date;
+import java.text.SimpleDateFormat;
+import java.text.DateFormat;
 /**
  *
  * @author Dell
@@ -16,8 +22,45 @@ public class ContractUpdateDialog extends javax.swing.JFrame {
     public ContractUpdateDialog() {
         initComponents();
         setVisible(true);
+        txtContractID.setEditable(false);
+        txtRoomID.setEditable(false);
+        txtRoomName.setEditable(false);
+        txtRepID.setEditable(false);
+        txtRepCCCD.setEditable(false);
+        txtTenantID.setEditable(false);
     }
-
+    
+    public void loadRepName()
+    {
+        try
+        {
+            ManageContractController controller = new ManageContractController();
+            ResultSet rs = controller.getRepCCCD(txtRepID.getText());
+            rs.next();
+            txtRepCCCD.setText(rs.getString(1));
+        }
+        catch(SQLException e)
+        {
+            System.out.println(e);
+            System.out.println("Error in ContractUpdateDialog loadRepName");
+        }
+    }
+    
+    public void loadRoomName()
+    {
+        try
+        {
+            ManageContractController controller = new ManageContractController();
+            ResultSet rs = controller.getRoomName(txtRoomID.getText());
+            rs.next();
+            txtRoomName.setText(rs.getString("NAME"));
+        }
+        catch(SQLException e)
+        {
+            System.out.println(e);
+            System.out.println("Error in ContractUpdateDialog RoomIDAction");
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -31,10 +74,12 @@ public class ContractUpdateDialog extends javax.swing.JFrame {
         buttonCancel = new javax.swing.JButton();
         buttonAdd = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
+        jLabel7 = new javax.swing.JLabel();
+        txtContractID = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         txtRoomID = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        cbbRoomName = new javax.swing.JComboBox<>();
+        txtRoomName = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         txtRepID = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
@@ -46,10 +91,21 @@ public class ContractUpdateDialog extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Contract Update Dialog");
+        setAlwaysOnTop(true);
 
         buttonCancel.setText("Cancel");
+        buttonCancel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonCancelActionPerformed(evt);
+            }
+        });
 
         buttonAdd.setText("Thêm");
+        buttonAdd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonAddActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -72,7 +128,11 @@ public class ContractUpdateDialog extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jPanel2.setLayout(new java.awt.GridLayout(6, 2, 10, 10));
+        jPanel2.setLayout(new java.awt.GridLayout(7, 2, 10, 10));
+
+        jLabel7.setText("Mã hợp đồng");
+        jPanel2.add(jLabel7);
+        jPanel2.add(txtContractID);
 
         jLabel1.setText("Mã phòng");
         jPanel2.add(jLabel1);
@@ -80,9 +140,7 @@ public class ContractUpdateDialog extends javax.swing.JFrame {
 
         jLabel2.setText("Tên phòng");
         jPanel2.add(jLabel2);
-
-        cbbRoomName.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jPanel2.add(cbbRoomName);
+        jPanel2.add(txtRoomName);
 
         jLabel3.setText("Mã người đại diện");
         jPanel2.add(jLabel3);
@@ -98,6 +156,12 @@ public class ContractUpdateDialog extends javax.swing.JFrame {
 
         jLabel6.setText("CCCD người thuê muốn thêm");
         jPanel2.add(jLabel6);
+
+        txtTenantCCCD.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtTenantCCCDActionPerformed(evt);
+            }
+        });
         jPanel2.add(txtTenantCCCD);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -123,32 +187,94 @@ public class ContractUpdateDialog extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void buttonCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCancelActionPerformed
+        // TODO add your handling code here:
+        int ret = JOptionPane.showConfirmDialog(this, "Bạn có muốn huỷ?", "Thông báo", JOptionPane.YES_NO_OPTION);
+        if(ret == JOptionPane.YES_OPTION)
+            setVisible(false);
+    }//GEN-LAST:event_buttonCancelActionPerformed
+
+    private void buttonAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAddActionPerformed
+        // TODO add your handling code here:
+        ManageContractController controller = new ManageContractController();
+        try
+        {
+            Date nowdate = new Date();
+            DateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
+            String contract_id = txtContractID.getText();
+            String tenant_id = txtTenantID.getText();
+            
+            controller.updateContract(contract_id, tenant_id);
+            JOptionPane.showMessageDialog(this, "Them nguoi o ghep thanh cong!");
+            setVisible(false);
+        }
+        catch(Exception e)
+        {
+            System.out.println(e);
+            System.out.println("Error in ContractUpdateDialog buttonAdd");
+            JOptionPane.showMessageDialog(this, "Them nguoi o ghep khong thanh cong!");
+        }
+                
+    }//GEN-LAST:event_buttonAddActionPerformed
+
+    private void txtTenantCCCDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTenantCCCDActionPerformed
+        // TODO add your handling code here:
+        ManageContractController controller = new ManageContractController();
+        try
+        {
+            ResultSet rs = controller.getTenantID(txtTenantCCCD.getText());
+            rs.next();
+            txtTenantID.setText(rs.getString("ID"));
+        }
+        catch(SQLException e)
+        {
+            System.out.println(e);
+            System.out.println("Error in ContractUpdateDialog txtTenantCCCD");
+        }
+    }//GEN-LAST:event_txtTenantCCCDActionPerformed
+
     /**
      * @param args the command line arguments
      * @return 
      * 
      */
-    
+     
     public javax.swing.JTextField getTxtRoomID()
     {
         return txtRoomID;
+    }
+    public javax.swing.JTextField getRepCCCD()
+    {
+        return txtRepCCCD;
+    }
+    
+    public javax.swing.JTextField getRepID()
+    {
+        return txtRepID;
+    }
+    
+    public javax.swing.JTextField getContractID()
+    {
+        return txtContractID;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonAdd;
     private javax.swing.JButton buttonCancel;
-    private javax.swing.JComboBox<String> cbbRoomName;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JTextField txtContractID;
     private javax.swing.JTextField txtRepCCCD;
     private javax.swing.JTextField txtRepID;
     private javax.swing.JTextField txtRoomID;
+    private javax.swing.JTextField txtRoomName;
     private javax.swing.JTextField txtTenantCCCD;
     private javax.swing.JTextField txtTenantID;
     // End of variables declaration//GEN-END:variables

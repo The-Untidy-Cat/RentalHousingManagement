@@ -31,36 +31,26 @@ public class ManageTicketController {
         }
         return result;
     }
-    public String getDescription(String id){
-        String des = null;
-        try{
-            String strSql = "SELECT description FROM SUPPORT_TICKET WHERE id = ?";
-            PreparedStatement pre = con.prepareStatement(strSql);
-            pre.setString(1, id);
-            ResultSet rs = pre.executeQuery();
-            if(rs.next()){
-                des = rs.getString(1);
-            }
-        } catch(SQLException e){
-            System.out.println(e);
-        } 
-        return des;
-    }
     public int getStatusID(String status){
-        int id = 0;
-        try{
-            String getStatus = "SELECT id FROM SUPPORT_TICKET_STATUS WHERE name = ?";
-            PreparedStatement ps = con.prepareStatement(getStatus);
-            ps.setString(1,status);
-            ResultSet rs = ps.executeQuery();
-            if(rs.next()){
-                id = rs.getInt(1);
+        int id = -1;
+        if(status.equals("Tất cả")){
+            return id;
+        }
+        else{
+            try{
+                String getStatus = "SELECT id FROM SUPPORT_TICKET_STATUS WHERE name = ?";
+                PreparedStatement ps = con.prepareStatement(getStatus);
+                ps.setString(1,status);
+                ResultSet rs = ps.executeQuery();
+                if(rs.next()){
+                    id = rs.getInt(1);
+                }
             }
+            catch(SQLException e){
+                System.out.println(e);
+            }
+            return id;
         }
-        catch(SQLException e){
-            System.out.println(e);
-        }
-        return id;
     }
     public boolean updateTicket(String status, String id){
         try{
@@ -76,9 +66,9 @@ public class ManageTicketController {
         }  
     }
     public int getMonth(String date){
-        int id = 0;
+        int id = 5;
         try{
-            String strSql = "SELECT EXTRACT(MONTH FROM incident_time) FROM support_ticket WHERE id = ?";
+            String strSql = "SELECT to_char(to_date(?,'mm/yyyy'),'mm') FROM dual";
             PreparedStatement ps = con.prepareStatement(strSql);
             ps.setString(1,date);
             ResultSet rs = ps.executeQuery();
@@ -93,7 +83,7 @@ public class ManageTicketController {
     public int getYear(String date){
         int id = 0;
         try{
-            String strSql = "SELECT EXTRACT(YEAR FROM incident_time) FROM support_ticket WHERE id = ?";
+            String strSql = "SELECT to_char(to_date(?,'mm/yyyy'),'yyyy') FROM dual";
             PreparedStatement ps = con.prepareStatement(strSql);
             ps.setString(1,date);
             ResultSet rs = ps.executeQuery();
@@ -105,19 +95,49 @@ public class ManageTicketController {
         }  
         return id;
     }
+    public String getDescription(String id){
+        String s = null;
+        try{
+            String strSql = "SELECT description FROM SUPPORT_TICKET WHERE id = ?";
+            PreparedStatement ps = con.prepareStatement(strSql);
+            ps.setString(1,id);
+            ResultSet rs = ps.executeQuery();
+            if(rs.next()){
+                s = rs.getString(1);
+            }  
+        } catch(SQLException e){
+            System.out.println(e);
+        }  
+        return s;
+    }
     public ResultSet queryTicket(String status, String date){
         ResultSet rs = null;
-        try{
-            String strSQL = "SELECT T.id, room_id, tenant_id, TO_CHAR(incident_time, 'dd/mm/yyyy'), S.name T FROM SUPPORT_TICKET T, SUPPORT_TICKET_STATUS S WHERE T.status_id = S.id AND status_id = ? AND EXTRACT(MONTH FROM incident_time) = ? AND EXTRACT(YEAR FROM incident_time) = ? ORDER BY T.id";
-            PreparedStatement ps = con.prepareStatement(strSQL);
-            ps.setInt(1, getStatusID(status));
-            ps.setInt(2,getMonth(date));
-            ps.setInt(3,getYear(date));
-            rs = ps.executeQuery();
+        if(getStatusID(status) < 0){
+            try{
+                String strSQL = "SELECT T.id, room_id, tenant_id, TO_CHAR(incident_time, 'dd/mm/yyyy'), S.name T FROM SUPPORT_TICKET T, SUPPORT_TICKET_STATUS S WHERE T.status_id = S.id AND EXTRACT(MONTH FROM incident_time) = ? AND EXTRACT(YEAR FROM incident_time) = ? ORDER BY T.id";
+                PreparedStatement ps = con.prepareStatement(strSQL);
+                ps.setInt(1,getMonth(date));
+                ps.setInt(2,getYear(date));
+                rs = ps.executeQuery();
+            }
+            catch(SQLException e){
+                System.out.println(e);
+            }
+            return rs;
         }
-        catch(SQLException e){
-            System.out.println(e);
+        else{
+            try{
+                String strSQL = "SELECT T.id, room_id, tenant_id, TO_CHAR(incident_time, 'dd/mm/yyyy'), S.name T FROM SUPPORT_TICKET T, SUPPORT_TICKET_STATUS S WHERE T.status_id = S.id AND status_id = ? AND EXTRACT(MONTH FROM incident_time) = ? AND EXTRACT(YEAR FROM incident_time) = ? ORDER BY T.id";
+                PreparedStatement ps = con.prepareStatement(strSQL);
+                ps.setInt(1, getStatusID(status));
+                ps.setInt(2,getMonth(date));
+                ps.setInt(3,getYear(date));
+                rs = ps.executeQuery();
+            }
+            catch(SQLException e){
+                System.out.println(e);
+            }
+            return rs;
         }
-        return rs;
     }
 }

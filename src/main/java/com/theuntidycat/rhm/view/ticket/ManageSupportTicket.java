@@ -30,8 +30,7 @@ public class ManageSupportTicket extends javax.swing.JPanel {
         model = new DefaultTableModel();
         String title[] = {"Mã phiếu", "Mã phòng", "Mã KH", "Ngày xảy ra", "Trạng thái"};
         model.setColumnIdentifiers(title);
-        tbRoom.setModel(model);
-        setVisible(true);
+        tbTicket.setModel(model);
     }
     public void capnhatTable(){
         try{
@@ -67,7 +66,7 @@ public class ManageSupportTicket extends javax.swing.JPanel {
         BtnTim = new javax.swing.JButton();
         BtnRefresh = new javax.swing.JButton();
         jScrollPane4 = new javax.swing.JScrollPane();
-        tbRoom = new javax.swing.JTable();
+        tbTicket = new javax.swing.JTable();
         actionButtonPanel = new javax.swing.JPanel();
         BtnViewDetail = new javax.swing.JButton();
         BtnSua = new javax.swing.JButton();
@@ -83,7 +82,7 @@ public class ManageSupportTicket extends javax.swing.JPanel {
         jLabel1.setText("Trạng thái");
         searchPanel.add(jLabel1);
 
-        CBStatus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Hoan tat", "Cho xu ly" }));
+        CBStatus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tất cả", "Hoan tat", "Cho xu ly" }));
         searchPanel.add(CBStatus);
 
         BtnTim.setText("Tìm");
@@ -104,7 +103,7 @@ public class ManageSupportTicket extends javax.swing.JPanel {
 
         jScrollPane4.setPreferredSize(new java.awt.Dimension(500, 270));
 
-        tbRoom.setModel(new javax.swing.table.DefaultTableModel(
+        tbTicket.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -112,13 +111,13 @@ public class ManageSupportTicket extends javax.swing.JPanel {
                 "Mã phiếu", "Mã phòng", "Mã KH", "Ngày xảy ra", "Trạng thái"
             }
         ));
-        tbRoom.setToolTipText("");
-        tbRoom.addMouseListener(new java.awt.event.MouseAdapter() {
+        tbTicket.setToolTipText("");
+        tbTicket.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tbRoomMouseClicked(evt);
+                tbTicketMouseClicked(evt);
             }
         });
-        jScrollPane4.setViewportView(tbRoom);
+        jScrollPane4.setViewportView(tbTicket);
 
         actionButtonPanel.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 10, 10));
 
@@ -173,7 +172,6 @@ public class ManageSupportTicket extends javax.swing.JPanel {
                 arr[2] = rs.getString(3);
                 arr[3] = rs.getString(4);
                 arr[4] = rs.getString(5);
-                arr[5] = rs.getString(6);
                 model.addRow(arr);
             }
         } catch(SQLException e){
@@ -192,29 +190,40 @@ public class ManageSupportTicket extends javax.swing.JPanel {
         capnhatTable();
     }//GEN-LAST:event_BtnRefreshActionPerformed
 
-    private void tbRoomMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbRoomMouseClicked
+    private void tbTicketMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbTicketMouseClicked
         // TODO add your handling code here:
-    }//GEN-LAST:event_tbRoomMouseClicked
+    }//GEN-LAST:event_tbTicketMouseClicked
 
     private void BtnViewDetailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnViewDetailActionPerformed
         // TODO add your handling code here:
-        DetailTicket detail = new DetailTicket();
-        detail.setInformation(tbRoom.getValueAt(tbRoom.getSelectedRow(), 0).toString());
-        detail.setVisible(true);
+        if(tbTicket.getSelectedRowCount() != 1){
+            JOptionPane.showMessageDialog(this, "Chọn dòng dữ liệu muốn xem chi tiết.", "Lỗi", JOptionPane.ERROR_MESSAGE);
+        }
+        else{
+            DetailTicket detail = new DetailTicket();
+            int row         = tbTicket.getSelectedRow();
+            String id       = tbTicket.getValueAt(row, 0).toString();
+            String roomid   = tbTicket.getValueAt(row, 1).toString();
+            String tenantid = tbTicket.getValueAt(row, 2).toString();
+            String date     = tbTicket.getValueAt(row, 3).toString();
+            String status   = tbTicket.getValueAt(row, 4).toString();
+            detail.setInformation(id, roomid, tenantid, date, status);
+            detail.setVisible(true);
+        }
     }//GEN-LAST:event_BtnViewDetailActionPerformed
 
     private void BtnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnSuaActionPerformed
-        if(tbRoom.getSelectedRowCount() != 1){
+        if(tbTicket.getSelectedRowCount() != 1){
             JOptionPane.showMessageDialog(this, "Chọn dòng dữ liệu muốn sửa.", "Lỗi", JOptionPane.ERROR_MESSAGE);
         }
         else{
-            int row = tbRoom.getSelectedRow();
+            int row = tbTicket.getSelectedRow();
             UpdateTicket update = new UpdateTicket();
-            String ticket_id = tbRoom.getValueAt(row, 0).toString();
-            String room_id = tbRoom.getValueAt(row, 1).toString();
-            String tenant_id = tbRoom.getValueAt(row, 2).toString();
-            String date = tbRoom.getValueAt(row, 3).toString();
-            String description = ctrl.getDescription(ticket_id);
+            String ticket_id    = tbTicket.getValueAt(row, 0).toString();
+            String room_id      = tbTicket.getValueAt(row, 1).toString();
+            String tenant_id    = tbTicket.getValueAt(row, 2).toString();
+            String date         = tbTicket.getValueAt(row, 3).toString();
+            String description  = ctrl.getDescription(ticket_id);
             update.setInformation(ticket_id, room_id, tenant_id, date,  description);
             update.setVisible(true);
         }
@@ -233,6 +242,6 @@ public class ManageSupportTicket extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JPanel searchPanel;
-    private javax.swing.JTable tbRoom;
+    private javax.swing.JTable tbTicket;
     // End of variables declaration//GEN-END:variables
 }

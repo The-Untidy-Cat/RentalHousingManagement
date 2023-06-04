@@ -19,6 +19,7 @@ public class InsertRoom extends javax.swing.JFrame {
     public InsertRoom() {
         initComponents();
         setLocationRelativeTo(null);
+        setTitle("THÊM PHÒNG");
     }
     ManageRoomController ctrl = new ManageRoomController();
 

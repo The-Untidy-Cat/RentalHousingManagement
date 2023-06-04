@@ -143,7 +143,7 @@ public class MainView extends javax.swing.JFrame {
         });
         CompletableFuture<Void> initReport = CompletableFuture.runAsync(new Runnable() {
             public void run() {
-                reportView1.initRevenueChart();
+                reportView1.initRerortView();
             }
         });
         CompletableFuture<Void> initTicket = CompletableFuture.runAsync(new Runnable() {

@@ -49,18 +49,14 @@ public class ManageTenantController {
             return false;
         }  
     }
-    public boolean updateTenant(String ten, String que, String ntns, String sdt, String cmnd, String email, String status, String id){
+    public boolean updateTenant(String sdt, String email, String status, String id){
         try{
-            String strSql = "UPDATE TENANT SET name = ?, Home_Town = ?, dob = ?, Phone_Number = ?, Id_number = ?, email = ?, status_id = ? WHERE id = ?";
+            String strSql = "UPDATE TENANT SET Phone_Number = ?, email = ?, status_id = ? WHERE id = ?";
             PreparedStatement pre = con.prepareStatement(strSql);
-            pre.setString(1, ten);
-            pre.setString(2, que);
-            pre.setString(3, ntns);
-            pre.setString(4, sdt);
-            pre.setString(5, cmnd);
-            pre.setString(6, email);
-            pre.setInt(7, getStatusID(status));
-            pre.setString(8, id);
+            pre.setString(1, sdt);
+            pre.setString(2, email);
+            pre.setInt(3, getStatusID(status));
+            pre.setString(4, id);
             pre.executeUpdate();   
             return true;
         } catch(SQLException e){
