@@ -171,4 +171,38 @@ public class ManageContractController
         return rs;
     }
     
+    public ResultSet getRoomCapacity(String room_id)
+    {
+        ResultSet rs = null;
+        try
+        {
+            Statement stmt = con.createStatement();
+            rs = stmt.executeQuery("SELECT CAPACITY FROM ROOM WHERE ID = '"+room_id+"'");
+        }
+        catch(SQLException e)
+        {
+            System.out.println(e);
+            System.out.println("Error in ContractController getRoomCapacity");
+        }
+        return rs;
+    }
+    
+    public ResultSet loadTenantTb(String contract_id)
+    {
+        ResultSet rs = null;
+        try
+        {
+            Statement stmt = con.createStatement();
+            rs = stmt.executeQuery("SELECT TENANT_ID, NAME, ID_NUMBER, PHONE_NUMBER FROM DETAIL_CONTRACT JOIN TENANT ON TENANT.ID = DETAIL_CONTRACT.TENANT_ID WHERE CONTRACT_ID ='"+contract_id+"'");
+          
+        }
+        catch(SQLException e)
+        {
+            System.out.println(e);
+            System.out.println("Error in ContractController loadTenantTb");
+            
+        }
+        return rs;
+    }
+    
 }
