@@ -248,6 +248,7 @@ CREATE TABLE detail_contract (
     status_id   NUMBER(1, 0) DEFAULT 1,
     created_date    DATE DEFAULT SYSDATE,
     modified_date   DATE DEFAULT NULL,
+    representative NUMBER(1,0) DEFAULT 0,
     CONSTRAINT detail_contract_contract_id_fk FOREIGN KEY ( tenant_id )
         REFERENCES tenant ( id ),
     CONSTRAINT detail_contract_tenant_id_fk FOREIGN KEY ( contract_id )
@@ -381,27 +382,29 @@ BEGIN
 END;
 /
 --#####-- Trigger guarantee: insert detail contract when contract's status is can use 
-CREATE OR REPLACE TRIGGER dcon_check_status_contract BEFORE
+create or replace TRIGGER dcon_check_status_contract BEFORE
     INSERT ON detail_contract
     FOR EACH ROW
 DECLARE
     temp_contract_status_id contract.status_id%TYPE;
 BEGIN
-    SELECT
-        status_id
-    INTO temp_contract_status_id
-    FROM
-        contract
-    WHERE
-        id = :new.contract_id;
+    if :new.representative = 0 then
+        SELECT
+            status_id
+        INTO temp_contract_status_id
+        FROM
+            contract
+        WHERE
+            id = :new.contract_id;
 
-    IF temp_contract_status_id <> 1 THEN
-        raise_application_error(-20111, 'Can not insert representative which conrtact is done');
-    END IF;
+        IF temp_contract_status_id <> 1 THEN
+            raise_application_error(-20111, 'Can not insert tenant which conrtact is done');
+        END IF;
+    end if;
 END;
 /
---#####-- Trigger guarantee: Capacity of a room when insert a tenant into contract(insert detail contract)
-CREATE OR REPLACE TRIGGER dcon_check_capacity BEFORE
+--#####-- Trigger update room status when room is full
+create or replace TRIGGER dcon_update_status_room BEFORE
     INSERT ON detail_contract
     FOR EACH ROW
 DECLARE
@@ -409,36 +412,190 @@ DECLARE
     temp_count_tenant NUMBER;
     temp_room_id      room.id%TYPE;
 BEGIN
-    SELECT
-        room_id
-    INTO temp_room_id
-    FROM
-        contract
-    WHERE
-        id = :new.contract_id;
+    if :new.representative = 0 then
+        SELECT
+            room_id
+        INTO temp_room_id
+        FROM
+            contract
+        WHERE
+            id = :new.contract_id;
 
-    SELECT
-        capacity
-    INTO temp_max_tenant
-    FROM
-        room
-    WHERE
-        id = temp_room_id;
+        SELECT
+            capacity
+        INTO temp_max_tenant
+        FROM
+            room
+        WHERE
+            id = temp_room_id;
 
-    SELECT
-        COUNT(*)
-    INTO temp_count_tenant
-    FROM
-        detail_contract
-    WHERE
-        contract_id = :new.contract_id;
+        SELECT
+            COUNT(*)
+        INTO temp_count_tenant
+        FROM
+            detail_contract
+        WHERE
+            contract_id = :new.contract_id;
 
-    IF ( ( temp_count_tenant + 1 ) = temp_max_tenant ) THEN
-        raise_application_error(-20111, 'Room '
-                                        || temp_room_id
-                                        || ' is full. Can not insert tenant');
-    END IF;
-
+        IF ( temp_count_tenant = temp_max_tenant ) THEN
+            update room
+            set status_id = 2
+            where id = temp_room_id;
+        END IF;
+    end if;
 END;
 /
+--#####--Trigger guarantee: Capacity of a room when insert a tenant into contract(insert detail contract)
+create or replace TRIGGER dcon_check_capacity BEFORE
+    INSERT ON detail_contract
+    FOR EACH ROW
+DECLARE
+    temp_room_id room.id%TYPE;
+    temp_room_status      room.status_id%TYPE;
+BEGIN
+    IF :new.representative = 0 then
+        SELECT
+            room_id INTO temp_room_id
+        FROM
+            contract
+        WHERE
+            id = :new.contract_id;
+        
+        SELECT 
+            status_id INTO temp_room_status
+        FROM 
+            room
+        WHERE 
+            id = temp_room_id;
+    
+        IF temp_room_status = 2 THEN
+            raise_application_error(-20111, 'Room '
+                                        || temp_room_id
+                                        || ' is full. Can not insert tenant');
+        ELSIF temp_room_status = 3 THEN
+            raise_application_error(-20111, 'Room '
+                                        || temp_room_id
+                                        || ' is under maintenance and repair. Can not insert tenant');
+        END IF;
+    END IF;
+END;
+/
+--###########-- Trigger guadanree: contract cannot be created if it is already available
+create or replace TRIGGER contract_roomid_status BEFORE
+INSERT ON CONTRACT
+FOR EACH ROW
+DECLARE 
+    dem     NUMBER := 0;
+BEGIN
+    IF :new.status_id = 1 THEN
+        SELECT COUNT(*) INTO dem
+        FROM CONTRACT
+        WHERE room_id = :new.room_id
+        AND status_id = 1;
+    END IF;
+
+    IF dem > 0 THEN
+        raise_application_error(-20111, ' Error. Can not insert contract because it has been rented');
+    END IF;
+END;
+/
+--######-- Trigger insert representative contract into detail contract
+create or replace TRIGGER con_insert_representative_contract AFTER
+INSERT ON contract
+FOR EACH ROW
+DECLARE
+    re number := 1;
+BEGIN
+    IF :new.Status_id = 1 then
+        INSERT INTO DETAIL_CONTRACT(CONTRACT_ID, TENANT_ID, REPRESENTATIVE) VALUES(:new.id, :new.tenant_id, re);
+    END IF;
+END;
+
+/
 commit;
+
+
+----------------- DATA -----------------
+------ Room_Status ------
+INSERT INTO ROOM_STATUS VALUES(1, 'Con trong');
+INSERT INTO ROOM_STATUS VALUES(2, 'Full');
+INSERT INTO ROOM_STATUS VALUES(3, 'Dang sua chua');
+
+------ Tenant_Status ------
+INSERT INTO TENANT_STATUS VALUES(1, 'Hoat dong');
+INSERT INTO TENANT_STATUS VALUES(2, 'Khong hoat dong');
+INSERT INTO TENANT_STATUS VALUES(3, 'Vo hieu hoa');
+
+------ Contract_Status ------
+INSERT INTO contract_status VALUES (1, 'Hieu luc');
+INSERT INTO contract_status VALUES (0, 'Khong co hieu luc');
+INSERT INTO contract_status VALUES (2, 'Ket thuc dung han');
+
+------ Detail_Contract_Status ------
+INSERT INTO DETAIL_CONTRACT_STATUS VALUES(1, 'Dang tam tru');
+INSERT INTO DETAIL_CONTRACT_STATUS VALUES(2, 'Khong con tam tru');
+
+------ Invoice_Status ------
+INSERT INTO INVOICE_STATUS VALUES(1, 'Da thanh toan');
+INSERT INTO INVOICE_STATUS VALUES(0, 'Chua thanh toan');
+
+------ Support_Ticket_Status ------
+INSERT INTO support_ticket_status VALUES (0, 'Cho xu ly');
+INSERT INTO support_ticket_status VALUES (1, 'Hoan tat');
+
+
+------ Room_Type ------
+INSERT INTO ROOM_TYPE VALUES(1, 'Co may lanh');
+INSERT INTO ROOM_TYPE VALUES(2, 'Khong may lanh');
+
+------ Detail_Invoice_Type ------
+INSERT INTO DETAIL_INVOICE_TYPE VALUES(0, 'Tro', 'thang');
+INSERT INTO DETAIL_INVOICE_TYPE VALUES(1, 'Dien', 'm3');
+INSERT INTO DETAIL_INVOICE_TYPE VALUES(2, 'Nuoc', 'kWh');
+INSERT INTO DETAIL_INVOICE_TYPE VALUES(3, 'Rac', 'thang');
+INSERT INTO DETAIL_INVOICE_TYPE VALUES(4, 'Internet', 'gio');
+
+------ Room ------
+INSERT INTO ROOM(name, capacity, rental_price, type_id, area) VALUES('Phong A', 4, 4000, 1, 20);
+INSERT INTO ROOM(name, capacity, rental_price, type_id, area) VALUES('Phong B', 8, 5500, 1, 20);
+INSERT INTO ROOM(name, capacity, rental_price, type_id, area) VALUES('Phong C', 6, 3000, 2, 20);
+INSERT INTO ROOM(name, capacity, rental_price, type_id, area) VALUES('Phong D', 8, 2000, 2, 20);
+INSERT INTO ROOM(name, capacity, rental_price, type_id, area) VALUES('Phong E', 4, 4000, 2, 20);
+
+------ Tenant ------
+INSERT INTO TENANT(name, home_town, phone_number, password, email, dob, id_number) VALUES('Phuong A', 'TPHCM', 'xxxx4961', '1234', 'tpa@gmail.com', '05/MAY/2003','678912345');
+INSERT INTO TENANT(name, home_town, phone_number, password, email, dob, id_number) VALUES('My C', 'Binh Dinh', 'xxxx1234', '1010','xxx1@gmail.com', '01/MAR/1998', '012346789');
+INSERT INTO TENANT(name, home_town, phone_number, password, email, dob, id_number) VALUES('Tuan A', 'TPHCM', 'xxxx5678', '5555','xxx2@gmail.com', '01/JUN/1995', '24681357');
+INSERT INTO TENANT(name, home_town, phone_number, password, email, dob, id_number) VALUES('Minh N', 'TPHCM', 'xxxx2468', '2222', 'xxx3@gmail.com', '01/MAR/1996','987654321');
+INSERT INTO TENANT(name, home_town, phone_number, password, email, dob, id_number) VALUES('Oracle', 'Thu Duc', 'xxxx3579', '9999', 'xxx4@gmail.com', '01/MAY/2000','135792468');
+
+------ Contract ------
+INSERT INTO CONTRACT(START_DATE, END_DATE, PRICE_PER_PERIOD, DEPOSIT, TENANT_ID, ROOM_ID) VALUES(SYSDATE, '31/DEC/2023', 5000, 1000, 'KH001', 'P0001');
+INSERT INTO CONTRACT(START_DATE, END_DATE, PRICE_PER_PERIOD, DEPOSIT, TENANT_ID, ROOM_ID) VALUES(SYSDATE, '31/DEC/2025', 8000, 1000, 'KH003', 'P0002');
+
+------ Detail_Contract ------
+
+------ Invoice ------
+INSERT INTO INVOICE(Room_ID, Month, Year) VALUES ('P0001', 5, 2023);
+INSERT INTO INVOICE(Room_ID, Month, Year) VALUES ('P0002', 4, 2023);
+INSERT INTO INVOICE(Room_ID, Month, Year) VALUES ('P0002', 3, 2023);
+INSERT INTO INVOICE(Room_ID, Month, Year) VALUES ('P0002', 2, 2023);
+
+------ Detail_Invoice ------
+INSERT INTO DETAIL_INVOICE(INVOICE_ID, type_id,quantity,unit_price) VALUES('HN001', 1, 50, 50);
+INSERT INTO DETAIL_INVOICE(INVOICE_ID, type_id,quantity,unit_price) VALUES('HN002', 2, 50, 50);
+INSERT INTO DETAIL_INVOICE(INVOICE_ID, type_id,quantity,unit_price) VALUES('HN003', 3, 50, 50);
+INSERT INTO DETAIL_INVOICE(INVOICE_ID, type_id,quantity,unit_price) VALUES('HN004', 4, 50, 50);
+
+------ Support_Ticket ------
+INSERT INTO support_ticket (incident_time, receive_time, room_id, tenant_id, description)
+VALUES (SYSDATE, SYSDATE, 'P0001', 'KH001', 'Sap nen nha');
+INSERT INTO support_ticket (incident_time, receive_time, room_id, tenant_id, description, status_id)
+VALUES (SYSDATE, SYSDATE, 'P0002', 'KH002', 'Phong ben canh gay on nhieu gio', 1);
+INSERT INTO support_ticket (incident_time, receive_time, room_id, tenant_id, description, status_id)
+VALUES (SYSDATE, SYSDATE, 'P0003', 'KH001', 'Voi nuoc bi ri', 1);
+INSERT INTO support_ticket (incident_time, receive_time, room_id, tenant_id, description, status_id)
+VALUES (SYSDATE, SYSDATE, 'P0004', 'KH004', 'Voi sen bi gay', 1);
+INSERT INTO support_ticket (incident_time, receive_time, room_id, tenant_id, description)
+VALUES (SYSDATE, SYSDATE, 'P0001', 'KH003', 'May lanh khong mo duoc');
+    
