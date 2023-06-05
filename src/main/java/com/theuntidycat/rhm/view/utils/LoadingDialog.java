@@ -4,9 +4,11 @@
  */
 package com.theuntidycat.rhm.view.utils;
 
+import java.awt.Dialog;
 import java.awt.Dimension;
 import java.awt.GridBagLayout;
 import javax.swing.JDialog;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.WindowConstants;
 
@@ -29,8 +31,24 @@ public class LoadingDialog {
         loadingDialog.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
         loadingDialog.setLocationRelativeTo(null);
     }
+    
+    public LoadingDialog(JFrame parent) {
+        loadingDialog = new JDialog(parent, "Đang tải", Dialog.ModalityType.APPLICATION_MODAL);
+        loadingDialog.setLayout(new GridBagLayout());
+        loadingDialog.add(new JLabel("Đang tải dữ liệu. Vui lòng chờ..."));
+        loadingDialog.setMinimumSize(new Dimension(200, 100));
+        loadingDialog.setResizable(false);
+        loadingDialog.setModal(false);
+        loadingDialog.setUndecorated(true);
+        loadingDialog.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+        loadingDialog.setLocationRelativeTo(parent);
+    }
 
     public void setVisible(boolean status) {
         loadingDialog.setVisible(status);
+    }
+    
+    public void dispose(){
+        loadingDialog.dispose();
     }
 }

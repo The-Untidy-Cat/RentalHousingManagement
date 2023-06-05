@@ -2,6 +2,7 @@ package com.theuntidycat.rhm.view.login;
 
 import com.theuntidycat.rhm.view.main.MainView;
 import com.formdev.flatlaf.FlatLightLaf;
+import com.theuntidycat.rhm.controller.AccountController;
 import com.theuntidycat.rhm.controller.AppPropertiseController;
 
 import java.awt.Dimension;
@@ -19,18 +20,25 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
-import com.theuntidycat.rhm.controller.LoginController;
 import com.theuntidycat.rhm.model.User;
 import com.theuntidycat.rhm.view.utils.LoadingDialog;
 import java.awt.BorderLayout;
+import java.awt.Dialog;
+import java.awt.Window;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
+import javax.swing.AbstractButton;
+
 import javax.swing.JCheckBox;
+import javax.swing.JDialog;
 import javax.swing.JOptionPane;
+import javax.swing.JProgressBar;
+import javax.swing.SwingUtilities;
+import javax.swing.SwingWorker;
 
 public class LoginView extends JFrame {
 
@@ -38,10 +46,10 @@ public class LoginView extends JFrame {
     private AppPropertiseController config = new AppPropertiseController();
 
     public LoginView() {
-        
+        LoadingDialog wait = new LoadingDialog(this);
         FlatLightLaf.setup();
         setTitle("Rental Housing Management");
-        LoginController controller = new LoginController();
+        AccountController controller = new AccountController();
         Path currentRelativePath = Paths.get("");
         String s = currentRelativePath.toAbsolutePath().toString();
 
@@ -49,7 +57,7 @@ public class LoginView extends JFrame {
         Image image = imageIcon.getImage(); // transform it
         Image newimg = image.getScaledInstance(390, 100, java.awt.Image.SCALE_SMOOTH); // scale it the smooth way
         imageIcon = new ImageIcon(newimg);
-        
+
         setIconImage(new ImageIcon(s + "/assets/appIcon.png").getImage());
 
         JPanel formPanel = new JPanel();
@@ -94,7 +102,7 @@ public class LoginView extends JFrame {
                 String username = usernameInput.getText();
                 String password = new String(passwordInput.getPassword());
                 boolean check = controller.verifyUser(username, password);
-                LoadingDialog loading = new LoadingDialog();
+
                 if (cbRememberMe.isSelected()) {
                     try {
                         config.setData("account_remember_me", String.valueOf(cbRememberMe.isSelected()));
@@ -112,22 +120,33 @@ public class LoginView extends JFrame {
                     }
                 }
                 if (check) {
-                    loading.setVisible(true);
-                    CompletableFuture<Void> loadMainView = CompletableFuture.runAsync(new Runnable() {
-                        public void run() {
-                            mainView.run();
+                    SwingWorker<Void, Void> mySwingWorker = new SwingWorker<Void, Void>() {
+                        @Override
+                        protected Void doInBackground() throws Exception {
+                            User user = controller.getUser(username, password);
+                            mainView.run(user);
+                            wait.setVisible(false);
+                            return null;
                         }
-                    });
-                    User user = controller.getUser(username, password);
-                    try {
-                        close();
-                        loadMainView.get();
-                    } catch (InterruptedException ex) {
-                        ex.printStackTrace();
-                    } catch (ExecutionException ex) {
-                        ex.printStackTrace();
-                    }
-                    loading.setVisible(false);
+                    };
+                    mySwingWorker.execute();
+                    close();
+                    wait.setVisible(true);
+//                    CompletableFuture<Void> loadMainView = CompletableFuture.runAsync(new Runnable() {
+//                        public void run() {
+//                            User user = controller.getUser(username, password);
+//                            mainView.run(user);
+//                            wait.setVisible(false);
+//                        }
+//                    });
+//                    try {
+//                        close();
+////                        loadMainView.get();
+//                    } catch (InterruptedException ex) {
+//                        ex.printStackTrace();
+//                    } catch (ExecutionException ex) {
+//                        ex.printStackTrace();
+//                    }
                 } else {
                     JOptionPane.showMessageDialog(null, "Xác thực thất bại. Vui lòng kiểm tra lại", "Lỗi", JOptionPane.ERROR_MESSAGE);
                 }

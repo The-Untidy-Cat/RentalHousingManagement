@@ -8,19 +8,11 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import com.formdev.flatlaf.FlatLightLaf;
 import com.theuntidycat.rhm.controller.AppPropertiseController;
-import com.theuntidycat.rhm.view.utils.LoadingDialog;
-import java.awt.Image;
+import com.theuntidycat.rhm.model.User;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.ImageIcon;
-import javax.swing.JLabel;
 
-/**
- *
- * @author SHeroAnh
- */
 public class MainView extends javax.swing.JFrame {
 
     /**
@@ -30,9 +22,12 @@ public class MainView extends javax.swing.JFrame {
     private String s;
     private AppPropertiseController config;
     private com.theuntidycat.rhm.view.main.SettingFrame settingFrame;
+    private com.theuntidycat.rhm.view.main.AccountFrame accountFrame;
+    private User user;
 
     public MainView() {
         settingFrame = new SettingFrame();
+        accountFrame = new AccountFrame();
         config = new AppPropertiseController();
         s = currentRelativePath.toAbsolutePath().toString();
     }
@@ -94,6 +89,11 @@ public class MainView extends javax.swing.JFrame {
         accountSection.setText("Tài khoản");
 
         changePasswordItem.setText("Đổi mật khẩu");
+        changePasswordItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                changePasswordItemActionPerformed(evt);
+            }
+        });
         accountSection.add(changePasswordItem);
 
         exitItem.setText("Thoát khỏi hệ thống");
@@ -141,8 +141,12 @@ public class MainView extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_exitItemActionPerformed
 
-    public void run() {
-        LoadingDialog loading = new LoadingDialog();
+    private void changePasswordItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_changePasswordItemActionPerformed
+        accountFrame.run(user);
+    }//GEN-LAST:event_changePasswordItemActionPerformed
+
+    public void run(User tUser) {
+        user = tUser;
         FlatLightLaf.setup();
         initComponents();
         CompletableFuture<Void> initContract = CompletableFuture.runAsync(new Runnable() {
@@ -200,10 +204,12 @@ public class MainView extends javax.swing.JFrame {
         } catch (ExecutionException ex) {
             ex.printStackTrace();
         }
-        loading.setVisible(false);
-//         manageContract1.createTable();
-//         manageInvoice1.updateTable();
-//         manageTenant1.capnhatTable();
+//        reportView1.initRerortView();
+//        manageContract1.createTable();
+//        manageInvoice1.updateTable();
+//        manageTenant1.capnhatTable();
+//        manageRoom1.capnhatTable();
+//        manageSupportTicket1.capnhatTable();
 //        setVisible(true);
 //        java.awt.EventQueue.invokeLater(new Runnable() {
 //            @Override

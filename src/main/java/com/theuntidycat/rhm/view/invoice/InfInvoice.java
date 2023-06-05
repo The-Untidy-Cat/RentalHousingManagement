@@ -59,14 +59,11 @@ public class InfInvoice extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Thêm hoá đơn");
         setAlwaysOnTop(true);
-        getContentPane().setLayout(new java.awt.BorderLayout(5, 0));
 
         jPanel1.setToolTipText("");
         jPanel1.setName("Thông tin hóa đơn"); // NOI18N
-        jPanel1.setPreferredSize(null);
         jPanel1.setLayout(new java.awt.GridLayout(2, 1, 5, 5));
 
-        jPanel2.setPreferredSize(null);
         java.awt.FlowLayout flowLayout1 = new java.awt.FlowLayout(java.awt.FlowLayout.LEFT);
         flowLayout1.setAlignOnBaseline(true);
         jPanel2.setLayout(flowLayout1);
@@ -90,7 +87,6 @@ public class InfInvoice extends javax.swing.JFrame {
 
         jPanel1.add(jPanel2);
 
-        jPanel3.setPreferredSize(null);
         java.awt.FlowLayout flowLayout2 = new java.awt.FlowLayout(java.awt.FlowLayout.LEFT);
         flowLayout2.setAlignOnBaseline(true);
         jPanel3.setLayout(flowLayout2);
@@ -119,8 +115,6 @@ public class InfInvoice extends javax.swing.JFrame {
 
         jPanel1.add(jPanel3);
 
-        getContentPane().add(jPanel1, java.awt.BorderLayout.CENTER);
-
         jPanel4.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 10, 10));
 
         btQuay.setText("Quay lại");
@@ -139,7 +133,23 @@ public class InfInvoice extends javax.swing.JFrame {
         });
         jPanel4.add(btThem);
 
-        getContentPane().add(jPanel4, java.awt.BorderLayout.SOUTH);
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                .addContainerGap())
+            .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, 301, Short.MAX_VALUE)
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
 
         pack();
         setLocationRelativeTo(null);

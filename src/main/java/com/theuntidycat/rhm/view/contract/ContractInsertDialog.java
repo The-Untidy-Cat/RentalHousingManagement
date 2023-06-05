@@ -75,76 +75,40 @@ public class ContractInsertDialog extends javax.swing.JFrame {
     private void initComponents() {
 
         jTextField1 = new javax.swing.JTextField();
-        jPanel2 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        dateStartDate = new com.toedter.calendar.JDateChooser();
-        jLabel2 = new javax.swing.JLabel();
-        dateEndDate = new com.toedter.calendar.JDateChooser();
-        jLabel6 = new javax.swing.JLabel();
-        txtPrice = new javax.swing.JTextField();
-        jLabel9 = new javax.swing.JLabel();
-        txtDeposit = new javax.swing.JTextField();
-        jLabel5 = new javax.swing.JLabel();
-        txtTenantID = new javax.swing.JTextField();
-        jLabel3 = new javax.swing.JLabel();
-        cbbRoomName = new javax.swing.JComboBox<>();
-        jLabel4 = new javax.swing.JLabel();
-        txtRoomID = new javax.swing.JTextField();
         jPanel3 = new javax.swing.JPanel();
         contractCancelButton = new javax.swing.JButton();
         contractSubmitButton = new javax.swing.JButton();
+        jPanel4 = new javax.swing.JPanel();
+        jPanel1 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
+        dateStartDate = new com.toedter.calendar.JDateChooser();
+        dateEndDate = new com.toedter.calendar.JDateChooser();
+        txtPrice = new javax.swing.JTextField();
+        txtDeposit = new javax.swing.JTextField();
+        txtTenantID = new javax.swing.JTextField();
+        jPanel5 = new javax.swing.JPanel();
+        cbbRoomName = new javax.swing.JComboBox<>();
+        jSeparator1 = new javax.swing.JSeparator();
+        newTenantButton = new javax.swing.JButton();
+        txtRoomID = new javax.swing.JTextField();
 
         jTextField1.setText("jTextField1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Contract Insert Dialog");
+        setTitle("Tạo hợp đồng");
         setAlwaysOnTop(true);
+        setResizable(false);
 
-        jPanel2.setLayout(new java.awt.GridLayout(7, 2, 10, 10));
+        jPanel3.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 10, 10));
 
-        jLabel1.setText("Ngày bắt đầu");
-        jPanel2.add(jLabel1);
-        jPanel2.add(dateStartDate);
-
-        jLabel2.setText("Ngày kết thúc");
-        jPanel2.add(jLabel2);
-        jPanel2.add(dateEndDate);
-
-        jLabel6.setText("Giá thuê hàng tháng");
-        jPanel2.add(jLabel6);
-
-        txtPrice.setPreferredSize(new java.awt.Dimension(70, 30));
-        jPanel2.add(txtPrice);
-
-        jLabel9.setText("Tiền đặt cọc");
-        jLabel9.setPreferredSize(new java.awt.Dimension(30, 16));
-        jPanel2.add(jLabel9);
-
-        txtDeposit.setPreferredSize(new java.awt.Dimension(70, 30));
-        jPanel2.add(txtDeposit);
-
-        jLabel5.setText("Mã khách thuê");
-        jPanel2.add(jLabel5);
-        jPanel2.add(txtTenantID);
-
-        jLabel3.setText("Tên Phòng");
-        jPanel2.add(jLabel3);
-
-        cbbRoomName.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        cbbRoomName.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbbRoomNameActionPerformed(evt);
-            }
-        });
-        jPanel2.add(cbbRoomName);
-
-        jLabel4.setText("Mã Phòng");
-        jPanel2.add(jLabel4);
-
-        txtRoomID.setPreferredSize(new java.awt.Dimension(70, 30));
-        jPanel2.add(txtRoomID);
-
-        contractCancelButton.setText("Cancel");
+        contractCancelButton.setText("Huỷ");
         contractCancelButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 contractCancelButtonActionPerformed(evt);
@@ -152,7 +116,7 @@ public class ContractInsertDialog extends javax.swing.JFrame {
         });
         jPanel3.add(contractCancelButton);
 
-        contractSubmitButton.setText("Submit");
+        contractSubmitButton.setText("Xác nhận");
         contractSubmitButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 contractSubmitButtonActionPerformed(evt);
@@ -160,23 +124,85 @@ public class ContractInsertDialog extends javax.swing.JFrame {
         });
         jPanel3.add(contractSubmitButton);
 
+        jPanel1.setPreferredSize(new java.awt.Dimension(120, 220));
+        jPanel1.setLayout(new java.awt.GridLayout(7, 1, 0, 10));
+
+        jLabel1.setText("Ngày bắt đầu");
+        jPanel1.add(jLabel1);
+
+        jLabel2.setText("Ngày kết thúc");
+        jPanel1.add(jLabel2);
+
+        jLabel6.setText("Giá thuê hàng tháng");
+        jPanel1.add(jLabel6);
+
+        jLabel9.setText("Tiền đặt cọc");
+        jLabel9.setPreferredSize(new java.awt.Dimension(30, 16));
+        jPanel1.add(jLabel9);
+
+        jLabel3.setText("Tên Phòng");
+        jPanel1.add(jLabel3);
+
+        jLabel5.setText("Mã khách thuê");
+        jPanel1.add(jLabel5);
+
+        jLabel4.setText("Mã Phòng");
+        jPanel1.add(jLabel4);
+
+        jPanel4.add(jPanel1);
+
+        jPanel2.setPreferredSize(new java.awt.Dimension(200, 224));
+        jPanel2.setLayout(new java.awt.GridLayout(7, 1, 0, 10));
+        jPanel2.add(dateStartDate);
+        jPanel2.add(dateEndDate);
+
+        txtPrice.setPreferredSize(new java.awt.Dimension(70, 30));
+        jPanel2.add(txtPrice);
+
+        txtDeposit.setPreferredSize(new java.awt.Dimension(70, 30));
+        jPanel2.add(txtDeposit);
+        jPanel2.add(txtTenantID);
+
+        jPanel5.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 0, 0));
+
+        cbbRoomName.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbbRoomName.setPreferredSize(new java.awt.Dimension(120, 22));
+        cbbRoomName.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbbRoomNameActionPerformed(evt);
+            }
+        });
+        jPanel5.add(cbbRoomName);
+
+        jSeparator1.setForeground(new java.awt.Color(242, 242, 242));
+        jSeparator1.setPreferredSize(new java.awt.Dimension(8, 10));
+        jPanel5.add(jSeparator1);
+
+        newTenantButton.setText("Mới");
+        jPanel5.add(newTenantButton);
+
+        jPanel2.add(jPanel5);
+
+        txtRoomID.setPreferredSize(new java.awt.Dimension(70, 30));
+        jPanel2.add(txtRoomID);
+
+        jPanel4.add(jPanel2);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 368, Short.MAX_VALUE)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 255, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(5, 5, 5)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -249,9 +275,14 @@ public class ContractInsertDialog extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
+    private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTextField jTextField1;
+    private javax.swing.JButton newTenantButton;
     private javax.swing.JTextField txtDeposit;
     private javax.swing.JTextField txtPrice;
     private javax.swing.JTextField txtRoomID;

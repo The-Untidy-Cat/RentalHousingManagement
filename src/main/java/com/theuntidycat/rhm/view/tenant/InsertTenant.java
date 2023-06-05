@@ -31,87 +31,33 @@ public class InsertTenant extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel2 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        txtTen = new javax.swing.JTextField();
-        jLabel2 = new javax.swing.JLabel();
-        txtQue = new javax.swing.JTextField();
-        jLabel3 = new javax.swing.JLabel();
-        txtDob = new javax.swing.JTextField();
-        jLabel4 = new javax.swing.JLabel();
-        txtSdt = new javax.swing.JTextField();
-        jLabel5 = new javax.swing.JLabel();
-        txtCmnd = new javax.swing.JTextField();
-        jLabel6 = new javax.swing.JLabel();
-        txtEmail1 = new javax.swing.JTextField();
         jPanel3 = new javax.swing.JPanel();
         BtnCancel = new javax.swing.JButton();
         BtnThem = new javax.swing.JButton();
+        jPanel4 = new javax.swing.JPanel();
+        jPanel1 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
+        txtTen = new javax.swing.JTextField();
+        txtQue = new javax.swing.JTextField();
+        txtDob = new javax.swing.JTextField();
+        txtSdt = new javax.swing.JTextField();
+        txtCmnd = new javax.swing.JTextField();
+        txtEmail1 = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Thêm khách thuê");
         setAlwaysOnTop(true);
+        setResizable(false);
 
-        jPanel2.setLayout(new java.awt.GridLayout(6, 2, 0, 12));
-
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel1.setText("Tên người thuê");
-        jPanel2.add(jLabel1);
-
-        txtTen.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtTenActionPerformed(evt);
-            }
-        });
-        jPanel2.add(txtTen);
-
-        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel2.setText("Quê quán ");
-        jPanel2.add(jLabel2);
-
-        txtQue.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtQueActionPerformed(evt);
-            }
-        });
-        jPanel2.add(txtQue);
-
-        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel3.setText("Ngày sinh");
-        jPanel2.add(jLabel3);
-
-        txtDob.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtDobActionPerformed(evt);
-            }
-        });
-        jPanel2.add(txtDob);
-
-        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel4.setText("Số điện thoại");
-        jPanel2.add(jLabel4);
-        jPanel2.add(txtSdt);
-
-        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel5.setText("Số CCCD/ CMND");
-        jPanel2.add(jLabel5);
-
-        txtCmnd.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtCmndActionPerformed(evt);
-            }
-        });
-        jPanel2.add(txtCmnd);
-
-        jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel6.setText("Email");
-        jPanel2.add(jLabel6);
-
-        txtEmail1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtEmail1ActionPerformed(evt);
-            }
-        });
-        jPanel2.add(txtEmail1);
+        java.awt.FlowLayout flowLayout1 = new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 10, 10);
+        flowLayout1.setAlignOnBaseline(true);
+        jPanel3.setLayout(flowLayout1);
 
         BtnCancel.setText("Huỷ");
         BtnCancel.addActionListener(new java.awt.event.ActionListener() {
@@ -130,27 +76,92 @@ public class InsertTenant extends javax.swing.JFrame {
         });
         jPanel3.add(BtnThem);
 
+        jPanel1.setPreferredSize(new java.awt.Dimension(100, 180));
+        jPanel1.setLayout(new java.awt.GridLayout(6, 1, 0, 10));
+
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel1.setText("Tên người thuê");
+        jPanel1.add(jLabel1);
+
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel2.setText("Quê quán ");
+        jPanel1.add(jLabel2);
+
+        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel3.setText("Ngày sinh");
+        jPanel1.add(jLabel3);
+
+        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel4.setText("Số điện thoại");
+        jPanel1.add(jLabel4);
+
+        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel5.setText("Số CCCD/ CMND");
+        jPanel1.add(jLabel5);
+
+        jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel6.setText("Email");
+        jPanel1.add(jLabel6);
+
+        jPanel4.add(jPanel1);
+
+        jPanel2.setPreferredSize(new java.awt.Dimension(150, 180));
+        jPanel2.setLayout(new java.awt.GridLayout(6, 1, 0, 10));
+
+        txtTen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtTenActionPerformed(evt);
+            }
+        });
+        jPanel2.add(txtTen);
+
+        txtQue.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtQueActionPerformed(evt);
+            }
+        });
+        jPanel2.add(txtQue);
+
+        txtDob.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtDobActionPerformed(evt);
+            }
+        });
+        jPanel2.add(txtDob);
+        jPanel2.add(txtSdt);
+
+        txtCmnd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtCmndActionPerformed(evt);
+            }
+        });
+        jPanel2.add(txtCmnd);
+
+        txtEmail1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtEmail1ActionPerformed(evt);
+            }
+        });
+        jPanel2.add(txtEmail1);
+
+        jPanel4.add(jPanel2);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(12, 12, 12)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 376, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(36, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 20, Short.MAX_VALUE)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
@@ -241,8 +252,10 @@ public class InsertTenant extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
     private javax.swing.JTextField txtCmnd;
     private javax.swing.JTextField txtDob;
     private javax.swing.JTextField txtEmail1;

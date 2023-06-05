@@ -64,102 +64,33 @@ public class UpdateTenant extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel2 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        txtTen = new javax.swing.JTextField();
-        jLabel2 = new javax.swing.JLabel();
-        txtQue = new javax.swing.JTextField();
-        jLabel3 = new javax.swing.JLabel();
-        txtDob = new javax.swing.JTextField();
-        jLabel4 = new javax.swing.JLabel();
-        txtSdt = new javax.swing.JTextField();
-        jLabel5 = new javax.swing.JLabel();
-        txtCmnd1 = new javax.swing.JTextField();
-        jLabel6 = new javax.swing.JLabel();
-        txtEmail = new javax.swing.JTextField();
-        jLabel7 = new javax.swing.JLabel();
-        txtTrangthai = new javax.swing.JComboBox<>();
         jPanel1 = new javax.swing.JPanel();
         BtnCancel = new javax.swing.JButton();
         BtnUpdate = new javax.swing.JButton();
+        jPanel4 = new javax.swing.JPanel();
+        jPanel3 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
+        txtTen = new javax.swing.JTextField();
+        txtQue = new javax.swing.JTextField();
+        txtDob = new javax.swing.JTextField();
+        txtSdt = new javax.swing.JTextField();
+        txtCmnd1 = new javax.swing.JTextField();
+        txtEmail = new javax.swing.JTextField();
+        txtTrangthai = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Cập nhật khách thuê");
         setAlwaysOnTop(true);
+        setResizable(false);
 
-        jPanel2.setLayout(new java.awt.GridLayout(7, 2, 0, 12));
-
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel1.setText("Tên người thuê");
-        jPanel2.add(jLabel1);
-
-        txtTen.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtTenActionPerformed(evt);
-            }
-        });
-        jPanel2.add(txtTen);
-
-        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel2.setText("Quê quán ");
-        jPanel2.add(jLabel2);
-
-        txtQue.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtQueActionPerformed(evt);
-            }
-        });
-        jPanel2.add(txtQue);
-
-        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel3.setText("Ngày sinh");
-        jPanel2.add(jLabel3);
-
-        txtDob.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtDobActionPerformed(evt);
-            }
-        });
-        jPanel2.add(txtDob);
-
-        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel4.setText("Số điện thoại");
-        jPanel2.add(jLabel4);
-
-        txtSdt.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtSdtActionPerformed(evt);
-            }
-        });
-        jPanel2.add(txtSdt);
-
-        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel5.setText("Số CMND");
-        jPanel2.add(jLabel5);
-
-        txtCmnd1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtCmnd1ActionPerformed(evt);
-            }
-        });
-        jPanel2.add(txtCmnd1);
-
-        jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel6.setText("Email");
-        jPanel2.add(jLabel6);
-
-        txtEmail.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtEmailActionPerformed(evt);
-            }
-        });
-        jPanel2.add(txtEmail);
-
-        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel7.setText("Trạng thái");
-        jPanel2.add(jLabel7);
-
-        txtTrangthai.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Hoat dong", "Khong hoat dong", "Vo hieu hoa" }));
-        jPanel2.add(txtTrangthai);
+        jPanel1.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 10, 10));
 
         BtnCancel.setText("Huỷ");
         BtnCancel.addActionListener(new java.awt.event.ActionListener() {
@@ -178,24 +109,105 @@ public class UpdateTenant extends javax.swing.JFrame {
         });
         jPanel1.add(BtnUpdate);
 
+        jPanel3.setPreferredSize(new java.awt.Dimension(80, 210));
+        jPanel3.setLayout(new java.awt.GridLayout(7, 1, 0, 10));
+
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel1.setText("Tên người thuê");
+        jPanel3.add(jLabel1);
+
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel2.setText("Quê quán ");
+        jPanel3.add(jLabel2);
+
+        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel3.setText("Ngày sinh");
+        jPanel3.add(jLabel3);
+
+        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel4.setText("Số điện thoại");
+        jPanel3.add(jLabel4);
+
+        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel5.setText("Số CMND");
+        jPanel3.add(jLabel5);
+
+        jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel6.setText("Email");
+        jPanel3.add(jLabel6);
+
+        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel7.setText("Trạng thái");
+        jPanel3.add(jLabel7);
+
+        jPanel4.add(jPanel3);
+
+        jPanel2.setPreferredSize(new java.awt.Dimension(150, 210));
+        jPanel2.setLayout(new java.awt.GridLayout(7, 1, 0, 10));
+
+        txtTen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtTenActionPerformed(evt);
+            }
+        });
+        jPanel2.add(txtTen);
+
+        txtQue.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtQueActionPerformed(evt);
+            }
+        });
+        jPanel2.add(txtQue);
+
+        txtDob.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtDobActionPerformed(evt);
+            }
+        });
+        jPanel2.add(txtDob);
+
+        txtSdt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtSdtActionPerformed(evt);
+            }
+        });
+        jPanel2.add(txtSdt);
+
+        txtCmnd1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtCmnd1ActionPerformed(evt);
+            }
+        });
+        jPanel2.add(txtCmnd1);
+
+        txtEmail.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtEmailActionPerformed(evt);
+            }
+        });
+        jPanel2.add(txtEmail);
+
+        txtTrangthai.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Hoat dong", "Khong hoat dong", "Vo hieu hoa" }));
+        jPanel2.add(txtTrangthai);
+
+        jPanel4.add(jPanel2);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 424, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(13, 13, 13)
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
@@ -295,6 +307,8 @@ public class UpdateTenant extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
     private javax.swing.JTextField txtCmnd1;
     private javax.swing.JTextField txtDob;
     private javax.swing.JTextField txtEmail;

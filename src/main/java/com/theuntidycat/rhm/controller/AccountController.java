@@ -5,7 +5,7 @@ import java.sql.*;
 import com.theuntidycat.rhm.database.Oracle;
 import com.theuntidycat.rhm.model.User;
 
-public class LoginController {
+public class AccountController {
 
     private final Oracle database = new Oracle();
     private final Connection conn = database.getConnection();
@@ -35,7 +35,7 @@ public class LoginController {
     public User getUser(String username, String password) {
         User user = new User();
         try {
-            String sql = "SELECT ID, USERNAME, DISPLAY_NAME FROM USERS WHERE USERNAME = ? AND PASSWORD = ?";
+            String sql = "SELECT ID, USERNAME, DISPLAY_NAME FROM ACCOUNT WHERE USERNAME = ? AND PASSWORD = ?";
             PreparedStatement pstmt = conn.prepareStatement(sql);
             pstmt.setString(1, username);
             pstmt.setString(2, password);
@@ -49,5 +49,20 @@ public class LoginController {
             System.out.println(e);
         }
         return user;
+    }
+    
+    public boolean changePassword(String id, String password) {
+        User user = new User();
+        try {
+            String sql = "UPDATE ACCOUNT SET PASSWORD = ? WHERE ID = ?";
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, password);
+            pstmt.setString(2, id);
+            pstmt.execute();
+            return true;
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return false;
     }
 }

@@ -77,12 +77,10 @@ public class updateInfInvoice extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Cập nhật HĐ");
         setAlwaysOnTop(true);
-        setPreferredSize(null);
         setResizable(false);
 
         jPanel1.setLayout(new java.awt.BorderLayout());
 
-        jPanel2.setPreferredSize(null);
         java.awt.FlowLayout flowLayout1 = new java.awt.FlowLayout();
         flowLayout1.setAlignOnBaseline(true);
         jPanel2.setLayout(flowLayout1);
@@ -141,8 +139,6 @@ public class updateInfInvoice extends javax.swing.JFrame {
 
         jPanel1.add(jPanel3, java.awt.BorderLayout.PAGE_START);
 
-        getContentPane().add(jPanel1, java.awt.BorderLayout.CENTER);
-
         jPanel6.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 10, 10));
 
         btQuay.setText("Quay lại");
@@ -161,7 +157,23 @@ public class updateInfInvoice extends javax.swing.JFrame {
         });
         jPanel6.add(btThem);
 
-        getContentPane().add(jPanel6, java.awt.BorderLayout.PAGE_END);
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
 
         pack();
         setLocationRelativeTo(null);
