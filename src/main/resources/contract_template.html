@@ -1,0 +1,545 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	</meta>
+	<title>Hợp đồng cho thuê</title>
+
+	<style>
+		*,
+		::after,
+		::before {
+			box-sizing: border-box;
+			border-width: 0;
+			border-style: solid;
+			border-color: #e5e7eb
+		}
+
+		::after,
+		::before {
+			--tw-content: ''
+		}
+
+		* {
+			font-family: "VU Arial", sans-serif;
+		}
+
+		html {
+			line-height: 1.5;
+			-webkit-text-size-adjust: 100%;
+			-moz-tab-size: 4;
+			tab-size: 4;
+			/* font-family: sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"; */
+			font-feature-settings: normal;
+			font-variation-settings: normal
+		}
+
+		body {
+			margin: 0;
+			line-height: inherit
+		}
+
+		hr {
+			height: 0;
+			color: inherit;
+			border-top-width: 1px
+		}
+
+		abbr:where([title]) {
+			-webkit-text-decoration: underline dotted;
+			text-decoration: underline dotted
+		}
+
+		h1,
+		h2,
+		h3,
+		h4,
+		h5,
+		h6 {
+			font-size: inherit;
+			font-weight: inherit
+		}
+
+		a {
+			color: inherit;
+			text-decoration: inherit
+		}
+
+		b,
+		strong {
+			font-weight: bolder
+		}
+
+		code,
+		kbd,
+		pre,
+		samp {
+			font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+			font-size: 1em
+		}
+
+		small {
+			font-size: 80%
+		}
+
+		sub,
+		sup {
+			font-size: 75%;
+			line-height: 0;
+			position: relative;
+			vertical-align: baseline
+		}
+
+		sub {
+			bottom: -.25em
+		}
+
+		sup {
+			top: -.5em
+		}
+
+		table {
+			text-indent: 0;
+			border-color: inherit;
+			border-collapse: collapse
+		}
+
+		button,
+		input,
+		optgroup,
+		select,
+		textarea {
+			font-family: inherit;
+			font-size: 100%;
+			font-weight: inherit;
+			line-height: inherit;
+			color: inherit;
+			margin: 0;
+			padding: 0
+		}
+
+		button,
+		select {
+			text-transform: none
+		}
+
+		[type=button],
+		[type=reset],
+		[type=submit],
+		button {
+			-webkit-appearance: button;
+			background-color: transparent;
+			background-image: none
+		}
+
+		:-moz-focusring {
+			outline: auto
+		}
+
+		:-moz-ui-invalid {
+			box-shadow: none
+		}
+
+		progress {
+			vertical-align: baseline
+		}
+
+		::-webkit-inner-spin-button,
+		::-webkit-outer-spin-button {
+			height: auto
+		}
+
+		[type=search] {
+			-webkit-appearance: textfield;
+			outline-offset: -2px
+		}
+
+		::-webkit-search-decoration {
+			-webkit-appearance: none
+		}
+
+		::-webkit-file-upload-button {
+			-webkit-appearance: button;
+			font: inherit
+		}
+
+		summary {
+			display: list-item
+		}
+
+		blockquote,
+		dd,
+		dl,
+		figure,
+		h1,
+		h2,
+		h3,
+		h4,
+		h5,
+		h6,
+		hr,
+		p,
+		pre {
+			margin: 0
+		}
+
+		fieldset {
+			margin: 0;
+			padding: 0
+		}
+
+		legend {
+			padding: 0
+		}
+
+		menu,
+		ol,
+		ul {
+			list-style: none;
+			margin: 0;
+			padding: 0
+		}
+
+		textarea {
+			resize: vertical
+		}
+
+		input::placeholder,
+		textarea::placeholder {
+			opacity: 1;
+			color: #9ca3af
+		}
+
+		[role=button],
+		button {
+			cursor: pointer
+		}
+
+		:disabled {
+			cursor: default
+		}
+
+		audio,
+		canvas,
+		embed,
+		iframe,
+		img,
+		object,
+		svg,
+		video {
+			display: block;
+			vertical-align: middle
+		}
+
+		img,
+		video {
+			max-width: 100%;
+			height: auto
+		}
+
+		[hidden] {
+			display: none
+		}
+
+		*,
+		::before,
+		::after {
+			--tw-border-spacing-x: 0;
+			--tw-border-spacing-y: 0;
+			--tw-translate-x: 0;
+			--tw-translate-y: 0;
+			--tw-rotate: 0;
+			--tw-skew-x: 0;
+			--tw-skew-y: 0;
+			--tw-scale-x: 1;
+			--tw-scale-y: 1;
+			--tw-pan-x: ;
+			--tw-pan-y: ;
+			--tw-pinch-zoom: ;
+			--tw-scroll-snap-strictness: proximity;
+			--tw-gradient-from-position: ;
+			--tw-gradient-via-position: ;
+			--tw-gradient-to-position: ;
+			--tw-ordinal: ;
+			--tw-slashed-zero: ;
+			--tw-numeric-figure: ;
+			--tw-numeric-spacing: ;
+			--tw-numeric-fraction: ;
+			--tw-ring-inset: ;
+			--tw-ring-offset-width: 0px;
+			--tw-ring-offset-color: #fff;
+			--tw-ring-color: rgb(59 130 246 / 0.5);
+			--tw-ring-offset-shadow: 0 0 #0000;
+			--tw-ring-shadow: 0 0 #0000;
+			--tw-shadow: 0 0 #0000;
+			--tw-shadow-colored: 0 0 #0000;
+			--tw-blur: ;
+			--tw-brightness: ;
+			--tw-contrast: ;
+			--tw-grayscale: ;
+			--tw-hue-rotate: ;
+			--tw-invert: ;
+			--tw-saturate: ;
+			--tw-sepia: ;
+			--tw-drop-shadow: ;
+			--tw-backdrop-blur: ;
+			--tw-backdrop-brightness: ;
+			--tw-backdrop-contrast: ;
+			--tw-backdrop-grayscale: ;
+			--tw-backdrop-hue-rotate: ;
+			--tw-backdrop-invert: ;
+			--tw-backdrop-opacity: ;
+			--tw-backdrop-saturate: ;
+			--tw-backdrop-sepia:
+		}
+
+		::-webkit-backdrop {
+			--tw-border-spacing-x: 0;
+			--tw-border-spacing-y: 0;
+			--tw-translate-x: 0;
+			--tw-translate-y: 0;
+			--tw-rotate: 0;
+			--tw-skew-x: 0;
+			--tw-skew-y: 0;
+			--tw-scale-x: 1;
+			--tw-scale-y: 1;
+			--tw-pan-x: ;
+			--tw-pan-y: ;
+			--tw-pinch-zoom: ;
+			--tw-scroll-snap-strictness: proximity;
+			--tw-gradient-from-position: ;
+			--tw-gradient-via-position: ;
+			--tw-gradient-to-position: ;
+			--tw-ordinal: ;
+			--tw-slashed-zero: ;
+			--tw-numeric-figure: ;
+			--tw-numeric-spacing: ;
+			--tw-numeric-fraction: ;
+			--tw-ring-inset: ;
+			--tw-ring-offset-width: 0px;
+			--tw-ring-offset-color: #fff;
+			--tw-ring-color: rgb(59 130 246 / 0.5);
+			--tw-ring-offset-shadow: 0 0 #0000;
+			--tw-ring-shadow: 0 0 #0000;
+			--tw-shadow: 0 0 #0000;
+			--tw-shadow-colored: 0 0 #0000;
+			--tw-blur: ;
+			--tw-brightness: ;
+			--tw-contrast: ;
+			--tw-grayscale: ;
+			--tw-hue-rotate: ;
+			--tw-invert: ;
+			--tw-saturate: ;
+			--tw-sepia: ;
+			--tw-drop-shadow: ;
+			--tw-backdrop-blur: ;
+			--tw-backdrop-brightness: ;
+			--tw-backdrop-contrast: ;
+			--tw-backdrop-grayscale: ;
+			--tw-backdrop-hue-rotate: ;
+			--tw-backdrop-invert: ;
+			--tw-backdrop-opacity: ;
+			--tw-backdrop-saturate: ;
+			--tw-backdrop-sepia:
+		}
+
+		::backdrop {
+			--tw-border-spacing-x: 0;
+			--tw-border-spacing-y: 0;
+			--tw-translate-x: 0;
+			--tw-translate-y: 0;
+			--tw-rotate: 0;
+			--tw-skew-x: 0;
+			--tw-skew-y: 0;
+			--tw-scale-x: 1;
+			--tw-scale-y: 1;
+			--tw-pan-x: ;
+			--tw-pan-y: ;
+			--tw-pinch-zoom: ;
+			--tw-scroll-snap-strictness: proximity;
+			--tw-gradient-from-position: ;
+			--tw-gradient-via-position: ;
+			--tw-gradient-to-position: ;
+			--tw-ordinal: ;
+			--tw-slashed-zero: ;
+			--tw-numeric-figure: ;
+			--tw-numeric-spacing: ;
+			--tw-numeric-fraction: ;
+			--tw-ring-inset: ;
+			--tw-ring-offset-width: 0px;
+			--tw-ring-offset-color: #fff;
+			--tw-ring-color: rgb(59 130 246 / 0.5);
+			--tw-ring-offset-shadow: 0 0 #0000;
+			--tw-ring-shadow: 0 0 #0000;
+			--tw-shadow: 0 0 #0000;
+			--tw-shadow-colored: 0 0 #0000;
+			--tw-blur: ;
+			--tw-brightness: ;
+			--tw-contrast: ;
+			--tw-grayscale: ;
+			--tw-hue-rotate: ;
+			--tw-invert: ;
+			--tw-saturate: ;
+			--tw-sepia: ;
+			--tw-drop-shadow: ;
+			--tw-backdrop-blur: ;
+			--tw-backdrop-brightness: ;
+			--tw-backdrop-contrast: ;
+			--tw-backdrop-grayscale: ;
+			--tw-backdrop-hue-rotate: ;
+			--tw-backdrop-invert: ;
+			--tw-backdrop-opacity: ;
+			--tw-backdrop-saturate: ;
+			--tw-backdrop-sepia:
+		}
+
+		.my-2 {
+			margin-top: 0.5rem;
+			margin-bottom: 0.5rem
+		}
+
+		.my-5 {
+			margin-top: 1.25rem;
+			margin-bottom: 1.25rem
+		}
+
+		.mt-20 {
+			margin-top: 5rem
+		}
+
+		.flex {
+			display: flex
+		}
+
+		.grid {
+			display: grid
+		}
+
+		.grid-cols-2 {
+			grid-template-columns: repeat(2, minmax(0, 1fr))
+		}
+
+		.flex-col {
+			flex-direction: column
+		}
+
+		.items-center {
+			align-items: center
+		}
+
+		.justify-start {
+			justify-content: flex-start
+		}
+
+		.justify-center {
+			justify-content: center
+		}
+
+		.gap-1 {
+			gap: 0.25rem
+		}
+
+		.divide-y> :not([hidden])~ :not([hidden]) {
+			--tw-divide-y-reverse: 0;
+			border-top-width: calc(1px * calc(1 - var(--tw-divide-y-reverse)));
+			border-bottom-width: calc(1px * var(--tw-divide-y-reverse))
+		}
+
+		.p-5 {
+			padding: 1.25rem
+		}
+
+		.text-center {
+			text-align: center
+		}
+
+		.text-2xl {
+			font-size: 1.5rem;
+			line-height: 2rem
+		}
+
+		.font-bold {
+			font-weight: 700
+		}
+
+		.uppercase {
+			text-transform: uppercase
+		}
+	</style>
+</head>
+
+<body class="p-5">
+	<div class="flex flex-col justify-center align-center items-center gap-1 my-5 divide-y">
+		<p class="font-bold uppercase text-center">CỘNG HOÀ XÃ HỘI CHỦ NGHĨA VIỆT NAM</p>
+		<p class="text-center">Độc lập - Tự do - Hạnh phúc</p>
+	</div>
+	<h1 class="font-bold uppercase text-2xl text-center" style="margin-top: 20px; margin-bottom: 15px; font-size:larger;">HỢP ĐỒNG THUÊ PHÒNG TRỌ</h1>
+	<div class="flex flex-col justify-start align-center gap-1 my-5">
+		<p>Mã hợp đồng: <span th:text="${CONTRACT_ID}"></span></p>
+		<p>Hôm nay ngày <span th:text="${CURRENT_DATE}"></span>; tại địa chỉ: <span th:text="${ADDRESS}"></span> </p>
+		<p class="font-bold">Chúng tôi gồm:</p>
+		<p>1. Đại diện bên cho thuê phòng trọ (Bên A):</p>
+		<p>Ông/bà: <span th:text="${LANDLORD_NAME}"></span></p>
+		<p>2. Bên thuê phòng trọ (Bên B):</p>
+		<p>Ông/bà: <span th:text="${TENANT_NAME}"></span></p>
+		<p>Sinh ngày: <span th:text="${TENANT_DOB}"></span></p>
+		<p>Số CMND/CCCD: <span th:text="${TENANT_ID_NUMBER}"></span></p>
+		<p>Số điện thoại: <span th:text="${TENANT_PHONE_NUMBER}"></span></p>
+		<p class="font-bold">Sau khi bàn bạc trên tinh thần dân chủ, hai bên cùng có lợi, cùng thống nhất như sau:</p>
+		<p>Bên A đồng ý cho bên B thuê phòng <span th:text="${ROOM_ID}"></span> ở tại địa chỉ: <span
+				th:text="${ADDRESS}"></span></p>
+		<p>Giá thuê: <span th:text="${RENTAL_PRICE}"></span> đ/tháng</p>
+		<p>Hình thức thanh toán: ...................................</p>
+		<p>Tiền điện ........... đ/kwh tính theo chỉ số công tơ.</p>
+		<p>Tiền nước: ........... đ/mét khối tính theo chỉ số công tơ.</p>
+		<p>Tiền mạng: ........... đ/tháng.</p>
+		<p>Tiền vệ sinh môi trường: ........... đ/tháng.</p>
+		<p>Tiền đặt cọc: <span th:text="${DEPOSIT}"></span> đồng</p>
+		<p>Hợp đồng có giá trị kể từ <span th:text="${START_DATE}"></span> đến <span th:text="${END_DATE}"></span></p>
+	</div>
+	<div class="flex flex-col justify-start align-center gap-1 my-2">
+		<b>TRÁCH NHIỆM CỦA CÁC BÊN</b>
+		<br/>
+		<b>Trách nhiệm của bên A:</b>
+		<p>- Tạo mọi điều kiện thuận lợi để bên B thực hiện theo hợp đồng.<br />
+			- Cung cấp nguồn điện, nước, wifi cho bên B sử dụng.</p>
+
+		<b>Trách nhiệm của bên B:</b>
+		<p>- Thanh toán đầy đủ các khoản tiền theo đúng thỏa thuận.
+			<br />- Bảo quản các trang thiết bị và cơ sở vật chất của bên A trang bị cho ban đầu (làm hỏng phải sửa, mất
+			phải đền).
+			<br />- Không được tự ý sửa chữa, cải tạo cơ sở vật chất khi chưa được sự đồng ý của bên A.
+			<br />- Giữ gìn vệ sinh trong và ngoài khuôn viên của phòng trọ.
+			<br />- Bên B phải chấp hành mọi quy định của pháp luật Nhà nước và quy định của địa phương.
+			<br />- Nếu bên B cho khách ở qua đêm thì phải báo và được sự đồng ý của chủ nhà đồng thời phải chịu trách
+			nhiệm về các hành vi vi phạm pháp luật của khách trong thời gian ở lại.
+		</p>
+		<b>TRÁCH NHIỆM CHUNG</b>
+		<p>- Hai bên phải tạo điều kiện cho nhau thực hiện hợp đồng.
+			<br />- Trong thời gian hợp đồng còn hiệu lực nếu bên nào vi phạm các điều khoản đã thỏa thuận thì bên còn
+			lại có quyền đơn phương chấm dứt hợp đồng; nếu sự vi phạm hợp đồng đó gây tổn thất cho bên bị vi phạm hợp
+			đồng thì bên vi phạm hợp đồng phải bồi thường thiệt hại.
+			<br />- Một trong hai bên muốn chấm dứt hợp đồng trước thời hạn thì phải báo trước cho bên kia ít nhất 30
+			ngày và hai bên phải có sự thống nhất.
+			<br />- Bên A phải trả lại tiền đặt cọc cho bên B.
+			<br />- Bên nào vi phạm điều khoản chung thì phải chịu trách nhiệm trước pháp luật.
+			<br />- Hợp đồng được lập thành 02 bản có giá trị pháp lý như nhau, mỗi bên giữ một bản.
+		</p>
+	</div>
+	<table style="width: 100%; ">
+		<tr>
+			<th class="uppercase text-center">Đại diện bên A</th>
+			<th class="uppercase text-center">Đại diện bên B</th>
+		</tr>
+		<tr>
+			<th class="text-center" th:text="${LANDLORD_NAME}" style="padding-top: 80px;"></th>
+			<th class="text-center" th:text="${TENANT_NAME}" style="padding-top: 80px;"></th>
+		</tr>
+	</table>
+
+</body>
+
+</html>

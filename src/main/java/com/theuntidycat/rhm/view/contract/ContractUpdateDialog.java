@@ -5,6 +5,7 @@
 package com.theuntidycat.rhm.view.contract;
 
 import com.theuntidycat.rhm.controller.ManageContractController;
+import com.theuntidycat.rhm.view.tenant.InsertTenant;
 import java.sql.*;
 import javax.swing.JOptionPane;
 import java.util.Date;
@@ -73,118 +74,135 @@ public class ContractUpdateDialog extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         buttonCancel = new javax.swing.JButton();
         buttonAdd = new javax.swing.JButton();
+        jPanel4 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
-        txtContractID = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
-        txtRoomID = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        txtRoomName = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        txtRepID = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        txtRepCCCD = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        txtTenantID = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
+        jPanel3 = new javax.swing.JPanel();
+        txtContractID = new javax.swing.JTextField();
+        txtRoomID = new javax.swing.JTextField();
+        txtRoomName = new javax.swing.JTextField();
+        txtRepID = new javax.swing.JTextField();
+        txtRepCCCD = new javax.swing.JTextField();
+        jPanel5 = new javax.swing.JPanel();
+        txtTenantID = new javax.swing.JTextField();
+        jSeparator1 = new javax.swing.JSeparator();
+        newTenantButton = new javax.swing.JButton();
         txtTenantCCCD = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Contract Update Dialog");
+        setTitle("Thêm người ở cùng");
         setAlwaysOnTop(true);
 
-        buttonCancel.setText("Cancel");
+        buttonCancel.setText("Huỷ");
         buttonCancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonCancelActionPerformed(evt);
             }
         });
+        jPanel1.add(buttonCancel);
 
-        buttonAdd.setText("Thêm");
+        buttonAdd.setText("Hoàn tất");
         buttonAdd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonAddActionPerformed(evt);
             }
         });
+        jPanel1.add(buttonAdd);
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(77, 77, 77)
-                .addComponent(buttonCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 136, Short.MAX_VALUE)
-                .addComponent(buttonAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(87, 87, 87))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(5, 5, 5)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(buttonCancel, javax.swing.GroupLayout.DEFAULT_SIZE, 34, Short.MAX_VALUE)
-                    .addComponent(buttonAdd, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
-        );
-
-        jPanel2.setLayout(new java.awt.GridLayout(7, 2, 10, 10));
+        jPanel2.setPreferredSize(new java.awt.Dimension(180, 210));
+        jPanel2.setLayout(new java.awt.GridLayout(7, 1, 0, 10));
 
         jLabel7.setText("Mã hợp đồng");
         jPanel2.add(jLabel7);
-        jPanel2.add(txtContractID);
 
         jLabel1.setText("Mã phòng");
         jPanel2.add(jLabel1);
-        jPanel2.add(txtRoomID);
 
         jLabel2.setText("Tên phòng");
         jPanel2.add(jLabel2);
-        jPanel2.add(txtRoomName);
 
         jLabel3.setText("Mã người đại diện");
         jPanel2.add(jLabel3);
-        jPanel2.add(txtRepID);
 
         jLabel4.setText("CCCD người đại diện");
         jPanel2.add(jLabel4);
-        jPanel2.add(txtRepCCCD);
 
         jLabel5.setText("Mã người thuê muốn thêm");
         jPanel2.add(jLabel5);
-        jPanel2.add(txtTenantID);
 
         jLabel6.setText("CCCD người thuê muốn thêm");
         jPanel2.add(jLabel6);
+
+        jPanel4.add(jPanel2);
+
+        jPanel3.setPreferredSize(new java.awt.Dimension(200, 224));
+        jPanel3.setLayout(new java.awt.GridLayout(7, 1, 0, 10));
+        jPanel3.add(txtContractID);
+        jPanel3.add(txtRoomID);
+        jPanel3.add(txtRoomName);
+        jPanel3.add(txtRepID);
+        jPanel3.add(txtRepCCCD);
+
+        java.awt.FlowLayout flowLayout1 = new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 0, 0);
+        flowLayout1.setAlignOnBaseline(true);
+        jPanel5.setLayout(flowLayout1);
+
+        txtTenantID.setPreferredSize(new java.awt.Dimension(118, 22));
+        jPanel5.add(txtTenantID);
+
+        jSeparator1.setForeground(new java.awt.Color(242, 242, 242));
+        jSeparator1.setPreferredSize(new java.awt.Dimension(10, 10));
+        jPanel5.add(jSeparator1);
+
+        newTenantButton.setText("Mới");
+        newTenantButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                newTenantButtonActionPerformed(evt);
+            }
+        });
+        jPanel5.add(newTenantButton);
+
+        jPanel3.add(jPanel5);
 
         txtTenantCCCD.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtTenantCCCDActionPerformed(evt);
             }
         });
-        jPanel2.add(txtTenantCCCD);
+        jPanel3.add(txtTenantCCCD);
+
+        jPanel4.add(jPanel3);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30)
+                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(30, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void buttonCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCancelActionPerformed
@@ -233,6 +251,11 @@ public class ContractUpdateDialog extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_txtTenantCCCDActionPerformed
 
+    private void newTenantButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newTenantButtonActionPerformed
+        InsertTenant insert = new InsertTenant();
+        insert.setVisible(true);
+    }//GEN-LAST:event_newTenantButtonActionPerformed
+
     /**
      * @param args the command line arguments
      * @return 
@@ -270,6 +293,11 @@ public class ContractUpdateDialog extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
+    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JButton newTenantButton;
     private javax.swing.JTextField txtContractID;
     private javax.swing.JTextField txtRepCCCD;
     private javax.swing.JTextField txtRepID;

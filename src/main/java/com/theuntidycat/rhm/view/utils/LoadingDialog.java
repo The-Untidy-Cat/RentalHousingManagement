@@ -35,7 +35,7 @@ public class LoadingDialog {
     public LoadingDialog(JFrame parent) {
         loadingDialog = new JDialog(parent, "Đang tải", Dialog.ModalityType.APPLICATION_MODAL);
         loadingDialog.setLayout(new GridBagLayout());
-        loadingDialog.add(new JLabel("Đang tải dữ liệu. Vui lòng chờ..."));
+        loadingDialog.add(new JLabel("Đang xử lý. Vui lòng chờ..."));
         loadingDialog.setMinimumSize(new Dimension(200, 100));
         loadingDialog.setResizable(false);
         loadingDialog.setModal(false);

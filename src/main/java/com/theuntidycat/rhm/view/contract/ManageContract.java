@@ -76,8 +76,6 @@ public class ManageContract extends javax.swing.JPanel {
 
         setLayout(new java.awt.BorderLayout());
 
-        jScrollPane2.setPreferredSize(null);
-
         tbContract.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null, null},
@@ -96,7 +94,7 @@ public class ManageContract extends javax.swing.JPanel {
 
         ContractButton.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 10, 10));
 
-        insertNewContract.setText("Thêm");
+        insertNewContract.setText("Tạo hợp đồng");
         insertNewContract.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 insertNewContractActionPerformed(evt);
@@ -104,7 +102,7 @@ public class ManageContract extends javax.swing.JPanel {
         });
         ContractButton.add(insertNewContract);
 
-        updateContract.setText("Sửa");
+        updateContract.setText("Thêm người ở cùng");
         updateContract.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 updateContractActionPerformed(evt);

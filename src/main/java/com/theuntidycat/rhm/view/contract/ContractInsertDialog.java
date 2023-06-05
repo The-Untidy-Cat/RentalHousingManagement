@@ -6,6 +6,7 @@ package com.theuntidycat.rhm.view.contract;
 
 import com.theuntidycat.rhm.controller.ManageContractController;
 import com.theuntidycat.rhm.database.Oracle;
+import com.theuntidycat.rhm.view.tenant.InsertTenant;
 import java.sql.*;
 import java.util.ArrayList;
 import javax.swing.DefaultComboBoxModel;
@@ -84,19 +85,19 @@ public class ContractInsertDialog extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         dateStartDate = new com.toedter.calendar.JDateChooser();
         dateEndDate = new com.toedter.calendar.JDateChooser();
         txtPrice = new javax.swing.JTextField();
         txtDeposit = new javax.swing.JTextField();
-        txtTenantID = new javax.swing.JTextField();
         jPanel5 = new javax.swing.JPanel();
-        cbbRoomName = new javax.swing.JComboBox<>();
+        txtTenantID = new javax.swing.JTextField();
         jSeparator1 = new javax.swing.JSeparator();
         newTenantButton = new javax.swing.JButton();
+        cbbRoomName = new javax.swing.JComboBox<>();
         txtRoomID = new javax.swing.JTextField();
 
         jTextField1.setText("jTextField1");
@@ -140,11 +141,11 @@ public class ContractInsertDialog extends javax.swing.JFrame {
         jLabel9.setPreferredSize(new java.awt.Dimension(30, 16));
         jPanel1.add(jLabel9);
 
-        jLabel3.setText("Tên Phòng");
-        jPanel1.add(jLabel3);
-
         jLabel5.setText("Mã khách thuê");
         jPanel1.add(jLabel5);
+
+        jLabel3.setText("Tên Phòng");
+        jPanel1.add(jLabel3);
 
         jLabel4.setText("Mã Phòng");
         jPanel1.add(jLabel4);
@@ -161,9 +162,25 @@ public class ContractInsertDialog extends javax.swing.JFrame {
 
         txtDeposit.setPreferredSize(new java.awt.Dimension(70, 30));
         jPanel2.add(txtDeposit);
-        jPanel2.add(txtTenantID);
 
         jPanel5.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 0, 0));
+
+        txtTenantID.setPreferredSize(new java.awt.Dimension(120, 22));
+        jPanel5.add(txtTenantID);
+
+        jSeparator1.setForeground(new java.awt.Color(242, 242, 242));
+        jSeparator1.setPreferredSize(new java.awt.Dimension(8, 10));
+        jPanel5.add(jSeparator1);
+
+        newTenantButton.setText("Mới");
+        newTenantButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                newTenantButtonActionPerformed(evt);
+            }
+        });
+        jPanel5.add(newTenantButton);
+
+        jPanel2.add(jPanel5);
 
         cbbRoomName.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         cbbRoomName.setPreferredSize(new java.awt.Dimension(120, 22));
@@ -172,16 +189,7 @@ public class ContractInsertDialog extends javax.swing.JFrame {
                 cbbRoomNameActionPerformed(evt);
             }
         });
-        jPanel5.add(cbbRoomName);
-
-        jSeparator1.setForeground(new java.awt.Color(242, 242, 242));
-        jSeparator1.setPreferredSize(new java.awt.Dimension(8, 10));
-        jPanel5.add(jSeparator1);
-
-        newTenantButton.setText("Mới");
-        jPanel5.add(newTenantButton);
-
-        jPanel2.add(jPanel5);
+        jPanel2.add(cbbRoomName);
 
         txtRoomID.setPreferredSize(new java.awt.Dimension(70, 30));
         jPanel2.add(txtRoomID);
@@ -256,6 +264,11 @@ public class ContractInsertDialog extends javax.swing.JFrame {
             System.out.println("Error in ContractInsertDialog cbbRoomNameAction");
         }
     }//GEN-LAST:event_cbbRoomNameActionPerformed
+
+    private void newTenantButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newTenantButtonActionPerformed
+        InsertTenant insert = new InsertTenant();
+        insert.setVisible(true);
+    }//GEN-LAST:event_newTenantButtonActionPerformed
 
     /**
      * @param args the command line arguments

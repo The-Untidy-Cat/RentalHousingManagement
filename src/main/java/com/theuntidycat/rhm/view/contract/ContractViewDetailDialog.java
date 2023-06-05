@@ -8,10 +8,33 @@ import javax.swing.JOptionPane;
 import com.theuntidycat.rhm.controller.ManageContractController;
 import java.sql.*;
 import javax.swing.table.DefaultTableModel;
-import java.io.*;
+
 import com.itextpdf.text.*;
 import com.itextpdf.text.pdf.*;
+import com.theuntidycat.rhm.view.utils.LoadingDialog;
 import java.awt.Desktop;
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import com.lowagie.text.DocumentException;
+import org.thymeleaf.TemplateEngine;
+import org.thymeleaf.context.Context;
+import org.thymeleaf.templatemode.TemplateMode;
+import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
+import org.xhtmlrenderer.pdf.ITextRenderer;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.UUID;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.SwingWorker;
+
 /**
  *
  * @author Dell
@@ -36,48 +59,40 @@ public class ContractViewDetailDialog extends javax.swing.JFrame {
         endDate.setEditable(false);
         setVisible(true);
     }
-    
-    public void loadRoomCapacity()
-    {
-        try
-        {
+
+    public void loadRoomCapacity() {
+        try {
             ManageContractController controller = new ManageContractController();
             ResultSet rs = controller.getRoomCapacity(txtRoomID.getText());
             rs.next();
             txtCapacity.setText(rs.getString(1));
-        }
-        catch(SQLException e)
-        {
+        } catch (SQLException e) {
             System.out.println(e);
             System.out.println("Error in ContractViewDetailDialog loadRoomCapacity");
         }
     }
-    
+
     DefaultTableModel model;
-    public void createTable()
-    {
+
+    public void createTable() {
         model = new DefaultTableModel();
         String title[] = {"Mã khách thuê", "Tên khách thuê", "Số CCCD", "Số ĐT"};
         model.setColumnIdentifiers(title);
-        try
-        {
+        try {
             ManageContractController controller = new ManageContractController();
             String row[] = new String[4];
             ResultSet rs = controller.loadTenantTb(txtContractID.getText());
-            while(rs.next())
-            {
+            while (rs.next()) {
                 row[0] = rs.getString(1);
                 row[1] = rs.getString(2);
                 row[2] = rs.getString(3);
                 row[3] = rs.getString(4);
                 model.addRow(row);
             }
-        }
-        catch(SQLException e)
-        {
+        } catch (SQLException e) {
             System.out.println(e);
             System.out.println("Error in ContractViewDetailDialog createTable");
-        } 
+        }
         tbTenant.setModel(model);
     }
 
@@ -224,299 +239,382 @@ public class ContractViewDetailDialog extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void buttonBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonBackActionPerformed
         // TODO add your handling code here:
         int ret = JOptionPane.showConfirmDialog(this, "Bạn có muốn quay lại?", "Thông báo", JOptionPane.YES_NO_OPTION);
-        if(ret == JOptionPane.YES_OPTION)
+        if (ret == JOptionPane.YES_OPTION)
             setVisible(false);
     }//GEN-LAST:event_buttonBackActionPerformed
 
     private void buttonPrintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPrintActionPerformed
-        // TODO add your handling code here:
+        LoadingDialog wait = new LoadingDialog(this);
+        SwingWorker<Void, Void> mySwingWorker = new SwingWorker<Void, Void>() {
+            @Override
+            protected Void doInBackground() throws Exception {
+                String html = null;
+                try {
+                    html = parseThymeleafTemplate();
+//                    System.out.println(html);
+                } catch (SQLException ex) {
+                    Logger.getLogger(ContractViewDetailDialog.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                try {
+                    generatePdfFromHtml(html);
+                } catch (IOException ex) {
+                    Logger.getLogger(ContractViewDetailDialog.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (DocumentException ex) {
+                    Logger.getLogger(ContractViewDetailDialog.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                wait.setVisible(false);
+                return null;
+            }
+        };
+        mySwingWorker.execute();
+        wait.setVisible(true);
+
+    }//GEN-LAST:event_buttonPrintActionPerformed
+
+    private String parseThymeleafTemplate() throws SQLException {
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        LocalDateTime now = LocalDateTime.now();
+        ManageContractController controller = new ManageContractController();
+        ResultSet rs = controller.getTenantName(txtRep.getText());
+        ClassLoaderTemplateResolver templateResolver = new ClassLoaderTemplateResolver();
+
+        templateResolver.setSuffix(".html");
+        templateResolver.setTemplateMode(TemplateMode.HTML);
+        templateResolver.setCharacterEncoding("UTF-8");
+        System.out.println(templateResolver.getCharacterEncoding());
+
+        TemplateEngine templateEngine = new TemplateEngine();
+        templateEngine.setTemplateResolver(templateResolver);
+
+        Context context = new Context();
+        if (rs.next()) {
+            context.setVariable("LANDLORD_NAME", "Nguyen Van A");
+            context.setVariable("ADDRESS", "Khu pho X, phuong Y, quan Z, thanh pho T");
+            context.setVariable("TENANT_NAME", rs.getString("NAME"));
+            context.setVariable("TENANT_DOB", rs.getString("DOB"));
+            context.setVariable("TENANT_ID_NUMBER", rs.getString("ID_NUMBER"));
+            context.setVariable("TENANT_PHONE_NUMBER", rs.getString("PHONE_NUMBER"));
+            context.setVariable("RENTAL_PRICE", txtPrice.getText());
+            context.setVariable("DEPOSIT", txtDeposit.getText());
+            context.setVariable("START_DATE", startDate.getText());
+            context.setVariable("END_DATE", endDate.getText());
+            context.setVariable("CONTRACT_ID", txtContractID.getText());
+            context.setVariable("ROOM_ID", txtRoomID.getText());
+            context.setVariable("CURRENT_DATE", dtf.format(now));
+        }
+
+        return templateEngine.process("contract_template", context);
+    }
+
+    public void generatePdfFromHtml(String html) throws IOException, DocumentException, com.lowagie.text.DocumentException {
+        UUID uuid = UUID.randomUUID();
+        Files.createDirectories(Paths.get(System.getProperty("user.dir") + File.separator + "reports"));
+        String filePath = System.getProperty("user.dir") + File.separator + "reports"+ File.separator  + uuid + ".pdf";
+        OutputStream outputStream = new FileOutputStream(filePath);
+        System.out.println(filePath);
+        ITextRenderer renderer = new ITextRenderer();
+        renderer
+                .getFontResolver()
+                .addFont("assets/font/vuArial.ttf",
+                        BaseFont.IDENTITY_H,
+                        BaseFont.EMBEDDED);
+        renderer.setDocumentFromString(html);
+        renderer.layout();
+        renderer.createPDF(outputStream);
+        outputStream.close();
+        try {
+            File file = new File(filePath);
+            //Ktra desktop co duoc platform support khong
+            if (!Desktop.isDesktopSupported()) {
+                System.out.println("not supported");
+                return;
+            }
+
+            Desktop desktop = Desktop.getDesktop();
+            //Ktra file co ton tai khong
+            if (file.exists()) {
+                desktop.open(file);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void printContract() {
         String MaHD = txtContractID.getText();
         Document document = new Document(PageSize.A4);
-        String filename = "HD"+MaHD;
-                    
-            try
-            {
-                PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream("reports/"+filename+".pdf"));
-                document.open();
-                
-                //Dinh dang thuoc tinh, noi dung cua file pdf
-                document.addAuthor("Whitie");
-                document.addCreationDate();
-                document.addCreator("RentalHousingManagement");
-                document.addTitle("Chi tiết hợp đồng");
-                document.addSubject("Chi tiết hợp đồng");
-                
-                //Dinh nghia cac font su dung trong noi dung file report
-                //Dinh dang unicode tieng viet cac font tieu de
-                File filefontTieuDe = new File("assets/font/vuArialBold.ttf");
-                BaseFont bfTieuDe = BaseFont.createFont(filefontTieuDe.getAbsolutePath(), BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
-                
-                //fontTieuDe1 in dam, size 16, mau blue
-                Font fontTieuDe1 = new Font(bfTieuDe, 16);
-                fontTieuDe1.setColor(BaseColor.BLUE);
-                //fontTieuDe2 in dam, size 13, mau blue
-                Font fontTieuDe2 = new Font(bfTieuDe, 13);
-                fontTieuDe1.setColor(BaseColor.BLUE);
-                //fontTieuDe3 in dam, size 13, mau den
-                Font fontTieuDe3 = new Font(bfTieuDe, 13);
-                //fontTieuDe4 in dam, size 12, mau den
-                Font fontTieuDe4 = new Font(bfTieuDe, 12);
-                
-                
-                //Dinh dang unicode tieng viet cac font noi dung
-                File filefontNoiDung = new File("assets/font/vuArial.ttf");
-                BaseFont bfNoiDung = BaseFont.createFont(filefontNoiDung.getAbsolutePath(), BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
-                
-                //fontNoiDung1 in thuong, size 13, mau den
-                Font fontNoiDung1 = new Font(bfNoiDung, 13);
-                //fontNoiDung2 in thuong, size 12, mau den
-                Font fontNoiDung2 = new Font(bfNoiDung, 12);
-                //fontNoiDung3 in thuong, size 11, mau den
-                Font fontNoiDung3 = new Font(bfNoiDung, 11);
-                
-                //Chen logo
-                Image logo = Image.getInstance("assets/building.png");
-                //Set vi tri tu goc duoi cung ben trai
-                logo.setAbsolutePosition(80, 750);
-                //Set kich thuoc height va width cua anh
-                logo.scaleAbsolute(150,50);
-                //add vao document
-                document.add(logo);
-                
-                //Chen thong tin phong tro
-                //Chen ten phong tro
-                Paragraph prgTenNT = new Paragraph("NHÀ TRỌ ABC", fontTieuDe2);
-                prgTenNT.setIndentationLeft(200); //Set kc tu bien trai
-                document.add(prgTenNT);
-                
-                //Chen dia chi phong tro
-                Paragraph prgDiaChiNT = new Paragraph("Khu phố xxx, phường xxxxxxxxx, Tp.xxxxxx", fontNoiDung2);
-                prgDiaChiNT.setIndentationLeft(200);
-                document.add(prgDiaChiNT);
-                
-                //Chen sdt nha tro
-                Paragraph prgSoDTNT = new Paragraph("SDT: 090xxxxxxx", fontNoiDung2);
-                prgSoDTNT.setIndentationLeft(200);
-                document.add(prgSoDTNT);
-                
-                //Chen Tieu De
-                Paragraph prgTieuDe = new Paragraph("MẪU HỢP ĐỒNG THUÊ NHÀ", fontTieuDe1);
-                prgTieuDe.setAlignment(Element.ALIGN_CENTER);
-                prgTieuDe.setSpacingBefore(10);
-                prgTieuDe.setSpacingAfter(10);
-                document.add(prgTieuDe);
-                
-                //Xu ly noi dung thong tin nguoi dai dien
-                //Khai bao bien NgKham va TenBS de hien thi trong phan noi dung nay
+        String filename = "HD" + MaHD;
+
+        try {
+            PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream("reports/" + filename + ".pdf"));
+            document.open();
+
+            //Dinh dang thuoc tinh, noi dung cua file pdf
+            document.addAuthor("Whitie");
+            document.addCreationDate();
+            document.addCreator("RentalHousingManagement");
+            document.addTitle("Chi tiết hợp đồng");
+            document.addSubject("Chi tiết hợp đồng");
+
+            //Dinh nghia cac font su dung trong noi dung file report
+            //Dinh dang unicode tieng viet cac font tieu de
+            File filefontTieuDe = new File("assets/font/vuArialBold.ttf");
+            BaseFont bfTieuDe = BaseFont.createFont(filefontTieuDe.getAbsolutePath(), BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
+
+            //fontTieuDe1 in dam, size 16, mau blue
+            Font fontTieuDe1 = new Font(bfTieuDe, 16);
+            fontTieuDe1.setColor(BaseColor.BLUE);
+            //fontTieuDe2 in dam, size 13, mau blue
+            Font fontTieuDe2 = new Font(bfTieuDe, 13);
+            fontTieuDe1.setColor(BaseColor.BLUE);
+            //fontTieuDe3 in dam, size 13, mau den
+            Font fontTieuDe3 = new Font(bfTieuDe, 13);
+            //fontTieuDe4 in dam, size 12, mau den
+            Font fontTieuDe4 = new Font(bfTieuDe, 12);
+
+            //Dinh dang unicode tieng viet cac font noi dung
+            File filefontNoiDung = new File("assets/font/vuArial.ttf");
+            BaseFont bfNoiDung = BaseFont.createFont(filefontNoiDung.getAbsolutePath(), BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
+
+            //fontNoiDung1 in thuong, size 13, mau den
+            Font fontNoiDung1 = new Font(bfNoiDung, 13);
+            //fontNoiDung2 in thuong, size 12, mau den
+            Font fontNoiDung2 = new Font(bfNoiDung, 12);
+            //fontNoiDung3 in thuong, size 11, mau den
+            Font fontNoiDung3 = new Font(bfNoiDung, 11);
+
+            //Chen logo
+            Image logo = Image.getInstance("assets/appIcon.png");
+            //Set vi tri tu goc duoi cung ben trai
+            logo.setAbsolutePosition(50, 750);
+            //Set kich thuoc height va width cua anh
+            logo.scaleAbsolute(50, 50);
+            //add vao document
+            document.add(logo);
+
+            //Chen thong tin phong tro
+            //Chen ten phong tro
+            Paragraph prgTenNT = new Paragraph("NHÀ TRỌ ABC", fontTieuDe2);
+            prgTenNT.setIndentationLeft(80); //Set kc tu bien trai
+            document.add(prgTenNT);
+
+            //Chen dia chi phong tro
+            Paragraph prgDiaChiNT = new Paragraph("Khu phố xxx, phường xxxxxxxxx, Tp.xxxxxx", fontNoiDung2);
+            prgDiaChiNT.setIndentationLeft(80);
+            document.add(prgDiaChiNT);
+
+            //Chen sdt nha tro
+            Paragraph prgSoDTNT = new Paragraph("SDT: 090xxxxxxx", fontNoiDung2);
+            prgSoDTNT.setIndentationLeft(80);
+            document.add(prgSoDTNT);
+
+            //Chen Tieu De
+            Paragraph prgTieuDe = new Paragraph("HỢP ĐỒNG THUÊ NHÀ", fontTieuDe1);
+            prgTieuDe.setAlignment(Element.ALIGN_CENTER);
+            prgTieuDe.setSpacingBefore(10);
+            prgTieuDe.setSpacingAfter(10);
+            document.add(prgTieuDe);
+
+            //Xu ly noi dung thong tin nguoi dai dien
+            //Khai bao bien NgKham va TenBS de hien thi trong phan noi dung nay
 //                String ngKham = "";
-                String tenNDD = "";
-                
-                try
-                {
-                    ManageContractController controller = new ManageContractController();
-                    ResultSet rs = controller.getTenantName(txtRep.getText());
-                    
-                    if(rs.next())
-                    {
-                        //Chen thong tin khach thue
-                        List listTTKH = new List(List.UNORDERED);
-                                            
-                        //Ma hop dong
-                        listTTKH.add(new ListItem("Mã hợp đồng: "+txtContractID.getText().toUpperCase(), fontTieuDe3));
-                        
-                        //Ngay bat dau hop dong
-                        String[] arrayNgBD = startDate.getText().split("-");
-                        String ngay = arrayNgBD[2];
-                        String thang = arrayNgBD[1];
-                        String nam = arrayNgBD[0];
-                        listTTKH.add(new ListItem("Ngày bắt đầu hợp đồng: "+ ngay.substring(0,2) + "/" + thang + "/" + nam, fontTieuDe3));
-                        
-                        //Ngay ket thuc hop dong
-                        String[] arrayNgKT = endDate.getText().split("-");
-                        ngay = arrayNgKT[2];
-                        thang = arrayNgKT[1];
-                        nam = arrayNgKT[0];
-                        listTTKH.add(new ListItem("Ngày kết thúc hợp đồng: "+ngay.substring(0,2) + "/" + thang + "/" + nam, fontTieuDe3));
-                        //Ho ten nguoi dai dien
-                        listTTKH.add(new ListItem("Họ tên người đại diện: "+rs.getString("NAME").toUpperCase(), fontTieuDe3));
-                                  
-                        //Ma phong thue
-                        listTTKH.add(new ListItem("Mã phòng thuê: "+txtRoomID.getText().toUpperCase(), fontTieuDe3));
-                        
-                        //Gia thue
-                        listTTKH.add(new ListItem("Giá thuê: " + txtPrice.getText().toUpperCase(), fontTieuDe3));
-                        
-                        //Tien coc
-                        listTTKH.add(new ListItem("Số tiền đã cọc: " + txtDeposit.getText().toUpperCase(), fontTieuDe3));
-                        
-                        //Ma nguoi dai dien
-                        listTTKH.add(new ListItem("Mã người đại diện: "+txtRep.getText().toUpperCase(), fontNoiDung1));
-                                     
-                        //Que quan
-                        listTTKH.add(new ListItem("Quê quán: "+rs.getString("HOME_TOWN").toUpperCase(), fontNoiDung1));
-                        
-                        //Ngay sinh
-                        String[] arrayNgSinh = rs.getString("DOB").split("-");
-                        ngay = arrayNgSinh[2];
-                        thang = arrayNgSinh[1];
-                        nam = arrayNgSinh[0];
-                        listTTKH.add(new ListItem("Ngày sinh: "+ ngay.substring(0,2) + "/" + thang + "/" + nam, fontNoiDung1));
-                                           
-                        //So DT
-                        listTTKH.add(new ListItem("SĐT: " + rs.getString("PHONE_NUMBER"), fontNoiDung1));
-                        
-                        //So CCCD
-                        listTTKH.add(new ListItem("Số CCCD: " + rs.getString("ID_NUMBER"), fontNoiDung1));
-                       
-                        //add vao document
-                        document.add(listTTKH);
-                        
-                        tenNDD = rs.getString("NAME");
-                        
-                    }
+            String tenNDD = "";
+
+            try {
+                ManageContractController controller = new ManageContractController();
+                ResultSet rs = controller.getTenantName(txtRep.getText());
+
+                if (rs.next()) {
+                    //Chen thong tin khach thue
+                    List listTTKH = new List(List.UNORDERED);
+
+                    //Ma hop dong
+                    listTTKH.add(new ListItem("Mã hợp đồng: " + txtContractID.getText().toUpperCase(), fontTieuDe3));
+
+                    //Ngay bat dau hop dong
+                    String[] arrayNgBD = startDate.getText().split("-");
+                    String ngay = arrayNgBD[2];
+                    String thang = arrayNgBD[1];
+                    String nam = arrayNgBD[0];
+                    listTTKH.add(new ListItem("Ngày bắt đầu hợp đồng: " + ngay.substring(0, 2) + "/" + thang + "/" + nam, fontTieuDe3));
+
+                    //Ngay ket thuc hop dong
+                    String[] arrayNgKT = endDate.getText().split("-");
+                    ngay = arrayNgKT[2];
+                    thang = arrayNgKT[1];
+                    nam = arrayNgKT[0];
+                    listTTKH.add(new ListItem("Ngày kết thúc hợp đồng: " + ngay.substring(0, 2) + "/" + thang + "/" + nam, fontTieuDe3));
+                    //Ho ten nguoi dai dien
+                    listTTKH.add(new ListItem("Họ tên người đại diện: " + rs.getString("NAME").toUpperCase(), fontTieuDe3));
+
+                    //Ma phong thue
+                    listTTKH.add(new ListItem("Mã phòng thuê: " + txtRoomID.getText().toUpperCase(), fontTieuDe3));
+
+                    //Gia thue
+                    listTTKH.add(new ListItem("Giá thuê: " + txtPrice.getText().toUpperCase(), fontTieuDe3));
+
+                    //Tien coc
+                    listTTKH.add(new ListItem("Số tiền đã cọc: " + txtDeposit.getText().toUpperCase(), fontTieuDe3));
+
+                    //Ma nguoi dai dien
+                    listTTKH.add(new ListItem("Mã người đại diện: " + txtRep.getText().toUpperCase(), fontNoiDung1));
+
+                    //Que quan
+                    listTTKH.add(new ListItem("Quê quán: " + rs.getString("HOME_TOWN").toUpperCase(), fontNoiDung1));
+
+                    //Ngay sinh
+                    String[] arrayNgSinh = rs.getString("DOB").split("-");
+                    ngay = arrayNgSinh[2];
+                    thang = arrayNgSinh[1];
+                    nam = arrayNgSinh[0];
+                    listTTKH.add(new ListItem("Ngày sinh: " + ngay.substring(0, 2) + "/" + thang + "/" + nam, fontNoiDung1));
+
+                    //So DT
+                    listTTKH.add(new ListItem("SĐT: " + rs.getString("PHONE_NUMBER"), fontNoiDung1));
+
+                    //So CCCD
+                    listTTKH.add(new ListItem("Số CCCD: " + rs.getString("ID_NUMBER"), fontNoiDung1));
+
+                    //add vao document
+                    document.add(listTTKH);
+
+                    tenNDD = rs.getString("NAME");
+
                 }
-                catch(SQLException e)
-                {
-                    System.out.println(e);
-                    System.out.println("Error in ContractViewDetailDialog PrintButton");
-                }
-                    
-                //Chen ngay ky hop dong
-                PdfPTable tableTT = new PdfPTable(2);
-                tableTT.setWidthPercentage(90);
-                tableTT.setSpacingBefore(10);
-                tableTT.setSpacingAfter(10);
-                
-                //Set column width
-                float[] tableTTKT_columnWidths = {200,200};
-                tableTT.setWidths(tableTTKT_columnWidths);
-                
-                //chen noi dung
-                //chen dong 1  
-                PdfPCell cellGhiChu = new PdfPCell(new Paragraph("Ghi chú: ", fontNoiDung3));
-                cellGhiChu.setBorder(0);
-                cellGhiChu.setHorizontalAlignment(Element.ALIGN_LEFT);
-                cellGhiChu.setVerticalAlignment(Element.ALIGN_LEFT);
-                tableTT.addCell(cellGhiChu);
-                
-                String[] arrNgKy = startDate.getText().split("-");
-                String ngay = arrNgKy[2];
-                String thang = arrNgKy[1];
-                String nam = arrNgKy[0];
-                
-                PdfPCell cellNgKy = new PdfPCell(new Paragraph("Ngày "+ ngay.substring(0,2) +" tháng " + thang + " năm " + nam +".", fontNoiDung1));
-                cellNgKy.setBorder(0);
-                cellNgKy.setHorizontalAlignment(Element.ALIGN_CENTER);
-                cellNgKy.setVerticalAlignment(Element.ALIGN_MIDDLE);
-                tableTT.addCell(cellNgKy);
-                
-                //chen dong 2
-                PdfPCell cellCN = new PdfPCell(new Paragraph("Chủ nhà \n \n \n \n \n", fontTieuDe4));
-                cellCN.setBorder(0);
-                cellCN.setHorizontalAlignment(Element.ALIGN_CENTER);
-                cellCN.setVerticalAlignment(Element.ALIGN_MIDDLE);
-                tableTT.addCell(cellCN);
-                
-                PdfPCell cellNDD = new PdfPCell(new Paragraph("Người đại diện \n \n \n \n \n ", fontTieuDe4));
-                cellNDD.setBorder(0);
-                cellGhiChu.setRowspan(3);
-                cellNDD.setHorizontalAlignment(Element.ALIGN_CENTER);
-                cellNDD.setVerticalAlignment(Element.ALIGN_MIDDLE);
-                tableTT.addCell(cellNDD);
-                
-                //chen dong 3        
-                PdfPCell cellTenCN = new PdfPCell(new Paragraph("Họ và tên chủ nhà", fontTieuDe4));
-                cellTenCN.setBorder(0);
-                cellTenCN.setHorizontalAlignment(Element.ALIGN_CENTER);
-                cellTenCN.setVerticalAlignment(Element.ALIGN_MIDDLE);
-                tableTT.addCell(cellTenCN);
-                
-                PdfPCell cellTenNDD = new PdfPCell(new Paragraph(tenNDD, fontTieuDe4));
-                cellTenNDD.setBorder(0);
-                cellTenNDD.setHorizontalAlignment(Element.ALIGN_CENTER);
-                cellTenNDD.setVerticalAlignment(Element.ALIGN_MIDDLE);
-                tableTT.addCell(cellTenNDD);
+            } catch (SQLException e) {
+                System.out.println(e);
+                System.out.println("Error in ContractViewDetailDialog PrintButton");
+            }
+
+            //Chen ngay ky hop dong
+            PdfPTable tableTT = new PdfPTable(2);
+            tableTT.setWidthPercentage(90);
+            tableTT.setSpacingBefore(10);
+            tableTT.setSpacingAfter(10);
+
+            //Set column width
+            float[] tableTTKT_columnWidths = {200, 200};
+            tableTT.setWidths(tableTTKT_columnWidths);
+
+            //chen noi dung
+            //chen dong 1  
+            PdfPCell cellGhiChu = new PdfPCell(new Paragraph("Ghi chú: ", fontNoiDung3));
+            cellGhiChu.setBorder(0);
+            cellGhiChu.setHorizontalAlignment(Element.ALIGN_LEFT);
+            cellGhiChu.setVerticalAlignment(Element.ALIGN_LEFT);
+            tableTT.addCell(cellGhiChu);
+
+            String[] arrNgKy = startDate.getText().split("-");
+            String ngay = arrNgKy[2];
+            String thang = arrNgKy[1];
+            String nam = arrNgKy[0];
+
+            PdfPCell cellNgKy = new PdfPCell(new Paragraph("Ngày " + ngay.substring(0, 2) + " tháng " + thang + " năm " + nam + ".", fontNoiDung1));
+            cellNgKy.setBorder(0);
+            cellNgKy.setHorizontalAlignment(Element.ALIGN_CENTER);
+            cellNgKy.setVerticalAlignment(Element.ALIGN_MIDDLE);
+            tableTT.addCell(cellNgKy);
+
+            //chen dong 2
+            PdfPCell cellCN = new PdfPCell(new Paragraph("Chủ nhà \n \n \n \n \n", fontTieuDe4));
+            cellCN.setBorder(0);
+            cellCN.setHorizontalAlignment(Element.ALIGN_CENTER);
+            cellCN.setVerticalAlignment(Element.ALIGN_MIDDLE);
+            tableTT.addCell(cellCN);
+
+            PdfPCell cellNDD = new PdfPCell(new Paragraph("Người đại diện \n \n \n \n \n ", fontTieuDe4));
+            cellNDD.setBorder(0);
+            cellGhiChu.setRowspan(3);
+            cellNDD.setHorizontalAlignment(Element.ALIGN_CENTER);
+            cellNDD.setVerticalAlignment(Element.ALIGN_MIDDLE);
+            tableTT.addCell(cellNDD);
+
+            //chen dong 3        
+            PdfPCell cellTenCN = new PdfPCell(new Paragraph("Họ và tên chủ nhà", fontTieuDe4));
+            cellTenCN.setBorder(0);
+            cellTenCN.setHorizontalAlignment(Element.ALIGN_CENTER);
+            cellTenCN.setVerticalAlignment(Element.ALIGN_MIDDLE);
+            tableTT.addCell(cellTenCN);
+
+            PdfPCell cellTenNDD = new PdfPCell(new Paragraph(tenNDD, fontTieuDe4));
+            cellTenNDD.setBorder(0);
+            cellTenNDD.setHorizontalAlignment(Element.ALIGN_CENTER);
+            cellTenNDD.setVerticalAlignment(Element.ALIGN_MIDDLE);
+            tableTT.addCell(cellTenNDD);
 //                
 //                
-                
-                document.add(tableTT);
-                
-                //Dong document sau khi dinh dang
-                document.close();
-                //Dong writer sau khi ghi file pdf
-                writer.close();
+
+            document.add(tableTT);
+
+            //Dong document sau khi dinh dang
+            document.close();
+            //Dong writer sau khi ghi file pdf
+            writer.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        //Mo file pdf sau khi dinh dang va write
+        try {
+            File file = new File("reports/" + filename + ".pdf");
+            //Ktra desktop co duoc platform support khong
+            if (!Desktop.isDesktopSupported()) {
+                System.out.println("not supported");
+                return;
             }
-            catch(Exception e)
-            {
-                e.printStackTrace();
+
+            Desktop desktop = Desktop.getDesktop();
+            //Ktra file co ton tai khong
+            if (file.exists()) {
+                desktop.open(file);
             }
-            
-            //Mo file pdf sau khi dinh dang va write
-            try
-            {
-                File file = new File("reports/"+filename+".pdf");
-                //Ktra desktop co duoc platform support khong
-                if(!Desktop.isDesktopSupported())
-                {
-                    System.out.println("not supported");
-                    return;
-                }
-                
-                Desktop desktop = Desktop.getDesktop();
-                //Ktra file co ton tai khong
-                if(file.exists())
-                {
-                    desktop.open(file);
-                }
-            }
-            catch(Exception e)
-            {
-                e.printStackTrace();
-            }
-    }//GEN-LAST:event_buttonPrintActionPerformed
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
     /**
      * @param args the command line arguments
-     * @return 
+     * @return
      */
-    public javax.swing.JTextField getContractID()
-    {
+    public javax.swing.JTextField getContractID() {
         return txtContractID;
     }
-    public javax.swing.JTextField getTxtRoomID()
-    {
+
+    public javax.swing.JTextField getTxtRoomID() {
         return txtRoomID;
     }
-    public javax.swing.JTextField getTxtStatus()
-    {
+
+    public javax.swing.JTextField getTxtStatus() {
         return txtStatus;
     }
-    public javax.swing.JTextField getStartDate()
-    {
+
+    public javax.swing.JTextField getStartDate() {
         return startDate;
     }
-    public javax.swing.JTextField getEndDate()
-    {
+
+    public javax.swing.JTextField getEndDate() {
         return endDate;
     }
-    public javax.swing.JTextField getPrice()
-    {
+
+    public javax.swing.JTextField getPrice() {
         return txtPrice;
     }
-    public javax.swing.JTextField getRepID()
-    {
+
+    public javax.swing.JTextField getRepID() {
         return txtRep;
     }
-    public javax.swing.JTextField getDeposit()
-    {
+
+    public javax.swing.JTextField getDeposit() {
         return txtDeposit;
     }
-    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonBack;
     private javax.swing.JButton buttonPrint;
