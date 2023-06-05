@@ -6,7 +6,7 @@ import com.theuntidycat.rhm.view.main.MainView;
 
 import com.formdev.flatlaf.FlatLightLaf;
 import com.theuntidycat.rhm.controller.AppPropertiseController;
-import java.io.IOException;
+
 
 public class App {
 

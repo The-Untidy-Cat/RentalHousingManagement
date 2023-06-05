@@ -208,7 +208,7 @@ public class ManageInvoice extends javax.swing.JPanel {
     private void btThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btThemActionPerformed
         // TODO add your handling code here:
         InfInvoice inf = new InfInvoice();
-        //inf.insertNew();
+        
     }//GEN-LAST:event_btThemActionPerformed
 
     private void btXemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btXemActionPerformed
