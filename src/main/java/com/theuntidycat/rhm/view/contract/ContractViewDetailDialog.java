@@ -284,24 +284,24 @@ public class ContractViewDetailDialog extends javax.swing.JFrame {
                 //Set vi tri tu goc duoi cung ben trai
                 logo.setAbsolutePosition(80, 750);
                 //Set kich thuoc height va width cua anh
-                logo.scaleAbsolute(50,50);
+                logo.scaleAbsolute(150,50);
                 //add vao document
                 document.add(logo);
                 
                 //Chen thong tin phong tro
                 //Chen ten phong tro
                 Paragraph prgTenNT = new Paragraph("NHÀ TRỌ ABC", fontTieuDe2);
-                prgTenNT.setIndentationLeft(100); //Set kc tu bien trai
+                prgTenNT.setIndentationLeft(200); //Set kc tu bien trai
                 document.add(prgTenNT);
                 
                 //Chen dia chi phong tro
                 Paragraph prgDiaChiNT = new Paragraph("Khu phố xxx, phường xxxxxxxxx, Tp.xxxxxx", fontNoiDung2);
-                prgDiaChiNT.setIndentationLeft(100);
+                prgDiaChiNT.setIndentationLeft(200);
                 document.add(prgDiaChiNT);
                 
                 //Chen sdt nha tro
                 Paragraph prgSoDTNT = new Paragraph("SDT: 090xxxxxxx", fontNoiDung2);
-                prgSoDTNT.setIndentationLeft(100);
+                prgSoDTNT.setIndentationLeft(200);
                 document.add(prgSoDTNT);
                 
                 //Chen Tieu De
@@ -314,7 +314,7 @@ public class ContractViewDetailDialog extends javax.swing.JFrame {
                 //Xu ly noi dung thong tin nguoi dai dien
                 //Khai bao bien NgKham va TenBS de hien thi trong phan noi dung nay
 //                String ngKham = "";
-//                String tenBS = "";
+                String tenNDD = "";
                 
                 try
                 {
@@ -325,96 +325,126 @@ public class ContractViewDetailDialog extends javax.swing.JFrame {
                     {
                         //Chen thong tin khach thue
                         List listTTKH = new List(List.UNORDERED);
+                                            
+                        //Ma hop dong
+                        listTTKH.add(new ListItem("Mã hợp đồng: "+txtContractID.getText().toUpperCase(), fontTieuDe3));
                         
-                        //Ho ten khach thue
+                        //Ngay bat dau hop dong
+                        String[] arrayNgBD = startDate.getText().split("-");
+                        String ngay = arrayNgBD[2];
+                        String thang = arrayNgBD[1];
+                        String nam = arrayNgBD[0];
+                        listTTKH.add(new ListItem("Ngày bắt đầu hợp đồng: "+ ngay.substring(0,2) + "/" + thang + "/" + nam, fontTieuDe3));
+                        
+                        //Ngay ket thuc hop dong
+                        String[] arrayNgKT = endDate.getText().split("-");
+                        ngay = arrayNgKT[2];
+                        thang = arrayNgKT[1];
+                        nam = arrayNgKT[0];
+                        listTTKH.add(new ListItem("Ngày kết thúc hợp đồng: "+ngay.substring(0,2) + "/" + thang + "/" + nam, fontTieuDe3));
+                        //Ho ten nguoi dai dien
                         listTTKH.add(new ListItem("Họ tên người đại diện: "+rs.getString("NAME").toUpperCase(), fontTieuDe3));
+                                  
+                        //Ma phong thue
+                        listTTKH.add(new ListItem("Mã phòng thuê: "+txtRoomID.getText().toUpperCase(), fontTieuDe3));
                         
-                        //Ma khach thue
+                        //Gia thue
+                        listTTKH.add(new ListItem("Giá thuê: " + txtPrice.getText().toUpperCase(), fontTieuDe3));
+                        
+                        //Tien coc
+                        listTTKH.add(new ListItem("Số tiền đã cọc: " + txtDeposit.getText().toUpperCase(), fontTieuDe3));
+                        
+                        //Ma nguoi dai dien
                         listTTKH.add(new ListItem("Mã người đại diện: "+txtRep.getText().toUpperCase(), fontNoiDung1));
-                        
+                                     
                         //Que quan
-                        
+                        listTTKH.add(new ListItem("Quê quán: "+rs.getString("HOME_TOWN").toUpperCase(), fontNoiDung1));
                         
                         //Ngay sinh
-                        String[] arrayNgSinh = rs.getString("NgSinh").split("-");
-                        String ngay = arrayNgSinh[2];
-                        String thang = arrayNgSinh[1];
-                        String nam = arrayNgSinh[0];
-                        listTTKH.add(new ListItem("Ngay sinh: "+ ngay + "/" + thang + "/" + nam, fontNoiDung1));
-                        
-                        //Dia chi
-                        listTTKH.add(new ListItem("Dia chi: " + rs.getString("DChi"), fontNoiDung1));
-                        
+                        String[] arrayNgSinh = rs.getString("DOB").split("-");
+                        ngay = arrayNgSinh[2];
+                        thang = arrayNgSinh[1];
+                        nam = arrayNgSinh[0];
+                        listTTKH.add(new ListItem("Ngày sinh: "+ ngay.substring(0,2) + "/" + thang + "/" + nam, fontNoiDung1));
+                                           
                         //So DT
-                        listTTKH.add(new ListItem("SDT: " + rs.getString("DThoai"), fontNoiDung1));
+                        listTTKH.add(new ListItem("SĐT: " + rs.getString("PHONE_NUMBER"), fontNoiDung1));
                         
-                        //Yeu cau kham
-                        listTTKH.add(new ListItem("Yeu cau kham: " + rs.getString("YeuCauKham"), fontNoiDung1));
-                        
-                        //Ket luan
-                        listTTKH.add(new ListItem("Ket luan: " + rs.getString("KetLuan"), fontTieuDe3));
-                        
+                        //So CCCD
+                        listTTKH.add(new ListItem("Số CCCD: " + rs.getString("ID_NUMBER"), fontNoiDung1));
+                       
                         //add vao document
                         document.add(listTTKH);
                         
-                        //Gan gia tri cho NgKham va tenBS
-                        ngKham = rs.getString("NgayKham");
-                        tenBS = rs.getString("TenBS");
+                        tenNDD = rs.getString("NAME");
+                        
                     }
                 }
                 catch(SQLException e)
                 {
                     System.out.println(e);
-                    System.out.println("Error");
+                    System.out.println("Error in ContractViewDetailDialog PrintButton");
                 }
                     
-                //Chen ngay kham va thong tin bac si
-                PdfPTable tableTTBS = new PdfPTable(2);
-                tableTTBS.setWidthPercentage(90);
-                tableTTBS.setSpacingBefore(10);
-                tableTTBS.setSpacingAfter(10);
+                //Chen ngay ky hop dong
+                PdfPTable tableTT = new PdfPTable(2);
+                tableTT.setWidthPercentage(90);
+                tableTT.setSpacingBefore(10);
+                tableTT.setSpacingAfter(10);
                 
                 //Set column width
-                float[] tableTTBS_columnWidths = {300,200};
-                tableTTBS.setWidths(tableTTBS_columnWidths);
+                float[] tableTTKT_columnWidths = {200,200};
+                tableTT.setWidths(tableTTKT_columnWidths);
                 
                 //chen noi dung
-                //chen dong 1
-                PdfPCell cellGhiChu = new PdfPCell(new Paragraph("Ghi chu: ", fontNoiDung3));
+                //chen dong 1  
+                PdfPCell cellGhiChu = new PdfPCell(new Paragraph("Ghi chú: ", fontNoiDung3));
                 cellGhiChu.setBorder(0);
-                cellGhiChu.setRowspan(3);
                 cellGhiChu.setHorizontalAlignment(Element.ALIGN_LEFT);
-                cellGhiChu.setVerticalAlignment(Element.ALIGN_TOP);
-                tableTTBS.addCell(cellGhiChu);
+                cellGhiChu.setVerticalAlignment(Element.ALIGN_LEFT);
+                tableTT.addCell(cellGhiChu);
                 
+                String[] arrNgKy = startDate.getText().split("-");
+                String ngay = arrNgKy[2];
+                String thang = arrNgKy[1];
+                String nam = arrNgKy[0];
                 
-                String[] arrNgKham = ngKham.split("-");
-                String ngay = arrNgKham[2];
-                String thang = arrNgKham[1];
-                String nam = arrNgKham[0];
-                
-                Paragraph prgNgKham = new Paragraph("Ngay "+ ngay +" thang " + thang + " nam " + nam +".", fontNoiDung1);
-                PdfPCell cellNgKham = new PdfPCell(prgNgKham);
-                cellNgKham.setBorder(0);
-                cellNgKham.setHorizontalAlignment(Element.ALIGN_CENTER);
-                cellNgKham.setVerticalAlignment(Element.ALIGN_MIDDLE);
-                tableTTBS.addCell(cellNgKham);
+                PdfPCell cellNgKy = new PdfPCell(new Paragraph("Ngày "+ ngay.substring(0,2) +" tháng " + thang + " năm " + nam +".", fontNoiDung1));
+                cellNgKy.setBorder(0);
+                cellNgKy.setHorizontalAlignment(Element.ALIGN_CENTER);
+                cellNgKy.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                tableTT.addCell(cellNgKy);
                 
                 //chen dong 2
-                PdfPCell cellBS = new PdfPCell(new Paragraph("Bac si chan doan \n \n \n \n \n", fontTieuDe4));
-                cellBS.setBorder(0);
-                cellBS.setHorizontalAlignment(Element.ALIGN_CENTER);
-                cellBS.setVerticalAlignment(Element.ALIGN_MIDDLE);
-                tableTTBS.addCell(cellBS);
+                PdfPCell cellCN = new PdfPCell(new Paragraph("Chủ nhà \n \n \n \n \n", fontTieuDe4));
+                cellCN.setBorder(0);
+                cellCN.setHorizontalAlignment(Element.ALIGN_CENTER);
+                cellCN.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                tableTT.addCell(cellCN);
                 
-                //chen dong 3
-                PdfPCell cellTenBS = new PdfPCell(new Paragraph(tenBS, fontTieuDe4));
-                cellTenBS.setBorder(0);
-                cellTenBS.setHorizontalAlignment(Element.ALIGN_CENTER);
-                cellTenBS.setVerticalAlignment(Element.ALIGN_MIDDLE);
-                tableTTBS.addCell(cellTenBS);
+                PdfPCell cellNDD = new PdfPCell(new Paragraph("Người đại diện \n \n \n \n \n ", fontTieuDe4));
+                cellNDD.setBorder(0);
+                cellGhiChu.setRowspan(3);
+                cellNDD.setHorizontalAlignment(Element.ALIGN_CENTER);
+                cellNDD.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                tableTT.addCell(cellNDD);
                 
-                document.add(tableTTBS);
+                //chen dong 3        
+                PdfPCell cellTenCN = new PdfPCell(new Paragraph("Họ và tên chủ nhà", fontTieuDe4));
+                cellTenCN.setBorder(0);
+                cellTenCN.setHorizontalAlignment(Element.ALIGN_CENTER);
+                cellTenCN.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                tableTT.addCell(cellTenCN);
+                
+                PdfPCell cellTenNDD = new PdfPCell(new Paragraph(tenNDD, fontTieuDe4));
+                cellTenNDD.setBorder(0);
+                cellTenNDD.setHorizontalAlignment(Element.ALIGN_CENTER);
+                cellTenNDD.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                tableTT.addCell(cellTenNDD);
+//                
+//                
+                
+                document.add(tableTT);
                 
                 //Dong document sau khi dinh dang
                 document.close();

@@ -210,7 +210,7 @@ public class ManageContractController
         try
         {
             Statement stmt = con.createStatement();
-            rs = stmt.executeQuery("SELECT NAME, HOMETOWN FROM TENANT WHERE ID = '"+tenant_id+"'");
+            rs = stmt.executeQuery("SELECT NAME, HOME_TOWN, DOB, PHONE_NUMBER, ID_NUMBER FROM TENANT WHERE ID = '"+tenant_id+"'");
         }
         catch(SQLException e)
         {
