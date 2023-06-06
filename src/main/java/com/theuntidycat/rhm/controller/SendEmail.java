@@ -22,7 +22,7 @@ public class SendEmail {
     final String fromEmail = appConfig.getData("email");
     final String password = appConfig.getData("password");
     final String smtpHost = appConfig.getData("smtp_host");
-    final String smtpPort = appConfig.getData("port");
+    final String smtpPort = appConfig.getData("smtp_port");
     final String ssl = appConfig.getData("ssl");
     Properties props = new Properties();
 
@@ -32,7 +32,7 @@ public class SendEmail {
         props.put("mail.smtp.host", smtpHost);
         props.put("mail.smtp.port", smtpPort );
     }
-    public void notificationInvoice(String toEmail) {
+    public void notificationInvoice(String toEmail, String subject, String content) {
 
         Session session = Session.getInstance(props,
                 new javax.mail.Authenticator() {
@@ -53,12 +53,10 @@ public class SendEmail {
                     InternetAddress.parse(toEmail));
 
             // Set Subject: header field
-            message.setSubject("Testing Subject");
+            message.setSubject(subject);
 
             // Send the actual HTML message, as big as you like
-            message.setContent(
-                    "<h1>This is actual message embedded in HTML tags</h1>",
-                    "text/html");
+            message.setText(content);
 
             // Send message
             Transport.send(message);
