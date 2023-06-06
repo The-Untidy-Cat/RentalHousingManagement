@@ -294,7 +294,7 @@ public class ManageInvoice extends javax.swing.JPanel {
         String id = (String) tbInvoice.getValueAt(n, 0);
 
         if (status.equals("Da thanh toan")) {
-            JOptionPane.showMessageDialog(null, "Không thể sửa hóa đơn đã thanh toán", "Xác nhận", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Không thể sửa hóa đơn đã thanh toán", "Xác nhận", JOptionPane.INFORMATION_MESSAGE);
         } else if (tong > 0) {
             updateInfInvoice inf = new updateInfInvoice();
             inf.displayEditable(ph, ky[0], ky[1], id, status);

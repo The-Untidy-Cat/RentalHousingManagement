@@ -7,6 +7,7 @@ package com.theuntidycat.rhm.view.invoice;
 import com.theuntidycat.rhm.controller.ManageInvoiceController;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 /**
@@ -221,15 +222,17 @@ public class updateInfInvoice extends javax.swing.JFrame {
             S_id = "1";
         }
         
+        //JFrame fr = new JFrame();
+        //updateInfInvoice up = new updateInfInvoice();
         ManageInvoiceController controller = new ManageInvoiceController();
         boolean check = controller.updateInvoice(room, month, year, id, S_id);
         
         if(check){
-            JOptionPane.showMessageDialog(null, "Sửa thành công", "Xác nhận", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Sửa thành công", "Xác nhận", JOptionPane.INFORMATION_MESSAGE);
             setVisible(false);
         }
         else{
-            JOptionPane.showMessageDialog(null, "Vui lòng nhập lại", "Xác nhận", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập lại", "Xác nhận", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btThemActionPerformed
 
