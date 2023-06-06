@@ -56,7 +56,7 @@ public class ManageContractController
         try
         {
             Statement stmt = con.createStatement();
-            rs = stmt.executeQuery("SELECT ID FROM ROOM WHERE NAME = '"+room_name+"'");
+            rs = stmt.executeQuery("SELECT ID, RENTAL_PRICE FROM ROOM WHERE NAME = '"+room_name+"'");
         }
         catch(SQLException e)
         {

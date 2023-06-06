@@ -257,6 +257,7 @@ public class ContractInsertDialog extends javax.swing.JFrame {
             
             rs.next();
             txtRoomID.setText(rs.getString("ID"));
+            txtPrice.setText(rs.getString("RENTAL_PRICE"));
         }
         catch(SQLException e)
         {

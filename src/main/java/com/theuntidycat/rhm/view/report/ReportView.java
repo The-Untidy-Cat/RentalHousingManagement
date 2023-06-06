@@ -555,7 +555,7 @@ public class ReportView extends javax.swing.JPanel {
             ovRevenueChartPanel.updateUI();
 
             //init data
-            lbUsedRoomValue.setText(String.valueOf(rpCtrl.getRoom().getTotalRoomByStatus(1)) + "/" + String.valueOf(rpCtrl.getRoom().getTotalRoom()));
+            lbUsedRoomValue.setText(String.valueOf(rpCtrl.getRoom().getTotalRoomByStatus(2)) + "/" + String.valueOf(rpCtrl.getRoom().getTotalRoom()));
             lbWaitingTicketValue.setText(String.valueOf(rpCtrl.getTicket().getTotalTicketByStatus(0)));
             lbActiveTenantValue.setText(String.valueOf(rpCtrl.getTenant().getTotalTenantByStatus(1)));
             lbUnpaidInvoiceValue.setText(String.valueOf(rpCtrl.getInvoice().getTotalInvoiceByStatus(0)));
