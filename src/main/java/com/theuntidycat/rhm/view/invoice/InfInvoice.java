@@ -75,7 +75,7 @@ public class InfInvoice extends javax.swing.JFrame {
         jSeparator2.setPreferredSize(new java.awt.Dimension(5, 10));
         jPanel2.add(jSeparator2);
 
-        CbbRoom.setMaximumRowCount(0);
+        CbbRoom.setMaximumRowCount(10);
         CbbRoom.setMinimumSize(new java.awt.Dimension(80, 22));
         CbbRoom.setPreferredSize(new java.awt.Dimension(208, 22));
         CbbRoom.addActionListener(new java.awt.event.ActionListener() {
@@ -189,11 +189,11 @@ public class InfInvoice extends javax.swing.JFrame {
         boolean check = controller.insertInvoice(room, month, year);
         
         if(check){
-                JOptionPane.showMessageDialog(null, "Thêm thành công", "Xác nhận", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Thêm thành công", "Xác nhận", JOptionPane.INFORMATION_MESSAGE);
                 setVisible(false);
             }
             else{
-                JOptionPane.showMessageDialog(null, "Trùng hóa đơn. Vui lòng nhập lại", "Xác nhận", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Trùng hóa đơn. Vui lòng nhập lại", "Xác nhận", JOptionPane.ERROR_MESSAGE);
             }
     }//GEN-LAST:event_btThemActionPerformed
 

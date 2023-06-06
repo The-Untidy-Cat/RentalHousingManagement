@@ -252,7 +252,7 @@ public class DetailInvoice extends javax.swing.JFrame {
 
     private void btXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btXoaActionPerformed
         // TODO add your handling code here:
-        int r = JOptionPane.showConfirmDialog(null, "Chắc chắn xóa?", "Xác nhận", JOptionPane.YES_NO_OPTION);
+        int r = JOptionPane.showConfirmDialog(this, "Chắc chắn xóa?", "Xác nhận", JOptionPane.YES_NO_OPTION);
         if(r == JOptionPane.YES_OPTION){
             int n = tbDetail.getSelectedRow();
             String id = txtID.getText();
@@ -260,10 +260,10 @@ public class DetailInvoice extends javax.swing.JFrame {
             ManageInvoiceController controller = new ManageInvoiceController();
             boolean check = controller.deleteDetailInvoice(id,loai);
             if(check){
-                JOptionPane.showMessageDialog(null, "Xóa thành công", "Xác nhận", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Xóa thành công", "Xác nhận", JOptionPane.INFORMATION_MESSAGE);
             }
             else{
-                JOptionPane.showMessageDialog(null, "Không thể xóa hóa đơn tồn tại chi tiết hóa đơn", "Lỗi", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Không thể xóa hóa đơn tồn tại chi tiết hóa đơn", "Lỗi", JOptionPane.ERROR_MESSAGE);
             }
         }
     }//GEN-LAST:event_btXoaActionPerformed

@@ -153,11 +153,11 @@ public class InfDetail extends javax.swing.JFrame {
         boolean check = controller.InsertDetailInv(id, loai, sl, dg);
         
         if(check){
-                JOptionPane.showMessageDialog(null, "Thêm thành công", "Xác nhận", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Thêm thành công", "Xác nhận", JOptionPane.INFORMATION_MESSAGE);
                 setVisible(false);
             }
             else{
-                JOptionPane.showMessageDialog(null, "Trùng thông tin với chi tiết hóa đơn khác. Vui lòng nhập lại", "Xác nhận", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Trùng thông tin với chi tiết hóa đơn khác. Vui lòng nhập lại", "Xác nhận", JOptionPane.ERROR_MESSAGE);
             }
     }//GEN-LAST:event_btThemActionPerformed
 
