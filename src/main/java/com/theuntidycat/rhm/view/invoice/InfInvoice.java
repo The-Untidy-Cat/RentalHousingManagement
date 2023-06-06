@@ -189,12 +189,13 @@ public class InfInvoice extends javax.swing.JFrame {
         boolean check = controller.insertInvoice(room, month, year);
         
         if(check){
-                JOptionPane.showMessageDialog(this, "Thêm thành công", "Xác nhận", JOptionPane.INFORMATION_MESSAGE);
-                setVisible(false);
-            }
-            else{
-                JOptionPane.showMessageDialog(this, "Trùng hóa đơn. Vui lòng nhập lại", "Xác nhận", JOptionPane.ERROR_MESSAGE);
-            }
+            
+            JOptionPane.showMessageDialog(this, "Thêm thành công", "Xác nhận", JOptionPane.INFORMATION_MESSAGE);
+            setVisible(false);
+        }
+        else{
+            JOptionPane.showMessageDialog(this, "Trùng hóa đơn. Vui lòng nhập lại", "Xác nhận", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_btThemActionPerformed
 
     /**
