@@ -34,7 +34,7 @@ public class ManageTenantController {
     
     public boolean insertTenant(String ten, String que, String ntns, String sdt, String cmnd, String email){
         try{
-            String strSql = "INSERT INTO TENANT (name, Home_Town, dob, Phone_Number, ID_Number, Email) VALUES (?,?,?,?,?,?)";
+            String strSql = "INSERT INTO TENANT (name, Home_Town, dob, Phone_Number, ID_Number, Email) VALUES (?,?,TO_DATE(?,'DD/MM/YYYY'),?,?,?)";
             PreparedStatement ps = con.prepareStatement(strSql);
             ps.setString(1, ten);
             ps.setString(2, que);
