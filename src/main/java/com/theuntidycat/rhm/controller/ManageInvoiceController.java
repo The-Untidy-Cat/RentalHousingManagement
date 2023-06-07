@@ -8,17 +8,19 @@ import com.theuntidycat.rhm.database.Oracle;
 import javax.mail.Authenticator;
 
 import java.sql.*;
-import javax.mail.Message;
-import javax.mail.MessagingException;
-import javax.mail.Transport;
+
 
 import javax.mail.Session;
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
-import java.io.UnsupportedEncodingException;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.Transport;
+
 import java.util.Date;
 import java.util.Properties;
+
 /**
  *
  * @author TTMC
@@ -93,7 +95,7 @@ public class ManageInvoiceController {
         return rs;
     }
 
-    public boolean insertInvoice(String name, String mm, String yy) throws MessagingException, UnsupportedEncodingException {
+    public boolean insertInvoice(String name, String mm, String yy)  {
         String id = getRoomID(name);
         try {
             String SQLins = "INSERT INTO INVOICE(ROOM_ID, MONTH, YEAR) VALUES (?,?,?)";
@@ -102,23 +104,23 @@ public class ManageInvoiceController {
             pIns.setString(2, mm);
             pIns.setString(3, yy);
             int n = pIns.executeUpdate();
-            String sql="SELECT tenant.email FROM invoice JOIN contract ON invoice.room_id = contract.room_id JOIN DETAIL_contract ON contract.id DETAIL_CONTRACT.contract_id JOIN tenant ON tenant.id = contract.tenant_id WHERE invoice.year = ? and invoice.month = ? and invoice.month between extract(MONTH FROM contract.start_date) and EXTRACT(MONTH FROM contract.end_date) and invoice.YEAR BETWEEN extract(YEAR FROM contract.start_date) and EXTRACT(YEAR FROM contract.end_date) AND INVOICE.ROOM_ID = ?";
+            String sql="SELECT tenant.email FROM invoice JOIN contract ON invoice.room_id = contract.room_id JOIN DETAIL_contract ON contract.id = DETAIL_CONTRACT.contract_id JOIN tenant ON tenant.id = contract.tenant_id WHERE INVOICE.ROOM_ID = ? and (invoice.year = ? and invoice.month = ?) and invoice.month between extract(MONTH FROM contract.start_date) and EXTRACT(MONTH FROM contract.end_date) and invoice.YEAR BETWEEN extract(YEAR FROM contract.start_date) and EXTRACT(YEAR FROM contract.end_date)";
             pIns = conn.prepareStatement(sql);
-            pIns.setString(1, yy);
-            pIns.setString(2, mm);
-            pIns.setString(3, id);
-            ResultSet rs = pIns.executeQuery();
-            while(rs.next()){
-                this.sendMail(rs.getString(1));
-            }
+            pIns.setString(1, id);
+            pIns.setString(2, yy);
+            pIns.setString(3, mm);
             
+            ResultSet rs = pIns.executeQuery();
+            SendEmail sendEmail = new SendEmail();
+            while(rs.next()){
+                System.out.println(rs.getString(1));
+                sendEmail.notificationInvoice(rs.getString(1), "Thông báo hoá đơn kỳ tháng "+ mm + "/"+yy, "Đã có thông tin hoá đơn tháng "+ mm + "/"+yy + ". Quý khách vui lòng mở app để xem chi tiết. Xin cảm ơn!");
+            }
             return true;
         } catch (SQLException e) {
             System.out.println("Error at InvoiceController/insertInvoice\nError is: " + e);
             return false;
-        }
-        
-        
+        }   
     }
 
     public boolean deleteInvoice(String id) {
@@ -279,47 +281,4 @@ public class ManageInvoiceController {
             return false;
         }
     }
-
-    public void sendMail(String toEmail) throws MessagingException, UnsupportedEncodingException {
-        //final String fromEmail = "123issuejavamail@gmail.com";
-        // Mat khai email cua ban
-        //final String password = "Test123#";
-        // dia chi email nguoi nhan
-        /*final String toEmail = "devjoyvn@gmail.com";
-        final String subject = "Java Example Test";
-        final String body = "Hello Admin";*/
-        
-        
-        AppPropertiseController props = new AppPropertiseController();
-        final String from_Email = props.getData("email");
-        final String Password = props.getData("password");
-        final String smtp_host = props.getData("smtp_host");
-        final String port = props.getData("port");
-        final String ssl = props.getData("ssl");
-        //enable STARTTLS
-        Authenticator auth = new Authenticator() {
-            public PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication(from_Email, Password);
-            }
-        };
-        Properties props1 = new Properties();
-        props1.put("mail.smtp.host", smtp_host); //SMTP Host
-        props1.put("mail.smtp.port", port); //TLS Port
-        props1.put("mail.smtp.auth", "true"); //enable authentication
-        props1.put("mail.smtp.starttls.enable", ssl);
-        Session session = Session.getInstance(props1, auth);
-        MimeMessage msg = new MimeMessage(session);
-        //set message headers
-        msg.addHeader("Content-type", "text/HTML; charset=UTF-8");
-        msg.addHeader("format", "flowed");
-        msg.addHeader("Content-Transfer-Encoding", "8bit");
-        msg.setFrom(new InternetAddress(from_Email, "NoReply-JD"));
-        msg.setReplyTo(InternetAddress.parse(from_Email, false));
-        msg.setSubject("THÔNG BÁO HÓA ĐƠN TRỌ", "UTF-8");
-        msg.setText("Đã có hóa đơn tháng này. Vui lòng vào app để xem chi tiết", "UTF-8");
-        msg.setSentDate(new Date());
-        msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse(toEmail, false));
-        Transport.send(msg);
-        System.out.println("Gui mail thanh cong");
-    }
-}
+  }
