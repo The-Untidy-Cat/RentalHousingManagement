@@ -132,7 +132,7 @@ public class UpdateRoom extends javax.swing.JFrame {
         });
         jPanel2.add(txtDientich);
 
-        txtTrangthai.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Con trong", "Da duoc thue", "Dang sua chua" }));
+        txtTrangthai.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Con trong", "Full", "Dang sua chua" }));
         jPanel2.add(txtTrangthai);
 
         jPanel3.add(jPanel2);
