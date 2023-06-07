@@ -42,9 +42,9 @@ public class InsertRoom extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         txtTen = new javax.swing.JTextField();
         txtLoai = new javax.swing.JComboBox<>();
-        txtSucchua = new javax.swing.JTextField();
-        txtGia = new javax.swing.JTextField();
-        txtDientich = new javax.swing.JTextField();
+        txtSucchua = new javax.swing.JFormattedTextField();
+        txtGia = new javax.swing.JFormattedTextField();
+        txtDientich = new javax.swing.JFormattedTextField();
         jPanel3 = new javax.swing.JPanel();
         BtnCancel = new javax.swing.JButton();
         BtnThem = new javax.swing.JButton();
@@ -93,14 +93,23 @@ public class InsertRoom extends javax.swing.JFrame {
         txtLoai.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Co may lanh", "Khong may lanh" }));
         jPanel1.add(txtLoai);
 
+        txtSucchua.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(java.text.NumberFormat.getIntegerInstance())));
         txtSucchua.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtSucchuaActionPerformed(evt);
             }
         });
         jPanel1.add(txtSucchua);
+
+        txtGia.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("###0"))));
+        txtGia.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtGiaActionPerformed(evt);
+            }
+        });
         jPanel1.add(txtGia);
 
+        txtDientich.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(java.text.NumberFormat.getIntegerInstance())));
         txtDientich.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtDientichActionPerformed(evt);
@@ -144,7 +153,8 @@ public class InsertRoom extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -154,14 +164,6 @@ public class InsertRoom extends javax.swing.JFrame {
     private void txtTenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTenActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtTenActionPerformed
-
-    private void txtSucchuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSucchuaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtSucchuaActionPerformed
-
-    private void txtDientichActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDientichActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtDientichActionPerformed
 
     private void BtnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnCancelActionPerformed
         // TODO add your handling code here:
@@ -184,10 +186,22 @@ public class InsertRoom extends javax.swing.JFrame {
             setVisible(false);
         }
         else{
-            JOptionPane.showMessageDialog(this, "Trùng thông tin. Vui lòng nhập lại", "Thông báo", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Lỗi. Vui lòng nhập lại", "Thông báo", JOptionPane.ERROR_MESSAGE);
         }
 
     }//GEN-LAST:event_BtnThemActionPerformed
+
+    private void txtGiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtGiaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtGiaActionPerformed
+
+    private void txtDientichActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDientichActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtDientichActionPerformed
+
+    private void txtSucchuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSucchuaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtSucchuaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -236,10 +250,10 @@ public class InsertRoom extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JTextField txtDientich;
-    private javax.swing.JTextField txtGia;
+    private javax.swing.JFormattedTextField txtDientich;
+    private javax.swing.JFormattedTextField txtGia;
     private javax.swing.JComboBox<String> txtLoai;
-    private javax.swing.JTextField txtSucchua;
+    private javax.swing.JFormattedTextField txtSucchua;
     private javax.swing.JTextField txtTen;
     // End of variables declaration//GEN-END:variables
 }

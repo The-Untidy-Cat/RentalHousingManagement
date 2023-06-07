@@ -5,6 +5,10 @@
 package com.theuntidycat.rhm.view.tenant;
 
 import com.theuntidycat.rhm.controller.ManageTenantController;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 /**
@@ -45,7 +49,7 @@ public class InsertTenant extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         txtTen = new javax.swing.JTextField();
         txtQue = new javax.swing.JTextField();
-        txtDob = new javax.swing.JTextField();
+        txtDob = new com.toedter.calendar.JDateChooser();
         txtSdt = new javax.swing.JTextField();
         txtCmnd = new javax.swing.JTextField();
         txtEmail1 = new javax.swing.JTextField();
@@ -121,12 +125,6 @@ public class InsertTenant extends javax.swing.JFrame {
             }
         });
         jPanel2.add(txtQue);
-
-        txtDob.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtDobActionPerformed(evt);
-            }
-        });
         jPanel2.add(txtDob);
         jPanel2.add(txtSdt);
 
@@ -176,10 +174,6 @@ public class InsertTenant extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtQueActionPerformed
 
-    private void txtDobActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDobActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtDobActionPerformed
-
     private void txtCmndActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCmndActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtCmndActionPerformed
@@ -192,17 +186,22 @@ public class InsertTenant extends javax.swing.JFrame {
         // TODO add your handling code here:
         String ten = txtTen.getText();
         String que = txtQue.getText();
-        String ntns = txtDob.getText();
+        
+        //get date
+        DateFormat df = new SimpleDateFormat("dd/MMM/yyyy");
+        String ntns = df.format(txtDob.getDate());
+        
         String email = txtEmail1.getText();
         String cmnd = txtCmnd.getText();
         String sdt = txtSdt.getText();
+
         boolean check = ctrl.insertTenant(ten, que, ntns, sdt, cmnd, email);
         if(check){
             JOptionPane.showMessageDialog(this, "Thêm thành công", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
             setVisible(false);
         }
         else{
-            JOptionPane.showMessageDialog(this, "Trùng thông tin. Vui lòng nhập lại", "Thông báo", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Lỗi. Vui lòng nhập lại", "Thông báo", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_BtnThemActionPerformed
 
@@ -257,7 +256,7 @@ public class InsertTenant extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JTextField txtCmnd;
-    private javax.swing.JTextField txtDob;
+    private com.toedter.calendar.JDateChooser txtDob;
     private javax.swing.JTextField txtEmail1;
     private javax.swing.JTextField txtQue;
     private javax.swing.JTextField txtSdt;
