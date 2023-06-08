@@ -148,9 +148,6 @@
         <Component class="javax.swing.JButton" name="buttonPrint">
           <Properties>
             <Property name="text" type="java.lang.String" value="In h&#x1ee3;p &#x111;&#x1ed3;ng"/>
-            <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-              <Dimension value="null"/>
-            </Property>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonPrintActionPerformed"/>

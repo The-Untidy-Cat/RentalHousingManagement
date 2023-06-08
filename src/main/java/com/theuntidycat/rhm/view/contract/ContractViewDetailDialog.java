@@ -244,8 +244,6 @@ public class ContractViewDetailDialog extends javax.swing.JFrame {
 
     private void buttonBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonBackActionPerformed
         // TODO add your handling code here:
-        int ret = JOptionPane.showConfirmDialog(this, "Bạn có muốn quay lại?", "Thông báo", JOptionPane.YES_NO_OPTION);
-        if (ret == JOptionPane.YES_OPTION)
             setVisible(false);
     }//GEN-LAST:event_buttonBackActionPerformed
 

@@ -20,6 +20,8 @@ public class ContractUpdateDialog extends javax.swing.JFrame {
     /**
      * Creates new form ContractUpdateDialog
      */
+    public String statusRoom;
+    public String statusContract;
     public ContractUpdateDialog() {
         initComponents();
         setVisible(true);
@@ -30,11 +32,22 @@ public class ContractUpdateDialog extends javax.swing.JFrame {
         txtRepCCCD.setEditable(false);
         txtTenantID.setEditable(false);
     }
+
+    public void checkStatus()
+    {
+        if(!statusRoom.equals("Con trong") || !statusContract.equals("Hieu luc"))
+        {
+            JOptionPane.showMessageDialog(this, "Không thể thêm người ở cùng vì trạng thái hợp đồng hoặc phòng không hợp lệ", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+            setVisible(false);
+        }
+    }
+    
     
     public void loadRepName()
     {
         try
         {
+            checkStatus();
             ManageContractController controller = new ManageContractController();
             ResultSet rs = controller.getRepCCCD(txtRepID.getText());
             rs.next();
@@ -235,21 +248,6 @@ public class ContractUpdateDialog extends javax.swing.JFrame {
                 
     }//GEN-LAST:event_buttonAddActionPerformed
     
-    public void temp()
-    {
-        ManageContractController controller = new ManageContractController();
-        try
-        {
-            ResultSet rs = controller.getTenantID(txtTenantCCCD.getText());
-            rs.next();
-            txtTenantID.setText(rs.getString("ID"));
-        }
-        catch(SQLException e)
-        {
-            JOptionPane.showMessageDialog(this, "Không tìm thấy thông tin CCCD", "Notification", JOptionPane.INFORMATION_MESSAGE);
-            System.out.println("Error in ContractUpdateDialog txtTenantCCCD");
-        }
-    }
     private void newTenantButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newTenantButtonActionPerformed
         InsertTenant insert = new InsertTenant();
         insert.setVisible(true);

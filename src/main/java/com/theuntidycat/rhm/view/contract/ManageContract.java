@@ -25,12 +25,12 @@ public class ManageContract extends javax.swing.JPanel {
     public void createTable()
     {
         tblModelTT = new DefaultTableModel();
-        String title[] = {"Mã HĐ", "Ngày BĐ", "Ngày KT", "Giá thuê", "Đặt cọc","Mã khách", "Mã phòng","Trạng thái"};
+        String title[] = {"Mã HĐ", "Ngày BĐ", "Ngày KT", "Giá thuê", "Đặt cọc","Mã khách", "Mã phòng","TT phòng","TT HĐ"};
         tblModelTT.setColumnIdentifiers(title);
         try
         {
             ManageContractController controller = new ManageContractController();
-            String row[] = new String[8];
+            String row[] = new String[9];
             ResultSet rs = controller.getContractTable();
             while(rs.next())
             {
@@ -42,6 +42,8 @@ public class ManageContract extends javax.swing.JPanel {
                 row[5] = rs.getString(6);
                 row[6] = rs.getString(7);
                 row[7] = rs.getString(8);
+                row[8] = rs.getString(9);
+
                 tblModelTT.addRow(row);
             }
         }
@@ -73,6 +75,7 @@ public class ManageContract extends javax.swing.JPanel {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         txtSearch = new javax.swing.JTextField();
+        buttonRefresh = new javax.swing.JButton();
 
         setLayout(new java.awt.BorderLayout());
 
@@ -134,6 +137,14 @@ public class ManageContract extends javax.swing.JPanel {
         });
         jPanel1.add(txtSearch);
 
+        buttonRefresh.setText("Làm mới");
+        buttonRefresh.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonRefreshActionPerformed(evt);
+            }
+        });
+        jPanel1.add(buttonRefresh);
+
         add(jPanel1, java.awt.BorderLayout.NORTH);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -171,6 +182,8 @@ public class ManageContract extends javax.swing.JPanel {
             update.getContractID().setText(tblModelTT.getValueAt(indexTB, 0).toString());
             update.getTxtRoomID().setText(tblModelTT.getValueAt(indexTB, 6).toString());
             update.getRepID().setText(tblModelTT.getValueAt(indexTB, 5).toString());
+            update.statusRoom = tblModelTT.getValueAt(indexTB, 7).toString();
+            update.statusContract = tblModelTT.getValueAt(indexTB, 8).toString();
             update.loadRepName();
             update.loadRoomName();
         }
@@ -180,40 +193,46 @@ public class ManageContract extends javax.swing.JPanel {
         // TODO add your handling code here:
         if(!"".equals(txtSearch.getText()))
         {
-            try
-        {
-            ManageContractController controller = new ManageContractController();
-            ResultSet rs = controller.loadNewDataContractTable(txtSearch.getText());
-            tblModelTT = new DefaultTableModel();
-            String title[] = {"Mã HĐ", "Ngày BĐ", "Ngày KT", "Giá thuê", "Đặt cọc","Mã khách", "Mã phòng","Trạng thái"};
-            String row[] = new String[8];
-            tblModelTT.setColumnIdentifiers(title);
-         
-            while(rs.next())
-            {
-                row[0] = rs.getString(1);
-                row[1] = rs.getString(2);
-                row[2] = rs.getString(3);
-                row[3] = rs.getString(4);
-                row[4] = rs.getString(5);
-                row[5] = rs.getString(6);
-                row[6] = rs.getString(7);
-                row[7] = rs.getString(8);
-                tblModelTT.addRow(row);
-            }
-        }
-        catch(SQLException e)
-        {
-            System.out.println(e);
-            System.out.println("Error in ManageContract SearchAction");
-        }
-        tbContract.setModel(tblModelTT);
+                try
+                {
+                    ManageContractController controller = new ManageContractController();
+                    ResultSet rs = controller.loadNewDataContractTable(txtSearch.getText());
+                    tblModelTT = new DefaultTableModel();
+                    String title[] = {"Mã HĐ", "Ngày BĐ", "Ngày KT", "Giá thuê", "Đặt cọc","Mã khách", "Mã phòng","TT phòng","TT HĐ"};
+                    String row[] = new String[9];
+                    tblModelTT.setColumnIdentifiers(title);
+
+                    while(rs.next())
+                    {
+                        row[0] = rs.getString(1);
+                        row[1] = rs.getString(2);
+                        row[2] = rs.getString(3);
+                        row[3] = rs.getString(4);
+                        row[4] = rs.getString(5);
+                        row[5] = rs.getString(6);
+                        row[6] = rs.getString(7);
+                        row[7] = rs.getString(8);
+                        row[8] = rs.getString(9);
+                        tblModelTT.addRow(row);
+                    }
+                }
+                catch(SQLException e)
+                {
+                    System.out.println(e);
+                    System.out.println("Error in ManageContract SearchAction");
+                }
+                    tbContract.setModel(tblModelTT);
         }
         else
         {
             createTable();
         }
     }//GEN-LAST:event_txtSearchActionPerformed
+
+    private void buttonRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonRefreshActionPerformed
+        // TODO add your handling code here:
+        createTable();
+    }//GEN-LAST:event_buttonRefreshActionPerformed
 
     public javax.swing.JTable getTBContract()
     {
@@ -222,6 +241,7 @@ public class ManageContract extends javax.swing.JPanel {
             
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel ContractButton;
+    private javax.swing.JButton buttonRefresh;
     private javax.swing.JButton insertNewContract;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
