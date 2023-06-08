@@ -242,10 +242,7 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtQueActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JTextField" name="txtDob">
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtDobActionPerformed"/>
-              </Events>
+            <Component class="com.toedter.calendar.JDateChooser" name="txtDob">
             </Component>
             <Component class="javax.swing.JTextField" name="txtSdt">
             </Component>

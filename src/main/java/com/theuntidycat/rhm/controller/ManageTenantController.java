@@ -10,6 +10,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  *
@@ -34,16 +36,26 @@ public class ManageTenantController {
     
     public boolean insertTenant(String ten, String que, String ntns, String sdt, String cmnd, String email){
         try{
-            String strSql = "INSERT INTO TENANT (name, Home_Town, dob, Phone_Number, ID_Number, Email) VALUES (?,?,TO_DATE(?,'DD/MM/YYYY'),?,?,?)";
-            PreparedStatement ps = con.prepareStatement(strSql);
-            ps.setString(1, ten);
-            ps.setString(2, que);
-            ps.setString(3, ntns);
-            ps.setString(4, sdt);
-            ps.setString(5, cmnd);
-            ps.setString(6, email);
-            ps.executeUpdate();   
-            return true;
+            //validate email format
+            String regex = "^[\\w!#$%&'*+/=?`{|}~^-]+(?:\\.[\\w!#$%&'*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$";  
+            Pattern pattern = Pattern.compile(regex);  
+            Matcher matcher = pattern.matcher(email);  
+            
+            if(!matcher.matches() || !sdt.matches("[0-9]*$") || !cmnd.matches("[0-9]*$"))
+                return false;
+            else{
+            //System.out.println(matcher.matches());
+                String strSql = "INSERT INTO TENANT (name, Home_Town, dob, Phone_Number, ID_Number, Email) VALUES (?,?,TO_DATE(?,'DD/MM/YYYY'),?,?,?)";
+                PreparedStatement ps = con.prepareStatement(strSql);
+                ps.setString(1, ten);
+                ps.setString(2, que);
+                ps.setString(3, ntns);
+                ps.setString(4, sdt);
+                ps.setString(5, cmnd);
+                ps.setString(6, email);
+                ps.executeUpdate();   
+                return true;
+            }
         } catch(SQLException e){
             System.out.println(e);
             return false;
@@ -51,19 +63,29 @@ public class ManageTenantController {
     }
     public boolean updateTenant(String sdt, String email, String status, String id){
         try{
-            String strSql = "UPDATE TENANT SET Phone_Number = ?, email = ?, status_id = ? WHERE id = ?";
-            PreparedStatement pre = con.prepareStatement(strSql);
-            pre.setString(1, sdt);
-            pre.setString(2, email);
-            pre.setInt(3, getStatusID(status));
-            pre.setString(4, id);
-            pre.executeUpdate();   
-            return true;
-        } catch(SQLException e){
-            System.out.println(e);
-            return false;
+            String regex = "^[\\w!#$%&'*+/=?`{|}~^-]+(?:\\.[\\w!#$%&'*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$";  
+            Pattern pattern = Pattern.compile(regex);  
+            Matcher matcher = pattern.matcher(email);  
+            
+            if(!matcher.matches() || !sdt.matches("[0-9]*$"))
+                return false;
+            else{
+                String strSql = "UPDATE TENANT SET Phone_Number = ?, email = ?, status_id = ? WHERE id = ?";
+                PreparedStatement pre = con.prepareStatement(strSql);
+                pre.setString(1, sdt);
+                pre.setString(2, email);
+                pre.setInt(3, getStatusID(status));
+                pre.setString(4, id);
+                pre.executeUpdate();   
+                return true;
+            } 
         }  
-    }
+        catch(SQLException e){
+                System.out.println(e);
+                return false;
+            }  
+        }
+    
     public boolean deleteTenant(String id){
         try{
             String strSQL = "DELETE FROM TENANT WHERE id = ?";
