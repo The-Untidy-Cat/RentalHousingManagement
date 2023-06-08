@@ -234,6 +234,26 @@ public class ContractUpdateDialog extends javax.swing.JFrame {
         }
                 
     }//GEN-LAST:event_buttonAddActionPerformed
+    
+    public void temp()
+    {
+        ManageContractController controller = new ManageContractController();
+        try
+        {
+            ResultSet rs = controller.getTenantID(txtTenantCCCD.getText());
+            rs.next();
+            txtTenantID.setText(rs.getString("ID"));
+        }
+        catch(SQLException e)
+        {
+            JOptionPane.showMessageDialog(this, "Không tìm thấy thông tin CCCD", "Notification", JOptionPane.INFORMATION_MESSAGE);
+            System.out.println("Error in ContractUpdateDialog txtTenantCCCD");
+        }
+    }
+    private void newTenantButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newTenantButtonActionPerformed
+        InsertTenant insert = new InsertTenant();
+        insert.setVisible(true);
+    }//GEN-LAST:event_newTenantButtonActionPerformed
 
     private void txtTenantCCCDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTenantCCCDActionPerformed
         // TODO add your handling code here:
@@ -246,16 +266,11 @@ public class ContractUpdateDialog extends javax.swing.JFrame {
         }
         catch(SQLException e)
         {
-            System.out.println(e);
+            JOptionPane.showMessageDialog(this, "Không tìm thấy thông tin CCCD", "Notification", JOptionPane.INFORMATION_MESSAGE);
             System.out.println("Error in ContractUpdateDialog txtTenantCCCD");
         }
     }//GEN-LAST:event_txtTenantCCCDActionPerformed
-
-    private void newTenantButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newTenantButtonActionPerformed
-        InsertTenant insert = new InsertTenant();
-        insert.setVisible(true);
-    }//GEN-LAST:event_newTenantButtonActionPerformed
-
+    
     /**
      * @param args the command line arguments
      * @return 

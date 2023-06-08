@@ -8,6 +8,7 @@ import com.theuntidycat.rhm.database.Oracle;
 import com.theuntidycat.rhm.model.*;
 import java.sql.*;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 /**
  *
  * @author minhngoc
@@ -151,6 +152,7 @@ public class ManageContractController
         {
             System.out.println(e);
             System.out.println("Error in ContractController updateContract");
+            JOptionPane.showMessageDialog(null, "Không tìm thấy thông tin CCCD", "Notification", JOptionPane.INFORMATION_MESSAGE);
             return false;
         }
     }
