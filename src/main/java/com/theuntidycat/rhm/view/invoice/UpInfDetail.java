@@ -38,8 +38,8 @@ public class UpInfDetail extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
-        txtloai = new javax.swing.JTextField();
         txtID = new javax.swing.JTextField();
+        txtType = new javax.swing.JTextField();
         txtSL = new javax.swing.JTextField();
         txtDG = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
@@ -53,24 +53,30 @@ public class UpInfDetail extends javax.swing.JFrame {
         jPanel4.setPreferredSize(new java.awt.Dimension(80, 120));
         jPanel4.setLayout(new java.awt.GridLayout(4, 1, 0, 10));
 
-        jLabel1.setText("Loại hóa đơn");
+        jLabel1.setText("Mã hóa đơn");
         jPanel4.add(jLabel1);
 
-        jLabel2.setText("Số lượng");
+        jLabel2.setText("Loại hóa đơn");
         jPanel4.add(jLabel2);
 
-        jLabel3.setText("Đơn giá");
+        jLabel3.setText("Số lượng");
         jPanel4.add(jLabel3);
 
-        jLabel5.setText("Mã hóa đơn");
+        jLabel5.setText("Đơn giá");
         jPanel4.add(jLabel5);
 
         jPanel1.add(jPanel4);
 
         jPanel3.setPreferredSize(new java.awt.Dimension(150, 120));
         jPanel3.setLayout(new java.awt.GridLayout(4, 1, 0, 10));
-        jPanel3.add(txtloai);
         jPanel3.add(txtID);
+        jPanel3.add(txtType);
+
+        txtSL.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtSLActionPerformed(evt);
+            }
+        });
         jPanel3.add(txtSL);
 
         txtDG.addActionListener(new java.awt.event.ActionListener() {
@@ -125,9 +131,9 @@ public class UpInfDetail extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
     public void displayExisted(String id, String type, String sl, String dg){
         txtID.setText(id);
+        txtType.setEditable(false);
+        txtType.setText(type);
         txtID.setEditable(false);
-        txtloai.setText(type);
-        txtloai.setEditable(false);
         txtSL.setText(sl);
         txtDG.setText(dg);
         
@@ -135,12 +141,19 @@ public class UpInfDetail extends javax.swing.JFrame {
     }
     private void txtDGActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDGActionPerformed
         // TODO add your handling code here:
+        String t = txtDG.getText();
+             try{
+                 double n = Double.parseDouble(t);
+             } catch(NumberFormatException ex){
+                txtDG.setText("");
+                JOptionPane.showMessageDialog(this, "Chỉ nhập số");
+             }
     }//GEN-LAST:event_txtDGActionPerformed
 
     private void btThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btThemActionPerformed
         // TODO add your handling code here:
         String id = txtID.getText();
-        String loai = txtloai.getText();
+        String loai = txtType.getText();
        String sl = txtSL.getText();
         String dg = txtDG.getText();
 
@@ -161,6 +174,17 @@ public class UpInfDetail extends javax.swing.JFrame {
         setVisible(false);
     }//GEN-LAST:event_btQuayActionPerformed
 
+    private void txtSLActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSLActionPerformed
+        // TODO add your handling code here:
+        String t = txtSL.getText();
+             try{
+                 double n = Double.parseDouble(t);
+             } catch(NumberFormatException ex){
+                txtSL.setText("");
+                JOptionPane.showMessageDialog(this, "Chỉ nhập số");
+             }
+    }//GEN-LAST:event_txtSLActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -179,6 +203,6 @@ public class UpInfDetail extends javax.swing.JFrame {
     private javax.swing.JTextField txtDG;
     private javax.swing.JTextField txtID;
     private javax.swing.JTextField txtSL;
-    private javax.swing.JTextField txtloai;
+    private javax.swing.JTextField txtType;
     // End of variables declaration//GEN-END:variables
 }

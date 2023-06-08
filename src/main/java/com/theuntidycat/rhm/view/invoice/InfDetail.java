@@ -14,15 +14,17 @@ import javax.swing.JOptionPane;
  * @author TTMC
  */
 public class InfDetail extends javax.swing.JFrame {
-
+private String ID;
     /**
      * Creates new form InfDetail
      */
-    public InfDetail() {
+    public InfDetail(String tid) {
         initComponents();
         setVisible(true);
-        setCbbRoom();
+        ID = tid;
+        setCbbType();
         setLocationRelativeTo(null);
+        
     }
 
     /**
@@ -39,15 +41,13 @@ public class InfDetail extends javax.swing.JFrame {
         btThem = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
-        jLabel5 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
-        CbbLoai = new javax.swing.JComboBox<>();
+        cbbType = new javax.swing.JComboBox<>();
         txtDG = new javax.swing.JTextField();
         txtSL = new javax.swing.JTextField();
-        txtID = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Thêm CTHĐ");
@@ -77,9 +77,6 @@ public class InfDetail extends javax.swing.JFrame {
         jPanel3.setPreferredSize(new java.awt.Dimension(80, 120));
         jPanel3.setLayout(new java.awt.GridLayout(4, 1, 0, 10));
 
-        jLabel5.setText("Mã hóa đơn");
-        jPanel3.add(jLabel5);
-
         jLabel1.setText("Loại hóa đơn");
         jPanel3.add(jLabel1);
 
@@ -94,12 +91,12 @@ public class InfDetail extends javax.swing.JFrame {
         jPanel2.setPreferredSize(new java.awt.Dimension(150, 120));
         jPanel2.setLayout(new java.awt.GridLayout(4, 1, 0, 10));
 
-        CbbLoai.addActionListener(new java.awt.event.ActionListener() {
+        cbbType.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                CbbLoaiActionPerformed(evt);
+                cbbTypeActionPerformed(evt);
             }
         });
-        jPanel2.add(CbbLoai);
+        jPanel2.add(cbbType);
 
         txtDG.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -107,8 +104,13 @@ public class InfDetail extends javax.swing.JFrame {
             }
         });
         jPanel2.add(txtDG);
+
+        txtSL.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtSLActionPerformed(evt);
+            }
+        });
         jPanel2.add(txtSL);
-        jPanel2.add(txtID);
 
         jPanel4.add(jPanel2);
 
@@ -118,39 +120,30 @@ public class InfDetail extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    public void setCbbRoom(){
+    public void setCbbType(){
         try{
             ManageInvoiceController controller = new ManageInvoiceController();
             ResultSet rs = controller.getTypeInv();
             while(rs.next()){
-                CbbLoai.addItem(rs.getString(1));
+                cbbType.addItem(rs.getString(1));
             }
         } catch(SQLException e){
             System.out.println("Error at InforInvoice/setCbbRoom\nError: " + e);
         }
     }
-    private void CbbLoaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CbbLoaiActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_CbbLoaiActionPerformed
-
-    private void txtDGActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDGActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtDGActionPerformed
-
-    public void displayID(String id){
+    /*public void displayID(String id){
         txtID.setText(id);
         txtID.setEditable(false);
-    }
+    }*/
     
     private void btThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btThemActionPerformed
         // TODO add your handling code here:
-        String id = txtID.getText();
-        String loai = CbbLoai.getItemAt(CbbLoai.getSelectedIndex());
+        String loai = cbbType.getItemAt(cbbType.getSelectedIndex());
         String sl = txtSL.getText();
         String dg = txtDG.getText();
         
         ManageInvoiceController controller = new ManageInvoiceController();
-        boolean check = controller.InsertDetailInv(id, loai, sl, dg);
+        boolean check = controller.InsertDetailInv(ID, loai, sl, dg);
         
         if(check){
                 JOptionPane.showMessageDialog(this, "Thêm thành công", "Xác nhận", JOptionPane.INFORMATION_MESSAGE);
@@ -166,24 +159,48 @@ public class InfDetail extends javax.swing.JFrame {
         setVisible(false);
     }//GEN-LAST:event_btQuayActionPerformed
 
+    private void txtDGActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDGActionPerformed
+        // TODO add your handling code here:
+          String t = txtDG.getText();
+             try{
+                 double n = Double.parseDouble(t);
+             } catch(NumberFormatException ex){
+                txtDG.setText("");
+                JOptionPane.showMessageDialog(this, "Chỉ nhập số");
+             }
+    }//GEN-LAST:event_txtDGActionPerformed
+
+    private void cbbTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbbTypeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbbTypeActionPerformed
+
+    private void txtSLActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSLActionPerformed
+        // TODO add your handling code here:
+        String t = txtSL.getText();
+             try{
+                 double n = Double.parseDouble(t);
+             } catch(NumberFormatException ex){
+                txtSL.setText("");
+                JOptionPane.showMessageDialog(this, "Chỉ nhập số");
+             }
+    }//GEN-LAST:event_txtSLActionPerformed
+
     /**
      * @param args the command line arguments
      */
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox<String> CbbLoai;
     private javax.swing.JButton btQuay;
     private javax.swing.JButton btThem;
+    private javax.swing.JComboBox<String> cbbType;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JTextField txtDG;
-    private javax.swing.JTextField txtID;
     private javax.swing.JTextField txtSL;
     // End of variables declaration//GEN-END:variables
 }

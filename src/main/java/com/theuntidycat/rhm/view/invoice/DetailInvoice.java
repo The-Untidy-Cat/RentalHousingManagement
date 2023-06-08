@@ -101,8 +101,6 @@ public class DetailInvoice extends javax.swing.JFrame {
         setAlwaysOnTop(true);
         getContentPane().setLayout(new java.awt.BorderLayout(5, 0));
 
-        jScrollPane2.setPreferredSize(null);
-
         tbDetail.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},
@@ -159,7 +157,6 @@ public class DetailInvoice extends javax.swing.JFrame {
         jLabel3.setText("Phòng");
         jPanel3.add(jLabel3);
 
-        txtPhong.setText("p");
         txtPhong.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtPhongActionPerformed(evt);
@@ -170,7 +167,6 @@ public class DetailInvoice extends javax.swing.JFrame {
         jLabel1.setText("Kỳ đóng tiền");
         jPanel3.add(jLabel1);
 
-        txtKy.setText("k");
         txtKy.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtKyActionPerformed(evt);
@@ -246,8 +242,8 @@ public class DetailInvoice extends javax.swing.JFrame {
 
     private void btThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btThemActionPerformed
         // TODO add your handling code here:
-        InfDetail inf = new InfDetail();
-        inf.displayID(txtID.getText());
+        InfDetail inf = new InfDetail(txtID.getText());
+        //inf.displayID();
     }//GEN-LAST:event_btThemActionPerformed
 
     private void btXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btXoaActionPerformed
