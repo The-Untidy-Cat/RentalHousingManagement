@@ -13,6 +13,7 @@ import java.awt.FlowLayout;
 import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.*;
@@ -32,6 +33,7 @@ public class InfInvoice extends javax.swing.JFrame {
         initComponents();
         setVisible(true);
         setCbbRoom();
+        setCbbYear();
         setLocationRelativeTo(null);
     }
 
@@ -56,7 +58,7 @@ public class InfInvoice extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         CbbThang = new javax.swing.JComboBox<>();
         jLabel5 = new javax.swing.JLabel();
-        txtNam = new javax.swing.JTextField();
+        cbNam = new javax.swing.JComboBox<>();
         jPanel4 = new javax.swing.JPanel();
         btQuay = new javax.swing.JButton();
         btThem = new javax.swing.JButton();
@@ -82,7 +84,7 @@ public class InfInvoice extends javax.swing.JFrame {
 
         CbbRoom.setMaximumRowCount(10);
         CbbRoom.setMinimumSize(new java.awt.Dimension(80, 22));
-        CbbRoom.setPreferredSize(new java.awt.Dimension(208, 22));
+        CbbRoom.setPreferredSize(new java.awt.Dimension(213, 22));
         CbbRoom.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 CbbRoomActionPerformed(evt);
@@ -116,7 +118,13 @@ public class InfInvoice extends javax.swing.JFrame {
 
         jLabel5.setText("năm");
         jPanel3.add(jLabel5);
-        jPanel3.add(txtNam);
+
+        cbNam.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbNamActionPerformed(evt);
+            }
+        });
+        jPanel3.add(cbNam);
 
         jPanel1.add(jPanel3);
 
@@ -146,7 +154,7 @@ public class InfInvoice extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                 .addContainerGap())
-            .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, 301, Short.MAX_VALUE)
+            .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, 306, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -160,6 +168,15 @@ public class InfInvoice extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    public void setCbbYear(){
+        LocalDate now = LocalDate.now();
+        int yy = now.getYear();
+        
+        for(int i = yy; i > 2015; i--){
+            String year = String.valueOf(i);
+            cbNam.addItem(year);
+        }
+    }
     public void setCbbRoom() {
         try {
             ManageInvoiceController controller = new ManageInvoiceController();
@@ -199,10 +216,14 @@ public class InfInvoice extends javax.swing.JFrame {
         wait.setVisible(true);
     }//GEN-LAST:event_btThemActionPerformed
 
+    private void cbNamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbNamActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbNamActionPerformed
+
     public void themHoaDon() {
         String room = CbbRoom.getItemAt(CbbRoom.getSelectedIndex());
         String month = CbbThang.getItemAt(CbbThang.getSelectedIndex());
-        String year = txtNam.getText();
+        String year = cbNam.getItemAt(cbNam.getSelectedIndex());
 
         ManageInvoiceController controller = new ManageInvoiceController();
         boolean check = controller.insertInvoice(room, month, year);
@@ -224,6 +245,7 @@ public class InfInvoice extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> CbbThang;
     private javax.swing.JButton btQuay;
     private javax.swing.JButton btThem;
+    private javax.swing.JComboBox<String> cbNam;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -234,6 +256,5 @@ public class InfInvoice extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JTextField txtNam;
     // End of variables declaration//GEN-END:variables
 }

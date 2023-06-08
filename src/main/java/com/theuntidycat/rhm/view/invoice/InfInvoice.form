@@ -30,7 +30,7 @@
               <Component id="jPanel1" pref="0" max="32767" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
-          <Component id="jPanel4" alignment="0" pref="301" max="32767" attributes="0"/>
+          <Component id="jPanel4" alignment="0" pref="306" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
@@ -84,7 +84,7 @@
                   <Dimension value="[80, 22]"/>
                 </Property>
                 <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                  <Dimension value="[208, 22]"/>
+                  <Dimension value="[213, 22]"/>
                 </Property>
               </Properties>
               <Events>
@@ -251,7 +251,18 @@
                 <Property name="text" type="java.lang.String" value="n&#x103;m"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="txtNam">
+            <Component class="javax.swing.JComboBox" name="cbNam">
+              <Properties>
+                <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                  <StringArray count="0"/>
+                </Property>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cbNamActionPerformed"/>
+              </Events>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+              </AuxValues>
             </Component>
           </SubComponents>
           <LayoutCode>
@@ -393,11 +404,11 @@
                 <CodeMethod name="add" class="java.awt.Container" parameterTypes="java.awt.Component"/>
               </StatementProvider>
               <Parameters>
-                <CodeExpression id="17_txtNam">
-                  <CodeVariable name="txtNam" type="8194" declaredType="javax.swing.JTextField"/>
+                <CodeExpression id="17_cbNam">
+                  <CodeVariable name="cbNam" type="8194" declaredType="javax.swing.JComboBox"/>
                   <ExpressionOrigin>
                     <ExpressionProvider type="ComponentRef">
-                      <ComponentRef name="txtNam"/>
+                      <ComponentRef name="cbNam"/>
                     </ExpressionProvider>
                   </ExpressionOrigin>
                 </CodeExpression>
