@@ -76,8 +76,6 @@ public class ManageRoom extends javax.swing.JPanel {
 
         setLayout(new java.awt.BorderLayout());
 
-        jScrollPane4.setPreferredSize(null);
-
         tbRoom.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -112,7 +110,7 @@ public class ManageRoom extends javax.swing.JPanel {
         jLabel2.setText("Trạng thái");
         searchPanel.add(jLabel2);
 
-        CBStatus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Da duoc thue", "Con trong", "Dang sua chua" }));
+        CBStatus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Con trong", "Full", "Dang sua chua" }));
         CBStatus.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 CBStatusActionPerformed(evt);
@@ -138,7 +136,6 @@ public class ManageRoom extends javax.swing.JPanel {
 
         add(searchPanel, java.awt.BorderLayout.PAGE_START);
 
-        actionButtonPanel.setPreferredSize(null);
         actionButtonPanel.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 10, 10));
 
         BtnThem.setText("Thêm");

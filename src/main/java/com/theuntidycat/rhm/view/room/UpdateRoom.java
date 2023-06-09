@@ -31,6 +31,7 @@ public class UpdateRoom extends javax.swing.JFrame {
     public String txtID;
     public void setInformation(){
         txtTen.setText(ten);
+        //txtTen.setEditable(false);
         txtSucchua.setText(succhua);
         txtGia.setText(gia) ;
         txtDientich.setText(dientich);
@@ -57,9 +58,9 @@ public class UpdateRoom extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         txtTen = new javax.swing.JTextField();
         txtLoai = new javax.swing.JComboBox<>();
-        txtSucchua = new javax.swing.JTextField();
-        txtGia = new javax.swing.JTextField();
-        txtDientich = new javax.swing.JTextField();
+        txtSucchua = new javax.swing.JFormattedTextField();
+        txtGia = new javax.swing.JFormattedTextField();
+        txtDientich = new javax.swing.JFormattedTextField();
         txtTrangthai = new javax.swing.JComboBox<>();
         jPanel4 = new javax.swing.JPanel();
         BtnCancel2 = new javax.swing.JButton();
@@ -111,28 +112,16 @@ public class UpdateRoom extends javax.swing.JFrame {
         txtLoai.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Co may lanh", "Khong may lanh" }));
         jPanel2.add(txtLoai);
 
-        txtSucchua.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtSucchuaActionPerformed(evt);
-            }
-        });
+        txtSucchua.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("###0"))));
         jPanel2.add(txtSucchua);
 
-        txtGia.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtGiaActionPerformed(evt);
-            }
-        });
+        txtGia.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("###0"))));
         jPanel2.add(txtGia);
 
-        txtDientich.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtDientichActionPerformed(evt);
-            }
-        });
+        txtDientich.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("###0"))));
         jPanel2.add(txtDientich);
 
-        txtTrangthai.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Con trong", "Da duoc thue", "Dang sua chua" }));
+        txtTrangthai.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Con trong", "Full", "Dang sua chua" }));
         jPanel2.add(txtTrangthai);
 
         jPanel3.add(jPanel2);
@@ -182,18 +171,6 @@ public class UpdateRoom extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtTenActionPerformed
 
-    private void txtSucchuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSucchuaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtSucchuaActionPerformed
-
-    private void txtGiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtGiaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtGiaActionPerformed
-
-    private void txtDientichActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDientichActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtDientichActionPerformed
-
     private void txtTrangthaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTrangthaiActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtTrangthaiActionPerformed
@@ -212,7 +189,7 @@ public class UpdateRoom extends javax.swing.JFrame {
             setVisible(false);
         }
         else{
-            JOptionPane.showMessageDialog(this, "Trùng thông tin. Vui lòng nhập lại", "Thông báo", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Lỗi. Vui lòng nhập lại", "Thông báo", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_BtnUpdateActionPerformed
 
@@ -271,10 +248,10 @@ public class UpdateRoom extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JTextField txtDientich;
-    private javax.swing.JTextField txtGia;
+    private javax.swing.JFormattedTextField txtDientich;
+    private javax.swing.JFormattedTextField txtGia;
     private javax.swing.JComboBox<String> txtLoai;
-    private javax.swing.JTextField txtSucchua;
+    private javax.swing.JFormattedTextField txtSucchua;
     private javax.swing.JTextField txtTen;
     private javax.swing.JComboBox<String> txtTrangthai;
     // End of variables declaration//GEN-END:variables

@@ -63,22 +63,22 @@
           <SubComponents>
             <Component class="javax.swing.JLabel" name="jLabel1">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Lo&#x1ea1;i h&#xf3;a &#x111;&#x1a1;n"/>
+                <Property name="text" type="java.lang.String" value="M&#xe3; h&#xf3;a &#x111;&#x1a1;n"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel2">
               <Properties>
-                <Property name="text" type="java.lang.String" value="S&#x1ed1; l&#x1b0;&#x1ee3;ng"/>
+                <Property name="text" type="java.lang.String" value="Lo&#x1ea1;i h&#xf3;a &#x111;&#x1a1;n"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel3">
               <Properties>
-                <Property name="text" type="java.lang.String" value="&#x110;&#x1a1;n gi&#xe1;"/>
+                <Property name="text" type="java.lang.String" value="S&#x1ed1; l&#x1b0;&#x1ee3;ng"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel5">
               <Properties>
-                <Property name="text" type="java.lang.String" value="M&#xe3; h&#xf3;a &#x111;&#x1a1;n"/>
+                <Property name="text" type="java.lang.String" value="&#x110;&#x1a1;n gi&#xe1;"/>
               </Properties>
             </Component>
           </SubComponents>
@@ -96,11 +96,14 @@
             <Property name="verticalGap" type="int" value="10"/>
           </Layout>
           <SubComponents>
-            <Component class="javax.swing.JTextField" name="txtloai">
-            </Component>
             <Component class="javax.swing.JTextField" name="txtID">
             </Component>
+            <Component class="javax.swing.JTextField" name="txtType">
+            </Component>
             <Component class="javax.swing.JTextField" name="txtSL">
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtSLActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JTextField" name="txtDG">
               <Events>

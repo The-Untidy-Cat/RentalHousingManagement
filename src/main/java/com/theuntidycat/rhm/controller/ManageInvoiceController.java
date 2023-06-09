@@ -104,18 +104,18 @@ public class ManageInvoiceController {
             pIns.setString(2, mm);
             pIns.setString(3, yy);
             int n = pIns.executeUpdate();
-            String sql="SELECT tenant.email FROM invoice JOIN contract ON invoice.room_id = contract.room_id JOIN DETAIL_contract ON contract.id = DETAIL_CONTRACT.contract_id JOIN tenant ON tenant.id = contract.tenant_id WHERE INVOICE.ROOM_ID = ? and (invoice.year = ? and invoice.month = ?) and invoice.month between extract(MONTH FROM contract.start_date) and EXTRACT(MONTH FROM contract.end_date) and invoice.YEAR BETWEEN extract(YEAR FROM contract.start_date) and EXTRACT(YEAR FROM contract.end_date)";
-            pIns = conn.prepareStatement(sql);
-            pIns.setString(1, id);
-            pIns.setString(2, yy);
-            pIns.setString(3, mm);
-            
-            ResultSet rs = pIns.executeQuery();
-            SendEmail sendEmail = new SendEmail();
-            while(rs.next()){
-                System.out.println(rs.getString(1));
-                sendEmail.notificationInvoice(rs.getString(1), "Thông báo hoá đơn kỳ tháng "+ mm + "/"+yy, "Đã có thông tin hoá đơn tháng "+ mm + "/"+yy + ". Quý khách vui lòng mở app để xem chi tiết. Xin cảm ơn!");
-            }
+//            String sql="SELECT tenant.email FROM invoice JOIN contract ON invoice.room_id = contract.room_id JOIN DETAIL_contract ON contract.id = DETAIL_CONTRACT.contract_id JOIN tenant ON tenant.id = contract.tenant_id WHERE INVOICE.ROOM_ID = ? and (invoice.year = ? and invoice.month = ?) and invoice.month between extract(MONTH FROM contract.start_date) and EXTRACT(MONTH FROM contract.end_date) and invoice.YEAR BETWEEN extract(YEAR FROM contract.start_date) and EXTRACT(YEAR FROM contract.end_date)";
+//            pIns = conn.prepareStatement(sql);
+//            pIns.setString(1, id);
+//            pIns.setString(2, yy);
+//            pIns.setString(3, mm);
+//            
+//            ResultSet rs = pIns.executeQuery();
+//            SendEmail sendEmail = new SendEmail();
+//            while(rs.next()){
+//                System.out.println(rs.getString(1));
+//                sendEmail.notificationInvoice(rs.getString(1), "Thông báo hoá đơn kỳ tháng "+ mm + "/"+yy, "Đã có thông tin hoá đơn tháng "+ mm + "/"+yy + ". Quý khách vui lòng mở app để xem chi tiết. Xin cảm ơn!");
+//            }
             return true;
         } catch (SQLException e) {
             System.out.println("Error at InvoiceController/insertInvoice\nError is: " + e);
